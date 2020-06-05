@@ -1,0 +1,3 @@
+[submodule "hamonikr-finder"]
+	path = hamonikr-finder
+	url = https://github.com/hamonikr/hamonikr-finder
