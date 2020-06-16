@@ -1,7 +1,5 @@
 # __개방형OS 사용자 중심의 전문지식 민주화 플랫폼(Democratization of Expertise)__
 
-[![소개 이미지](images/main.png "소개 이미지")](https://github.com/hamonikr/democratization-expertise)
-
 # **목차**
 * [프로젝트 소개](#프로젝트-소개)
 * [소스코드 저장소](#소스코드-저장소)
