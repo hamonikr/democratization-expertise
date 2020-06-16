@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="com.de.search.service.mapper.SearchMapper">
+
+
+<select id="findUserInfo" parameterType="com.de.search.service.vo.UserInfoVO" resultType="com.de.search.service.vo.UserInfoVO">
+select user_id, user_email
+	from
+	 tb_user_mngr
+	where user_nm=#{user_nm} and user_email=#{user_email}
+</select>
+
+
+<select id="findBizcd" parameterType="com.de.search.service.vo.UserInfoVO" resultType="String">
+select bizcd
+	from
+	 tb_company
+where bizno = #{bizno}
+</select>
+
+<select id="checkUserID" parameterType="com.de.search.service.vo.UserInfoVO" resultType="java.lang.Integer">
+select count(*)
+	from
+	 tb_user_mngr
+	where user_id=#{user_id} and user_email=#{user_email} and user_nm=#{user_nm}
+</select>
+
+
+<update id="resetUserPw" parameterType="com.de.search.service.vo.UserInfoVO">
+
+update tb_user_mngr
+	set 
+		user_passwd= #{user_passwd}
+where 
+	 user_id = #{user_id}
+</update>
+
+
+</mapper>

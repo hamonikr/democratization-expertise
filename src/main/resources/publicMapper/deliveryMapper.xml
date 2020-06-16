@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="com.de.delivery.service.mapper.DeliveryMapper">
+
+<select id="getList" parameterType="com.de.delivery.service.DeliveryVO" resultType="com.de.delivery.service.DeliveryVO">
+select
+seq
+    ,business_code
+    ,contract
+    ,contract_period_fr
+    ,contract_period_to
+    ,contract_amount
+    ,contract_date
+    ,demand_name
+    ,demand_addr
+    ,demand_bizno
+    ,demand_cxfc
+    ,supply_name
+    ,supply_addr
+    ,supply_bizno
+    ,supply_cxfc
+    ,product_section
+    ,price
+    ,sale_qy
+    ,offer_date
+    ,contract_cnd
+    ,special_contract
+    ,writer_id
+    ,writer_name
+    ,consent
+    ,consent_date
+    ,delete_at
+    ,register_date
+    ,update_date
+    ,request
+    ,product_name
+    ,bizcd
+ from tb_contract e
+where delete_at = 0
+and consent = 1
+and request = 1
+and bizcd = #{bizcd}
+order by register_date desc
+limit #{firstRecordIndex}, #{recordCountPerPage}
+</select>
+
+<select id="getListCount" parameterType="com.de.delivery.service.DeliveryVO" resultType="java.lang.Integer">
+select count(*) from tb_contract
+where delete_at = 0
+and consent = 1
+and request = 1
+and bizcd = #{bizcd}
+</select>
+
+<select id="selectSEQ" resultType="java.lang.Integer">
+		select nvl(max(seq), 0) +1 as seq
+            from
+              tb_contract ALIAS_FOR_SUBQUERY
+</select>
+
+<insert id="save" parameterType="com.de.delivery.service.DeliveryVO">
+insert
+  into
+    tb_contract(
+       seq
+    ,business_code
+    ,bizcd
+    ,contract
+    ,contract_period
+    ,contract_amount
+    ,contract_date
+    ,demand_name
+    ,demand_addr
+    ,demand_bizno
+    ,demand_cxfc
+    ,supply_name
+    ,supply_addr
+    ,supply_bizno
+    ,supply_cxfc
+    ,product_section
+    ,product_name
+    ,price
+    ,sale_qy
+    ,offer_date
+    ,contract_cnd
+    ,special_contract
+    ,writer_id
+    ,writer_name
+    ,register_date
+    ,delete_at
+    ,consent
+    ,request
+    )
+  values
+    (  #{seq}
+      ,#{business_code}
+      ,#{bizcd}
+      ,#{contract}
+      ,#{contract_period}
+      ,#{contract_amount}
+      ,#{contract_date}
+      ,#{demand_name}
+      ,#{demand_addr}
+      ,#{demand_bizno}
+      ,#{demand_cxfc}
+      ,#{supply_name}
+      ,#{supply_addr}
+      ,#{supply_bizno}
+      ,#{supply_cxfc}
+      ,#{product_section}
+      ,#{product_name}
+      ,#{price}
+      ,#{sale_qy}
+      ,#{offer_date}
+      ,#{contract_cnd}
+      ,#{special_contract}
+      ,#{writer_id}
+      ,#{writer_name}
+      ,now()
+      	,0
+      	,0
+      	,0
+    )
+</insert>
+
+<update id="update" parameterType="com.de.delivery.service.DeliveryVO">
+update tb_contract 
+set
+contract = #{contract}
+,contract_period = #{contract_period}
+,contract_amount = #{contract_amount}
+,contract_date = #{contract_date}
+,demand_addr = #{demand_addr}
+,demand_bizno = #{demand_bizno}
+,demand_cxfc = #{demand_cxfc}
+,offer_date = #{offer_date}
+,contract_cnd = #{contract_cnd}
+,special_contract = #{special_contract}
+,update_date = now() 
+where seq=#{seq}
+</update>
+
+<select id="getView" parameterType="com.de.delivery.service.DeliveryVO" resultType="com.de.delivery.service.DeliveryVO">
+select * from tb_contract
+where seq = #{seq}
+</select>
+
+<update id="delete" parameterType="com.de.delivery.service.DeliveryVO">
+update tb_contract
+set 
+delete_at = 1
+where seq = #{seq}
+</update>
+
+<update id="updateReqeust" parameterType="com.de.delivery.service.DeliveryVO">
+update tb_contract
+set 
+request = #{request}
+where seq=#{seq}
+</update>
+
+
+<select id="getLcnsExcel" parameterType="com.de.cmmn.CmmnMap" resultType="com.de.cmmn.CmmnMap">
+		SELECT
+    ROW_NUMBER() OVER(ORDER BY seq asc) as rownum
+    ,license_cd
+    ,license_no
+    ,license_pd_st
+    ,license_pd_ed
+  FROM
+    tb_license
+    where license_cd = #{businessCode}
+    order by seq desc
+	</select>
+
+</mapper>

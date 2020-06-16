@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="com">
+
+
+<!--   cmnmMapper-->
+<select id="getCmmnCode" parameterType="com.de.cmmn.CmmnMap" resultType="com.de.cmmn.CmmnMap">
+select * from tb_cmmn_code 
+<where>
+	code_id = #{codeId}
+</where>
+
+</select>
+
+<!--   cmnmMapper-->
+<select id="getProductCode" parameterType="com.de.cmmn.CmmnMap" resultType="com.de.cmmn.CmmnMap">
+select * from tb_cmmn_code 
+<where>
+	code_id = #{codeId}
+</where>
+</select>
+
+<select id="getProduct" parameterType="com.de.cmmn.CmmnMap" resultType="com.de.cmmn.CmmnMap">
+select * from tb_product_manage 
+where section = #{productSection}
+</select>
+
+<select id="getProductSection" parameterType="com.de.cmmn.CmmnMap" resultType="com.de.cmmn.CmmnMap">
+select * from tb_product_manage 
+where product_sn = #{productSection}
+</select>
+
+<select id="commentList" parameterType="com.de.cmmn.CmmnMap" resultType="com.de.cmmn.CmmnMap">
+select * from tb_buisness_comment 
+where section = #{section}
+and upper_seq = #{seq}
+order by seq desc;
+</select>
+</mapper>
