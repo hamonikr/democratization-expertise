@@ -81,6 +81,11 @@ Democratization of Expertis 프로젝트에 제안하려는 경우 최대한 상
 
 ***참여부분을 저희에게 알려주세요. 더욱 자세하게 설명드립니다.**
 
+[이슈](https://github.com/hamonikr/democratization-expertise/issues) 또는 [Slack채널](hamonikr.slack.com)을 이용해 주세요.
+
+#de 방 : 누구나 참여할 수 있는 커뮤니티 채널
+
+
 ## 풀 요청 프로세스
 
 1. 설치 또는 빌드 종속성이 계층 종료 전에 제거되었는지 확인하십시오. 
