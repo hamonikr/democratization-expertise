@@ -1,32 +1,85 @@
-# 기여
+# Contributing to Democratization-Expertise
+환영합니다!
 
-이 리포지토리에 기여할 때는 먼저 문제를 통해 변경하려는 변경 사항에 대해 논의하십시오.
-변경하기 전에이 저장소의 소유자와 이메일 또는 기타 방법을 사용하십시오. 
+먼저 시간내서 프로젝트에 참여해 주셔서 감사합니다.
 
-우리는 행동 강령을 가지고 있으므로 프로젝트와의 모든 상호 작용에서 이를 준수하십시오.
+이 문서는 프로젝트 참여 방법에 대한 가이드 라인 입니다.
 
-## 소개
+언제든지 저희에게 여러분의 아이디어를 PR요청으로 문서변경을 제안해주세요.
 
-하모니카 개발팀은 github 저장소를 사용합니다.
-
-깃헙에 공개된 프로젝트는 누구나 참여 가능하며, 하모니카 OS 코어 개발팀은 팀 리더의 승인이 필요합니다.
-
-**소스코드 저장소**
+## **소스코드 저장소**
 
 개방형OS 사용자 중심의 전문지식 민주화 플랫폼 저장소 : 
 https://github.com/hamonikr/democratization-expertise  
 하모니카 프로젝트 깃헙 : https://github.com/hamonikr/
 
-**메일링 리스트**
+## **개선 제안**
+Democratization of Expertis 프로젝트에 제안하려는 경우 최대한 상세하게 이슈에 등록해 주세요.
 
-토론을 위한 메일링 리스트는 2가지가 있습니다.
+이슈를 작성하기전에 이미 요청이 있는지 이슈 목록을 확인해주세요.
 
-하모니카 사용자 누구나 하고 싶은 이야기는 나누세요
+## **버그 보고**
+버그 발견시 이슈에 BUG 라벨로 정보를 제공해 주세요.
 
-누구나 의견을 게재할 수 있는 하모니카 메일링 리스트 : hamonikr@googlegroups.com (https://groups.google.com/forum/#!forum/hamonikr)
+최대한 상세하게 작성해 주시고 스크린샷을 첨부해주시면 더 좋습니다.
 
-개발팀간 커뮤니케이션 메일링리스트 (그룹관리자 승인필요) : hamonikr-packages@googlegroups.com (https://groups.google.com/forum/#!forum/hamonikr-packages)
+## **참여 가능 목록**
 
+1. **개방형OS 사용자 중심의 전문지식 민주화 플랫폼(Spring web framework,Sql)**
+* 개발
+  * Pre Search 기능
+  * Voting 기능
+  * Tagging 기능
+  * Gamification 기능
+  * Reputation 기능
+  * 기타 모든 기능
+
+* 기획 / 퍼블리싱    
+  * UI/UX 구성
+  * 페이지 작업
+  * 기타
+
+* 문서
+   * README,CONTRIBUTING 등 문서 작업
+   * 기타
+
+2. **개방형OS 사용자용 지원 SW(Node,Electron)**
+
+* 개발
+
+   * 문의하기
+   * 지식검색
+   * 환경설정
+   * 기타 모든 기능
+
+* 기획 / 퍼블리싱    
+  * UI/UX 구성
+  * 페이지 작업
+  * 기타
+
+* 문서
+   * README,CONTRIBUTING 등 문서 작업
+   * 기타
+
+1. **개방형OS 참여기업용 SW(Node,Electron)**
+
+* 개발
+
+   * 요청알림
+   * 요청관리
+   * 환경설정
+   * 기타 모든 기능
+
+* 기획 / 퍼블리싱    
+  * UI/UX 구성
+  * 페이지 작업
+  * 기타
+
+* 문서
+   * README,CONTRIBUTING 등 문서 작업
+   * 기타
+
+***참여부분을 저희에게 알려주세요. 더욱 자세하게 설명드립니다.**
 
 ## 풀 요청 프로세스
 
