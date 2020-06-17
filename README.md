@@ -62,14 +62,26 @@
   투명한 사실 데이터에 기반한 평판 시스템을 적용하여 사용자의 활동 내역을 누구나 열람할 수 있게 공개하고, 사용자가 활동한 내역을 근거로 명성을 확보할 수 있게 하여 적극적인 활발한 참여자가 명성을 획득할 수 있는 기능. 향후 e-포트폴리오가 되어 공개SW 전문인력 수급의 기초자료로 사용될 수 있음
 
   # **사용 방법**
+ 1. **개방형OS 사용자 중심의 전문지식 민주화 플랫폼**
   ``````
   #저장소 복제
-  git clone https://github.com/hamonikr/democratization-expertise.git
-
-  
+  git clone https://github.com/hamonikr/de-community.git
   #저장소로 이동
-  cd democratization-expertise
-
+  cd de-community
+  ``````
+  2. **개방형OS 사용자용 지원 SW**
+  ``````
+  #저장소 복제
+  git clone https://github.com/hamonikr/de-user-sw.git
+  #저장소로 이동
+  cd de-user-sw
+  ``````
+  3. **개방형OS 참여기업용 SW**
+  ``````
+  #저장소 복제
+  git clone https://github.com/hamonikr/de-business-sw.git
+  #저장소로 이동
+  cd de-business-sw
   ``````
 
   # **컨트리뷰션 참여 방법**
