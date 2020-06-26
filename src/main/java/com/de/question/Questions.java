@@ -1,4 +1,4 @@
-package com.de.user;
+package com.de.question;
 
 import java.sql.Timestamp;
 
@@ -19,30 +19,24 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@Table(name = "tb_users")
-public class Users {
+@Table(name = "tb_questions")
+public class Questions {
 	
+	/* 질문 고유 번호 */
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	private Integer questionNo;
+	/* 질문 구분 */
+	private String section;
+	/* 질문 이름 */
+	private String title;
+	/* 질문 내용 */
+	private String contents;
 	/* 회원 고유 번호 */
-	private Integer userNo;
-	/* 회원 아이디 */
-	private String userId;
-	/* 회원 이름 */
-	private String userName;
-	/* 회원 비밀번호 */
-	private String userPassword;
-	/* 회원 소개 */
-	private String aboutMe;
-	/* 회원 사이트 주소 */
-	private String userUrl;
-	/* 회원 이메일 */
-	private String userEmail;
-	/* 회원 구분 1:회원가입 2:소셜가입  - 소셜가입은 패스워드 없고 정보만 저장*/
-	private Integer userStatus;
-	/* 기업 번호 */
-	private Integer enterpriseNo;
-	/* 가입 일시 */
+	private String userNo;
+	/* 태그 고유 번호 */
+	private Integer[] tagNo;
+	/* 등록 일시 */
 	@CreationTimestamp
 	private Timestamp registerDate;
 	/* 수정 일시 */
