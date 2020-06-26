@@ -26,6 +26,8 @@ public class Questions {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Integer questionNo;
+	/* 질문 수정 권한 */
+	private Integer editAuth;
 	/* 질문 구분 */
 	private String section;
 	/* 질문 이름 */
@@ -36,6 +38,8 @@ public class Questions {
 	private String userNo;
 	/* 태그 고유 번호 */
 	private Integer[] tagNo;
+	/* 질문 조회수 */
+	private Integer readCnt;
 	/* 등록 일시 */
 	@CreationTimestamp
 	private Timestamp registerDate;

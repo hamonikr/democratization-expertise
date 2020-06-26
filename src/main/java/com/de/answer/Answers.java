@@ -28,8 +28,10 @@ public class Answers {
 	private Integer answerNo;
 	/* 질문 고유 번호 */
 	private String questionNo;
-	/* 답변 구분 */
-	private String section;
+	/* 답변 수정 권한 */
+	private Integer editAuth;
+	/* 채택 여부 */
+	private Integer selected;
 	/* 답변 제목 */
 	private String title;
 	/* 답변 내용 */
