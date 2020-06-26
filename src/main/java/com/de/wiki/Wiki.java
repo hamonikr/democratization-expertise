@@ -2,6 +2,7 @@ package com.de.wiki;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class Wiki {
 	
 	/* 위키 고유 번호 */
 	@Id
+	@Column
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Integer wikiNo;
 	/* 위키 구분 */

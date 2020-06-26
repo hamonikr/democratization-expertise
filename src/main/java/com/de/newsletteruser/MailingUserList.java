@@ -2,7 +2,11 @@ package com.de.newsletteruser;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,6 +24,9 @@ import lombok.ToString;
 public class MailingUserList {
 	
 	/* 메일링 고유 번호 */
+	@Id
+	@Column
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Integer seq;
 	/* 이메일 */
 	private String email;

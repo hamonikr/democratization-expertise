@@ -1,5 +1,6 @@
 package com.de.badge;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +20,7 @@ public class Badge {
 	
 	/* 배지 고유 번호 */
 	@Id
+	@Column
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private String badgeNo;
 	/* 배지 이름 */

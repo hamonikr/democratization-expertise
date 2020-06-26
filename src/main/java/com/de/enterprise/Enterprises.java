@@ -24,6 +24,7 @@ import lombok.ToString;
 public class Enterprises {
 	
 	@Id
+	@Column
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	/* 기업 고유 번호 */
 	private Integer enterpriseNo;

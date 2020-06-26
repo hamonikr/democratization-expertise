@@ -2,6 +2,7 @@ package com.de.answer;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class Answers {
 	
 	/* 답변 고유 번호 */
 	@Id
+	@Column
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Integer answerNo;
 	/* 질문 고유 번호 */

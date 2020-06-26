@@ -3,6 +3,9 @@ package com.de.tag;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,6 +23,8 @@ import lombok.ToString;
 public class Tags {
 	
 	/* 태그 고유 번호 */
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Integer tagNo;
 	/* 태그 이름 */
 	private String title;

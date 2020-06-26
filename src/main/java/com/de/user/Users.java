@@ -2,6 +2,7 @@ package com.de.user;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +24,7 @@ import lombok.ToString;
 public class Users {
 	
 	@Id
+	@Column
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	/* 회원 고유 번호 */
 	private Integer userNo;
@@ -40,8 +42,6 @@ public class Users {
 	private String userEmail;
 	/* 회원 구분 1:회원가입 2:소셜가입  - 소셜가입은 패스워드 없고 정보만 저장*/
 	private Integer userStatus;
-	/* 기업 번호 */
-	private Integer enterpriseNo;
 	/* 가입 일시 */
 	@CreationTimestamp
 	private Timestamp registerDate;
