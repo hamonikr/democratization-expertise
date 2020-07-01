@@ -126,9 +126,9 @@
       <!-- /.social-auth-links -->
 
 		<!-- sign up part -->
-		<div class="row" ">
+		<div class="row">
 	      <p class="col" style="margin-left:60px;">계정이 없으십니까?
-	        <a href="register.html" class="text-center">회원가입</a>
+	        <a href="/login/signup" class="text-center">회원가입</a>
 	      </p>
       </div>
       
