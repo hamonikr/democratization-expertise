@@ -12,10 +12,17 @@ public class LoginController {
 
 
 	@RequestMapping(value = "/login")
-	public String getList(Model model, @PageableDefault Pageable pageable) {
-		System.out.println("----------sample----------");
+	public String loginView(Model model, @PageableDefault Pageable pageable) {
+		System.out.println("----------login----------");
 	
 		return "/login/signin";
+	}
+
+	@RequestMapping(value = "/signup")
+	public String signUpView(Model model, @PageableDefault Pageable pageable) {
+		System.out.println("----------login----------");
+	
+		return "/login/signup";
 	}
 
 }
