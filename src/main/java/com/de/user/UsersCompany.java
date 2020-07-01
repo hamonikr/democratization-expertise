@@ -1,7 +1,5 @@
 package com.de.user;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +15,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@Table(name = "tb_users_detail")
+@Table(name = "tb_users_company")
 public class UsersCompany {
 	
 	/* 고유 번호 */
