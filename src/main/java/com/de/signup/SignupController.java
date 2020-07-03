@@ -37,6 +37,15 @@ public class SignupController {
         }
     }
 	
+	// 파트너사 회원가입 페이지로 이동
+	@RequestMapping(value = "/partnerSignup")
+	public String signUpView(Model model, @PageableDefault Pageable pageable) {
+		System.out.println("----------sign Up----------");
+	
+		return "/login/partnerSignup";
+	}
+	
+	
 	//일반 유저 회원가입
 	@RequestMapping(value = "/signup.proc")
 	public String signUpProc(Model model, @PageableDefault Pageable pageable, Users vo,HttpServletRequest request) {

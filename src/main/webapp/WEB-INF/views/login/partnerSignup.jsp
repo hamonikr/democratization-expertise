@@ -27,45 +27,26 @@
 
 </head>
 <style>
-.algin-center{
-	margin : 20% 20px 20px 0px;
-}
-
-.algin-left{
-	margin : 20% 10% 20px 25%;
+#algin-center{
+	margin : 30px 10% 5px 40%;
 }
 
 </style>
 
 <body class="hold-transition login-page">
- <div class="login-logo">
+
+
+<div class="login-box" id="algin-center">
+  <div class="login-logo">
     <a href="/sample/list"><b>DE</b>HamoniKR</a>
   </div>
-
-<div class="row">
-<div class="col">
-	<div class="algin-left">
-	   <h3>
-	    <img src="/img/HamoniKR_logo600.png" style="height:60px;"> 회원가입
-	 	</h3><br>
-	   <h5>[DE] 커뮤니티에 가입하시면</h5><br>
-	   <br>
-	   <h6> 
-	  	 질문을 통해 궁금했던 정보를 얻고<br><br> 투표와 답변을 통해 새로운 권한을 부여받고<br><br>
-		 관심있는 태그와 위키문서를 저장할 수 있고<br><br>
-		 그리고 명성과 배지를 얻을 수 있습니다<br><br>
-		</h6>
-		<br><br><br><br>
-		파트너사이십니까? <a href="/signup/partnerSignup">파트너사 전용 회원가입</a>
-	</div>
-</div>
-
-<div class="col">
-<div class="login-box algin-center">
-   <!-- /.login-logo -->
+  <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-   <form id ="frm" action="/signup/signup.proc" method="post">   
+      <p class="login-box-msg">파트너사 회원가입</p>
+
+   <form id ="frm" action="/signup/signup.proc" method="post">
+     
      <!-- 아이디 입력 -->
      <div class="row">
      <div class="col">
@@ -173,9 +154,6 @@
     <!-- /.login-card-body -->
   </div>
 </div>
-</div>
-</div>
-
 <!-- /.login-box -->
 
 <!-- jQuery -->
