@@ -31,14 +31,14 @@
 <body class="hold-transition login-page">
 <div class="login-box" id="algin-center">
   <div class="login-logo">
-    <a href="../../index2.html"><b>DE</b>HamoniKR</a>
+    <a href="/sample/list"><b>DE</b>HamoniKR</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">로그인</p>
 
-      <form action="../../index3.html" method="post">
+      <form action="/login/signin" method="post">
 	<div class="row">
 		<div class="input-group mb-3">
           <div class="col-8">
