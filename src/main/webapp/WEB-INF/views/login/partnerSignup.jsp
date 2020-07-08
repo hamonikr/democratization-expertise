@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>로그인</title>
+  <title>파트너사 회원가입</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,32 +21,53 @@
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
 <!-- jquery-validation -->
 <script src="/plugins/jquery-validation/additional-methods.min.js"></script>
 <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
 
 </head>
 <style>
-#algin-center{
-	margin : 30px 10% 5px 40%;
+.algin-center{
+	margin : 20% 20px 20px 0px;
+}
+
+.algin-left{
+	margin : 20% 10% 20px 25%;
 }
 
 </style>
 
 <body class="hold-transition login-page">
-
-
-<div class="login-box" id="algin-center">
-  <div class="login-logo">
+ <div class="login-logo">
     <a href="/sample/list"><b>DE</b>HamoniKR</a>
   </div>
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">파트너사 회원가입</p>
 
-   <form id ="frm" action="/signup/signup.proc" method="post">
-     
+<div class="row">
+<div class="col">
+	<div class="algin-left">
+	   <h3>
+	    <img src="/img/HamoniKR_logo600.png" style="height:60px;"> 파트너사 회원가입
+	 	</h3><br>
+	   <h5>[DE] 커뮤니티에 가입하시면</h5><br>
+	   <br>
+	   <h6> 
+	  	 질문을 통해 궁금했던 정보를 얻고<br><br> 투표와 답변을 통해 새로운 권한을 부여받고<br><br>
+		 관심있는 태그와 위키문서를 저장할 수 있고<br><br>
+		 그리고 명성과 배지를 얻을 수 있습니다<br><br>
+		</h6>
+		<br><br><br><br>
+		일반 사용자이십니까? <a href="/login/signup">일반 사용자 회원가입</a>
+	</div>
+</div>
+
+<div class="col">
+<div class="login-box algin-center">
+   <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body">
+    
+   <form id ="frm" method="post">   
      <!-- 아이디 입력 -->
      <div class="row">
      <div class="col">
@@ -54,12 +75,7 @@
     	 <p><strong>아이디 </strong>*
       <div class="input-group mb-3"> 
       	<input type="text" class="form-control" id= "userID" style="margin-left: 10px" placeholder="아이디를 입력해주세요">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
-        </div>
+       </div>
         </div>
        </div>
       </div>
@@ -71,16 +87,25 @@
     	 <p><strong>Email 주소 </strong>*
       <div class="input-group mb-3"> 
       	<input type="text" class="form-control" id="userEmail" style="margin-left: 10px" placeholder="이메일을 입력해주세요">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
         </div>
         </div>
         </div>
       </div>    
-     
+ 
+      <!-- 이메일 -->  
+     <div class="row">
+     <div class="col">
+     <div class="form-group">
+    	 <p><strong>사업자 번호</strong>*
+      <div class="input-group mb-3"> 
+      	<input type="text" class="form-control" id="bizNo1" style="margin-left: 10px">
+ 	   	<input type="text" class="form-control" id="bizNo2" style="margin-left: 10px; width: 5px">
+		<input type="text" class="form-control" id="bizNo3" style="margin-left: 10px; width: 5px">
+      </div>
+      </div>
+    </div>
+  </div>    
+      
      <!-- 비밀번호 -->
      <div class="row">
       <div class="col">
@@ -88,11 +113,6 @@
       	<p><strong> 비밀번호</strong> *
        <div class="input-group mb-3">
         <input type="password" class="form-control" id="userPassword" style="margin-left: 10px" placeholder="비밀번호를 입력해주세요">
-        <div class="input-group-append">
-          <div class="input-group-text">
-            <span class="fas fa-lock"></span>
-          </div>
-        </div>
         </div>
        </div>
 		</div>
@@ -154,6 +174,9 @@
     <!-- /.login-card-body -->
   </div>
 </div>
+</div>
+</div>
+
 <!-- /.login-box -->
 
 <!-- jQuery -->
@@ -167,8 +190,8 @@
 
  <script type="text/javascript"> 
 function signUpProc(){
-   		alert("저장하시겠습니까?")
-		document.frm.action = "/signup/signup.proc";
+   		alert("계정을 생성하시겠습니까?")
+		document.frm.action = "/signup/signupForPartner.proc";
 		document.frm.submit();
 } 
 	
@@ -184,6 +207,18 @@ function signUpProc(){
 	    		   userEmail:{
 	    				required : true,
 						email:true
+	 	 	 		    },
+						// 사업자번호1
+		 	    		   bizNo1:{
+		 	    				required : true,
+						// 사업자번호2
+		 	    		 }
+	 	 	    		   bizNo2:{
+	 	 	    				required : true,		 	    				
+						// 사업자번호3
+	 	 				}
+	 	    		   		bizNo3:{
+	 	    				required : true,			
 	 	 	 		    },
 						// 유저 비밀번호
 	 	    		   userPassward:{

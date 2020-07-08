@@ -24,6 +24,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery-validation</artifactId>
+			<version>1.19.0</version>
+		</dependency>
+		
+		
 		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
