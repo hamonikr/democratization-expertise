@@ -15,8 +15,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@Table(name = "tb_users_company")
-public class UsersCompany {
+@Table(name = "tb_users_detail")
+public class UsersDetail {
 	
 	/* 고유 번호 */
 	@Id

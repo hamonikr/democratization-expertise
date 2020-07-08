@@ -10,15 +10,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  
+  <!-- jquery-validation -->
+	<script src="/plugins/jquery-validation/additional-methods.min.js"></script>
+	<script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
+  
 </head>
 <style>
 #algin-center{
@@ -38,7 +43,7 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">로그인</p>
 
-      <form action="/login/signin" method="post">
+      <form id="frm" action="/login/signin" method="post">
 	<div class="row">
 		<div class="input-group mb-3">
           <div class="col-8">
@@ -58,13 +63,13 @@
      	<a href="forgot-id.html"> 아이디를 잊으셨습니까?</a>
      </div>
       <div class="input-group mb-3"> 
-      	<input type="text" class="form-control" style="margin-left: 10px" placeholder="아이디를 입력해주세요">
+      	<input type="text" class="form-control" style="margin-left: 10px" placeholder="아이디를 입력해주세요">             	
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
             </div>
+            </div>
           </div>
-        </div>
         </div>
        <br>
         <div class="row">
@@ -98,6 +103,8 @@
           </div>
           <!-- /.col -->
       </form>
+      
+      
       <div class="social-auth-links text-center mb-3" style="margin:60px;">
       <br> <p>- SNS 계정으로 로그인 -</p>
         <div class="row" align="center">

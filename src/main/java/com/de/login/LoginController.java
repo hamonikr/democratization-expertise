@@ -22,12 +22,14 @@ public class LoginController {
 	
 		return "/login/signin";
 	}
+
 	
 	@RequestMapping(value = "/signin")
-	public void loginProc(Model model, @PageableDefault Pageable pageable) {
-		System.out.println("----------log In proc----------");
-	
-		//return "/login/signin";
+	public String loginProc(Model model, @PageableDefault Pageable pageable) {
+		System.out.println("----------log In 완료----------");
+
+		
+		return "/sample/list";
 	}
 
 	@RequestMapping(value = "/signup")
