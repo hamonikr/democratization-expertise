@@ -23,6 +23,8 @@
   <!-- jquery-validation -->
 	<script src="/plugins/jquery-validation/additional-methods.min.js"></script>
 	<script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
+   <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
   
 </head>
 <style>
@@ -118,10 +120,21 @@
 	          <img src="/img/google-plus.png" style="height:30px;margin-left:20px;">
 	        </a>
 	        </div>
-	        <div class="col-2">
-	        <a href="/login/naver">
+	        <!-- <a href="/login/naver">
 	          <img src="/img/naver_login.png" style="height:30px;margin-left:40px;">
-	        </a>
+	        </a> -->
+	          <div class="col-2" id="naver_id_login" style="margin-left:20px;">
+	          
+				  <!-- //네이버아이디로로그인 버튼 노출 영역 -->
+				  <script type="text/javascript">
+				  	var naver_id_login = new naver_id_login("PX4mWV3F_bqII3KVAVsl", "http://localhost:8080/login/naverCallback");
+				  	var state = naver_id_login.getUniqState();
+				  	naver_id_login.setButton("green", 1,30);
+				  	naver_id_login.setDomain("http://localhost:8080");
+				  	naver_id_login.setState(state);
+				  	naver_id_login.setPopup();
+				  	naver_id_login.init_naver_id_login();
+				  </script>
 	        </div>
 	        <div class="col-2">
 	        <a href="/login/kakao">

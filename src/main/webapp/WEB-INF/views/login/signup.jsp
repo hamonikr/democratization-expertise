@@ -80,18 +80,13 @@
      <!-- 아이디 입력 -->
      <div class="row">
      <div class="col">
-     <div class="form-group">
     	 <p><strong>아이디 </strong>*
       <div class="input-group mb-3"> 
       	<input type="text" class="form-control" id="userId" name="userId" style="margin-left: 10px" placeholder="아이디를 입력해주세요" value="testID">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
+
         </div>
         </div>
-       </div>
+       
       </div>
       
       <!-- 이메일 -->  
@@ -101,11 +96,6 @@
     	 <p><strong>Email 주소 </strong>*
       <div class="input-group mb-3"> 
       	<input type="text" class="form-control" id="userEmail" name="userEmail" style="margin-left: 10px" placeholder="이메일을 입력해주세요" value="testEmail">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
         </div>
         </div>
         </div>
@@ -118,11 +108,6 @@
       	<p><strong> 비밀번호</strong> *
        <div class="input-group mb-3">
         <input type="password" class="form-control" id="userPassword" name="userPassword" style="margin-left: 10px" placeholder="비밀번호를 입력해주세요" value="testPW">
-        <div class="input-group-append">
-          <div class="input-group-text">
-            <span class="fas fa-lock"></span>
-          </div>
-        </div>
         </div>
        </div>
 		</div>
