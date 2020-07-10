@@ -26,8 +26,11 @@
 <script src="/plugins/jquery-validation/additional-methods.min.js"></script>
 <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
 
+
 </head>
 <style>
+
+
 .algin-center{
 	margin : 20% 20px 20px 0px;
 }
@@ -67,41 +70,35 @@
   <div class="card">
     <div class="card-body">
     
-   <form id ="frm" method="post">   
+   <form id ="frm" name ="frm" method="post">   
      <!-- 아이디 입력 -->
      <div class="row">
      <div class="col">
-     <div class="form-group">
     	 <p><strong>아이디 </strong>*
       <div class="input-group mb-3"> 
       	<input type="text" class="form-control" id= "userID" style="margin-left: 10px" placeholder="아이디를 입력해주세요">
        </div>
         </div>
-       </div>
       </div>
-      
+     
       <!-- 이메일 -->  
      <div class="row">
      <div class="col">
-     <div class="form-group">
     	 <p><strong>Email 주소 </strong>*
-      <div class="input-group mb-3"> 
+      <div class="form-group">
       	<input type="text" class="form-control" id="userEmail" style="margin-left: 10px" placeholder="이메일을 입력해주세요">
         </div>
         </div>
-        </div>
-      </div>    
+       </div>    
  
       <!-- 이메일 -->  
      <div class="row">
      <div class="col">
-     <div class="form-group">
-    	 <p><strong>사업자 번호</strong>*
-      <div class="input-group mb-3"> 
-      	<input type="text" class="form-control" id="bizNo1" style="margin-left: 10px">
+    	 <p><strong>사업자 번호</strong>*     
+      <div class="input-group mb-3">
+      	<input type="text" class="form-control" id="bizNo1" style="margin-left: 10px; width: 5px">
  	   	<input type="text" class="form-control" id="bizNo2" style="margin-left: 10px; width: 5px">
 		<input type="text" class="form-control" id="bizNo3" style="margin-left: 10px; width: 5px">
-      </div>
       </div>
     </div>
   </div>    
@@ -109,25 +106,24 @@
      <!-- 비밀번호 -->
      <div class="row">
       <div class="col">
-      <div class="form-group">
       	<p><strong> 비밀번호</strong> *
-       <div class="input-group mb-3">
+      <div class="input-group mb-3">
         <input type="password" class="form-control" id="userPassword" style="margin-left: 10px" placeholder="비밀번호를 입력해주세요">
         </div>
        </div>
-		</div>
 		</div>
 		
         <br>
        <div class="row">
         <div class="col">
-			 <div class="g-recaptcha" data-sitekey="6LeS16wZAAAAADQYkYoSCaRt5wIb0YBSGGnnqVdH"></div>
+			 <div class="g-recaptcha" align="center" data-sitekey="6LeS16wZAAAAADQYkYoSCaRt5wIb0YBSGGnnqVdH"></div>
        	   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   
 			    <!-- google reecaptcha 추가 -->
 			    <script src='https://www.google.com/recaptcha/api.js'></script>
 			    <script>
 			        $(document).ready(function() {
+				        var cnt=0;
 			            $("#create_account").click(function() {
 			                $.ajax({
 			                    url: '/signup/VerifyRecaptcha',
@@ -139,6 +135,10 @@
 			                        switch (data) {
 			                            case 0:
 			                                alert("자동 가입 방지 봇 통과");
+			                               	cnt=1;
+	                                		if(cnt==1){
+	                                			signUpProc();
+	                                			}
 			                                break;
 			 
 			                            case 1:
@@ -163,7 +163,7 @@
        	 <div class="col">
        		<br><br>	
        		<!--   <input type="button" value="테스트 버튼" id="testBtn"> -->
-       		  <input type="submit" value="계정 생성하기" class="btn btn-primary btn-block">
+       		  <input type="button" id="create_account" value="계정 생성하기" class="btn btn-primary btn-block">
 			</div>	
 		</div>	
           <!-- /.col -->
@@ -180,23 +180,51 @@
 <!-- /.login-box -->
 
 <!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
+<script src="/dist/js/adminlte.min.js"></script>
 
 <!-- 스크립트 함수 정의 부분 -->
 
  <script type="text/javascript"> 
 function signUpProc(){
+	var userId = $("#userId").val();
+	var userEmail = $("#userEmail").val();
+	var enterpriseNo = $("#bizNo1").val() + $("#bizNo2").val() + $("#bizNo3").val();
+	var userPassword = $("#userPassword").val();
+
+	var isEmpty = function(value){
+		if( value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){ 
+			return true 
+			} else{
+				 return false
+				  }
+	};
+	
+	if((isEmpty(userId) && isEmpty(userEmail) && isEmpty(enterpriseNo) && isEmpty(userPassword)) == true){
    		alert("계정을 생성하시겠습니까?")
 		document.frm.action = "/signup/signupForPartner.proc";
 		document.frm.submit();
-} 
-	
- $(document).ready(function() { 
-		$('#frm').validate({
+	} else{
+		if(isEmpty(userId) = false){
+	   		alert("아이디를 입력해주세요.")
+			} else if(isEmpty(userEmail) = false){
+	   			alert("이메일을 입력해주세요.")
+			} else if (isEmpty(enterpriseNo) = false){
+	   			alert("사업자 번호를 입력해주세요.")
+			}  else if (isEmpty(userPassword) = false){
+	   			alert("비밀번호를 입력해주세요.")
+			}
+		
+		}
+}
+
+
+
+ /* $(document).ready(function() { 
+		var $validator = $('#frm').validate({
 	 	 	   rules: {
 
 	 	 		   //유저 아이디
@@ -208,23 +236,22 @@ function signUpProc(){
 	    				required : true,
 						email:true
 	 	 	 		    },
-						// 사업자번호1
-		 	    		   bizNo1:{
-		 	    				required : true,
-						// 사업자번호2
-		 	    		 }
-	 	 	    		   bizNo2:{
-	 	 	    				required : true,		 	    				
-						// 사업자번호3
-	 	 				}
-	 	    		   		bizNo3:{
-	 	    				required : true,			
+				// 사업자번호1
+		 	      bizNo1:{
+		 	    				required : true
+		 	    		 },
+				// 사업자번호2
+		 	    bizNo2:{
+	 	 	    				required : true	 	    				
+	 	 				},
+	 	 	    // 사업자번호3
+	 	    	bizNo3:{
+	 	    				required : true			
 	 	 	 		    },
-						// 유저 비밀번호
-	 	    		   userPassward:{
-	 	    				required : true,
-	 						
-	 	 	 	 		    }
+				// 유저 비밀번호
+	    		userPassward:{
+	    					required : true	 					
+	 	 	 	 		}
 	 	 	   }, message:{
 					// 핸드폰 번호
 					userId:{
@@ -237,11 +264,11 @@ function signUpProc(){
 						},
 					//유저 패스워드
 					userPassward: {
-						required : "비밀번호를 입력해주세요",
+						required : "비밀번호를 입력해주세요"
 						}
     	 	 	   },
-    		    errorElement: 'span',
-    		    errorPlacement: function (error, element) {
+    		 	 errorElement: 'span',
+    		      errorPlacement: function (error, element) {
     		      error.addClass('invalid-feedback');
     		      element.closest('.form-group').append(error);
     		    },
@@ -250,16 +277,14 @@ function signUpProc(){
     		    },
    		   		 unhighlight: function (element, errorClass, validClass) {
    		   	     $(element).removeClass('is-invalid');
-   		    }
+   		    	},
+   	 		    submitHandler: function(){
+   	 		    	signUpProc();
+   	   	 		}
 		   	}); 
 
-	 	$.validator.setDefaults({
- 	 	    submitHandler: function () {
- 	 	    	signUpProc();
- 	 	    }
- 	 	  });
-	 
 	});
+		 */ 
 </script>
 </body>
 </html>

@@ -52,13 +52,10 @@ public class SignupController {
 	@RequestMapping(value = "/signup.proc", method = RequestMethod.POST)
 	public String signUpProc(Model model, Users vo, UsersDetail uvo, HttpServletRequest request) {
 		System.out.println("----------일반 유저 sign Up Proc----------");
-		
 
 		System.out.println("vo id==>" + vo.getUserId());
 		System.out.println("vo email==>" + vo.getUserEmail());
 		System.out.println("vo pw==>" + vo.getUserPassword());	
-		
-		
 		
 		try {
 			 service.save(vo);
@@ -66,8 +63,6 @@ public class SignupController {
 				 System.out.println("=====user info save====");
 				 uvo.setUserNo(vo.getUserNo());
 				 service.save(uvo);
-				 	 System.out.println("추가정보도 저장 완료!");
-				 
 			 }
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -81,12 +76,10 @@ public class SignupController {
 
 	//파트너사 회원가입
 	@RequestMapping(value = "/signupForPartner.proc")
-	public String signUpForPartnerProc(Model model, @PageableDefault Pageable pageable, Users vo,HttpServletRequest request) {
-		System.out.println("----------sign Up Proc----------");
+	public String signUpForPartnerProc(Model model, Users vo,  UsersDetail uvo, HttpServletRequest request) {
+		System.out.println("----------파트너사 sign Up Proc----------");
 		
-		System.out.println("vo id==>" + vo.getUserId());
-		System.out.println("vo email==>" + vo.getUserEmail());
-		System.out.println("vo pw==>" + vo.getUserPassword());
+		
 		
 
 		return "/login/signin";
