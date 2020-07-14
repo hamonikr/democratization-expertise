@@ -34,15 +34,15 @@ public class NaverLoginBO {
 
         System.out.println("state111 ====> ");
         /* 세션 유효성 검증을 위하여 난수를 생성 */
-//        String state = generateRandomString();
-        String state = UUID.randomUUID().toString();
+        String state = generateRandomString();
+     //   String state = UUID.randomUUID().toString();
         System.out.println("state ====> "+ state );
         
         
         
         /* 생성한 난수 값을 session에 저장 */
         setSession(session,UUID.randomUUID().toString());        
-//        setSession(session,state);        
+        setSession(session,state);        
 
         /* Scribe에서 제공하는 인증 URL 생성 기능을 이용하여 네아로 인증 URL 생성 */
         OAuth20Service oauthService = new ServiceBuilder()                                                   
