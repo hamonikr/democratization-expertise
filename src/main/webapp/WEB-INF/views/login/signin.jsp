@@ -42,9 +42,8 @@
   </div>
   <!-- /.login-logo -->
   <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">로그인</p>
-
+    <div class="card-body login-card-body" >
+      <div class="login-box-msg"> <h3>로그인</h3></div>
       <form id="frm" action="/login/signin" method="post">
 	<div class="row">
 		<div class="input-group mb-3">
@@ -55,8 +54,8 @@
 	 </div>
 		<div class="row">
 	  		<div class="input-group mb-3">
-		   		<p><input type="checkbox" id="user" style="margin-left: 10px" > 개인</p> 
-		   		<p><input type="checkbox" id="partner" style="margin-left: 20px"> 파트너사</p>
+		   		<p><input type="checkbox" id="user" value="0" style="margin-left: 10px" > 개인</p> 
+		   		<p><input type="checkbox" id="partner" value="1" style="margin-left: 20px"> 파트너사</p>
       		</div>
       	</div>
      <div class="row">
@@ -109,47 +108,42 @@
       
       <div class="social-auth-links text-center mb-3" style="margin:60px;">
       <br> <p>- SNS 계정으로 로그인 -</p>
-        <div class="row" align="center">
+        <div class="row" align="center" style="margin-left:40px;">
+        
+        <!-- 깃헙 -->
           <div class="col-2">
 	         <a href="#" >  
 				<img src="/img/logo.png" style="height:30px;margin-left:0px;">
 		      </a>
 	       </div>
+	       
+	       <!-- 구글 -->
 	       <div class="col-2">
 	         <a href="/login/google" >
 	          <img src="/img/google-plus.png" style="height:30px;margin-left:20px;">
 	        </a>
 	        </div>
-	        <!-- <a href="/login/naver">
-	          <img src="/img/naver_login.png" style="height:30px;margin-left:40px;">
-	        </a> -->
-	          <div class="col-2" id="naver_id_login" style="margin-left:20px;">
-	          
-				  <!-- //네이버아이디로로그인 버튼 노출 영역 -->
-				  <script type="text/javascript">
-				  	var naver_id_login = new naver_id_login("PX4mWV3F_bqII3KVAVsl", "http://localhost:8080/login/naverCallback");
-				  	var state = naver_id_login.getUniqState();
-				  	naver_id_login.setButton("green", 1,30);
-				  	naver_id_login.setDomain("http://localhost:8080");
-				  	naver_id_login.setState(state);
-				  	naver_id_login.setPopup();
-				  	naver_id_login.init_naver_id_login();
-				  </script>
+	        
+	        <!-- 네이버 -->
+	        <div class="col-2" id="naver_id_login" style="margin-left:30px;">	        	
+	       		  <!-- //네이버아이디로로그인 버튼 노출 영역 -->
 	        </div>
+	        
+	        <!-- 카카오 -->
 	        <div class="col-2">
-	        <a href="/login/kakao">
-	          <img src="/img/kakao_login_small.png" style="height:30px;margin-left:60px;">
-	        </a>
+		        <a href="/login/kakao">
+		          <img src="/img/kakaolink_btn_medium_ov.png" style="margin-left:20px;height:32px;">
+		        </a>
 	        </div>
       	</div>
     </div>
       <!-- /.social-auth-links -->
 
 		<!-- sign up part -->
-		<div class="row">
-	      <p class="col" style="margin-left:60px;">계정이 없으십니까?
+		<div class="row" align="center">
+	      <p class="col">계정이 없으십니까?
 	        <a href="/login/signup" class="text-center">회원가입</a>
-	      </p>
+	  	  </p>
       </div>
       
     </div>
@@ -158,12 +152,18 @@
 </div>
 <!-- /.login-box -->
 
-<!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
-
+ <!-- //네이버아이디로로그인 버튼 노출 영역 -->
+  <script type="text/javascript">
+ 	var naver_id_login = new naver_id_login("PX4mWV3F_bqII3KVAVsl", "http://localhost:8080/login/naverCallback");
+ 	var state = naver_id_login.getUniqState();
+	
+	console.log(state);
+ 	
+ 	naver_id_login.setButton("green", 1,30);
+ 	naver_id_login.setDomain("http://localhost:8080/login/login");
+ 	naver_id_login.setState(state);
+ 	naver_id_login.setPopup();
+ 	naver_id_login.init_naver_id_login();
+ </script> 
 </body>
 </html>
