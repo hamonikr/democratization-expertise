@@ -162,7 +162,7 @@
  	naver_id_login.setButton("green", 1,30);
  	naver_id_login.setDomain("http://localhost:8080/login/login");
  	naver_id_login.setState(state);
- 	naver_id_login.setPopup();
+ 	//naver_id_login.setPopup();
  	naver_id_login.init_naver_id_login();
  </script> 
 </body>

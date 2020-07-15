@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
+
 <!DOCTYPE html>
+
 <html>
 <!-- <head>
 <script type="text/javascript"
@@ -44,13 +47,25 @@ h3 {
 </head>
 
 <body>
-
-<div class="row">
- <div class="col-8" align="center" style="text-align: center;margin:50px;">	        	
-	가입이 완료되었습니다.
- </div>
-</div>
-
+	 <div class="row">
+		<!-- Content Header (Page header) -->
+		<div class="col-12">
+			<div class="card card-primary">
+				<div class="card-header">
+					<h3 class="card-title">커뮤니티 회원가입이 완료되었습니다.</h3>
+					 <div class="col-8" align="center" style="text-align: center;margin:50px;">	        							
+						<input type=text value="${procVal}" id="procVal" name="procVal">					
+							<%
+								String retVal = (String) request.getAttribute("retVal");
+								
+							%>	
+						<input type=text value="${retVal}" id ="retVal" name="retVal">												
+					</div>	 
+	 			</div>
+		 	</div>
+		 </div>
+	</div>
+<!-- button -->
 <div class="row">
  <div class="col-8" align="center" style="margin:50px;">	        	
 	<input type="button" value="확인" onClick="closeWin();">
@@ -58,35 +73,32 @@ h3 {
 </div>
 
  	<script type="text/javascript">
-	  var naver_id_login = new naver_id_login("PX4mWV3F_bqII3KVAVsl", "http://localhost:8080/login/personalInfo");
-	  // 접근 토큰 값 출력
+	var naver_id_login = new naver_id_login("PX4mWV3F_bqII3KVAVsl", "http://localhost:8080/login/personalInfo");
+	  // 접근 토큰 값 출력	
 	  var access_token = naver_id_login.oauthParams.access_token;
 	  // 네이버 사용자 프로필 조회
 	  naver_id_login.get_naver_userprofile("naverSignInCallback()");
 	  // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
-	 
-	  function naverSignInCallback() {
+	  alert(access_token);
+	  function naverSignInCallback() { 
 	    $.ajax({
-             url: '/login/personalInfo',
-             type: 'post',
+             url: '/login/naverCallback',
              dataType: 'jason',
-             data: {access_token: naver_id_login.oauthParams.access_token, userId: naver_id_login.getProfileData('id'),userEmail : naver_id_login.getProfileData('email'),userName: naver_id_login.getProfileData('name')},
-             success: function(retVal) {
-                 if(retVal =="aaa" ){    	
-                 alert("데이터 전송 확인");
-                 } else{
-						alert("데이터 전송 실패");
-                     }
+             method: 'post',
+             data: { access_token : naver_id_login.oauthParams.access_token,
+                 	   userId : naver_id_login.getProfileData('id'),
+                 	   userEmail : naver_id_login.getProfileData('email'),
+                 	   userName: naver_id_login.getProfileData('name')
+                 	   },
+             success: function(data) {
+                 console.log("success");
 			  }
- 	     });
-	       	
+ 	     });	       	
 	  }
 
    function closeWin(){
-	   window.opener='Self';
-		window.open('','_parent','');
-		window.close();
-	  }
+	   location.href="/sample/list";
+	}
   
 	</script>
 </body>
