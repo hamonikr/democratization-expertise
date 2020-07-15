@@ -1,4 +1,6 @@
 package com.de.signup;
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ public class SignupService {
 	private SignupRepository sr;
 	@Autowired
 	private SignupForDetailRepository sd;
+	
+	
 	public Users save(Users vo) {		
 		return sr.save(vo);
 	}
@@ -23,7 +27,10 @@ public class SignupService {
 	public UsersDetail save(UsersDetail vo) {		
 		return sd.save(vo);
 	}
-		
+
+	public boolean isExist (String email) {		
+		return sr.existsByUserEmail(email); 
+	}
 
 }
 

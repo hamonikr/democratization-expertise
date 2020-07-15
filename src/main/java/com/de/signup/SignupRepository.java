@@ -10,8 +10,10 @@ import com.de.user.Users;
 import com.de.user.UsersDetail;
 
 @Repository
-public interface SignupRepository extends JpaRepository<Users, Integer>{
+public interface SignupRepository extends JpaRepository<Users, String>{
 	List<Users> findAll();
-	
+	List<Users> findAllByUserEmail(String userEmail);
+	boolean existsByUserEmail(String userEmail);
+
 }
 
