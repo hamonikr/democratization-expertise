@@ -40,7 +40,6 @@ h3 {
 	<h4 style="text-align: center" id="userEmail"></h4>
 
 </body> -->
-
 <head>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -54,12 +53,7 @@ h3 {
 				<div class="card-header">
 					<h3 class="card-title">커뮤니티 회원가입이 완료되었습니다.</h3>
 					 <div class="col-8" align="center" style="text-align: center;margin:50px;">	        							
-						<input type=text value="${procVal}" id="procVal" name="procVal">					
-							<%
-								String retVal = (String) request.getAttribute("retVal");
-								
-							%>	
-						<input type=text value="${retVal}" id ="retVal" name="retVal">												
+											
 					</div>	 
 	 			</div>
 		 	</div>
