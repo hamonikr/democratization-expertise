@@ -58,33 +58,7 @@ public class LoginController {
 		return "/login/signup";
 	}
 
-//	// 로그인 첫 화면 요청 메소드
-//	@RequestMapping(value = "/naver", method = { RequestMethod.GET, RequestMethod.POST })
-//	public void naverLogin(Model model, Users vo ,HttpSession session) {
-//		System.out.println("====> naver  controller<=====");
-//		System.out.println("user id--> "+vo.getUserId());
-//		System.out.println("user email--> "+vo.getUserEmail());
-//		System.out.println("user name--> "+vo.getUserName());			
-//	//	return "/login/naver";
-//	}
-//
-//	// 네이버 로그인 성공시 callback호출 메소드
-////	@RequestMapping(value = "/naverCallback", method = { RequestMethod.GET, RequestMethod.POST })
-//////		@RequestMapping(value = "/naverCallback", method = { RequestMethod.GET, RequestMethod.POST })
-////	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
-////			throws IOException {
-////		System.out.println("여기는 callback");
-////		OAuth2AccessToken oauthToken;
-////		oauthToken = naverLoginBO.getAccessToken(session, code, state);
-////		// 로그인 사용자 정보를 읽어온다.
-////		apiResult = naverLoginBO.getUserProfile(oauthToken);
-////		model.addAttribute("result", apiResult);
-////
-////		/* 네이버 로그인 성공 페이지 View 호출 */
-////		return "/login/naverSuccess";
-////	}
-////
-////	
+
 //	@RequestMapping(value = "/naverCallback", method = { RequestMethod.GET, RequestMethod.POST })
 //	public void callback(Model model, HttpSession session)throws IOException {
 //		System.out.println("----naver  버튼 클릭---");
