@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Sample</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+.pagination {
+	list-style: none;
+}
+
+li {
+	display: inline-block;
+}
+</style>
+</head>
+
+<body>
+	<h2>List of Sample</h2>
+
+	<table>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>IP</th>
+			<th>Title</th>
+			<th>Contents</th>
+			<th>RegisterDate</th>
+		</tr>
+
+		<tr th:each="sample : ${sample}">
+			<td th:text="${sample.userId}">ID</td>
+			<td th:text="${sample.userName}">Name</td>
+			<td th:text="${sample.userIp}">IP</td>
+			<td>
+			<a th:href="@{'/sample/view/' + ${sample.seq}}">
+			<span th:text="${sample.title}"></span>
+			</a>
+			</td>
+			<td th:text="${sample.contents}">Contents</td>
+			<td th:text="${sample.registerDate}">RegisterDate</td>
+		</tr>
+	</table>
+	<nav>
+		<ul class="pagination"
+			th:with="start=${T(Math).floor(sample.number/10)*10 + 1},
+                    last=(${start + 9 < sample.totalPages ? start + 9 : sample.totalPages})">
+			<li><a th:href="@{/sample/list(page=1)}" aria-label="First"> <span
+					aria-hidden="true">First</span>
+			</a></li>
+
+			<li th:class="${sample.first} ? 'disabled'"><a
+				th:href="${sample.first} ? '#' :@{/sample/list(page=${sample.number})}"
+				aria-label="Previous"> <span aria-hidden="true">&lt;</span>
+			</a></li>
+
+			<li th:each="page: ${#numbers.sequence(start, last)}"
+				th:class="${page == sample.number + 1} ? 'active'"><a
+				th:text="${page}" th:href="@{/sample/list(page=${page})}"></a></li>
+
+			<li th:class="${sample.last} ? 'disabled'"><a
+				th:href="${sample.last} ? '#' : @{/sample/list(page=${sample.number + 2})}"
+				aria-label="Next"> <span aria-hidden="true">&gt;</span>
+			</a></li>
+
+			<li><a th:href="@{/sample/list(page=${sample.totalPages})}"
+				aria-label="Last"> <span aria-hidden="true">Last</span>
+			</a></li>
+		</ul>
+	</nav>
+	<button type="button" onclick="location.href='/sample/save'" >등록</button>
+</body>
+</html>
