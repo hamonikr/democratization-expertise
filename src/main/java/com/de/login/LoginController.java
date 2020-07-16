@@ -176,10 +176,6 @@ public class LoginController {
 //			redirect.addFlashAttribute("procVal", "E");
 		//	model.addAttribute("retVal", "E");
 		}		
-		
-		//return "redirect:naverCallback";
-		//return "redirect:login/login";
-		//return "/login/naverCallback";
 
 	}
 	
