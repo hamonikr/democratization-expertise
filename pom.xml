@@ -24,10 +24,24 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+		
+		<!-- validation dependency -->
 		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery-validation</artifactId>
+			<version>1.19.0</version>
+		</dependency>
+		<!-- naver -->
+			<dependency>
+				<groupId>com.github.scribejava</groupId>
+				<artifactId>scribejava-core</artifactId>
+				<version>2.8.1</version>
+			</dependency>
+		
+		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -36,10 +50,10 @@
 		    <groupId>com.h2database</groupId>
 		    <artifactId>h2</artifactId>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jooq</artifactId>
-		</dependency>
+		</dependency> -->
 		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -51,6 +65,7 @@
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -96,6 +111,34 @@
 			<artifactId>javassist</artifactId>
 			<version>3.23.1-GA</version>
 		</dependency> -->
+	
+	 <!-- 구글 리캡챠 -->
+        <dependency>
+            <groupId>net.tanesha.recaptcha4j</groupId>
+            <artifactId>recaptcha4j</artifactId>
+            <version>0.0.7</version>
+        </dependency>
+ 
+        <!-- 구글 리캡챠 사용하기 위한 json -->
+        <dependency>
+            <groupId>javax.json</groupId>
+            <artifactId>javax.json-api</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.json</artifactId>
+            <version>1.1</version>
+        </dependency>
+ 
+        <!-- 잭슨 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.5</version>
+        </dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
