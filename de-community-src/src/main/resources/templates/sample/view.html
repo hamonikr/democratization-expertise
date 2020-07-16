@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Sample</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+.pagination {
+	list-style: none;
+}
+
+li {
+	display: inline-block;
+}
+</style>
+</head>
+
+<body>
+	<h2>view of Sample</h2>
+	<h2 th:text="${sample.title}"></h2>
+	<p th:text="${sample.registerDate}"></p>
+	<p th:text="${sample.userId}"></p>
+	<p th:text="${sample.userName}"></p>
+	<p th:text="${sample.contents}"></p>
+	
+	<button type="button" onclick="location.href='/sample/save/{sample.seq}'" >수정</button>
+</body>
+</html>

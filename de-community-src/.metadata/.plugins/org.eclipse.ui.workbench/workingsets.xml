@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workingSetManager>
+<workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1593596489145_0" label="Java Main Sources" name="Java Main Sources">
+<item elementID="=de-community-git/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=de-community-git/src\/main\/resources=/maven.pomderived=/true=/" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=de-community-git/target\/generated-sources\/annotations=/optional=/true=/=/maven.pomderived=/true=/=/ignore_optional_problems=/true=/=/m2e-apt=/true=/" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSet>
+<workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1593596489158_1" label="Java Test Sources" name="Java Test Sources">
+<item elementID="=de-community-git/src\/test\/java=/optional=/true=/=/maven.pomderived=/true=/=/test=/true=/" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=de-community-git/src\/test\/resources=/maven.pomderived=/true=/=/test=/true=/" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=de-community-git/target\/generated-test-sources\/test-annotations=/optional=/true=/=/maven.pomderived=/true=/=/ignore_optional_problems=/true=/=/m2e-apt=/true=/=/test=/true=/" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSet>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1593596490710_2" label="Window Working Set" name="Aggregate for window 1593596490709"/>
+</workingSetManager>

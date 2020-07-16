@@ -1,6 +1,3 @@
-[submodule "de-community"]
-	path = de-community
-	url = https://github.com/hamonikr/de-community
 [submodule "de-user-sw"]
 	path = de-user-sw
 	url = https://github.com/hamonikr/de-user-sw
