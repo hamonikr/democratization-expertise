@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Sample</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+.pagination {
+	list-style: none;
+}
+
+li {
+	display: inline-block;
+}
+</style>
+</head>
+
+<body>
+	<h2>Save of Sample</h2>
+	<form th:action="@{/sample/save.proc}" th:object="${sample}" method="post">
+    <p>title : <input type="text" id="title" name="title"  placeholder="제목을 입력하세요." /></p>
+    <p>contents : <input type="text" id="contents" name="contents" placeholder="제목을 입력하세요."/></p>
+    <p>user_id : <input type="text" id="userId" name="userId" placeholder="제목을 입력하세요."/></p>
+    <p>user_name : <input type="text" id="userName" name="userName" placeholder="제목을 입력하세요."/></p>
+    <p><input type="submit" value="추가하기"/> <input type="reset" value="새로 입력하기"/></p>
+</form>
+</body>
+</html>

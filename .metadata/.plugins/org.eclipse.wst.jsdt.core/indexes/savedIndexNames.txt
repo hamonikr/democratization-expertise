@@ -1,0 +1,5 @@
+INDEX VERSION 1.4+/home/hamonikr/git/de-community/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+3370260854.index
+1755507886.index
+1810501721.index
+931266563.index
