@@ -37,7 +37,7 @@
                   <tbody>
                     <c:forEach var="list" items="${data}" varStatus="status">
 						    <tr>
-						      <td scope="row">${paging.totalElements - ((paging.number) * paging.size + status.index) }</td>
+						      <td scope="row">${paging.totalElements - ((paging.number -1) * paging.size + status.index) }</td>
 						      <td><a href="/sample/view/${list.seq}">${list.title }</a></td>
 						      <td>${list.userId}</td>
 						      <td>${list.userName}</td>

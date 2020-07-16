@@ -53,7 +53,9 @@ h3 {
 				<div class="card-header">
 					<h3 class="card-title">커뮤니티 회원가입이 완료되었습니다.</h3>
 					 <div class="col-8" align="center" style="text-align: center;margin:50px;">	        							
-											
+						<input type=text value="${procVal}" id="procVal" name="procVal">					
+
+						<input type=text value="${retVal}" id ="retVal" name="retVal">												
 					</div>	 
 	 			</div>
 		 	</div>
