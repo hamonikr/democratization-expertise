@@ -43,21 +43,18 @@ public class LoginController {
 	@RequestMapping(value = "/login")
 	public String loginView(Model model, @PageableDefault Pageable pageable) {
 		System.out.println("----------log In----------");
-
 		return "/login/signin";
 	}
 
 	@RequestMapping(value = "/signin")
 	public String loginProc(Model model, @PageableDefault Pageable pageable) {
 		System.out.println("----------log In 완료----------");
-
 		return "/sample/list";
 	}
 
 	@RequestMapping(value = "/signup")
 	public String signUpView(Model model, @PageableDefault Pageable pageable) {
 		System.out.println("----------sign Up----------");
-
 		return "/login/signup";
 	}
 
