@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+
+<mapper namespace="com.de.signup.mapper.SignupMapper">
+
+<!-- 정보 저장 -->
+<insert id="save" parameterType="com.de.user.Users">
+<selectKey keyProperty="seq" resultType="Integer" order="BEFORE">
+    SELECT nvl(max(seq),0)+1 FROM tb_users
+  </selectKey>
+	Insert
+	 into
+  	  tb_users(  	  	
+       seq
+      ,reg_date
+    )
+  values
+    (   
+    	#{seq}
+      ,now()
+     )
+	</insert>
+	
+
+</mapper>
+ 
+	
