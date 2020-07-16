@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>File Share</title>
+  <link rel="stylesheet" href="bootstrap.min.css">
+</head>
+<body>
+<div class="container-fluid">
+  <div class="panel panel=default">
+    <div class="panel-heading">
+      List of Files
+      <button class="primary"> <a href="<%= '/?dir=' + files[0].path.split('/').splice(0, files[0].path.split('/').length-2).join('/') %>">Go one Level Up</a> </button>
+      <button class="btn-warning"> <a href="/"> Go to Root</a></button>
+    </div>
+    <div class="responsive-table">
+      <table class="table table-striped table-hover">
+        <thead>
+          <th>#</th>
+          <th>Name</th>
+          <th>Type</th>         
+          <th>Size</th>         
+          <th>Action</th>
+        </thead>
+        <tbody>
+          <% for(var i=0; i<files.length; i++) { %>
+            <tr>
+              <td><%=i + 1%></td>
+              <td>
+                <a href="?<%= files[i].type %>=<%= files[i].path %>">
+                  <%= files[i].name %>
+                </a>
+              </td>
+              <td><%= files[i].type.toUpperCase() %></td>
+              <td><%= files[i].size || '' %></td>
+              <td>
+                <button class="primary">
+                  <a href="?<%= files[i].type %>=<%= files[i].path %>&download=1">
+                    <%= files[i].type === 'dir' ? 'DOWNLOAD ZIP' : 'DOWNLOAD' %>
+                  </a>
+                </button>
+              </td>
+            </tr>
+            <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script src="jquery.min.js"></script>
+<script src="bootstrap.min.js"></script>
+</body>
+</html>
