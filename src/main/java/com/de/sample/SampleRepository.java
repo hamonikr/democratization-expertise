@@ -9,5 +9,4 @@ import org.springframework.stereotype.Repository;
 public interface SampleRepository extends JpaRepository<Sample, Integer>{
 	Page<Sample> findAllByDeleteAt(int deleteAt, Pageable pageable);
 
-
 }

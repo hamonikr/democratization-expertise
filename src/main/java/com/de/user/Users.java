@@ -1,12 +1,17 @@
 package com.de.user;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,11 +25,12 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
+@Embeddable
 @Table(name = "tb_users")
-public class Users {
+public class Users implements Serializable{
 	
 	@Id
-	@Column
+	@Column(name="user_no")
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	/* 회원 고유 번호 */
 	private Integer userNo;
@@ -49,4 +55,16 @@ public class Users {
 	@UpdateTimestamp
 	private Timestamp updateDate;
 
+//	@OneToOne
+//	@JoinTable(name="tb_user_detail")
+//	@JoinColumn(name="user_no")
+//	UsersDetail usersDetail;
+
+
+	 @OneToOne
+     @JoinTable(name = "tb_user_detail", //조인테이블명
+                joinColumns = @JoinColumn(name="user_no"),  //외래키
+                inverseJoinColumns = @JoinColumn(name="user_no") //반대 엔티티의 외래키
+                )
+     private UsersDetail usersDetail;
 }

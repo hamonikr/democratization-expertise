@@ -221,14 +221,14 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 
 .login-box,
 .register-box {
-  width: 360px;
+  width: 800px;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 900px) {
   .login-box,
   .register-box {
-    margin-top: 20px;
-    width: 90%;
+    margin-top: 100px;
+    width: 100%;
   }
 }
 
