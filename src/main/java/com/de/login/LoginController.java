@@ -57,27 +57,6 @@ public class LoginController {
 		System.out.println("----------sign Up----------");
 		return "/login/signup";
 	}
-
-
-//	@RequestMapping(value = "/naverCallback", method = { RequestMethod.GET, RequestMethod.POST })
-//	public void callback(Model model, HttpSession session)throws IOException {
-//		System.out.println("----naver  버튼 클릭---");
-//
-//		 String token = "PX4mWV3F_bqII3KVAVsl";// 네아로 접근 토큰 값";
-//		 String header = "Bearer " + token; // Bearer 다음에 공백 추가
-//
-//		 	String apiURL = "https://openapi.naver.com/v1/nid/me";
-//	       
-//		 	Map<String, String> requestHeaders = new HashMap<>();
-//	       requestHeaders.put("Authorization", header);
-//	       String responseBody = get(apiURL,requestHeaders);
-//
-//	       System.out.println(responseBody);
-//			System.out.println("====> naver login success controller");
-//
-//	}
-//	
-
 	
 	// 로그인 첫 화면 요청 메소드
 //	@RequestMapping(value = "/naver", method = { RequestMethod.GET, RequestMethod.POST })
