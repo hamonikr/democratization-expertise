@@ -1,9 +1,0 @@
-[submodule "de-user-sw"]
-	path = de-user-sw
-	url = https://github.com/hamonikr/de-user-sw
-[submodule "de-business-sw"]
-	path = de-business-sw
-	url = https://github.com/hamonikr/de-business-sw
-[submodule "de-knowledge-search"]
-	path = de-knowledge-search
-	url = https://github.com/hamonikr/de-knowledge-search
