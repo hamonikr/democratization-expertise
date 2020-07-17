@@ -46,14 +46,13 @@ h3 {
 </head>
 
 <body>
-	 <div class="row">
+	 <div class="row" align="center" style="margin-top:20%">
 		<!-- Content Header (Page header) -->
 		<div class="col-12">
 			<div class="card card-primary">
 				<div class="card-header">
-					<h3 class="card-title">커뮤니티 회원가입이 완료되었습니다.</h3>
-					 <div class="col-8" align="center" style="text-align: center;margin:50px;">	        							
-											
+					<h3 class="card-title">DE커뮤니티 로그인 완료되었습니다.</h3>
+					 <div class="col-8" align="center" style="text-align: center;margin:50px;">	        																		
 					</div>	 
 	 			</div>
 		 	</div>

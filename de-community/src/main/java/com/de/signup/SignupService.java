@@ -4,6 +4,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -20,7 +22,9 @@ public class SignupService {
 	private SignupForDetailRepository sd;
 	
 	
-	public Users save(Users vo) {		
+	public Users save(Users vo) {				
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		vo.setUserPassword(passwordEncoder.encode(vo.getUserPassword()));
 		return sr.save(vo);
 	}
 	
@@ -32,6 +36,7 @@ public class SignupService {
 		return sr.existsByUserEmail(email); 
 	}
 
+	
 }
 
 

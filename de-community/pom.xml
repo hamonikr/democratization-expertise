@@ -19,6 +19,19 @@
 		<java.version>11</java.version>
 	</properties>
 
+	<repositories> 
+		<repository>
+            <id>egovframe</id>
+            <url>http://maven.egovframe.kr:8080/maven/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+	</repositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -149,6 +162,40 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+            <groupId>egovframework.rte</groupId>
+            <artifactId>egovframework.rte.ptl.mvc</artifactId>
+            <version>3.5.0</version>
+             <exclusions>
+                <exclusion>
+                    <groupId>org.springmodules</groupId>
+                    <artifactId>spring-modules-validation</artifactId>
+                </exclusion>
+            </exclusions>  
+        </dependency>
+        
+        <dependency>
+           <groupId>egovframework.rte</groupId>
+           <artifactId>egovframework.rte.psl.dataaccess</artifactId>
+           <version>3.5.0</version>
+           <exclusions>
+            <exclusion>
+             <artifactId>mybatis</artifactId>
+             <groupId>org.mybatis</groupId>
+            </exclusion>
+           </exclusions>
+          </dependency>
+        <dependency>
+           <groupId>egovframework.rte</groupId>
+           <artifactId>egovframework.rte.fdl.excel</artifactId>
+           <version>3.5.0</version>
+        </dependency>
 	</dependencies>
 
 	<build>
