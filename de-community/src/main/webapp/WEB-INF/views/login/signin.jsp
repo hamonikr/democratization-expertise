@@ -44,7 +44,8 @@
   <div class="card">
     <div class="card-body login-card-body" >
       <div class="login-box-msg"> <h3>로그인</h3></div>
-      <form id="frm" action="/login/signin" method="post">
+      <form id="frm" name="frm" method="post">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<div class="row">
 		<div class="input-group mb-3">
           <div class="col-8">
@@ -64,7 +65,7 @@
      	<a href="forgot-id.html"> 아이디를 잊으셨습니까?</a>
      </div>
       <div class="input-group mb-3"> 
-      	<input type="text" class="form-control" style="margin-left: 10px" placeholder="아이디를 입력해주세요">             	
+      	<input type="text" class="form-control" id="username" name="username" style="margin-left: 10px" placeholder="아이디를 입력해주세요">             	
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -79,7 +80,7 @@
      		<a href="forgot-pw.html">비밀번호를 잊으셨습니까?</a>
     	  </div>
          <div class="input-group mb-3">
-          <input type="password" class="form-control" style="margin-left: 10px" placeholder="비밀번호를 입력해주세요">
+          <input type="password" class="form-control" id="userPassword" name="userPassword" value="1234" style="margin-left: 10px" placeholder="비밀번호를 입력해주세요">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -100,7 +101,7 @@
           <!-- /.col -->
           <br>
          <div class="row">
-            <button type="submit" class="btn btn-primary btn-block">로그인</button>
+            <button type="button" id ="submit_action" class="btn btn-primary btn-block">로그인</button>
           </div>
           <!-- /.col -->
       </form>
@@ -154,7 +155,30 @@
 
  <!-- //네이버아이디로로그인 버튼 노출 영역 -->
   <script type="text/javascript">
- 	var naver_id_login = new naver_id_login("PX4mWV3F_bqII3KVAVsl", "http://localhost:8080/login/naverCallback");
+  $(document).ready(function(){
+	    $("#submit_action").on("click",submitAction);	
+
+	    function submitAction(){
+			var userId = $("#username").val();
+			var userPassword = $("#userPassword").val();
+
+			if(userId == null || userId =="" || userId=="undefinded"){
+				alert("아이디를 입력해주세요");
+				$("#username").focus();	
+				} else if(userPassword == null || userPassword =="" || userPassword=="undefinded"){
+					alert("비밀번호를 입력해주세요");	
+					$("#userPassword").focus();
+					} else{
+						document.frm.action = "/login/signin";
+						document.frm.submit();
+						alert("user id---->" + userId+"\n"+"userPassword---->" + userPassword);	
+						
+				}					
+		}
+  });
+
+	
+  	var naver_id_login = new naver_id_login("PX4mWV3F_bqII3KVAVsl", "http://localhost:8080/login/naverCallback");
  	var state = naver_id_login.getUniqState();
 	
 	console.log(state);

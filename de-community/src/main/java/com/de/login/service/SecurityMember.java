@@ -8,8 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
+import com.de.login.Login;
 import com.de.user.UserRole;
-import com.de.user.Users;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,24 +31,24 @@ public class SecurityMember extends User {
 	private int userStatus;
 	private int enterpriseNo;
 	// session setter
-	public SecurityMember(Users vo) {
+	public SecurityMember(Login vo) {
 		super(vo.getUserId(), vo.getUserPassword(), makeGrantedAuthority(vo));
 		this.userNo = vo.getUserNo();
 		this.userId = vo.getUserId();
 		this.userPassword = vo.getUserPassword();
 		this.userEmail = vo.getUserEmail();
 		this.userName = vo.getUserName();
-		this.userStatus = vo.getUserStatus();
+//		this.userStatus = vo.getUserStatus();
 		//this.enterpriseNo = uvo.getEnterpriseNo();
 		
 	}
 
 
-	private static Set<GrantedAuthority> makeGrantedAuthority(Users vo) {
+	private static Set<GrantedAuthority> makeGrantedAuthority(Login vo) {
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 		grantedAuthorities.add(new SimpleGrantedAuthority(UserRole.MEMBER.getValue()));
 
-		
+		System.out.println("makeGrantedAuthority==>" + grantedAuthorities.toString());
 //		if (uvo.getEnterpriseNo() != null) {
 //			grantedAuthorities.add(new SimpleGrantedAuthority(UserRole.MEMBER.getValue()));
 //			} else {

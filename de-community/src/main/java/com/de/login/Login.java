@@ -1,4 +1,4 @@
-package com.de.user;
+package com.de.login;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -9,18 +9,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+
 
 @Getter
 @Setter
@@ -28,7 +25,7 @@ import lombok.ToString;
 @Entity
 @Embeddable
 @Table(name = "tb_users")
-public class Users implements Serializable{
+public class Login implements Serializable{
 	
 	@Id
 	@Column(name="user_no")
@@ -55,18 +52,5 @@ public class Users implements Serializable{
 	/* 수정 일시 */
 	@UpdateTimestamp
 	private Timestamp updateDate;
-
-//    @Builder
-//    public Users(String userId, String userPassword) {
-//        this.userId = userId;
-//        this.userPassword = userPassword;
-//    }
-//    
-	 @OneToOne
-     @JoinTable(name = "tb_user_detail", //조인테이블명
-                joinColumns = @JoinColumn(name="user_no"),  //외래키
-                inverseJoinColumns = @JoinColumn(name="user_no") //반대 엔티티의 외래키
-                )
-     private UsersDetail usersDetail;
-
 }
+	

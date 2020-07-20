@@ -2,7 +2,7 @@
 eclipse.buildId=4.5.1.202001211336-RELEASE
 java.version=11.0.4
 java.vendor=Ubuntu
-BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=ko_KR
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=UTF-8
 Framework arguments:  -product org.springframework.boot.ide.branding.sts4
 Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.springframework.boot.ide.branding.sts4
 
