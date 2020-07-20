@@ -19,6 +19,7 @@ import org.springframework.boot.Banner.Mode;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,7 @@ import com.de.signup.SignupService;
 import com.de.user.Users;
 import com.de.user.UsersDetail;
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.de.login.service.SecurityMember;
 
 @Controller
 @RequestMapping(value = "/login")
@@ -64,10 +66,14 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/signin")
-	public String loginProc(Model model, @PageableDefault Pageable pageable) {
+	public void loginProc(HttpSession session, @AuthenticationPrincipal SecurityMember user, Model model, Users vo, @PageableDefault Pageable pageable) {
 		System.out.println("----------log In proc----------");
-
-	return "/login/signin";
+	//	System.out.println(session.getAttribute("UserSession"));
+	System.out.println(session.getId());
+	System.out.println(user.getUserId());
+	System.out.println(user.getUserPassword());
+		
+		//return "/sample/list";
 	}
 
 	@RequestMapping(value = "/signup")

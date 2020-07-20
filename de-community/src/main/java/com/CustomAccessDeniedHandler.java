@@ -17,25 +17,24 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 
 @Configuration
 public class CustomAccessDeniedHandler implements AuthenticationFailureHandler {
-	@Autowired
-	private MessageSource messageSource;
+//	@Autowired
+//	private MessageSource messageSource;
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		System.out.println("exception===="+exception);
+		System.out.println("CustomAccessDeniedHandler exception발생====>"+exception);
 		if(exception instanceof BadCredentialsException) {
-			request.setAttribute("message", messageSource.getMessage("error.BadCredentials", null, Locale.getDefault()));
+	//		request.setAttribute("message", messageSource.getMessage("error.BadCredentials", null, Locale.getDefault()));
         	request.setAttribute("url", "/login/login");
-        	request.getRequestDispatcher("/sign/message").forward(request, response);
+      //  	request.getRequestDispatcher("/sign/message").forward(request, response);
             //response.sendRedirect("/sign/login?result=P");
         } else if(exception instanceof InternalAuthenticationServiceException) {
-        	request.setAttribute("message", messageSource.getMessage("error.InternalAuthenticationServiceException", null, Locale.getDefault()));
+      //  	request.setAttribute("message", messageSource.getMessage("error.InternalAuthenticationServiceException", null, Locale.getDefault()));
         	request.setAttribute("url", "/login/login");
         	request.getRequestDispatcher("/sign/message").forward(request, response);
         		//response.sendRedirect("/sign/login?result=E");
         }
 
 	}
-
 }

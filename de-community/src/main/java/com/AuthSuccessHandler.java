@@ -36,7 +36,10 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 		// 세션을 가져온다. (가져올 세션이 없다면 생성한다.)
         HttpSession httpSession = request.getSession(true);
         CmmnMap param = new CmmnMap();
-        param.put("userId",request.getParameter("userId"));
+        System.out.println("onAuthenticationSuccess -- username--?"+ request.getParameter("username"));
+        param.put("username",request.getParameter("username"));
+   
+        System.out.println("onAuthenticationSuccess");
         try {
 			cmmnService.insertObject("login_history", param);
 		} catch (Exception e) {
@@ -47,10 +50,10 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         clearAuthenticationAttributes(request);
         SecurityMember user = (SecurityMember) authentication.getPrincipal();
 
-
+        System.out.println("session user value-->" + user.toString());
         	httpSession.setAttribute("UserSession", user);
       		response.setStatus(HttpServletResponse.SC_OK);
-  		    response.sendRedirect("/main/index");
+  		   response.sendRedirect("/login/signin");
 
       
 	}

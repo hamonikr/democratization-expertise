@@ -1,11 +1,13 @@
 package com.de.user;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum UserRole {
+public enum UserRole{
 	ADMIN("ROLE_ADMIN"),
 	MEMBER("ROLE_MEMBER"),
 	CLASS_A("ROLE_CLASS_A"),
