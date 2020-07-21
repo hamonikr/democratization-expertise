@@ -81,6 +81,7 @@
     	  </div>
          <div class="input-group mb-3">
           <input type="password" class="form-control" id="password" name="password" value="1234" style="margin-left: 10px" placeholder="비밀번호를 입력해주세요">
+     <%--      <input type="password" class="form-control" id="msg" name="msg" value="${msg}" style="margin-left: 10px"> --%>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -155,7 +156,17 @@
 
  <!-- //네이버아이디로로그인 버튼 노출 영역 -->
   <script type="text/javascript">
+  var result = '${msg}';
+ 	 if(result != null || result !="") {
+		if(result == "PW"){
+		  console.log(">>"+result+"<<");	
+		  alert("아이디와 비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+		}
+	}	
+
+   	 
   $(document).ready(function(){
+ 
 	    $("#submit_action").on("click",submitAction);	
 
 	    function submitAction(){
@@ -186,8 +197,10 @@
  	naver_id_login.setButton("green", 1,30);
  	naver_id_login.setDomain("http://localhost:8080/login/login");
  	naver_id_login.setState(state);
- 	//naver_id_login.setPopup();
+ 	naver_id_login.setPopup();
  	naver_id_login.init_naver_id_login();
+
+ 	
  </script> 
 </body>
 </html>

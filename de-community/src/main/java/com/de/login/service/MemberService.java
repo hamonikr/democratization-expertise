@@ -29,63 +29,14 @@ public class MemberService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//		// TODO Auto-generated method stub
-//		Users vo = new Users();//		try {
-//////			List<Users> lvo = sr.findByUserId(userId);
-//////			Users vo = lvo.get(0);
-//////			System.out.println("--->" + lvo.toString());
-////			
-////			vo.setUserName(username);
-////			List <Users> lvo = lr.findByUserId(username);
-////			for(int i=0;i<lvo.size();i++){
-////				System.out.println("list vo---> "+lvo.get(i).toString());
-////			}
-//////			System.out.println("lr--->" + vo.toString());
-////			
-////			return new SecurityMember(vo);
-////		} catch (Exception e) {
-////			// TODO Auto-generated catch block
-////			System.out.println("///username?" + username);
-////			List <Users> lvo = lr.findByUserId(username);
-////			for(int i=0;i<lvo.size();i++){
-////				System.out.println("list vo---> "+lvo.get(i).getUserPassword());
-////				vo.setUserPassword(lvo.get(i).getUserPassword());
-////				vo.setUserId(lvo.get(i).getUserId());
-////			}		
-////			System.out.println("---> fail loadUserByUsername ");
-////			e.printStackTrace();
-////			
-////			return new SecurityMember(vo);	
-//	
-//		
-//		System.out.println("///username?" + username);
-//		List <Users> lvo = lr.findByUserId(username);
-//		for(int i=0;i<lvo.size();i++){
-//			System.out.println("list vo---> "+lvo.get(i).getUserPassword());
-//			vo.setUserPassword(lvo.get(i).getUserPassword());
-//			vo.setUserId(lvo.get(i).getUserId());
-//		}		
-//	
-//		Collection<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
-//		roles.add(new SimpleGrantedAuthority("ROLE_USER"));
-//		
-//		//User userDetails = new User(vo.getUserId(), vo.getUserPassword(), roles);
-//	
-//		return new SecurityMember(vo);
+		// TODO Auto-generated method stub
 		Login vo = lr.findByUserId(username);		
-//		Users vo = null;
-//		vo.setUserId(lvo.getUserId());
-//		vo.setUserPassword(lvo.getUserPassword());
-//		vo.setUserEmail(lvo.getUserEmail());
-//		vo.setUserName(lvo.getUserName());
-//		vo.setUserEmail(lvo.getUserEmail());
-		
+
 		if (vo == null) { 
 				throw new UsernameNotFoundException(username);
 			} else {
 		System.out.println("Member service vo -->" + vo.toString());
 			return new SecurityMember(vo);		
 		}
-	}
-		
+	}		
 }
