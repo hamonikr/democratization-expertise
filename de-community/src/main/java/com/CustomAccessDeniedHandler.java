@@ -25,14 +25,15 @@ public class CustomAccessDeniedHandler implements AuthenticationFailureHandler {
 		// TODO Auto-generated method stub
 		System.out.println("CustomAccessDeniedHandler exception발생====>"+exception);
 		if(exception instanceof BadCredentialsException) {
-			request.setAttribute("message", messageSource.getMessage("error.BadCredentials", null, Locale.getDefault()));
+			//request.setAttribute("message", messageSource.getMessage("error.BadCredentials", null, Locale.getDefault()));
         	request.setAttribute("url", "/login/login");
-        	request.getRequestDispatcher("/login/message").forward(request, response);
-           response.sendRedirect("/login/login?result=P");
+        	request.setAttribute("message", "비밀번호가 올바르지 않습니다. 확인해주세요");
+        	request.getRequestDispatcher("/login/message").forward(request, response);;
+           //response.sendRedirect("/login/message");
         } else if(exception instanceof InternalAuthenticationServiceException) {
-        	request.setAttribute("message", messageSource.getMessage("error.InternalAuthenticationServiceException", null, Locale.getDefault()));
+        	//request.setAttribute("message", messageSource.getMessage("error.InternalAuthenticationServiceException", null, Locale.getDefault()));
         	request.setAttribute("url", "/login/login");
-        	request.getRequestDispatcher("/login/message").forward(request, response);
+        	//request.getRequestDispatcher("/login/message").forward(request, response);
         		//response.sendRedirect("/sign/login?result=E");
         }
 
