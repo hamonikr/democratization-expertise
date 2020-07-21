@@ -22,13 +22,11 @@
   
 	<!-- /For Pagination Tag -->
 	<!-- MessageSource -->
- <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-<!--   <property name="basenames">
- --> <!-- 파일의 기본 인코딩을 지정합니다. -->
-    <property name="basenames" value="UTF-8">
-   <list>
-   <value>messages.properties</value> 
-   </list>
-  </property>
+ <bean id="messageSource"
+     class="org.springframework.context.support.ResourceBundleMessageSource">
+    <property name="basenames">
+            <value>message.properties</value>
+    </property>
  </bean>
+
 </beans>

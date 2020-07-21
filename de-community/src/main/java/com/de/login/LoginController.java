@@ -53,27 +53,34 @@ public class LoginController {
 
 		return "/login/signin";
 	}
-
-	@RequestMapping("/logout")
-	public String logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("----------log out----------");
-
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth != null) {
-			new SecurityContextLogoutHandler().logout(request, response, auth);
-		}
-		return "redirect:/login/login";
-	}
-
+	
 	@RequestMapping(value = "/signin")
-	public void loginProc(HttpSession session, @AuthenticationPrincipal SecurityMember user, Model model, Users vo, @PageableDefault Pageable pageable) {
+	public String loginProc(HttpSession session, @AuthenticationPrincipal SecurityMember user, Model model, Users vo, @PageableDefault Pageable pageable) {
 		System.out.println("----------log In proc----------");
 	//	System.out.println(session.getAttribute("UserSession"));
-	System.out.println(session.getId());
 	System.out.println(user.getUserId());
 	System.out.println(user.getUserPassword());
 		
-		//return "/sample/list";
+		return "/sample/list";
+	}
+	@RequestMapping("/logout")
+	public String logout(HttpSession session, HttpServletRequest request, HttpServletResponse response,@AuthenticationPrincipal SecurityMember user) throws Exception {
+		System.out.println("----------log out----------");
+			
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("log out controller auth==>"+auth.toString());
+
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}	
+	
+		return "redirect:/login/login";
+	}
+
+	
+	@RequestMapping("/message")
+	public String message(HttpServletRequest request, ModelMap model) throws Exception {
+		return "cmmn/message";	
 	}
 
 	@RequestMapping(value = "/signup")
@@ -92,16 +99,15 @@ public class LoginController {
 		System.out.println("userEmail-->" + vo.getUserEmail());
 		String email = vo.getUserEmail();
 		System.out.println("아이디 존재 여부----> "+service.isExist(email));
-	if(service.isExist(email)==true) {//기존에 등록된 계정
-		model.addAttribute("retVal", "E");
-		return "/sample/list";
-	}else {// 새롭게 가입하는 sns 연동계정
-			return "/login/naverCallback";
 
-	}
+		if(service.isExist(email)==true) {//기존에 등록된 계정
+			model.addAttribute("retVal", "E");
+			return "/sample/list";
+		} else {// 새롭게 가입하는 sns 연동계정
+				return "/login/naverCallback";
+	
+			}
 		
-	//	return "/login/naverCallback";
-
 	}
 	
 	@RequestMapping(value = "/personalInfo", method = { RequestMethod.GET, RequestMethod.POST })
@@ -153,10 +159,6 @@ public class LoginController {
 		//	model.addAttribute("retVal", "E");
 		}		
 		
-		//return "redirect:naverCallback";
-		//return "redirect:login/login";
-		//return "/login/naverCallback";
-
 	}
 	
 }
