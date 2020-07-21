@@ -80,7 +80,7 @@
      		<a href="forgot-pw.html">비밀번호를 잊으셨습니까?</a>
     	  </div>
          <div class="input-group mb-3">
-          <input type="password" class="form-control" id="userPassword" name="userPassword" value="1234" style="margin-left: 10px" placeholder="비밀번호를 입력해주세요">
+          <input type="password" class="form-control" id="password" name="password" value="1234" style="margin-left: 10px" placeholder="비밀번호를 입력해주세요">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -160,7 +160,7 @@
 
 	    function submitAction(){
 			var userId = $("#username").val();
-			var userPassword = $("#userPassword").val();
+			var userPassword = $("#password").val();
 
 			if(userId == null || userId =="" || userId=="undefinded"){
 				alert("아이디를 입력해주세요");

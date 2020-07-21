@@ -33,19 +33,20 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws ServletException, IOException {
+		System.out.println("login success---->");
 		// 세션을 가져온다. (가져올 세션이 없다면 생성한다.)
         HttpSession httpSession = request.getSession(true);
         CmmnMap param = new CmmnMap();
-        System.out.println("onAuthenticationSuccess -- username--?"+ request.getParameter("username"));
+        System.out.println("onAuthenticationSuccess -- username-->"+ request.getParameter("username"));
         param.put("username",request.getParameter("username"));
    
         System.out.println("onAuthenticationSuccess");
-        try {
-			cmmnService.insertObject("login_history", param);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//        try {
+//			cmmnService.insertObject("login_history", param);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
         //error session delete
         clearAuthenticationAttributes(request);
         SecurityMember user = (SecurityMember) authentication.getPrincipal();

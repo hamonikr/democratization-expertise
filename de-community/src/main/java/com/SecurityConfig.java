@@ -49,14 +49,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		System.out.println("security config----------->");
 		log.info("security config log===>");
+		
 		http.csrf().ignoringAntMatchers("/login/**","/signup/**");
 		http
 			.authorizeRequests()
-				.antMatchers("/sample/**", "/jsd/**", "/test/**", "/signup/**").permitAll()			
+				.antMatchers("/test/**", "/signup/**").permitAll()			
 				// All User
 				.antMatchers("/login/**").permitAll()
-				// Admin
-				.antMatchers("/login/signin").hasRole("ADMIN")
 				// Member
 				.antMatchers("/login/signin").hasRole("MEMBER")
 				// 그외 모든 요청은 인증된 사용자만 접근 가능
