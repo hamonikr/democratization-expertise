@@ -44,6 +44,7 @@ public class SampleController {
 
 	@RequestMapping(value = "/save.proc")
 	public String saveproc(HttpServletRequest request, Model model, Sample vo) {
+		System.out.println(request.getRemoteAddr());
 		vo.setUserIp(request.getRemoteAddr());
 		ss.save(vo);
 		// model.addAttribute("sample", ss.findById(sample.getSeq()));
