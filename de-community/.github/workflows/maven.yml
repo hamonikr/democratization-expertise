@@ -1,3 +1,4 @@
+ 
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
@@ -15,10 +16,48 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 11
-      uses: actions/setup-java@v1
-      with:
-        java-version: 11
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+    #- uses: actions/checkout@v2
+    #- name: Set up JDK 11
+    #  uses: actions/setup-java@v1
+    #  with:
+    #    java-version: 11
+    #- name: Build with Maven
+    #  run: mvn -B package --file pom.xml
+      
+      # Use an existing action, you can look in the market place to find what you need and how to use it, to setup the sonar scanner
+      - name: Setup sonar scanner
+        uses: warchant/setup-sonar-scanner@v1
+
+      # Another existing action, this one to checkout the repository
+      - name: 'Checkout repository on branch: ${{ github.REF }}'
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.REF }}
+          fetch-depth: 0
+
+      # Conditional execution can be done, in this case the parameter to use with sonar scanner are different if we are analyzing master or a branch
+      - if: endsWith(github.REF, '/master') != true
+        name: 'Run an analysis of the ${{ github.REF }} branch'
+        env:
+          # to get access to secrets.SONAR_TOKEN, provide GITHUB_TOKEN
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #run: sonar-scanner
+        run: mvn sonar:sonar
+          -Dsonar.host.url=${{ secrets.SONAR_URL }}
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+          -Dsonar.branch.name=${GITHUB_REF:11}
+          -Dsonar.scm.provider=git
+
+      - if: endsWith(github.REF, '/master') == true
+        name: 'Run an analysis of the master branch'
+        env:
+          # to get access to secrets.SONAR_TOKEN, provide GITHUB_TOKEN
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #run: sonar-scanner
+        run: mvn sonar:sonar
+          -Dsonar.host.url=${{ secrets.SONAR_URL }}
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+          -Dsonar.scm.provider=git
+          -Dsonar.java.binaries=/tmp
