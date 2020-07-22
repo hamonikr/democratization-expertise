@@ -38,9 +38,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         HttpSession httpSession = request.getSession(true);
         CmmnMap param = new CmmnMap();
         System.out.println("onAuthenticationSuccess -- username-->"+ request.getParameter("username"));
-        param.put("username",request.getParameter("username"));
-   
-        System.out.println("onAuthenticationSuccess");
+        param.put("username",request.getParameter("username")); 
 //        try {
 //			cmmnService.insertObject("login_history", param);
 //		} catch (Exception e) {
@@ -52,11 +50,11 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         SecurityMember user = (SecurityMember) authentication.getPrincipal();
 
         System.out.println("session user value-->" + user.toString());
-        	httpSession.setAttribute("UserSession", user);
-      		response.setStatus(HttpServletResponse.SC_OK);
-  		   response.sendRedirect("/login/signin");
-
-      
+        httpSession.setAttribute("UserSession", user);
+      	 response.setStatus(HttpServletResponse.SC_OK);
+  		System.out.println("sample 페이지로");
+      	response.sendRedirect("/sample/list");
+     
 	}
 
 	 protected void clearAuthenticationAttributes(HttpServletRequest request) {

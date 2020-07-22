@@ -47,17 +47,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		System.out.println("security config----------->");
+		System.out.println("security config-----------");
 		log.info("security config log===>");
 		
 		http.csrf().ignoringAntMatchers("/login/**","/signup/**");
 		http
 			.authorizeRequests()
-				.antMatchers("/test/**", "/signup/**").permitAll()			
+				.antMatchers("/test/**", "/signup/**","/oauth2/**","/sample/**").permitAll()			
 				// All User
 				.antMatchers("/login/**").permitAll()
 				// Member
 				.antMatchers("/login/signin").hasRole("MEMBER")
+				.antMatchers("/login/naverCallback").hasRole("MEMBER")
+				.antMatchers("/login/personalInfo").hasRole("MEMBER")
+
 				// 그외 모든 요청은 인증된 사용자만 접근 가능
 				.anyRequest().authenticated()
 				// 로그인 설정
@@ -66,13 +69,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.formLogin()
 					.loginPage("/login/login")
 					.loginProcessingUrl("/login/signin")
+					.loginProcessingUrl("/login/snsLogin")
 					.defaultSuccessUrl("/sample/list", true).successHandler(authSuccessHandler)
 					.failureForwardUrl("/login/login").failureHandler(customAccessDeniedHandler)
 				.and()
 				// logout setting
 				.logout()
 					.logoutUrl("/login/logout")
-					.logoutSuccessUrl("/login/login")
+					.logoutSuccessUrl("/")
 					.invalidateHttpSession(true)
 					.deleteCookies("JSESSIONID");
 	}

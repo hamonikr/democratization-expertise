@@ -50,27 +50,35 @@ public class SignupController {
 	
 	//일반 유저 회원가입
 	@RequestMapping(value = "/signup.proc", method = RequestMethod.POST)
+	@ResponseBody
 	public String signUpProc(Model model, Users vo, UsersDetail uvo, HttpServletRequest request) {
-		System.out.println("----------일반 유저 sign Up Proc----------");
+		String retVal = null;
+		System.out.println("----------sign Up Proc----------");
 
 		System.out.println("vo id==>" + vo.getUserId());
 		System.out.println("vo email==>" + vo.getUserEmail());
 		System.out.println("vo pw==>" + vo.getUserPassword());	
 		
-		try {
-			 service.save(vo);
-			 if(vo.getUserId() != null) {
-				 System.out.println("=====user info save====");
-				 uvo.setUserNo(vo.getUserNo());
-				 service.save(uvo);
-			 }
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println("저장 실패!");
-			e.printStackTrace();
+		String id = vo.getUserId();
+		String pw = vo.getUserPassword();
+		
+		if(id != null && pw !=null) {
+			try {
+				 service.save(vo);
+				 if(vo.getUserId() != null) {
+					 System.out.println("=====user info save====");
+					 uvo.setUserNo(vo.getUserNo());
+					 service.save(uvo);
+					 retVal = "S";
+				 }
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				System.out.println("저장 실패!");
+				retVal = "F";
+				e.printStackTrace();			
+			}
 		}
-		 
-		return "/login/signin";
+		return retVal;
 
 	}
 
@@ -79,9 +87,6 @@ public class SignupController {
 	public String signUpForPartnerProc(Model model, Users vo,  UsersDetail uvo, HttpServletRequest request) {
 		System.out.println("----------파트너사 sign Up Proc----------");
 		
-		
-		
-
 		return "/login/signin";
 	}	
 	
