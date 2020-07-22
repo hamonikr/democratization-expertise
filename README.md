@@ -77,7 +77,7 @@
   #저장소로 이동
   cd democratization-expertise
   #하위의 de-user-sw 폴더에서 작업
-    ``````
+  ``````
   3. **개방형OS 참여기업용 SW**
   ``````
   #저장소 복제
