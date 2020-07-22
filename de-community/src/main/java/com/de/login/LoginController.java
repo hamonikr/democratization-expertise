@@ -25,6 +25,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,15 +59,54 @@ public class LoginController {
 		return "/login/signin";
 	}
 	
+	@RequestMapping(value = "/googleCallback")
+	public String googleCallback(Model model, @PageableDefault Pageable pageable) {
+		System.out.println("----------show log In page----------");
+
+		return "/login/googleCallback";
+	}
+	
 	@RequestMapping(value = "/signin")
 	public String loginProc(HttpSession session, HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Model model, Users vo, @PageableDefault Pageable pageable) {
 		System.out.println("----------log In proc----------");
 	//	System.out.println(session.getAttribute("UserSession"));
-	System.out.println(user.getUserId());
-	System.out.println(user.getUserPassword());
-	model.addAttribute("msg", "dd");
-		return "/sample/list";
+	System.out.println("user userId--->"+user.getUserId());
+	System.out.println("user userPassword--->"+user.getUserPassword());
+	model.addAttribute("msg", user.getUserId());
+
+	return "/sample/list";
 	}
+	
+	@RequestMapping(value = "/snsLogin")
+	public String snsProc(HttpSession session, HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Model model, Users vo, @PageableDefault Pageable pageable) {
+		System.out.println("----------sns log In proc----------");
+	//	System.out.println(session.getAttribute("UserSession"));
+	System.out.println("user userId--->"+user.getUserId());
+	System.out.println("user userPassword--->"+user.getUserPassword());
+	model.addAttribute("msg", user.getUserId());
+
+	return "/sample/list";
+	}
+	
+	
+	
+	@RequestMapping(value = "/checkDuplication/{userId}")
+	@ResponseBody
+	public String checkDuplication(@PathVariable("userId") String userId, HttpSession session, HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Model model, Users vo, @PageableDefault Pageable pageable) {
+	String idChk = null;
+	System.out.println("아이디 중복체크---> "+userId);
+	
+	if(lr.existsByUserId(userId)==true) {
+		idChk="true";
+	}else {
+		idChk="false";
+	}
+	
+	System.out.println(idChk);		
+			
+		return idChk;
+	}
+	
 	@RequestMapping("/logout")
 	public String logout(HttpSession session, HttpServletRequest request, HttpServletResponse response,@AuthenticationPrincipal SecurityMember user) throws Exception {
 		System.out.println("----------log out----------");

@@ -24,5 +24,7 @@ public interface LoginRepository extends JpaRepository<Login, String>{
     
  //   List<Login> findByEmailAndUserId(String userEmail, String userId);
     Login findByUserEmailAndUserId(String userEmail, String userId);
+    
+    boolean existsByUserId(String userId);
 }
 
