@@ -17,6 +17,7 @@
 
 	<properties>
 		<java.version>11</java.version>
+       <start-class>de-comunity.com.mycorp.starter.HelloWorldApplication</start-class>
 	</properties>
 
 	<repositories> 
