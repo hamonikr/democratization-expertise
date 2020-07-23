@@ -17,6 +17,7 @@
 
 	<properties>
 		<java.version>11</java.version>
+       <start-class>de-comunity.de.com.DeHomeApplication</start-class>
 	</properties>
 
 	<repositories> 
