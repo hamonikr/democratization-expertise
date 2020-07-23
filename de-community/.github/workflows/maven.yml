@@ -49,4 +49,3 @@ jobs:
           -Dsonar.scm.provider=git
           -Dsonar.java.binaries=/tmp
 
-
