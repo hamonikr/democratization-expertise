@@ -21,10 +21,16 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   
   <!-- jquery-validation -->
-	<script src="/plugins/jquery-validation/additional-methods.min.js"></script>
-	<script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
-   <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+  <script src="/plugins/jquery-validation/additional-methods.min.js"></script>
+  <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
+  
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  
+  <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
+ <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="1042506284094-s49av9n5sk34ell2u70lachpmihn07gu.apps.googleusercontent.com"></meta>
+
   
 </head>
 <style>
@@ -44,7 +50,8 @@
   <div class="card">
     <div class="card-body login-card-body" >
       <div class="login-box-msg"> <h3>로그인</h3></div>
-      <form id="frm" action="/login/signin" method="post">
+      <form id="frm" name="frm" method="post">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<div class="row">
 		<div class="input-group mb-3">
           <div class="col-8">
@@ -64,7 +71,7 @@
      	<a href="forgot-id.html"> 아이디를 잊으셨습니까?</a>
      </div>
       <div class="input-group mb-3"> 
-      	<input type="text" class="form-control" style="margin-left: 10px" placeholder="아이디를 입력해주세요">             	
+      	<input type="text" class="form-control" id="username" name="username" style="margin-left: 10px" placeholder="아이디를 입력해주세요">             	
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -79,7 +86,7 @@
      		<a href="forgot-pw.html">비밀번호를 잊으셨습니까?</a>
     	  </div>
          <div class="input-group mb-3">
-          <input type="password" class="form-control" style="margin-left: 10px" placeholder="비밀번호를 입력해주세요">
+          <input type="password" class="form-control" id="password" name="password" value="1234" style="margin-left: 10px" placeholder="비밀번호를 입력해주세요">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -100,7 +107,7 @@
           <!-- /.col -->
           <br>
          <div class="row">
-            <button type="submit" class="btn btn-primary btn-block">로그인</button>
+            <button type="button" id ="submit_action" class="btn btn-primary btn-block">로그인</button>
           </div>
           <!-- /.col -->
       </form>
@@ -118,12 +125,12 @@
 	       </div>
 	       
 	       <!-- 구글 -->
-	       <div class="col-2">
-	         <a href="/login/google" >
-	          <img src="/img/google-plus.png" style="height:30px;margin-left:20px;">
-	        </a>
-	        </div>
-	        
+		<div class="col-2" align="center">     	           
+	      <!--  <img src="/img/google-plus.png" style="height:30px;margin-left:20px;"> -->	        	 
+    		<div class="g-signin2" data-onsuccess="onSignIn" style="margin-left:15px;" data-width="30" data-height="32"></div> 
+		     <a href="" onclick="signOut();">Sign out</a> 
+	    </div>
+
 	        <!-- 네이버 -->
 	        <div class="col-2" id="naver_id_login" style="margin-left:30px;">	        	
 	       		  <!-- //네이버아이디로로그인 버튼 노출 영역 -->
@@ -154,16 +161,127 @@
 
  <!-- //네이버아이디로로그인 버튼 노출 영역 -->
   <script type="text/javascript">
- 	var naver_id_login = new naver_id_login("PX4mWV3F_bqII3KVAVsl", "http://localhost:8080/login/naverCallback");
- 	var state = naver_id_login.getUniqState();
-	
-	console.log(state);
+  var result = '${msg}';
+ 	 if(result != null || result !="") {
+		if(result == "PW"){
+		  console.log(">>"+result+"<<");	
+		  alert("아이디와 비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+		}
+	}	
+
+ 	// naver 로그인
+   	var naver_id_login = new naver_id_login("PX4mWV3F_bqII3KVAVsl", "http://localhost:8080/login/naverCallback");
+  	var state = naver_id_login.getUniqState();
  	
- 	naver_id_login.setButton("green", 1,30);
- 	naver_id_login.setDomain("http://localhost:8080/login/login");
- 	naver_id_login.setState(state);
- 	//naver_id_login.setPopup();
- 	naver_id_login.init_naver_id_login();
+ 	console.log(state);
+  	
+  	naver_id_login.setButton("green", 1,30);
+  	naver_id_login.setDomain("http://localhost:8080/login/login");
+  	naver_id_login.setState(state);
+  	naver_id_login.setPopup();
+  	naver_id_login.init_naver_id_login();
+
+ 	 
+   	// 일반 로그인 
+  $(document).ready(function(){
+ 
+	    $("#submit_action").on("click",submitAction);	
+
+	    function submitAction(){
+			var userId = $("#username").val();
+			var userPassword = $("#password").val();
+
+			if(userId == null || userId =="" || userId=="undefinded"){
+				alert("아이디를 입력해주세요");
+				$("#username").focus();	
+				} else if(userPassword == null || userPassword =="" || userPassword=="undefinded"){
+					alert("비밀번호를 입력해주세요");	
+					$("#userPassword").focus();
+					} else{
+						document.frm.action = "/login/signin";
+						document.frm.submit();
+						alert("user id---->" + userId+"\n"+"userPassword---->" + userPassword);							
+					}					
+		}
+  });
+
+   	//구글 로그인
+	   function onSignIn(googleUser) {
+	       // Useful data for your client-side scripts:
+	       var profile = googleUser.getBasicProfile();
+	       console.log("ID: " + profile.getId());
+	       console.log('Full Name: ' + profile.getName());
+	       console.log("Image URL: " + profile.getImageUrl());
+	       console.log("Email: " + profile.getEmail());
+	
+	       // The ID token you need to pass to your backend:
+	       var id_token = googleUser.getAuthResponse().id_token;
+	       console.log("ID Token: " + id_token);
+
+			//var idChk = null;
+	       $.ajax({
+               url : "/login/checkDuplication/"+profile.getEmail(),
+               headers : {
+                     "Accept" : "application/json",
+                     "Content-Type" : "application/json"
+                 },
+                 success : function(idChk){
+						
+						if(idChk==false){ //DB에 아이디가 없을 경우 => 회원가입
+                           console.log("회원가입중...");
+                           	  alert(idChk);
+                           $.ajax({
+                               url : "/signup/signup.proc",
+                               method : "POST",
+                               data : {
+	                               userId : profile.getEmail(),
+	                               userName : profile.getName(),
+	                               userEmail: profile.getEmail(),
+	                               userPassword : "@google"
+                               },
+                               success : function(retVal){
+                                   if(retVal == "S"){
+                                 		alert("회원가입이 정상적으로 되었습니다.");	
+                                  		//$("frm").attr("method","POST").attr("action","/login/signin/"+profile.getEmail()).attr("target","_parent").submit();
+		  										$.ajax({
+		                            		   url : "/login/snsLogin",
+		                                      method : "POST",    
+		                                      data: {
+		                                          username : profile.getEmail(),
+		                                          password : "@google"
+		                                           }                              		   
+		  										});
+                                       } else if(retVal == "F"){
+                                  		alert("google 계정으로 회원가입 실패 ");
+                                      	} else{
+                                      		alert("google Login 실패. 관리자에게 문의주세요");
+                                          	}
+                               }
+                          	 });
+                       } else if(idChk==true){ //DB에 아이디가 존재할 경우 => 로그인
+                    	   		alert(idChk);
+								console.log("로그인중...");
+                           //$("frm").attr("method","POST").attr("action","/login/signin/"+profile.getEmail()).attr("target","_parent").submit();
+								$.ajax({
+                         		   url : "/login/snsLogin",
+                                   method : "POST",     
+                                   data: {
+                                      username : profile.getEmail(),
+                                      password : "@google"
+                                       }                       		   
+									});
+	                       		}
+                 } 
+             });	       
+	      }
+       
+	  function signOut() {
+	    var auth2 = gapi.auth2.getAuthInstance();
+	    auth2.signOut().then(function () {
+	     console.log('User signed out.');
+	     });
+	  } 
+	
  </script> 
 </body>
 </html>

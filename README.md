@@ -65,23 +65,26 @@
  1. **개방형OS 사용자 중심의 전문지식 민주화 플랫폼**
   ``````
   #저장소 복제
-  git clone https://github.com/hamonikr/de-community.git
+  git clone https://github.com/hamonikr/democratization-expertise.git
   #저장소로 이동
-  cd de-community
+  cd democratization-expertise
+  #하위의 de-community 폴더에서 작업
   ``````
   2. **개방형OS 사용자용 지원 SW**
   ``````
   #저장소 복제
-  git clone https://github.com/hamonikr/de-user-sw.git
+  git clone https://github.com/hamonikr/democratization-expertise.git
   #저장소로 이동
-  cd de-user-sw
+  cd democratization-expertise
+  #하위의 de-user-sw 폴더에서 작업
   ``````
   3. **개방형OS 참여기업용 SW**
   ``````
   #저장소 복제
-  git clone https://github.com/hamonikr/de-business-sw.git
+  git clone https://github.com/hamonikr/democratization-expertise.git
   #저장소로 이동
-  cd de-business-sw
+  cd democratization-expertise
+  #하위의 de-business-sw 폴더에서 작업
   ``````
 
   # **컨트리뷰션 참여 방법**
