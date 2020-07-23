@@ -51,7 +51,7 @@ h3 {
 		<div class="col-12">
 			<div class="card card-primary">
 				<div class="card-header">
-					<h3 class="card-title">로그인 성공하는 경우.</h3>
+					<h3 class="card-title">처음 로그인 하는경우.</h3>
 					 <div class="col-8" align="center" style="text-align: center;margin:50px;">	        																		
 					</div>	 
 	 			</div>
@@ -66,16 +66,8 @@ h3 {
 </div>
 
  	<script type="text/javascript">
-	var procVal = '${procVal}';
 
-	if(procVal == "E"){
-		alert("정상 로그인 (이미 존재)");
-		} else if(procVal == "Y" ){
-				alert("저장 및 정상 로그인 완료");
-			} else if (procVal ="F" ) {
-			 	alert("저장 실패 및 로그인 실패");
-				}
-	
+ 	
 	var naver_id_login = new naver_id_login("PX4mWV3F_bqII3KVAVsl", "http://localhost:8080/login/personalInfo");
 	  // 접근 토큰 값 출력	
 	  var access_token = naver_id_login.oauthParams.access_token;
@@ -85,7 +77,7 @@ h3 {
 	  alert(access_token);
 	  function naverSignInCallback() { 
 	    $.ajax({
-             url: '/login/personalInfo',
+             url: '/login/naverCallback',
              dataType: 'jason',
              method: 'post',
              data: { access_token : naver_id_login.oauthParams.access_token,

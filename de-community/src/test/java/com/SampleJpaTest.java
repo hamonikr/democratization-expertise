@@ -28,6 +28,7 @@ public class SampleJpaTest {
 	@Test
 	public void insert() {
 		Sample sample = new Sample("title","contents","userId","userName","userIp");
+		System.out.println("sample junit Test === insert-->"+sample.toString());
 		sr.save(sample);
 		Optional<Sample> sample2 = sr.findById(1);
 		assertNotNull(sample);
