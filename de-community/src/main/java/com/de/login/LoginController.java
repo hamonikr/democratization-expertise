@@ -69,10 +69,6 @@ public class LoginController {
 	@RequestMapping(value = "/signin")
 	public String loginProc(HttpSession session, HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Model model, Users vo, @PageableDefault Pageable pageable) {
 		System.out.println("----------log In proc----------");
-	//	System.out.println(session.getAttribute("UserSession"));
-	System.out.println("user userId--->"+user.getUserId());
-	System.out.println("user userPassword--->"+user.getUserPassword());
-	model.addAttribute("msg", user.getUserId());
 
 	return "/sample/list";
 	}
