@@ -92,7 +92,6 @@ p {
 
 abbr[title],
 abbr[data-original-title] {
-  text-decoration: underline;
   -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
   cursor: help;
@@ -20201,8 +20200,8 @@ html.maximized-card {
 .fc-button {
   background: #f8f9fa;
   background-image: none;
-  border-bottom-color: #ddd;
   border-color: #ddd;
+  border-bottom-color: #ddd;
   color: #495057;
 }
 
@@ -22583,7 +22582,7 @@ html.maximized-card {
 }
 
 .pace-corner-indicator-primary .pace .pace-activity::after,
-.pace-corner-indicator-primary .pace .pace-activity::before  {
+.pace-corner-indicator-primary .pace .pace-activity::before {
   border: 5px solid #ffffff;
 }
 
@@ -22714,7 +22713,7 @@ html.maximized-card {
 }
 
 .pace-corner-indicator-secondary .pace .pace-activity::after,
-.pace-corner-indicator-secondary .pace .pace-activity::before  {
+.pace-corner-indicator-secondary .pace .pace-activity::before {
   border: 5px solid #ffffff;
 }
 
@@ -22845,7 +22844,7 @@ html.maximized-card {
 }
 
 .pace-corner-indicator-success .pace .pace-activity::after,
-.pace-corner-indicator-success .pace .pace-activity::before  {
+.pace-corner-indicator-success .pace .pace-activity::before {
   border: 5px solid #ffffff;
 }
 
@@ -22976,7 +22975,7 @@ html.maximized-card {
 }
 
 .pace-corner-indicator-info .pace .pace-activity::after,
-.pace-corner-indicator-info .pace .pace-activity::before  {
+.pace-corner-indicator-info .pace .pace-activity::before {
   border: 5px solid #ffffff;
 }
 

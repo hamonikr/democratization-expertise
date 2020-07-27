@@ -9,8 +9,8 @@
 .fc-button {
   background: #f8f9fa;
   background-image: none;
-  border-bottom-color: #ddd;
   border-color: #ddd;
+  border-bottom-color: #ddd;
   color: #495057;
 }
 
