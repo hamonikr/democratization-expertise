@@ -39,13 +39,6 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         CmmnMap param = new CmmnMap();
         System.out.println("onAuthenticationSuccess -- username-->"+ request.getParameter("username"));
         param.put("username",request.getParameter("username")); 
-//        try {
-//			cmmnService.insertObject("login_history", param);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-        //error session delete
         clearAuthenticationAttributes(request);
         SecurityMember user = (SecurityMember) authentication.getPrincipal();
 
