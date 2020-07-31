@@ -6,7 +6,9 @@ import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.de.login.Login;
 import com.de.user.UserRole;
@@ -22,7 +24,8 @@ public class SecurityMember extends User {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+	
 	private int userNo;
 	private String userId;
 	private String userPassword;

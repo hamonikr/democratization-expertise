@@ -1,4 +1,4 @@
-package com.de.login.service;
+package com.de.security.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.de.signup.SignupRepository;
 import com.de.user.Users;
 import com.de.login.Login;
+import com.de.login.service.LoginRepository;
 import com.de.login.service.SecurityMember;
 import org.springframework.security.core.GrantedAuthority;
 
