@@ -33,7 +33,6 @@ public class OAuth2Controller {
 	@GetMapping("/logout")
 	 public String logout(HttpServletRequest request) { 
 		System.out.println("---logout----");
-		
 		return "redirect:/login";
 	 } 
 	
