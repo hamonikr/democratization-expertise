@@ -39,10 +39,19 @@ public class SignupController {
         }
     }
 	
+	// 회원가입 페이지로 이동
+		@RequestMapping(value = "/signup")
+		public String signUpViewUsers(Model model, @PageableDefault Pageable pageable) {
+			System.out.println("----------users sign Up----------");
+		
+			return "/login/signup";
+		}
+		
+	
 	// 파트너사 회원가입 페이지로 이동
 	@RequestMapping(value = "/partnerSignup")
-	public String signUpView(Model model, @PageableDefault Pageable pageable) {
-		System.out.println("----------sign Up----------");
+	public String signUpViewPartners(Model model, @PageableDefault Pageable pageable) {
+		System.out.println("---------partners sign Up----------");
 	
 		return "/login/partnerSignup";
 	}
