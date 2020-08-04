@@ -30,7 +30,7 @@ public class MemberService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
+	
 		Login vo = lr.findByUserId(username);		
 
 		if (vo == null) { 

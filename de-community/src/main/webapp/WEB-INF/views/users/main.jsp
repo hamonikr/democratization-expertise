@@ -44,16 +44,14 @@
 <body class="hold-transition login-page">
 	<h1>로그인 완료</h1><br>
 	
-	 <a href="/logout">로그아웃 하기</a>
+	 <a href="/sample/list">커뮤니티 시작하기</a><br><br>
+	 <button onClick="signOut();">로그아웃</button>
 </body>
 
 <script type="text/javascript">
 
 function signOut() {
-  var auth2 = gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function () {
-   console.log('User signed out.');
-   });
+  
 } 
 
 </script>
