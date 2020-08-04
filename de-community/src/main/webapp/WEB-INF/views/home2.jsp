@@ -50,15 +50,31 @@
 	margin : 30px 10% 5px 40%;
 }
 .nav-wrapper{
-background-color:#A9E2F3;
+background-color:#FAFAFB;
 }
 
-.inputs{
-    background-color: #FFFFFF;
+#inputs{
+/*     background-color: #FFFFFF; */
     border: 1px solid  #9e9e9e;
-    border-radius: 5px;
+    border-radius: 5px;  
+    background-color: -internal-light-dark-color(white, black);
+ 	 color:#151515;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 10px;
+    display: inline-block;
+    cursor: text;
+    font: 400 18px Arial;
+
 }
 
+a{
+	color:#151515;
+}
+.brand-logo{
+color:#151515;
+}
 </style>
 
 <body>	
@@ -66,30 +82,28 @@ background-color:#A9E2F3;
   <nav>
     <div class="nav-wrapper row">
       <div class="col-3">
-      	<a href="/" class="brand-logo"><img src="/img/HamoniKR_logo600.png" style="height:40px;margin-left:10px;">  DE COMMUNITY</a>
-	  </div>	
-	  <div class="col-6">	
-	  	<input class="inputs" >
+      	<a href="/" class="brand-logo"><img src="/img/HamoniKR_lo	go600.png" style="height:40px;margin-left:10px;"> DE COMMUNITY</a>
+			 	
+	 	</div>	
+	  <div class="col-3">	
+	  	<input id ="inputs" >
 	  </div>
 	  <div class="col-2" >	
-		 <button class="btn waves-effect waves-light" style="margin-left:10px;background-color:#81BEF7;" onClick="location.href='/login'">로그인 </button>		
-		 <button class="btn waves-effect waves-light" style="margin-left:10px;background-color:#0174DF;" onClick="location.href='/signup/signup'">회원가입 </button>		
+		 <button class="btn waves-effect waves-light" style="margin-left:10px;background-color:#2E64FE;" onClick="location.href='/login'">로그인 </button>		
+		 <button class="btn waves-effect waves-light" style="margin-left:10px;background-color:#9F81F7;" onClick="location.href='/signup/signup'">회원가입 </button>		
     </div>
-    
-    
-
-    <!--
-    <div>   
+ 
+ 	 <div align="right" class="col-3">	
     	<ul class="right hide-on-med-and-down">
         <li><a href="/"><i class="material-icons">account_circles</i></a></li>
         <li><a href="/"><i class="material-icons">announcement</i></a></li>
         <li><a href="/"><i class="material-icons">help</i></a></li>
-        <li><a href="/logout"><i class="material-icons">power_settings_new</i></a></li>
+        <li><a href="/users/logout"><i class="material-icons">power_settings_new</i></a></li>
       </ul> 
       </div>
-      -->     
+          
       </div>
-=  </nav>
+ </nav>
  <!--  <div class="col">
   <form action="https://www.google.com/search" method="GET">
         <div class="search-container align-center">
@@ -106,20 +120,12 @@ background-color:#A9E2F3;
     </div>
  -->
 <div class="hold-transition login-page">
-
         <div>
         <h1>홈페이지입니다.</h1><br>
 		 </div>
     </div>
 </body>
 <script type="text/javascript">
-
-function signOut() {
-  var auth2 = gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function () {
-   console.log('User signed out.');
-   });
-} 
 
 </script>
 </html>
