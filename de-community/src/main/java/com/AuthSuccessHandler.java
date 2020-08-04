@@ -25,7 +25,6 @@ import com.de.login.service.SecurityMember;
 @Configuration
 public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 
-
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws ServletException, IOException {

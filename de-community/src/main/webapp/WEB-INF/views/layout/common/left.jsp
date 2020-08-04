@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
 <!-- Brand Logo -->
-<a href="/main/index" class="brand-link">
-	<!-- <img src="/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
+<!-- <a href="/main/index" class="brand-link">
+	<img src="/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
 	<span class="brand-text font-weight-light">DE</span>
 	<span	class="brand-text font-weight-light">DE COMMUNITY</span>
 </a>
-
+ -->
 <!-- Sidebar -->
 <div class="sidebar">
 	<!-- Sidebar user (optional) -->
@@ -71,7 +71,7 @@
 	</nav>
 
 	<!-- 로그인 페이지 바로가기 (개발완료 후 사이드바에서 삭제예정) -->
-	<nav class="mt-2">
+<!-- 	<nav class="mt-2">
 		<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
 			<li class="nav-item"><a href="/login/login" class="nav-link"> <i class="nav-icon far fa-image"></i>
@@ -88,7 +88,7 @@
 			</a></li>
 		</ul>
 	</nav>
-	
+ -->	
 		<!-- wiki -->
 	<nav class="mt-2">
 		<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">

@@ -1,11 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<ul class="navbar-nav">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  
+  
+  <nav class="grey lighten-5" role="navigation">
+    <div class="nav-wrapper container">
+    	<a id="logo-container" href="/" class="brand-logo">
+    		<img src="/img/HamoniKR_logo600.png" style="height:40px;margin-right:15px;margin-top:5px;">DE COMMUNITY
+    	</a>
+      <ul class="right hide-on-med-and-down">
+ 	  <li> <button class="btn waves-effect waves-light blue lighten-1" style="margin-left:10px;" onClick="location.href='/login'">로그인 </button>		</li>
+      <li> <button class="btn waves-effect waves-light grey" style="margin-left:10px;" onClick="location.href='/signup/signup'">회원가입 </button>	</li>
+      </ul>
+    </div>
+  </nav>
+  
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="/js/materialize.js"></script>
+  <script src="/js/init.js"></script>
+
+<!-- <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
-
+ -->
 <!-- SEARCH FORM 
 <form class="form-inline ml-3">
 	<div class="input-group input-group-sm">

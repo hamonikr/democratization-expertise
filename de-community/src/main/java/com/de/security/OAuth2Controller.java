@@ -21,20 +21,20 @@ public class OAuth2Controller {
 	 public String getAuthorizationMessage() {
 	//	System.out.println("cs-->" + cs.toString());
 		System.out.println("----home page----");
-	     return "/home";
+	     return "/index";
 	  }
 	
 	@GetMapping("/login")
 	 public String login() {
 		System.out.println("----login page----");
-	    return "/login";
+	    return "/users/login";
 	  } 
 
 	@GetMapping("/logout")
-	 public String logout(HttpServletRequest request) { 
-		
+	 public String logout(HttpServletRequest request) { 		
 		System.out.println("---logout----");
-		return "redirect:/login";
+		
+		return "redirect:/users/login";
 	 } 
 	
 	@RequestMapping("/loginSuccess")
@@ -45,13 +45,20 @@ public class OAuth2Controller {
 		System.out.println("id--->"+request.getAttribute("userId"));
 //		System.out.println("id -> "+user.getUserId());
 //		System.out.println("pw -> "+user.getUserPassword());
-		return "/main"; 
+		return "/users/main"; 
 	} 
 
 	@GetMapping("/loginFailure") 
 	public String loginFailure() { 
 		System.out.println("---login fail---");
-	    return "/loginFailure";
+	    return "/users/loginFailure";
 	 }
 
+	@GetMapping("/account-recovery")
+	 public String accountRecovery(HttpServletRequest request) { 		
+		System.out.println("---account-recovery----");
+		
+		return "/users/forgotPw";
+	 } 
+	
 }
