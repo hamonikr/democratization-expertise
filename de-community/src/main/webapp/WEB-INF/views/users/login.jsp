@@ -24,73 +24,95 @@
   <script src="/plugins/jquery-validation/additional-methods.min.js"></script>
   <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
   
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-  
+ <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
  
  <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
  <meta name="google-signin-scope" content="profile email">
  <meta name="google-signin-client_id" content="1042506284094-s49av9n5sk34ell2u70lachpmihn07gu.apps.googleusercontent.com"></meta>
  
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+ <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   
 </head>
 <style>
 #algin-center{
 	margin : 10% 10% 10% 10%;
 }
-
+strong{
+	margin-left:5%;
+	font-weight:20px;
+	font-weight:bold;
+}
 </style>
 
 
-<body class="hold-transition login-page">
-<div class="login-box" id="algin-center">
+<body>
+ <div>
+  <nav class="grey lighten-5" role="navigation">
+    <div class="nav-wrapper container">
+    	<a id="logo-container" href="/" class="brand-logo">
+    		<img src="/img/HamoniKR_logo600.png" style="height:40px;margin-right:15px;margin-top:5px;">DE COMMUNITY
+    	</a>
+    	
+      <ul class="right hide-on-med-and-down">
+	 	  <li> <button class="btn waves-effect waves-light blue lighten-1" style="margin-left:10px;" onClick="location.href='/login'">로그인 </button>		</li>
+	      <li> <button class="btn waves-effect waves-light grey" style="margin-left:10px;" onClick="location.href='/signup/signup'">회원가입 </button>	</li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<div class="hold-transition login-page">
   <div class="login-logo">
-    <a href="/sample/list"><b>DE</b>HamoniKR</a>
+    <a href="/"><b>DE</b> COMMUNITY</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
-    <div class="login-card-body" >
+    <div class="login-card-body">
       <div class="login-box-msg">
        <h3>로그인</h3>
       </div>
-      <form id="frm" name="frm" method="post">
+      <form id="frm" name="frm" method="post" style="width:95%;">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<div class="row">
 			<div class="input-group mb-3">
 	          <div class="col-8">
-					<strong>회원구분</strong>
-				</div>
+<!-- 					<strong>회원구분</strong>
+ -->				</div>
 			</div>
 		 </div>
 		<div class="row">
 	  		<div class="input-group mb-3">
-		   		<p><input type="checkbox" id="user" value="0" style="margin-left: 10px" > 개인</p> 
-		   		<p><input type="checkbox" id="partner" value="1" style="margin-left: 20px"> 파트너사</p>
+		   	<!-- 	<p><input type="checkbox" id="user" value="0" style="margin-left: 10px" > 개인</p> 
+		   		<p><input type="checkbox" id="partner" value="1" style="margin-left: 20px"> 파트너사</p> -->
       		</div>
       	</div>
      <div class="row">
-     <div class="col"><p><strong>아이디 </strong>*</div>
-     <div class="col-xs-1" >
-     	<a href="forgot-id"> 아이디를 잊으셨습니까?</a>
+     <div class="col-8">
+     	<p><strong>아이디 </strong><strong style="color:red;">*</strong>
      </div>
-	      	<div class="form-group mb-3"> 	    
+          	<div class="form-group col-12"> 	    
 		      	<input type="text" class="form-control" id="username" name="username" style="margin-left: 10px" placeholder="아이디를 입력해주세요">             	
 		   </div>
         </div>
        <br>
         <div class="row">
-        <div class="col"><p><strong> 비밀번호</strong> *</div>
+        <div class="col-8">
+        	<p><strong> 비밀번호</strong><strong style="color:red;"> *</strong>
+        </div>
          <div class="col-xs-3" >
-     		<a href="forgot-pw">비밀번호를 잊으셨습니까?</a>
+     		<a href="/forgot-pw">비밀번호를 잊으셨습니까?</a>
     	  </div>
-         <div class="form-group mb-3">
+         <div class="form-group col-12">
          	 <input type="password" class="form-control" id="password" name="password" style="margin-left: 10px" placeholder="비밀번호를 입력해주세요">
          </div>
 		</div>
           <br>
 		
 		<!-- 로그인 버튼  -->
-         <div class="row">
-            <button type="button" id ="submit_action" class="btn btn-primary btn-block">로그인</button>
+         <div class="row" style="margin-left:5%;">
+            <button type="button" id ="submit_action" class="btn btn-primary btn-block blue">로그인</button>
           </div>
       </form>
       
@@ -131,7 +153,7 @@
 		<!-- sign up part -->
 		<div class="row" align="center">
 	      <p class="col">계정이 없으십니까?
-	        <a href="/login/signup" class="text-center">회원가입</a>
+	        <a href="/signup/signup" class="text-center">회원가입</a>
 	  	  </p>
       </div>
       
@@ -139,7 +161,6 @@
     <!-- /.login-card-body -->
   </div>
 </div>
-
 
 
  <script type="text/javascript">
