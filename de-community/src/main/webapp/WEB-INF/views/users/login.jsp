@@ -102,7 +102,7 @@ strong{
         	<p><strong> 비밀번호</strong><strong style="color:red;"> *</strong>
         </div>
          <div class="col-xs-3" >
-     		<a href="/forgot-pw">비밀번호를 잊으셨습니까?</a>
+     		<a href="/">비밀번호를 잊으셨습니까?</a>
     	  </div>
          <div class="form-group col-12">
          	 <input type="password" class="form-control" id="password" name="password" style="margin-left: 10px" placeholder="비밀번호를 입력해주세요">

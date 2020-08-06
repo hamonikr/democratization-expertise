@@ -1,43 +1,27 @@
 package com.de.security.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.de.signup.SignupRepository;
-import com.de.user.Users;
-import com.de.login.Login;
-import com.de.login.service.LoginRepository;
-import com.de.login.service.SecurityMember;
-import org.springframework.security.core.GrantedAuthority;
+import com.de.security.UserEntity;
+import com.de.security.UserRepository;
 
 @Service
 public class MemberService implements UserDetailsService{
 	
 	@Autowired
-	LoginRepository lr;
+	private UserRepository ur;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-	
-		Login vo = lr.findByUserId(username);		
-
-		if (vo == null) { 
-				throw new UsernameNotFoundException(username);
-			} else {
-		System.out.println("Member service vo -->" + vo.toString());
-			return new SecurityMember(vo);		
+		UserEntity user = ur.findByUserName(username).orElseThrow(()->new IllegalArgumentException("존재하지 않는 유저입니다"));
+		return new User(user.getUserName(), user.getUserPassword(), Arrays.asList(new SimpleGrantedAuthority(user.getRole())));
 		}
 	}		
-}
+

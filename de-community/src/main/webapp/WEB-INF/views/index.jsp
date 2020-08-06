@@ -24,8 +24,8 @@
         <li><a href="/users/logout"><i class="material-icons">power_settings_new</i></a></li>     
  --> 		
 
- 	  <li> <button class="btn waves-effect waves-light blue lighten-1" style="margin-left:10px;" onClick="location.href='/login'">로그인 </button>		</li>
-      <li> <button class="btn waves-effect waves-light grey" style="margin-left:10px;" onClick="location.href='/signup/signup'">회원가입 </button>	</li>
+ 		 <li> <button class="btn waves-effect waves-light blue lighten-1" style="margin-left:10px;" onClick="location.href='/login'">로그인 </button>		</li>
+      	 <li> <button class="btn waves-effect waves-light grey" style="margin-left:10px;" onClick="location.href='/signup/signup'">회원가입 </button>	</li>
       </ul>
     </div>
   </nav>
@@ -82,7 +82,8 @@
         </div>
       </div>
 
-    </div>
+    </div>   <!-- <form id ="frm" name="frm" action="/signup/signup.proc" method="post"> -->   
+    
     <br><br>
   </div>
 
