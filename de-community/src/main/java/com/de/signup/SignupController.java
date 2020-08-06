@@ -1,6 +1,7 @@
 package com.de.signup;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,10 @@ import com.de.user.UsersDetail;
 public class SignupController {
     @Autowired
 	SignupService service;
-	
-	@ResponseBody
+    @Autowired
+    SignupRepository sr;
+
+    @ResponseBody
 	@RequestMapping(value = "/VerifyRecaptcha", method = RequestMethod.POST)
     public int VerifyRecaptcha(HttpServletRequest request) {
 		//Recaptcha 서버단 시크릿 키
@@ -56,12 +59,44 @@ public class SignupController {
 		return "/users/partnerSignup";
 	}
 	
+	@RequestMapping(value = "/checkIdDuplication")
+	@ResponseBody
+	public String checkIdDuplication(HttpServletRequest request, Users vo, Model model) {
+	String chk = null;
+	System.out.println("아이디 중복체크---> "+vo.getUserId());
+	
+	boolean idchk = service.idCheck(vo);
+	
+	if(idchk==false) {
+		chk="사용가능한 아이디입니다";
+	}else{
+		chk="중복된 아이디입니다";
+	}
+	System.out.println(chk);		
+		return chk;
+	}
+
+	@RequestMapping(value = "/checkEmailDuplication")
+	@ResponseBody
+	public String checkEmailDuplication(HttpServletRequest request, Users vo, Model model) {
+	String chk = null;
+	System.out.println("이메일 중복체크---> "+vo.getUserEmail());
+	
+	boolean emchk = service.isExist(vo.getUserEmail());
+	
+	if(emchk==false) {
+		chk="사용가능한 이메일입니다";
+	}else{
+		chk="중복된 이메일입니다";
+	}
+	System.out.println(chk);		
+		return chk;
+	}	
 	
 	//일반 유저 회원가입
 	@RequestMapping(value = "/signup.proc", method = RequestMethod.POST)
 	@ResponseBody
 	public String signUpProc(Model model, Users vo, UsersDetail uvo, HttpServletRequest request) {
-		String retVal = null;
 		System.out.println("----------sign Up Proc----------");
 
 		System.out.println("vo id==>" + vo.getUserId());
@@ -69,24 +104,22 @@ public class SignupController {
 		System.out.println("vo pw==>" + vo.getUserPassword());	
 		
 		String id = vo.getUserId();
+		String email = vo.getUserEmail();
 		String pw = vo.getUserPassword();
 		
-		if(id != null && pw !=null) {
-			try {
-				 service.save(vo);
-				 if(vo.getUserId() != null) {
-					 System.out.println("=====user info save====");
-					 uvo.setUserNo(vo.getUserNo());
-					 service.save(uvo);
-					 retVal = "S";
-				 }
-			} catch (Exception e) {
-				System.out.println("저장 실패!");
-				retVal = "F";
-				e.printStackTrace();			
-			}
-		}
-		return retVal;
+//			try {
+//				 service.save(vo);
+//				 if(vo.getUserId() != null) {
+//					 System.out.println("=====user info save====");
+//					 uvo.setUserNo(vo.getUserNo());
+//					 service.save(uvo);
+//				 }
+//			} catch (Exception e) {
+//				System.out.println("저장 실패!");
+//				e.printStackTrace();	
+//				retVal = "error";
+//			}
+			 return "redirect:/login";
 
 	}
 

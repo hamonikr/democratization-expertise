@@ -2134,7 +2134,7 @@ textarea.form-control {
 .was-validated .form-control-file:valid ~ .valid-feedback,
 .was-validated .form-control-file:valid ~ .valid-tooltip, .form-control-file.is-valid ~ .valid-feedback,
 .form-control-file.is-valid ~ .valid-tooltip {
-  display: block;
+  display: inline-block;
 }
 
 .was-validated .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
@@ -2229,7 +2229,7 @@ textarea.form-control {
 .was-validated .form-control:invalid ~ .invalid-feedback,
 .was-validated .form-control:invalid ~ .invalid-tooltip, .form-control.is-invalid ~ .invalid-feedback,
 .form-control.is-invalid ~ .invalid-tooltip {
-  display: block;
+  display: inline-block;
 }
 
 .was-validated textarea.form-control:invalid, textarea.form-control.is-invalid {
