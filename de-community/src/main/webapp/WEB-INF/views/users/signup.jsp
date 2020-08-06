@@ -21,21 +21,26 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   
   <!-- jquery-validation -->
+<!--   <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
   <script src="/plugins/jquery-validation/additional-methods.min.js"></script>
   <script src="/plugins/jquery-validation/jquery.validate.min.js"></script> 
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+ -->
+ <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+ <script type="text/javascript" src="/plugins/jquery-validation/additional-methods.min.js"></script>
+ <script type="text/javascript" src="/plugins/jquery-validation/jquery.validate.min.js"></script>
 
-	<!-- google reecaptcha 추가 --> 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src='https://www.google.com/recaptcha/api.js'></script>
+  <!-- google reecaptcha 추가 --> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src='https://www.google.com/recaptcha/api.js'></script>
  
- <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
- <meta name="google-signin-scope" content="profile email">
- <meta name="google-signin-client_id" content="1042506284094-s49av9n5sk34ell2u70lachpmihn07gu.apps.googleusercontent.com"></meta>
+  <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="1042506284094-s49av9n5sk34ell2u70lachpmihn07gu.apps.googleusercontent.com"></meta>
  
- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
- <link href="/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
- <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <!-- materialize -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   
 </head>
 <style>
@@ -107,7 +112,7 @@ strong{
      	<p><strong>아이디 </strong><strong style="color:red;">*</strong>
      </div>
           	<div class="form-group col-12"> 	    
-		      	<input type="text" class="form-control" id="username" name="username" style="margin-left: 10px" placeholder="아이디를 입력해주세요">             	
+		      	<input type="text" class="form-control" id="userId" name="userId" style="margin-left: 10px" placeholder="아이디를 입력해주세요">             	
 		   </div>
         </div>
        <br>
@@ -164,98 +169,103 @@ strong{
 <!-- 스크립트 함수 정의 부분 -->
 
  <script type="text/javascript"> 
- var cnt=0;
- $(document).ready(function() {
-     $("#create_account").click(function() {
-         $.ajax({
-             url: '/signup/VerifyRecaptcha',
-             type: 'post',
-             data: {
-                 recaptcha: $("#g-recaptcha-response").val()
-        		     },
-             success: function(data) {
-                 switch (data) {
-                     case 0:
-                         alert("자동 가입 방지 봇 통과");
-                        	cnt=1;
-                 		if(cnt==1){
-                 			signUpProc();
-                 			}			                                		
-                         break;			 
-                     case 1:
-                         alert("자동 가입 방지 봇을 확인 한뒤 진행 해 주세요.");
-                         break;
 
-                     default:
-                         alert("자동 가입 방지 봇을 실행 하던 중 오류가 발생 했습니다. [Error bot Code : " + Number(data) + "]");
-                         break;
-                 }
-             }
-         });
-     });
+ $(document).ready(function() {
+	
+	 $("#create_account").click(function() {
+		 var userId = $("#userId").val();
+		 var userEmail = $("#userEmail").val();
+		 var userPassword = $("#userPassword").val();
+		 var cnt=0;
+
+		 if(userId == "" && userPassword == "" && userEmail == ""){
+			 if(userId == "") {
+		     		alert("아이디를 입력해주세요 >> " +userId+" << " );
+            		$("#userId").focus();
+					} if(userEmail == ""){
+   					alert("이메일을 입력해주세요");
+              		$("#userEmail").focus();
+					} if(userPassword == ""){
+						alert("비밀번호를 입력해주세요");
+           			$("#userPassword").focus();	
+        			}	
+			} else{
+				 $.ajax({
+	      			 url: '/signup/checkIdDuplication',
+	                 type: 'post',
+	                 success: function(retVal) {
+							alert(retVal);	
+							if(retVal == "사용가능한 아이디입니다"){
+								  $.ajax({
+							             url: '/signup/VerifyRecaptcha',
+							             type: 'post',
+							             data: {
+							                 recaptcha: $("#g-recaptcha-response").val()
+							        		     },
+							             success: function(data) {
+							                 switch (data) {
+							                     case 0:
+							                         alert("자동 가입 방지 봇 통과");
+							                         signUpProc();
+							                         break;			 
+							                     case 1:
+							                         alert("자동 가입 방지 봇을 확인 한뒤 진행 해 주세요.");
+							                         break;
+							                     default:
+							                         alert("자동 가입 방지 봇을 실행 하던 중 오류가 발생 했습니다. [Error bot Code : " + Number(data) + "]");
+							                         break;
+							                 	}
+							             	}
+							         }); 
+								}			
+	                     	}
+	          		   });				
+				}
+    	 });
+   
  });
  
 function signUpProc(){
-		if(confirm("가입하시겠습니까?")==true){
+	if(confirm("가입하시겠습니까?")==true){
 		document.frm.action = "/signup/signup.proc";
 		document.frm.submit();
 	}
 } 
-/* 
-//인풋박스 커서 자동이동  
-$(function() {
-    $(".inputs").keyup (function () {
-        var charLimit = $(this).attr("maxlength");
-        if (this.value.length >= charLimit) {
-            $(this).next().next('.inputs').focus();
-            return false;
-        }
-    });
-});
 
-$('#frm1').validate({
- 	 	   rules: {
- 	 		   //유저 아이디
-				userId: {
-					required : true
-					},
-				// 유저 이메일
-    		   userEmail:{
-    				required : true,
-					email:true
- 	 	 		    },
-	    		   userPassward:{
-	    				required : true,	 						
- 	 	 	 		    }
- 	 	   }, message:{
-				// 핸드폰 번호
-				userId:{
-					required : "아이디를 입력해주세요."
-						},							
- 	 		   //유저 이메일
-				userEmail: {
-					required : "이메일은 필수값 입니다.",
-					email : "이메일 형식을 확인해주세요"
-					},
-				//유저 패스워드
-				userPassward: {
-					required : "비밀번호를 입력해주세요",
-					}
-   	 	 	   },
-   		    errorElement: 'span',
-   		    errorPlacement: function (error, element) {
-   		      error.addClass('invalid-feedback');
-   		      element.closest('.form-group').append(error);
-   		    },
-   		    highlight: function (element, errorClass, validClass) {
-   		      $(element).addClass('is-invalid');
-   		    },
-  		   		 unhighlight: function (element, errorClass, validClass) {
-  		   	     $(element).removeClass('is-invalid');
-  		  	  	},
-  	 	     submitHandler: function(){
- 	 	    	signUpProc();
-  	   	 	  }
+
+/*  $('#frm').validate({
+rules: {
+	   userId:{ required: true, minlength: 3 },
+		   userEmail:{ required: true, email: true },
+     userPassward:{ required : true }
+   		}, 
+ messages:{
+		userId:{
+			required: "아이디를 입력하시오.",
+		},							
+	   userEmail: {
+			required : "이메일은 필수값 입니다.",
+			email : "이메일 형식을 확인해주세요"
+			},
+		userPassward: {
+			required : "비밀번호를 입력해주세요",
+			}
+	 	   },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+    	 error.addClass('invalid-feedback');
+      	 element.closest('.form-group').append(error);
+	    },
+	   	 highlight: function (element, errorClass, validClass) {
+	        $(element).addClass('is-invalid');
+	    },
+	   	 unhighlight: function (element, errorClass, validClass) {
+	   	     $(element).removeClass('is-invalid');
+	  	  	},
+	  	  submitHandler: function (frm) {
+	  			alert("회원가입 확인");
+	  		 	frm.submit();
+           }
 }); */
 
 </script>

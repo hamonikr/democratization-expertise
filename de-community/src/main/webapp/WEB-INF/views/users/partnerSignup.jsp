@@ -128,9 +128,9 @@ strong{
     	 <p><strong>사업자 번호</strong><strong style="color:red;">*</strong>     
     	 
       <div class="form-group">
-      	<input type="text" class="form-control" id="bizNo1" style="margin-left: 10px; width: 80px">
- 	   	<input type="text" class="form-control" id="bizNo2" style="margin-left: 5px; width: 40px">
-		<input type="text" class="form-control" id="bizNo3" style="margin-left: 5px; width: 80px">
+      	<input type="text" class="form-control inputs" maxlength=3 id="bizNo1" style="margin-left: 10px; width:90px">
+ 	   	<input type="text" class="form-control inputs" maxlength=2 id="bizNo2" style="margin-left: 20px; width:60px">
+		<input type="text" class="form-control inputs" maxlength=5 id="bizNo3" style="margin-left: 20px; width:110px">
       </div>
     </div>
   </div>    
@@ -159,7 +159,7 @@ strong{
         <!-- button -->
 		  <div class="row">
        	 <div class="col">
-       		  <input type="button" id="create_account" value="계정 생성하기" class="btn btn-primary btn-block blue">
+       		  <input type="submit" id="create_account" value="계정 생성하기" class="btn btn-primary btn-block blue">
 			</div>	
 		  </div>	
         
@@ -192,8 +192,45 @@ strong{
                          alert("자동 가입 방지 봇 통과");
                         	cnt=1;
                  		if(cnt==1){
-                 			signUpProc();
-                 			}			                                		
+                 			 $('#frm').validate({
+                 	    	 	   rules: {
+                 	   				userId: {
+                 		   					required : true
+                 		   					},
+                 		       		   userEmail:{
+                 		       				required : true,
+                 		   						email:true
+                 		    	 	 		    },
+                 		   	    		   userPassward:{
+                 		   	    				required : true,	 						
+                 	   	 	 	 		    }
+                 	    	 	   }, message:{
+                 			   				userId:{
+                 			   					required : "아이디를 입력해주세요."
+                 			   						},							
+                 			    	 		userEmail: {
+                 			   					required : "이메일은 필수값 입니다.",
+                 			   					email : "이메일 형식을 확인해주세요"
+                 			   					},
+                 			   				userPassward: {
+                 			   					required : "비밀번호를 입력해주세요",
+                 			   				}
+                 	    	 	   },
+                 	      		    errorElement: 'span',
+                 	      		    errorPlacement: function (error, element) {
+                 	      		      error.addClass('invalid-feedback');
+                 	      		      element.closest('.form-group').append(error);
+                 	      		    },
+                 	      		    highlight: function (element, errorClass, validClass) {
+                 	      		      $(element).addClass('is-invalid');
+                 	      		    },
+                 	     		   		 unhighlight: function (element, errorClass, validClass) {
+                 	     		   	     $(element).removeClass('is-invalid');
+                 	     		  	  	},
+                 	     	 	     submitHandler: function(){
+                 	    	 	    	signUpProc();
+                 	     	   	 	  }
+                 		   });                 			}			                                		
                          break;			 
                      case 1:
                          alert("자동 가입 방지 봇을 확인 한뒤 진행 해 주세요.");
@@ -206,6 +243,22 @@ strong{
              }
          });
      });
+
+
+   //인풋박스 커서 자동이동  
+   $(function() {
+       $(".inputs").keyup (function () {
+           var charLimit = $(this).attr("maxlength");
+           if (this.value.length >= charLimit) {
+               $(this).next().next('.inputs').focus();
+               return false;
+           }
+       });
+   });
+
+	//validation check
+  
+     
  });
  
 function signUpProc(){
@@ -214,61 +267,6 @@ function signUpProc(){
 		document.frm.submit();
 	}
 } 
-/* 
-//인풋박스 커서 자동이동  
-$(function() {
-    $(".inputs").keyup (function () {
-        var charLimit = $(this).attr("maxlength");
-        if (this.value.length >= charLimit) {
-            $(this).next().next('.inputs').focus();
-            return false;
-        }
-    });
-});
 
-$('#frm1').validate({
- 	 	   rules: {
- 	 		   //유저 아이디
-				userId: {
-					required : true
-					},
-				// 유저 이메일
-    		   userEmail:{
-    				required : true,
-					email:true
- 	 	 		    },
-	    		   userPassward:{
-	    				required : true,	 						
- 	 	 	 		    }
- 	 	   }, message:{
-				// 핸드폰 번호
-				userId:{
-					required : "아이디를 입력해주세요."
-						},							
- 	 		   //유저 이메일
-				userEmail: {
-					required : "이메일은 필수값 입니다.",
-					email : "이메일 형식을 확인해주세요"
-					},
-				//유저 패스워드
-				userPassward: {
-					required : "비밀번호를 입력해주세요",
-					}
-   	 	 	   },
-   		    errorElement: 'span',
-   		    errorPlacement: function (error, element) {
-   		      error.addClass('invalid-feedback');
-   		      element.closest('.form-group').append(error);
-   		    },
-   		    highlight: function (element, errorClass, validClass) {
-   		      $(element).addClass('is-invalid');
-   		    },
-  		   		 unhighlight: function (element, errorClass, validClass) {
-  		   	     $(element).removeClass('is-invalid');
-  		  	  	},
-  	 	     submitHandler: function(){
- 	 	    	signUpProc();
-  	   	 	  }
-}); */
 
 </script>
