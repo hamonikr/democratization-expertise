@@ -44,7 +44,7 @@ public class SignupController {
 		public String signUpViewUsers(Model model, @PageableDefault Pageable pageable) {
 			System.out.println("----------users sign Up----------");
 		
-			return "/login/signup";
+			return "/users/signup";
 		}
 		
 	
@@ -53,7 +53,7 @@ public class SignupController {
 	public String signUpViewPartners(Model model, @PageableDefault Pageable pageable) {
 		System.out.println("---------partners sign Up----------");
 	
-		return "/login/partnerSignup";
+		return "/users/partnerSignup";
 	}
 	
 	
@@ -95,7 +95,7 @@ public class SignupController {
 	public String signUpForPartnerProc(Model model, Users vo,  UsersDetail uvo, HttpServletRequest request) {
 		System.out.println("----------파트너사 sign Up Proc----------");
 		
-		return "/login/signin";
+		return "/index";
 	}	
 	
 }

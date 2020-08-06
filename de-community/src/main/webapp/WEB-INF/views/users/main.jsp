@@ -45,7 +45,7 @@
 	<h1>로그인 완료</h1><br>
 	
 	 <a href="/sample/list">커뮤니티 시작하기</a><br><br>
-	 <button onClick="signOut();">로그아웃</button>
+	 <button onClick="location.href='/logout'">로그아웃</button>
 </body>
 
 <script type="text/javascript">

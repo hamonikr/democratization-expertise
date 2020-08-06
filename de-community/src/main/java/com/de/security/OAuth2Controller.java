@@ -30,21 +30,31 @@ public class OAuth2Controller {
 	    return "/users/login";
 	  } 
 
-	@GetMapping("/logout")
-	 public String logout(HttpServletRequest request) { 		
-		System.out.println("---logout----");
-		
-		return "redirect:/users/login";
-	 } 
+//	@GetMapping("/logout")
+//	 public String logout(HttpServletRequest request) { 		
+//		System.out.println("---logout----");
+//		
+//		return "redirect:/users/login";
+//	 } 
 	
 	@RequestMapping("/loginSuccess")
 	 public String loginSuccess(Model model, HttpServletRequest request, 
 			 @AuthenticationPrincipal SecurityMember user, HttpSession session) {
 		System.out.println("<<--- controller loginSuccess-->> ");
-	
-		System.out.println("id--->"+request.getAttribute("userId"));
-//		System.out.println("id -> "+user.getUserId());
-//		System.out.println("pw -> "+user.getUserPassword());
+
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		if (principal instanceof UserDetails) {
+		  String username = ((UserDetails)principal).getUsername();
+			System.out.println("111username--->" + username);
+
+		} else {
+		  String username = principal.toString();
+			System.out.println("222username--->" + username);
+
+		}
+		
+		
 		return "/users/main"; 
 	} 
 
