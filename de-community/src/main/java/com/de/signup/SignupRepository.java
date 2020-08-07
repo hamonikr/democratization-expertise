@@ -17,7 +17,5 @@ public interface SignupRepository extends JpaRepository<Users, String>{
 //	@Query(value = "select * from tb_users a where a.user_id like %?1%", nativeQuery = true)
 //    List<Users> findByUserName(String userId);
     List<Users> findByUserId(String userId);
-
-
 }
 

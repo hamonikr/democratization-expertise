@@ -41,6 +41,11 @@ public class SignupService {
 		return uu.listIterator().hasNext();
 	}
 	
+	public boolean bizNoCheck (UsersDetail vo) {		
+		List<UsersDetail> uu = sd.findByEnterpriseNo(vo.getEnterpriseNo());
+		return uu.listIterator().hasNext();
+	}
+	
 }
 
 
