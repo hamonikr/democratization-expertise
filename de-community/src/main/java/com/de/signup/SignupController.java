@@ -76,26 +76,25 @@ public class SignupController {
 		return chk;
 	}
 
-	@RequestMapping(value = "/checkEmailDuplication")
+	@RequestMapping(value = "/checkBizNoDuplication")
 	@ResponseBody
-	public String checkEmailDuplication(HttpServletRequest request, Users vo, Model model) {
-	String chk = null;
-	System.out.println("이메일 중복체크---> "+vo.getUserEmail());
+	public int checkBizNoDuplication(HttpServletRequest request, Users vo, UsersDetail uvo, Model model) {
+	int chkBiz = 0;
+	System.out.println("사업자 번호 중복체크---> "+uvo.getEnterpriseNo());
+
+	boolean bizNochk = service.bizNoCheck(uvo);
 	
-	boolean emchk = service.isExist(vo.getUserEmail());
-	
-	if(emchk==false) {
-		chk="사용가능한 이메일입니다";
+	if(bizNochk==false) {
+		chkBiz=1;
 	}else{
-		chk="중복된 이메일입니다";
+		chkBiz=0;
 	}
-	System.out.println(chk);		
-		return chk;
+	System.out.println(chkBiz);		
+		return chkBiz;
 	}	
 	
 	//일반 유저 회원가입
 	@RequestMapping(value = "/signup.proc", method = RequestMethod.POST)
-	@ResponseBody
 	public String signUpProc(Model model, Users vo, UsersDetail uvo, HttpServletRequest request) {
 		System.out.println("----------sign Up Proc----------");
 
@@ -107,28 +106,53 @@ public class SignupController {
 		String email = vo.getUserEmail();
 		String pw = vo.getUserPassword();
 		
-//			try {
-//				 service.save(vo);
-//				 if(vo.getUserId() != null) {
-//					 System.out.println("=====user info save====");
-//					 uvo.setUserNo(vo.getUserNo());
-//					 service.save(uvo);
-//				 }
-//			} catch (Exception e) {
-//				System.out.println("저장 실패!");
-//				e.printStackTrace();	
-//				retVal = "error";
-//			}
-			 return "redirect:/login";
+			try {
+				 service.save(vo);
+				 if(vo.getUserId() != null) {
+					 System.out.println("=====user info save====");
+					 uvo.setUserNo(vo.getUserNo());
+					 service.save(uvo);
+				 }
+			} catch (Exception e) {
+				System.out.println("저장 실패!");
+				e.printStackTrace();	
+			}
 
+			return "redirect:/login";
 	}
 
 	//파트너사 회원가입
 	@RequestMapping(value = "/signupForPartner.proc")
-	public String signUpForPartnerProc(Model model, Users vo,  UsersDetail uvo, HttpServletRequest request) {
+	@ResponseBody
+	public String signUpForPartnerProc(Model model, Users vo, UsersDetail uvo, HttpServletRequest request) {
 		System.out.println("----------파트너사 sign Up Proc----------");
+		String retVal="aa";
+
+		System.out.println("vo id==>" + vo.getUserId());
+		System.out.println("vo email==>" + vo.getUserEmail());
+		System.out.println("vo pw==>" + vo.getUserPassword());	
+		System.out.println("enterpriseNo-->" + uvo.getEnterpriseNo());
 		
-		return "/index";
+		if(uvo.getEnterpriseNo() != null) {
+			try {
+				 service.save(vo);
+				 if(vo.getUserId() != null) {
+					 System.out.println("=====user info save====");
+					 uvo.setUserNo(vo.getUserNo());
+					 service.save(uvo);
+					 retVal="S";
+
+				 }
+			} catch (Exception e) {
+				System.out.println("저장 실패!");
+				e.printStackTrace();	
+			}
+		} else {
+			System.out.println("사업자 번호 공란");
+
+		}
+		return retVal;
+
 	}	
 	
 }
