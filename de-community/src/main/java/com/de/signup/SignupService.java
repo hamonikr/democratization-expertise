@@ -35,7 +35,16 @@ public class SignupService {
 	public boolean isExist (String email) {		
 		return sr.existsByUserEmail(email); 
 	}
-
+	
+	public boolean idCheck (Users vo) {		
+		List<Users> uu = sr.findByUserId(vo.getUserId());
+		return uu.listIterator().hasNext();
+	}
+	
+	public boolean bizNoCheck (UsersDetail vo) {		
+		List<UsersDetail> uu = sd.findByEnterpriseNo(vo.getEnterpriseNo());
+		return uu.listIterator().hasNext();
+	}
 	
 }
 

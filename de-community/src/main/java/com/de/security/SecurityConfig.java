@@ -60,11 +60,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		System.out.println("security config-----------!!!");
 		log.info("security config log===>");
 		http
-			.csrf().ignoringAntMatchers("/restapi/**");
+			.csrf().ignoringAntMatchers("/restapi/**","/signup/**","/login","/loginSuccess");
 		
 		http
 			.authorizeRequests() 
-			    .antMatchers("/oauth2/**", "/loginSuccess","/main","/", "/home", "/login/**","/signup/**").permitAll()			
+			    .antMatchers("/oauth2/**", "/loginSuccess","/account-recovery","/", "/home", "/login/**","/signup/**").permitAll()			
 				.antMatchers("/github").hasAuthority(GITHUB.getRoleType())
 			    .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
 				.antMatchers("/kakao").hasAuthority(KAKAO.getRoleType()) 
@@ -110,17 +110,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					 registrations.add(CustomOAuth2Provider.GITHUB.getBuilder("github") 
 	                        .clientId(githubClientId)
 	                        .clientSecret(githubClientSecret) 
-	                        .jwkSetUri("temp") .build()); 
+	                        .jwkSetUri("temp").build()); 
 					
 	                registrations.add(CustomOAuth2Provider.KAKAO.getBuilder("kakao") 
 	                        .clientId(kakaoClientId)
 	                        .clientSecret(kakaoClientSecret) 
-	                        .jwkSetUri("temp") .build()); 
+	                        .jwkSetUri("temp").build()); 
 	                
 	                registrations.add(CustomOAuth2Provider.NAVER.getBuilder("naver") 
 	                        .clientId(naverClientId) 
 	                        .clientSecret(naverClientSecret) 
-	                        .jwkSetUri("temp") .build()); 
+	                        .jwkSetUri("temp").build()); 
 	                
 	                return new InMemoryClientRegistrationRepository(registrations); 
 	    }
@@ -132,7 +132,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	         return CommonOAuth2Provider.GOOGLE.getBuilder(client) 
 	                .clientId(registration.getClientId()) 
 	                .clientSecret(registration.getClientSecret()) 
-	                .scope("email", "profile") .build(); 
+	                .scope("email", "profile").build(); 
 	        }
 
 	         return null; 

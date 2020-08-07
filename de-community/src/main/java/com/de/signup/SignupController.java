@@ -1,6 +1,7 @@
 package com.de.signup;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,10 @@ import com.de.user.UsersDetail;
 public class SignupController {
     @Autowired
 	SignupService service;
-	
-	@ResponseBody
+    @Autowired
+    SignupRepository sr;
+
+    @ResponseBody
 	@RequestMapping(value = "/VerifyRecaptcha", method = RequestMethod.POST)
     public int VerifyRecaptcha(HttpServletRequest request) {
 		//Recaptcha 서버단 시크릿 키
@@ -44,7 +47,7 @@ public class SignupController {
 		public String signUpViewUsers(Model model, @PageableDefault Pageable pageable) {
 			System.out.println("----------users sign Up----------");
 		
-			return "/login/signup";
+			return "/users/signup";
 		}
 		
 	
@@ -53,15 +56,46 @@ public class SignupController {
 	public String signUpViewPartners(Model model, @PageableDefault Pageable pageable) {
 		System.out.println("---------partners sign Up----------");
 	
-		return "/login/partnerSignup";
+		return "/users/partnerSignup";
 	}
 	
+	@RequestMapping(value = "/checkIdDuplication")
+	@ResponseBody
+	public String checkIdDuplication(HttpServletRequest request, Users vo, Model model) {
+	String chk = null;
+	System.out.println("아이디 중복체크---> "+vo.getUserId());
+	
+	boolean idchk = service.idCheck(vo);
+	
+	if(idchk==false) {
+		chk="사용가능한 아이디입니다";
+	}else{
+		chk="중복된 아이디입니다";
+	}
+	System.out.println(chk);		
+		return chk;
+	}
+
+	@RequestMapping(value = "/checkBizNoDuplication")
+	@ResponseBody
+	public int checkBizNoDuplication(HttpServletRequest request, Users vo, UsersDetail uvo, Model model) {
+	int chkBiz = 0;
+	System.out.println("사업자 번호 중복체크---> "+uvo.getEnterpriseNo());
+
+	boolean bizNochk = service.bizNoCheck(uvo);
+	
+	if(bizNochk==false) {
+		chkBiz=1;
+	}else{
+		chkBiz=0;
+	}
+	System.out.println(chkBiz);		
+		return chkBiz;
+	}	
 	
 	//일반 유저 회원가입
 	@RequestMapping(value = "/signup.proc", method = RequestMethod.POST)
-	@ResponseBody
 	public String signUpProc(Model model, Users vo, UsersDetail uvo, HttpServletRequest request) {
-		String retVal = null;
 		System.out.println("----------sign Up Proc----------");
 
 		System.out.println("vo id==>" + vo.getUserId());
@@ -69,33 +103,56 @@ public class SignupController {
 		System.out.println("vo pw==>" + vo.getUserPassword());	
 		
 		String id = vo.getUserId();
+		String email = vo.getUserEmail();
 		String pw = vo.getUserPassword();
 		
-		if(id != null && pw !=null) {
 			try {
 				 service.save(vo);
 				 if(vo.getUserId() != null) {
 					 System.out.println("=====user info save====");
 					 uvo.setUserNo(vo.getUserNo());
 					 service.save(uvo);
-					 retVal = "S";
 				 }
 			} catch (Exception e) {
 				System.out.println("저장 실패!");
-				retVal = "F";
-				e.printStackTrace();			
+				e.printStackTrace();	
 			}
-		}
-		return retVal;
 
+			return "redirect:/login";
 	}
 
 	//파트너사 회원가입
 	@RequestMapping(value = "/signupForPartner.proc")
-	public String signUpForPartnerProc(Model model, Users vo,  UsersDetail uvo, HttpServletRequest request) {
+	@ResponseBody
+	public String signUpForPartnerProc(Model model, Users vo, UsersDetail uvo, HttpServletRequest request) {
 		System.out.println("----------파트너사 sign Up Proc----------");
+		String retVal="aa";
+
+		System.out.println("vo id==>" + vo.getUserId());
+		System.out.println("vo email==>" + vo.getUserEmail());
+		System.out.println("vo pw==>" + vo.getUserPassword());	
+		System.out.println("enterpriseNo-->" + uvo.getEnterpriseNo());
 		
-		return "/login/signin";
+		if(uvo.getEnterpriseNo() != null) {
+			try {
+				 service.save(vo);
+				 if(vo.getUserId() != null) {
+					 System.out.println("=====user info save====");
+					 uvo.setUserNo(vo.getUserNo());
+					 service.save(uvo);
+					 retVal="S";
+
+				 }
+			} catch (Exception e) {
+				System.out.println("저장 실패!");
+				e.printStackTrace();	
+			}
+		} else {
+			System.out.println("사업자 번호 공란");
+
+		}
+		return retVal;
+
 	}	
 	
 }
