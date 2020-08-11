@@ -28,10 +28,9 @@
        <put-attribute name="footer" value="/WEB-INF/views/layout/common/footer.jsp" />
    </definition>
 
-<!--     <definition name="/*/*" extends="sub-layout">
+  <definition name="/*/*" extends="sub-layout">
         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
-   </definition> -->
- 		
+   </definition>  		
   
 </tiles-definitions>
 

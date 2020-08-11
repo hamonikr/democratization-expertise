@@ -58,7 +58,7 @@ strong{
 
 <body>
 <!-- nav bar -->
-  <nav class="grey lighten-5" role="navigation">
+<!--   <nav class="grey lighten-5" role="navigation">
     <div class="nav-wrapper container">
     	<a id="logo-container" href="/" class="brand-logo">
     		<img src="/img/HamoniKR_logo600.png" style="height:40px;margin-right:15px;margin-top:5px;">DE COMMUNITY
@@ -72,7 +72,7 @@ strong{
 	     </li>
       </ul>
     </div>
-  </nav>
+  </nav> -->
 
 <!-- contents -->
 <div class="hold-transition login-page">
@@ -95,7 +95,7 @@ strong{
 	
 <!-- 입력 박스 -->
 <div class="col-6" style="width:450px;" >
-<div class="card" style="width:450px;">
+<div class="card" style="width:600px;">
  <div class="login-card-body" >
   <form id ="frm" name="frm" method="post">      
    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
