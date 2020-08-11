@@ -12,7 +12,9 @@ public class DeHomeApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		System.out.println("===================");
 		System.out.println("Hello Test!");
+		System.out.println("===================");
 	}
 
 }
