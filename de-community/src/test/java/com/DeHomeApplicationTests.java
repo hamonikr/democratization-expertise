@@ -12,6 +12,7 @@ public class DeHomeApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		System.out.println("Hello Test!");
 	}
 
 }

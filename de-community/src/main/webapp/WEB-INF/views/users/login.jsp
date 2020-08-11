@@ -48,7 +48,7 @@ strong{
 
 
 <body>
- <div>
+<!--  <div>
   <nav class="grey lighten-5" role="navigation">
     <div class="nav-wrapper container">
     	<a id="logo-container" href="/" class="brand-logo">
@@ -63,7 +63,7 @@ strong{
   </nav>
 </div>
 
-<div class="hold-transition login-page">
+ --><div class="hold-transition login-page">
   <div class="login-logo">
     <a href="/"><b>DE</b> COMMUNITY</a>
   </div>
