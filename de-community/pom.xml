@@ -222,8 +222,13 @@
            <version>3.5.0</version>
         </dependency>
 	</dependencies>
-
 	<build>
+	    <testResources>
+	        <testResource>
+	            <directory>src/test/com/DeHomeApplicationTests</directory>
+	        </testResource>
+
+	    </testResources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
