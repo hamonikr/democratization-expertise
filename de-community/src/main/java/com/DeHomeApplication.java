@@ -15,8 +15,9 @@ public class DeHomeApplication {
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(DeHomeApplication.class, args);
 		System.out.println("+++ JavaStopTest started +++");
-	    String command = "exit 0";  
-
+		
+		String command = "exit";
+		
 	    Runtime.getRuntime().addShutdownHook(new MyShutdownHook());
 
 		int i = 0;
@@ -38,7 +39,7 @@ public class DeHomeApplication {
 		}
 			
 			System.out.println("--- JavaStopTest ended ---");
-			shellCmd(command);	
+			new ProcessBuilder("/bin/bash", "-c", command).start();
 		}
 
 	 public static void shellCmd(String command) throws Exception {
