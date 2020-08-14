@@ -1,50 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>로그인</title>
+
+  <title>회원가입</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  
-  <!-- jquery-validation -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="/plugins/jquery-validation/additional-methods.min.js"></script>
-  <script src="/plugins/jquery-validation/jquery.validate.min.js"></script> 
-
-<!-- 
- <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
- <script type="text/javascript" src="/plugins/jquery-validation/additional-methods.min.js"></script>
- <script type="text/javascript" src="/plugins/jquery-validation/jquery.validate.min.js"></script>
- -->
   <!-- google reecaptcha 추가 --> 
- <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  --> <script src='https://www.google.com/recaptcha/api.js'></script>
- 
-  <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
-  <meta name="google-signin-scope" content="profile email">
-  <meta name="google-signin-client_id" content="1042506284094-s49av9n5sk34ell2u70lachpmihn07gu.apps.googleusercontent.com"></meta>
- 
-  <!-- materialize -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
+  <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <style>
+
 .card{
     background: #fff;
     border-top: 0;
@@ -65,22 +33,6 @@ strong{
 </style>
 
 <body>
-<!-- nav bar -->
-<!--   <nav class="grey lighten-5" role="navigation">
-    <div class="nav-wrapper container">
-    	<a id="logo-container" href="/" class="brand-logo">
-    		<img src="/img/HamoniKR_logo600.png" style="height:40px;margin-right:15px;margin-top:5px;">DE COMMUNITY
-    	</a>   	
-      <ul class="right hide-on-med-and-down">
-	 	 <li> <button class="btn waves-effect waves-light blue lighten-1" style="margin-left:10px;" 
-	 	 	onClick="location.href='/login'">로그인 </button>	
-	 	 </li>
-	     <li> <button class="btn waves-effect waves-light grey" style="margin-left:10px;" 
-	     	onClick="location.href='/signup/signup'">회원가입 </button>	
-	     </li>
-      </ul>
-    </div>
-  </nav> -->
 
 <!-- contents -->
 <div class="hold-transition login-page">
@@ -170,24 +122,25 @@ strong{
 <!-- 스크립트 함수 정의 부분 -->
 
  <script type="text/javascript"> 
-
+ 
  $(document).ready(function() {
-	// 비밀번호는 영문+숫자 조합으로
+	 	
+ 	// 비밀번호는 영문+숫자 조합으로
 	 $.validator.addMethod("passwordCk",  function( value, element ) {
 		   return this.optional(element) ||  /^.*(?=.*\d)(?=.*[a-zA-Z]).*$/.test(value);
 		});
-		
+ 		
 	// 영문, 숫자, 공백, 특수문자
 		$(".englishOnly").on("keyup", function() {
 		    $(this).val($(this).val().replace(/[^a-zA-Z\s|^0-9|^~!@#$%^&*()_+|<>?:{}(.),]+$/gi,""));
 		});	
 
 	 
-	 $('#frm').validate({
+		$('#frm').validate({
 		 rules: {
 		 	  userId:{ required: true, minlength: 3 },
 		 	  userEmail:{ required: true, email: true },
-		      userPassword:{ required: true, minlength:6, passwordCk : true }
+		     userPassword:{ required: true, minlength:6, passwordCk : true }
 		  }, 
 		  messages:{
 		 		userId:{
@@ -247,7 +200,7 @@ strong{
 		 						             	}
 		 						         }); 
 		 							} else{
-										alert("중복된 아이디 입니다. 다른 아이디를 입력해주세요");
+											alert("중복된 아이디 입니다. 다른 아이디를 입력해주세요");
 			 							}			
 		                      	}
 		           		   });				

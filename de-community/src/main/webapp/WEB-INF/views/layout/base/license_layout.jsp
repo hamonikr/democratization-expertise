@@ -16,8 +16,6 @@
 <!-- Google Font: Source Sans Pro -->
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-
-
 <!-- jQuery -->
 <script src="/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -27,13 +25,11 @@
 <!-- AdminLTE for demo purposes -->
 <script src="/dist/js/demo.js"></script>
 <script src="/dist/js/common.js"></script>
-<!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
-
 
 </head>
 
-
-<body >
+	<body >
 		<tiles:insertAttribute name="body" />
-</body>
+	</body>
+	
 </html>
