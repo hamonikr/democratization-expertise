@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.de.login.service.SecurityMember;
+import com.de.user.Users;
 
 @Controller
 public class OAuth2Controller {
@@ -70,5 +71,13 @@ public class OAuth2Controller {
 		
 		return "/users/forgotPw";
 	 } 
+	@GetMapping("/sendRecoveryEmail")
+	 public void sendRecoveryEmail(HttpServletRequest request, Users vo) { 		
+		System.out.println("---sendRecoveryEmail Proc----");
+		System.out.println("userEmail--> " + vo.getUserEmail());
+		
+	//	return "/users/forgotPw";
+	 } 
+	
 	
 }
