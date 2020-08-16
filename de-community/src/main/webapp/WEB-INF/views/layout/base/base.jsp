@@ -25,6 +25,7 @@
 <script src="/plugins/moment/moment.min.js"></script>
 <script src="/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
 <script src="/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <!-- jquery-validation -->
 <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="/plugins/jquery-validation/additional-methods.min.js"></script>
