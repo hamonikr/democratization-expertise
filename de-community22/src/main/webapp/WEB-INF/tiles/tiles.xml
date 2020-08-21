@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+<!-- login-layout --> 
+  <definition name="login-layout" template="/WEB-INF/views/layout/base/login_base.jsp">
+       <put-attribute name="header" value="/WEB-INF/views/layout/common/header.jsp" />
+  		<put-attribute name="body" value="" />
+  		<put-attribute name="footer" value="/WEB-INF/views/layout/common/footer.jsp" />
+  </definition>
+
+
+<!-- base-layout --> 
+   <definition name="sub-layout" template="/WEB-INF/views/layout/base/base.jsp">
+       <put-attribute name="header" value="/WEB-INF/views/layout/common/header.jsp" />
+       <put-attribute name="left" value="/WEB-INF/views/layout/common/left.jsp" />
+       <put-attribute name="body" value="" />
+       <put-attribute name="footer" value="/WEB-INF/views/layout/common/footer.jsp" />
+   </definition>
+
+  <definition name="/users/*" extends="login-layout">
+     <put-attribute name="body" value="/WEB-INF/views/users/{1}.jsp" />  
+   </definition>  	
+
+
+   <definition name="/*/*" extends="sub-layout">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+   </definition>  		
+
+</tiles-definitions>
+
