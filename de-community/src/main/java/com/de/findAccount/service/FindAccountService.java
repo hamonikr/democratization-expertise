@@ -25,8 +25,8 @@ public class FindAccountService {
 		Random rnd = new Random();
 		//입력한 이메일의 계정이 활성화 된경우만 메일 발송
 		if(vo.getActive_at() != 1) {
-		    System.out.println("비밀번호 조회/변경 성공!");
-			for (int i = 0; i < 5; i++) {
+		    System.out.println("계정 조회 성공!");
+			for (int i = 0; i < 6; i++) {
 			    int rIndex = rnd.nextInt(3);
 			    switch (rIndex) {
 			    case 0:

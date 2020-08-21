@@ -20,18 +20,7 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   
-  <!-- jquery-validation -->
-  <script src="/plugins/jquery-validation/additional-methods.min.js"></script>
-  <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
-  
-  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-    
-  <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
- <meta name="google-signin-scope" content="profile email">
-  <meta name="google-signin-client_id" content="1042506284094-s49av9n5sk34ell2u70lachpmihn07gu.apps.googleusercontent.com"></meta>
 
-  
 </head>
 <style>
 #algin-center{

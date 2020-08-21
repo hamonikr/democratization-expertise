@@ -21,7 +21,6 @@ public class SignupService {
 	@Autowired
 	private SignupForDetailRepository sd;
 	
-	
 	public Users save(Users vo) {				
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		vo.setUserPassword(passwordEncoder.encode(vo.getUserPassword()));
