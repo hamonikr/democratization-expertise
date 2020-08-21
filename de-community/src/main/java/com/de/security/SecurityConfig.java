@@ -60,11 +60,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		System.out.println("security config-----------!!!");
 		log.info("security config log===>");
 		http
-			.csrf().ignoringAntMatchers("/restapi/**","/signup/**","/login","/loginSuccess");
+			.csrf().ignoringAntMatchers("/restapi/**","/signup/**","/login","/loginSuccess","/accountRecovery/**");
 		
 		http
 			.authorizeRequests() 
-			    .antMatchers("/oauth2/**", "/loginSuccess","/account-recovery","/", "/home", "/login/**","/signup/**").permitAll()			
+			    .antMatchers("/oauth2/**", "/loginSuccess","/accountRecovery/**","/", "/home", "/login/**","/signup/**").permitAll()			
 				.antMatchers("/github").hasAuthority(GITHUB.getRoleType())
 			    .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
 				.antMatchers("/kakao").hasAuthority(KAKAO.getRoleType()) 
