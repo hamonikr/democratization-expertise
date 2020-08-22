@@ -5,16 +5,9 @@
 
 <tiles-definitions>
 
-<!-- main-layout --> 
-  <definition name="main-layout" template="/WEB-INF/views/layout/base/login_base.jsp">
-  		<put-attribute name="left" value="/WEB-INF/views/layout/common/left.jsp" />
-  		<put-attribute name="body" value="" />
-  		<put-attribute name="footer" value="/WEB-INF/views/layout/common/footer.jsp" />
-  </definition>
-  
 <!-- login-layout --> 
   <definition name="login-layout" template="/WEB-INF/views/layout/base/login_base.jsp">
-  		<put-attribute name="left" value="/WEB-INF/views/layout/common/left.jsp" />
+       <put-attribute name="header" value="/WEB-INF/views/layout/common/header.jsp" />
   		<put-attribute name="body" value="" />
   		<put-attribute name="footer" value="/WEB-INF/views/layout/common/footer.jsp" />
   </definition>
@@ -28,9 +21,14 @@
        <put-attribute name="footer" value="/WEB-INF/views/layout/common/footer.jsp" />
    </definition>
 
-  <definition name="/*/*" extends="sub-layout">
+  <definition name="/users/*" extends="login-layout">
+     <put-attribute name="body" value="/WEB-INF/views/users/{1}.jsp" />  
+   </definition>  	
+
+
+   <definition name="/*/*" extends="sub-layout">
         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
    </definition>  		
-  
+
 </tiles-definitions>
 
