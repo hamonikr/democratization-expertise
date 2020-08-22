@@ -111,6 +111,7 @@ public class SignupController {
 				 if(vo.getUserId() != null) {
 					 System.out.println("=====user info save====");
 					 uvo.setUserNo(vo.getUserNo());
+					 uvo.setActiveAt(0);//setActiveAt 0이면 활성화(default), 1이면 비활성호된 계정
 					 service.save(uvo);
 				 }
 			} catch (Exception e) {
