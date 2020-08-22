@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http
 			.authorizeRequests() 
-			    .antMatchers("/oauth2/**", "/loginSuccess","/account-recovery","/", "/home", "/login/**","/signup/**").permitAll()			
+			    .antMatchers("/oauth2/**", "/loginSuccess","/account-recovery","/", "/home", "/login/**","/signup/**","/sample/**","/questions/**","/vote/**").permitAll()			
 				.antMatchers("/github").hasAuthority(GITHUB.getRoleType())
 			    .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
 				.antMatchers("/kakao").hasAuthority(KAKAO.getRoleType()) 
