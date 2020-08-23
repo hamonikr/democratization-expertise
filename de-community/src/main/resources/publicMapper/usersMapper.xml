@@ -3,6 +3,24 @@
  
 <mapper namespace="com.de.user.mapper.UsersMapper">
 
+<select id="findEnterpriseNo" parameterType="Integer" resultType="com.de.enterprise.Enterprises">
+SELECT 
+	enterprise_no as enterpriseNo,
+	enterprise_name as enterpriseName
+FROM
+	tb_enterprises
+WHERE
+	enterprise_no = 
+		(
+			SELECT 
+				enterprise_no 
+			FROM 
+				tb_users_detail 
+			WHERE 
+				user_no = #{seq}
+		)
+</select>
+
 <update id="updateUserPw" parameterType="com.de.user.UserPwVO">
 UPDATE
 	tb_users
@@ -14,15 +32,15 @@ WHERE
 	user_password = #{userPassword}
 </update>
 
-<select id="getEnterList" parameterType="String" resultType="com.de.enterprise.Enterprises">
+<select id="getEnterList" parameterType="com.de.enterprise.Enterprises" resultType="com.de.enterprise.Enterprises">
 SELECT 
 	enterprise_no AS enterpriseNo,
 	enterprise_name AS enterpriseName
 FROM 
 	tb_enterprises
 WHERE
-	 enterprise_at = 1 and
-	 enterprise_name like '%${enterName}%'
+	 enterprise_at = #{enterpriseAt} and
+	 enterprise_name like '%${enterpriseName}%'
 </select>
 
 <update id="updateUserProfileImg" parameterType="com.de.user.Users">
@@ -31,6 +49,20 @@ UPDATE
 SET
 	user_profile_img = #{userProfileImg},
 	update_date = now()
+WHERE
+	user_no = #{userNo}
+</update>
+
+<update id="updateEnterpriseNo" parameterType="com.de.user.UsersDetail">
+UPDATE
+	tb_users_detail
+SET
+	<if test="enterpriseNo != null">
+		enterprise_no = #{enterpriseNo}
+	</if>
+	<if test="enterpriseNo == null">
+		enterprise_no = 0
+	</if>
 WHERE
 	user_no = #{userNo}
 </update>

@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.de.enterprise.Enterprises;
+import com.de.enterprise.EnterprisesRepository;
 import com.de.newsletteruser.MailingUserRepository;
 import com.de.user.mapper.UsersMapper;
 
@@ -28,18 +29,26 @@ public class UsersService {
 	private final int NEWSLATTER_YES = 1;
 	
 	@Autowired
-	UsersRepository sr;
+	UsersRepository ur;
+	
+	@Autowired
+	EnterprisesRepository er;
 	
 	@Autowired
 	MailingUserRepository mr;
 	
 	@Autowired
-	UsersMapper sm;
+	UsersMapper um;
 
 	public Optional<Users> findById(int seq) throws Exception {
-		return sr.findById(seq);
+		return ur.findById(seq);
 	}
 	
+	public Optional<Enterprises> findEnterpriseNo(int seq) throws Exception {
+		return um.findEnterpriseNo(seq);
+	}
+	
+	// 목록
 	public Page<Users> findAll(Pageable pageable) throws Exception {
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
 
@@ -55,21 +64,36 @@ public class UsersService {
 		}
 
 		pageable = PageRequest.of(page, 5, new Sort(direction, sortColumn));
-		Page<Users> list = sr.findAll(pageable);
+		Page<Users> list = ur.findAll(pageable);
 		return list;
 	}
 	
-	public void updateUser(Users vo, boolean newslater) throws Exception {
-		// 사용자 정보 업데이트
-		Optional<Users> e = sr.findById(vo.getUserNo());
-		if (e.isPresent()) {
-			e.get().setUserName(vo.getUserName());
-			e.get().setUserEmail(vo.getUserEmail());
-			e.get().setAboutMe(vo.getAboutMe());
-			e.get().setUserUrl(vo.getUserUrl());
-			// 회사명 추가필요
-			sr.save(vo);
+	// 정보 업데이트
+	public void updateUser(Users vo, UsersDetail userDetail, boolean newslater) throws Exception {
+		Optional<Users> users = ur.findById(vo.getUserNo());
+		Optional<Enterprises> enterprises = null;
+		
+		// find enterprise information
+		if(userDetail != null && userDetail.getEnterpriseNo() != null) {
+			enterprises = er.findById(userDetail.getEnterpriseNo());
 		}
+		
+		// update user information
+		if (users.isPresent()) {
+			users.get().setUserName(vo.getUserName());
+			users.get().setUserEmail(vo.getUserEmail());
+			users.get().setAboutMe(vo.getAboutMe());
+			users.get().setUserUrl(vo.getUserUrl());
+			vo.setUserId(users.get().getUserId());
+			ur.save(vo);
+		}
+		
+		// update userDetail enterpriseNo
+		userDetail.setUserNo(users.get().getUserNo());
+		if( !( enterprises != null && enterprises.isPresent() ) ) {
+			userDetail.setEnterpriseNo(null);
+		}
+		um.updateEnterpriseNo(userDetail);
 		
 		// 뉴스레터 업데이트
 //		Optional<MailingUserList> mailingUser = mr.findById(vo.getUserNo());
@@ -83,20 +107,22 @@ public class UsersService {
 //		}
 	}
 
+	// 비밀번호 변경
 	public boolean updateUserPw(UserPwVO vo) {
 		boolean updateVal = false;
-		Optional<Users> e = sr.findById(vo.getUserNo());
+		Optional<Users> e = ur.findById(vo.getUserNo());
 		
 		if (e.isPresent()) {
 //			if(e.get().getUserPassword().equals(vo.getUserPassword())) {
 //				e.get().setUserPassword(vo.getUserPasswordNew());
-				int check = sm.updateUserPw(vo);
+				int check = um.updateUserPw(vo);
 				if(check == 1) updateVal = true;
 //			}
 		}
 		return updateVal;
 	}
 
+	// 프로필 사진 변경
 	public boolean upload(Users vo, MultipartHttpServletRequest request) throws Exception {
 		boolean updateVal = false;
 		
@@ -128,7 +154,7 @@ public class UsersService {
 				mf.transferTo(new File(path, saveFileName));
 				
 				// DB 저장
-				sm.updateUserProfileImg(vo);
+				um.updateUserProfileImg(vo);
 				
 				updateVal = true;
 			} catch (Exception e) {
@@ -139,8 +165,12 @@ public class UsersService {
 		return updateVal;
 	}
 
+	// 회사 목록
 	public List<Enterprises> getEnterList(String enterName) {
-		List<Enterprises> list = sm.getEnterList(enterName);
+		Enterprises vo = new Enterprises();
+		vo.setEnterpriseAt(0);
+		vo.setEnterpriseName(enterName);
+		List<Enterprises> list = um.getEnterList(vo);
 		return list;
 	}
 }

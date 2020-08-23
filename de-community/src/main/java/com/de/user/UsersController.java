@@ -113,8 +113,19 @@ public class UsersController {
 		int userSeq = 4;
 		
 		Optional<Users> users = service.findById(seq);
-		model.addAttribute("result", users.orElse(null));	// 프로필 정보
-		model.addAttribute("isMypage", seq == userSeq);		// 내 정보 유무
+		Optional<Enterprises> enterprise = service.findEnterpriseNo(seq);
+		
+		System.out.println(" ------ users : " + users);
+		System.out.println(" ------ enterprise : " + enterprise);
+		
+		if ( ! users.isPresent()) {
+			return "redirect:/users/list";
+		}
+		
+		model.addAttribute("user", users.orElse(null));	// 프로필 정보
+		model.addAttribute("isMypage", seq == userSeq);	// 내 정보 유무
+		model.addAttribute("enterprise", enterprise.orElse(null));	// 회사명 정보
+		model.addAttribute("newslater", false);	// 뉴스레터 수신유무
 		
 		return "/users/view";
 	}
@@ -128,9 +139,11 @@ public class UsersController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String modify(Model model, Users vo, boolean newslater) throws Exception {
-		if(LOG_URL) logger.info(" -- url : /users/modify - user : " + vo + " // newslater : " + newslater);
-		service.updateUser(vo, newslater);
+	public String modify(Model model, Users vo, UsersDetail userDetail, boolean newslater) throws Exception {
+		if(LOG_URL) logger.info(" -- url : /users/modify - user : " + vo 
+														+ " // detail : " + userDetail 
+														+ " // newslater : " + newslater);
+		service.updateUser(vo, userDetail, newslater);
 		return "redirect:/users/view/" + vo.getUserNo();
 	}
 
@@ -194,6 +207,12 @@ public class UsersController {
 	}
 
 
+	/**
+	 * 회사 목록
+	 * @param enterName
+	 * @return
+	 * @throws Exception
+	 */
 	@ResponseBody
 	@RequestMapping(value="/getEnterList", method=RequestMethod.POST)
 	public HashMap<String, Object> getEnterList(String enterName) throws Exception{

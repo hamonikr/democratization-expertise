@@ -45,15 +45,15 @@
 
 <body>
 	<form id="frm" name="frm" method="post">
-		<input type="hidden" name="userNo" value="${result.userNo}">
+		<input type="hidden" name="userNo" value="${user.userNo}">
 		<!-- 스프링 시큐리티 form에 추가 해줘야함. -->
 		<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
 
 		<div class="row">
 			<!-- Content Header (Page header) -->
 			<div class="col-12">
-				<a href="/users/dashboard/${result.userNo}" class="btn btn-primary">활동정보</a>
-				<a href="/users/view/${result.userNo}" class="btn btn-primary">프로필</a>
+				<a href="/users/dashboard/${user.userNo}" class="btn btn-primary">활동정보</a>
+				<a href="/users/view/${user.userNo}" class="btn btn-primary">프로필</a>
 			</div>
 			
 			<div class="col-12">
@@ -65,11 +65,11 @@
 					<div class="card-body card-primary card-outline row" style="width: 100%;">
 
 						<div class="col-3 profileLeftDiv">
-							<c:if test="${result.userProfileImg != null}">
-								<input type="hidden" name="userProfileImg" value="${result.userProfileImg}">
-								<img alt="profile" src="/upload/${result.userProfileImg}" id="profileImg" class="img" width="100%"><br/>
+							<c:if test="${user.userProfileImg != null}">
+								<input type="hidden" name="userProfileImg" value="${user.userProfileImg}">
+								<img alt="profile" src="/upload/${user.userProfileImg}" id="profileImg" class="img" width="100%"><br/>
 							</c:if>
-							<c:if test="${result.userProfileImg == null}">
+							<c:if test="${user.userProfileImg == null}">
 								<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
 							</c:if>
 							
@@ -86,20 +86,20 @@
 							<div class="form-group">
 								<label for="userName" class="col-form-label">이름</label>
 								<c:if test="${ isMypage }">
-									<input class="form-control" id="userName" name="userName" value="${result.userName}" autocomplete="off">
+									<input class="form-control" id="userName" name="userName" value="${user.userName}" autocomplete="off">
 								</c:if>
 								<c:if test="${ ! isMypage }">
-									<input class="form-control" id="userName" name="userName" value="${result.userName}" autocomplete="off" disabled="disabled">
+									<input class="form-control" id="userName" name="userName" value="${user.userName}" autocomplete="off" disabled="disabled">
 								</c:if>
 							</div>
 
 							<div class="form-group">
 								<label for="userEmail" class="col-form-label">메일</label>
 								<c:if test="${ isMypage }">
-									<input class="form-control" id="userEmail" name="userEmail" value="${result.userEmail}" autocomplete="off">
+									<input class="form-control" id="userEmail" name="userEmail" value="${user.userEmail}" autocomplete="off">
 								</c:if>
 								<c:if test="${ ! isMypage }">
-									<input class="form-control" id="userEmail" name="userEmail" value="${result.userEmail}" autocomplete="off" disabled="disabled">
+									<input class="form-control" id="userEmail" name="userEmail" value="${user.userEmail}" autocomplete="off" disabled="disabled">
 								</c:if>
 							</div>
 						</div>
@@ -108,9 +108,9 @@
 							<div class="form-group">
 								<label for="aboutMe" class="col-form-label">자기소개</label>
 								<c:if test="${ isMypage }">
-									<input type="hidden" class="form-control contents" id="aboutMe" name="aboutMe" value="${result.aboutMe}" autocomplete="off">
+									<input type="hidden" class="form-control contents" id="aboutMe" name="aboutMe" value="${user.aboutMe}" autocomplete="off">
 									<div class="code-html">
-										<div id="editSection">${result.aboutMe}</div> 
+										<div id="editSection">${user.aboutMe}</div> 
 									</div>
 									<script class="code-js">
 										var editor = new tui.Editor({
@@ -122,7 +122,7 @@
 						            </script>
 								</c:if>
 								<c:if test="${ ! isMypage }">
-									<input class="form-control contents" id="aboutMe" name="aboutMe" value="${result.aboutMe}" autocomplete="off" disabled="disabled">
+									<input class="form-control contents" id="aboutMe" name="aboutMe" value="${user.aboutMe}" autocomplete="off" disabled="disabled">
 								</c:if>
 							</div>
 						</div>
@@ -131,10 +131,10 @@
 							<div class="form-group">
 								<label for="userUrl" class="col-form-label">홈페이지</label>
 								<c:if test="${ isMypage }">
-									<input class="form-control" id="userUrl" name="userUrl" value="${result.userUrl}" autocomplete="off">
+									<input class="form-control" id="userUrl" name="userUrl" value="${user.userUrl}" autocomplete="off">
 								</c:if>
 								<c:if test="${ ! isMypage }">
-									<input class="form-control" id="userUrl" name="userUrl" value="${result.userUrl}" autocomplete="off" disabled="disabled">
+									<input class="form-control" id="userUrl" name="userUrl" value="${user.userUrl}" autocomplete="off" disabled="disabled">
 								</c:if>
 							</div>
 						</div>
@@ -143,10 +143,12 @@
 							<div class="form-group">
 								<label for="enterpriseName" class="col-form-label">회사명</label>
 								<c:if test="${ isMypage }">
-									<input class="form-control" id="enterpriseName" name="enterpriseName" value="${null}" autocomplete="off">
+									<input type="hidden" name="enterpriseNo" id="enterpriseNo" value="${enterprise.enterpriseNo}" autocomplete="off">
+									<input type="text" class="form-control" id="enterpriseNameSearch" value="${enterprise.enterpriseName}" autocomplete="off">
+									<div id="enterpriseListDiv"></div>
 								</c:if>
 								<c:if test="${ ! isMypage }">
-									<input class="form-control" id="enterpriseName" name="enterpriseName" value="${null}" autocomplete="off" disabled="disabled">
+									<input class="form-control" value="${enterprise.enterpriseName}" autocomplete="off" disabled="disabled">
 								</c:if>
 							</div>
 						</div>
@@ -154,7 +156,13 @@
 						<c:if test="${ isMypage }">
 							<div class="col-12 newslatrDiv">
 								<label>
-									<input type="checkbox" name="newslater" class="newslater"> <span>뉴스레터 구독</span>
+									<c:if test="${ newslater }">
+										<input type="checkbox" name="newslater" class="newslater" checked>
+									</c:if>
+									<c:if test="${ ! newslater }">
+										<input type="checkbox" name="newslater" class="newslater">
+									</c:if>
+									<span>뉴스레터 구독</span>
 								</label>
 							</div>
 						</c:if>
@@ -215,28 +223,53 @@ $(function() {
 	$('#btnUpdatePWCancle').on('click', fnPopupPw);
 });
 
-// 회사명 실시간 검색
-var oldEnterName = $('#enterpriseName').val();
-$('#enterpriseName').on("propertychange change keyup paste input", function() {
-	var currentEnterName = $(this).val();
-	if(currentEnterName == oldEnterName) {
+// 회사명 입력창
+var oldEnterName = $('#enterpriseNameSearch').val();
+$('#enterpriseNameSearch').on("propertychange change keyup paste input", fn_searchEnterpriseName);
+
+// 회사명 실시간 검색 기능
+function fn_searchEnterpriseName() {
+	var enterpriseNameSearch = $('#enterpriseNameSearch').val();
+	if(enterpriseNameSearch == null) enterpriseNameSearch ='';
+	enterpriseNameSearch = $.trim(enterpriseNameSearch);
+	
+	if(enterpriseNameSearch.length == 0) {
+		$('#enterpriseListDiv').html('');
+		$('#enterpriseNo').val('');
+		oldEnterName = '';
+		return;
+	}
+	if(enterpriseNameSearch == oldEnterName) {
 		return;
 	}
 
-	oldEnterName = currentEnterName;
+	oldEnterName = enterpriseNameSearch;
 
+	$('#enterpriseListDiv').html('');
 	$.ajax({
 		url		: '/users/getEnterList',
-		data	: { 'enterName' : oldEnterName },
+		data	: { 'enterName' : enterpriseNameSearch },
 		type	: 'post',
+		async	: false,
 		success: function(data){
-			// 선택가능한 목록으로 나오도록 변경필요
-			console.log(data.list);
+			for(var i=0; i < data.list.length ; ++i){
+				$('#enterpriseListDiv').append('<p class="entElement" data-value="' + data.list[i].enterpriseNo + '">' + data.list[i].enterpriseName + '</p>');
+			}
+			if(data.list.length == undefined || data.list.length == 0){
+				$('#enterpriseListDiv').html('<p class="entNotElement">등록된 정보가 없습니다.</p>');
+			}
 		},
 		error		: function(xhr, status, error){
 			console.log(xhr, status, error);
 		}
 	});
+}
+
+// 회사명 선택시
+$('#enterpriseListDiv').on('click', '.entElement', function(){
+	$('#enterpriseNameSearch').val($(this).html());
+	$('#enterpriseNo').val($(this).data('value'));
+	$('#enterpriseListDiv').html('');
 });
 
 
