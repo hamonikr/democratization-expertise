@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 		web
 			.ignoring()
-				.antMatchers("/dist/**", "/js/**", "images/**", "/plugins/**", "/tui-editor/**", "/paper-bw/**", "lib/**", "/css/**", "/img/**", "/fonts/**");
+				.antMatchers("/dist/**", "/js/**", "images/**", "/plugins/**", "/tui-editor/**", "/paper-bw/**", "lib/**", "/css/**", "/img/**", "/fonts/**", "/upload/**", "/users/**");
 	}
 	
 	@Override
@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http
 			.authorizeRequests()  			
-			.antMatchers("/oauth2/**", "/loginSuccess","/account-recovery","/", "/home", "/login/**","/signup/**","/sample/**","/questions/**","/vote/**").permitAll()			
+			.antMatchers("/oauth2/**", "/loginSuccess","/account-recovery","/", "/home", "/login/**","/signup/**","/sample/**","/questions/**","/vote/**", "/users/**").permitAll()
 				.antMatchers("/github").hasAuthority(GITHUB.getRoleType())
 			    .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
 				.antMatchers("/kakao").hasAuthority(KAKAO.getRoleType()) 

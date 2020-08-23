@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="com.de.user.mapper.UsersMapper">
+
+<update id="updateUserPw" parameterType="com.de.user.UserPwVO">
+UPDATE
+	tb_users
+SET
+	user_password = #{userPasswordNew},
+	update_date = now()
+WHERE
+	user_no = #{userNo} and
+	user_password = #{userPassword}
+</update>
+
+<select id="getEnterList" parameterType="String" resultType="com.de.enterprise.Enterprises">
+SELECT 
+	enterprise_no AS enterpriseNo,
+	enterprise_name AS enterpriseName
+FROM 
+	tb_enterprises
+WHERE
+	 enterprise_at = 1 and
+	 enterprise_name like '%${enterName}%'
+</select>
+
+<update id="updateUserProfileImg" parameterType="com.de.user.Users">
+UPDATE
+	tb_users
+SET
+	user_profile_img = #{userProfileImg},
+	update_date = now()
+WHERE
+	user_no = #{userNo}
+</update>
+
+</mapper>
