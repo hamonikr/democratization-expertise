@@ -35,8 +35,13 @@
 				<div class="row">
 					<c:forEach var="list" items="${data}" varStatus="status">
 						<div class="col-3">
-							<a class="profileImg" href="/users/view/${list.userNo}">
-								<img alt="img_${list.userName}" src="/img/HamoniKR_logo600.png">
+							<a class="profileImg" href="/users/dashboard/${list.userNo}">
+								<c:if test="${list.userProfileImg != null}">
+									<img alt="userProfileImg_${list.userName}" src="/upload/${list.userProfileImg}">
+								</c:if>
+								<c:if test="${list.userProfileImg == null}">
+									<img alt="userProfileImg_${list.userName}" src="/img/user_over.png">
+								</c:if>
 							</a>
 							<a href="/users/dashboard/${list.userNo}">${list.userName}</a>
 						</div>

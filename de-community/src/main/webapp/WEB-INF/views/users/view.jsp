@@ -156,10 +156,10 @@
 						<c:if test="${ isMypage }">
 							<div class="col-12 newslatrDiv">
 								<label>
-									<c:if test="${ newslater }">
+									<c:if test="${ user.newslater }">
 										<input type="checkbox" name="newslater" class="newslater" checked>
 									</c:if>
-									<c:if test="${ ! newslater }">
+									<c:if test="${ ! user.newslater }">
 										<input type="checkbox" name="newslater" class="newslater">
 									</c:if>
 									<span>뉴스레터 구독</span>

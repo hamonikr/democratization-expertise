@@ -69,7 +69,7 @@ public class UsersService {
 	}
 	
 	// 정보 업데이트
-	public void updateUser(Users vo, UsersDetail userDetail, boolean newslater) throws Exception {
+	public void updateUser(Users vo, UsersDetail userDetail) throws Exception {
 		Optional<Users> users = ur.findById(vo.getUserNo());
 		Optional<Enterprises> enterprises = null;
 		
@@ -84,7 +84,12 @@ public class UsersService {
 			users.get().setUserEmail(vo.getUserEmail());
 			users.get().setAboutMe(vo.getAboutMe());
 			users.get().setUserUrl(vo.getUserUrl());
+			
 			vo.setUserId(users.get().getUserId());
+			vo.setUserPassword(users.get().getUserPassword());
+			vo.setUserStatus(users.get().getUserStatus());
+			vo.setRegisterDate(users.get().getRegisterDate());
+			
 			ur.save(vo);
 		}
 		
