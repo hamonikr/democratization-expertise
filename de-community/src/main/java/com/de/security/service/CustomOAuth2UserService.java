@@ -1,5 +1,6 @@
 package com.de.security.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference; 
 import org.springframework.core.convert.converter.Converter; 
 import org.springframework.http.RequestEntity; 
@@ -10,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.client.http.OAuth2ErrorResponseErrorHandler; 
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService; 
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest; 
@@ -26,7 +28,11 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestOperations; 
 import org.springframework.web.client.RestTemplate;
 
+import com.de.security.SocialType;
+import com.de.security.UserEntity;
+import com.de.security.UserRepository;
 
+import java.util.HashSet;
 import java.util.LinkedHashMap; import java.util.LinkedHashSet; 
 import java.util.Map; 
 import java.util.Set;
@@ -35,12 +41,9 @@ import javax.servlet.http.HttpSession;
 
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     
-  	 private static final String MISSING_USER_INFO_URI_ERROR_CODE = "missing_user_info_uri";      
-    
+  	 private static final String MISSING_USER_INFO_URI_ERROR_CODE = "missing_user_info_uri";         
   	 private static final String MISSING_USER_NAME_ATTRIBUTE_ERROR_CODE = "missing_user_name_attribute";     
-    
     private static final String INVALID_USER_INFO_RESPONSE_ERROR_CODE = "invalid_user_info_response";       
-    
     
     private static final ParameterizedTypeReference<Map<String, Object>> PARAMETERIZED_RESPONSE_TYPE = 
     		 new ParameterizedTypeReference<Map<String, Object>>() {}; 
@@ -49,20 +52,29 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     		new OAuth2UserRequestEntityConverter();
      
     private RestOperations restOperations;
-
-	    
+   
+    @Autowired
+	private UserRepository ur;
+	 
+    
+    @Autowired
+	MemberService service;
+    
      public CustomOAuth2UserService() {
  		RestTemplate restTemplate = new RestTemplate(); 
          restTemplate.setErrorHandler(new OAuth2ErrorResponseErrorHandler()); 
          this.restOperations = restTemplate; 
      }
+     
    
+    // 계정 정보 가져오기
      @Override 
      public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException { 
         Assert.notNull(userRequest, "userRequest cannot be null"); 
         
         System.out.println("load user-->" + userRequest.toString());
-
+        	
+       
         if (!StringUtils.hasText(userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri())) {
              OAuth2Error oauth2Error = new OAuth2Error( MISSING_USER_INFO_URI_ERROR_CODE, 
                                                         "Missing required UserInfo Uri in UserInfoEndpoint for Client Registration: " 
@@ -121,12 +133,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         		authorities.add(new SimpleGrantedAuthority("SCOPE_" + authority)); 
         	}
         
-        System.out.println("userAttributes-------->" +userAttributes.toString());
-    
         DefaultOAuth2User attributes = new DefaultOAuth2User(authorities, userAttributes, userNameAttributeName);
-       
-        System.out.println("userAttributes~~" + attributes.getAttributes().toString());
-     
+  
         return new DefaultOAuth2User(authorities, userAttributes, userNameAttributeName);
 
     }
@@ -141,7 +149,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 	        userAttributes.remove("response"); 
         }  
        
-        System.out.println("naver userAttribute-->"+ userAttributes.toString());
        
         return userAttributes; 
     }

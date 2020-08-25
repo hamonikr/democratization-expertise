@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	CustomAccessDeniedHandler customAccessDeniedHandler;	
-	private MemberService memberServices;
+	private MemberService memberService;
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -74,8 +74,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			    .oauth2Login() 
 			    	.userInfoEndpoint()
 			    		.userService(new CustomOAuth2UserService())		
+
 			.and() 
-				.defaultSuccessUrl("/loginSuccess",true)
+				.defaultSuccessUrl("/loginSuccess",true).successHandler(authSuccessHandler)
 				.failureUrl("/loginFailure").failureHandler(customAccessDeniedHandler)
 			.and()
 				.logout()
@@ -86,10 +87,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 				.exceptionHandling() 
 		    	.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"));
-
-		
 	}
-
+	
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
+	}
 	
 	@Bean 
 	public ClientRegistrationRepository clientRegistrationRepository( 
@@ -154,4 +157,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //
 //	}
 
+	
 }

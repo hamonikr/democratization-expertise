@@ -10,24 +10,21 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="tb_users")
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String userId;
-	
+	private String userId;	
 	private String userName;
 	private String userPassword;
+	private String userEmail;
 	private String role;
 	
-	@Builder
-	public UserEntity(String username, String password, String role) {
-		this.userName = username;
-		this.userPassword = password;
-		this.role = role;
-	}
+
 }

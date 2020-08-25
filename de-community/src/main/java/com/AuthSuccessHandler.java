@@ -13,37 +13,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.de.cmmn.CmmnMap;
 import com.de.cmmn.service.CmmnService;
 import com.de.login.service.SecurityMember;
+import com.de.security.UserEntity;
 
 
 @Configuration
 public class AuthSuccessHandler implements AuthenticationSuccessHandler {
-
+	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws ServletException, IOException {
-		System.out.println("login onAuthentication success---->");
-		// 세션을 가져온다. (가져올 세션이 없다면 생성한다.)
-        HttpSession httpSession = request.getSession(true);
+       System.out.println("------onAuthenticationSuccess--------");
+
+		HttpSession httpSession = request.getSession(true);
         CmmnMap param = new CmmnMap();
         
-       System.out.println("onAuthenticationSuccess -- username-->"+ request.getParameter("username"));
-       System.out.println("session-->" + httpSession.toString());
         param.put("username",request.getParameter("username")); 
         clearAuthenticationAttributes(request);
         
-       // SecurityMember user = (SecurityMember) authentication.getPrincipal();
+        DefaultOAuth2User user = (DefaultOAuth2User) authentication.getPrincipal();
 
-       // System.out.println("session user value-->" + user.toString());
+    	String name = (String) user.getAttributes().get("name");
+		String email = (String) user.getAttributes().get("email");
         
-     //   httpSession.setAttribute("UserSession", user);
-      	 response.setStatus(HttpServletResponse.SC_OK);
+       System.out.println("session user value-->" + user.toString());        
+		System.out.println("DefaultOAuth2User-->"+ user.getAttributes().keySet());
+		System.out.println("username-->"+ name);
+		System.out.println("email-->"+ email);
+	
+		
+
+       httpSession.setAttribute("UserSession", user);   
+      	response.setStatus(HttpServletResponse.SC_OK);
   		 
       	 System.out.println("main 페이지로");
       	 
