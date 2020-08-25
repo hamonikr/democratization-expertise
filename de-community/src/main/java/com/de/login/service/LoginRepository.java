@@ -18,13 +18,13 @@ public interface LoginRepository extends JpaRepository<Login, String>{
 //   Users findByUserId(String userId);
 	
    // List<Users> findByUserId(String userId);
-    List<Login> findByUserPassword(String userPassword);
+    List<Login> findByUserpassword(String userPassword);
  
-    Login findByUserId(String username);
+    Login findByUserid(String username);
     
  //   List<Login> findByEmailAndUserId(String userEmail, String userId);
-    Login findByUserEmailAndUserId(String userEmail, String userId);
+    Login findByUseremailAndUserid(String userEmail, String userId);
     
-    boolean existsByUserId(String userId);
+    boolean existsByUserid(String userId);
 }
 

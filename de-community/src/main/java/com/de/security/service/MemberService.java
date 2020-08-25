@@ -20,8 +20,8 @@ public class MemberService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserEntity user = ur.findByUserName(username).orElseThrow(()->new IllegalArgumentException("존재하지 않는 유저입니다"));
-		return new User(user.getUserName(), user.getUserPassword(), Arrays.asList(new SimpleGrantedAuthority(user.getRole())));
+		UserEntity user = ur.findByUsername(username).orElseThrow(()->new IllegalArgumentException("존재하지 않는 유저입니다"));
+		return new User(user.getUsername(), user.getUserpassword(), Arrays.asList(new SimpleGrantedAuthority(user.getRole())));
 		}
 	}		
 
