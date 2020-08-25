@@ -28,12 +28,14 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestOperations; 
 import org.springframework.web.client.RestTemplate;
 
+import com.de.security.LoginVO;
 import com.de.security.SocialType;
 import com.de.security.UserEntity;
 import com.de.security.UserRepository;
 
 import java.util.HashSet;
-import java.util.LinkedHashMap; import java.util.LinkedHashSet; 
+import java.util.LinkedHashMap; import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map; 
 import java.util.Set;
 
@@ -58,7 +60,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 	 
     
     @Autowired
-	MemberService service;
+	SecurityService service;
     
      public CustomOAuth2UserService() {
  		RestTemplate restTemplate = new RestTemplate(); 
@@ -133,13 +135,28 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         		authorities.add(new SimpleGrantedAuthority("SCOPE_" + authority)); 
         	}
         
+        System.out.println("userAttributes"+ userAttributes.toString());
+        System.out.println("userAttributes email--->>"+ userAttributes.get("email"));
+        
+        String email = (String)userAttributes.get("email");
+        ////
+       // UserDetails user;
+		try {
+			UserDetails user = loadUserByUserEmail(email);
+	        System.out.println("user>>?" + user.toString());
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        
         DefaultOAuth2User attributes = new DefaultOAuth2User(authorities, userAttributes, userNameAttributeName);
   
-        return new DefaultOAuth2User(authorities, userAttributes, userNameAttributeName);
-
+    		   return new DefaultOAuth2User(authorities, userAttributes, userNameAttributeName);
     }
      
-
+  
      private Map<String, Object> getUserAttributes(ResponseEntity<Map<String, Object>> response) { 
       	Map<String, Object> userAttributes = response.getBody();
        
@@ -152,5 +169,27 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
        
         return userAttributes; 
     }
+     
+     
+     public UserDetails loadUserByUserEmail(String email) throws Exception {
+ 		LoginVO user = service.findByUserEmail("bono623@naver.com");
+ 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+ 		
+ 		if (user.getRole().equals("0"))
+ 			grantedAuthorities.add(new SimpleGrantedAuthority(SocialType.ADMIN.getValue()));
+ 		else if (!user.getRole().equals("1"))
+ 			grantedAuthorities.add(new SimpleGrantedAuthority(SocialType.MEMBER.getValue()));
+ 		else if (!user.getRole().equals("2"))
+ 			grantedAuthorities.add(new SimpleGrantedAuthority(SocialType.GITHUB.getValue()));
+ 		else if (!user.getRole().equals("4"))
+ 			grantedAuthorities.add(new SimpleGrantedAuthority(SocialType.GOOGLE.getValue()));
+ 		else if (!user.getRole().equals("5"))
+ 			grantedAuthorities.add(new SimpleGrantedAuthority(SocialType.NAVER.getValue()));
+ 		else if (!user.getRole().equals("6"))
+ 			grantedAuthorities.add(new SimpleGrantedAuthority(SocialType.KAKAO.getValue()));
+ 	
+ 		return	new User(user.getUser_name(), user.getUser_password(), grantedAuthorities);	
+ 		
+ 	}
  }
 
