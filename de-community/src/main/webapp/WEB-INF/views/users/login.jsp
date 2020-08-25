@@ -63,13 +63,8 @@ strong{
         <div class="col-8">
         	<p><strong> 비밀번호</strong><strong style="color:red;"> *</strong>
         </div>
-<<<<<<< HEAD
          <div class="col-xs-3" style="margin-left:60%;margin-bottom:10px;" >
      		<a href="/accountRecovery/account-recovery">비밀번호를 잊으셨습니까?</a>
-=======
-         <div class="col-xs-3" >
-     		<a href="/account-recovery">비밀번호를 잊으셨습니까?</a>
->>>>>>> 9f8a5c68cc499f0b0a3544b87f7857ad8aa447b7
     	  </div>
          <div class="form-group col-12">
          	 <input type="password" class="form-control" id="password" name="password" style="margin-left: 10px" value="aaa1234" placeholder="비밀번호를 입력해주세요" maxlength="20">
