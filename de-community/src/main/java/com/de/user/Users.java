@@ -51,7 +51,7 @@ public class Users implements Serializable{
 	/* 회원 구분 1:회원가입 2:소셜가입  - 소셜가입은 패스워드 없고 정보만 저장*/
 	private Integer userStatus;
 	/* 뉴스레터 */
-	private boolean newslater;
+	private String newslater;
 	/* 가입 일시 */
 	@CreationTimestamp
 	private Timestamp registerDate;

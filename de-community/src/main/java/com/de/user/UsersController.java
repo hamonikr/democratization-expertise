@@ -140,8 +140,7 @@ public class UsersController {
 	 */
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public String modify(Model model, Users vo, UsersDetail userDetail) throws Exception {
-		if(LOG_URL) logger.info(" -- url : /users/modify - user : " + vo 
-														+ " // detail : " + userDetail);
+		if(LOG_URL) logger.info(" -- url : /users/modify - user : " + vo + " // detail : " + userDetail);
 		service.updateUser(vo, userDetail);
 		return "redirect:/users/view/" + vo.getUserNo();
 	}

@@ -21,7 +21,6 @@ import com.de.enterprise.EnterprisesRepository;
 import com.de.newsletteruser.MailingUserRepository;
 import com.de.user.mapper.UsersMapper;
 
-
 @Service
 @Transactional
 public class UsersService {

@@ -156,11 +156,12 @@
 						<c:if test="${ isMypage }">
 							<div class="col-12 newslatrDiv">
 								<label>
-									<c:if test="${ user.newslater }">
-										<input type="checkbox" name="newslater" class="newslater" checked>
+									<input type="hidden" name="newslater" value="${ user.newslater }">
+									<c:if test="${ user.newslater == 'Y' }">
+										<input type="checkbox" class="newslater" checked>
 									</c:if>
-									<c:if test="${ ! user.newslater }">
-										<input type="checkbox" name="newslater" class="newslater">
+									<c:if test="${ user.newslater == 'N' }">
+										<input type="checkbox" class="newslater">
 									</c:if>
 									<span>뉴스레터 구독</span>
 								</label>
@@ -285,7 +286,11 @@ function fnPopupPw(){
 
 // 사용자 정보 변경
 function fnUpdate() {
-	//value_chk();
+	if($('.newslater').eq(0).is(':checked')){
+		$('input[name=newslater]').val('Y');
+	}else{
+		$('input[name=newslater]').val('N');
+	}
 	document.frm.aboutMe.value = editor.getHtml();
 	document.frm.action = "/users/modify";
 	document.frm.submit();
