@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-
 <html>
 <head>
   <meta charset="utf-8">
@@ -19,12 +17,7 @@
   <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
   <meta name="google-signin-scope" content="profile email">
   <meta name="google-signin-client_id" content="1042506284094-s49av9n5sk34ell2u70lachpmihn07gu.apps.googleusercontent.com"></meta>
- 
-  <!-- materialize -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  
+
 </head>
 <style>
 .card{
@@ -50,8 +43,8 @@ strong{
 <!-- contents -->
 <div class="hold-transition login-page">
   <!-- 회원가입 문구 -->
-<div class="row">
-  <div class="col-4" style="margin-right:60px;right: 100px;">
+<div class="row" style=" width: 1200px;">
+  <div class="col-4" style="margin-left:40px;right:80px;">
 	   <h3>
 	    <img src="/img/HamoniKR_logo600.png" style="height:60px;"> 회원가입
 	 	</h3><br>
@@ -67,8 +60,8 @@ strong{
    </div>
 	
 <!-- 입력 박스 -->
-<div class="col-6" style="margin-left:60px;">
-<div class="card">
+<div class="col-5" style="margin-left:80px;">
+<div class="card" style="width:450;">
  <div class="login-card-body" >
   <form id ="frm" name="frm" method="post">      
    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

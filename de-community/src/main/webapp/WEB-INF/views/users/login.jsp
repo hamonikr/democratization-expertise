@@ -50,12 +50,12 @@ strong{
 	  		<div class="input-group mb-3">
       		</div>
       	</div>
-     <div class="row">
-     <div class="col-8">
+     <div class="row"style="margin-bottom:10px;">
+     <div class="col-8" style="margin-bottom:10px;">
      	<p><strong>아이디 </strong><strong style="color:red;">*</strong>
      </div>
           	<div class="form-group col-12"> 	    
-		      	<input type="text" class="form-control" id="username" name="username" style="margin-left: 10px" placeholder="아이디를 입력해주세요" maxlength="20">             	
+		      	<input type="text" class="form-control" id="username" name="username" style="margin-left: 10px" value="aaa" placeholder="아이디를 입력해주세요" maxlength="20">             	
 		   </div>
         </div>
        <br>
@@ -63,18 +63,18 @@ strong{
         <div class="col-8">
         	<p><strong> 비밀번호</strong><strong style="color:red;"> *</strong>
         </div>
-         <div class="col-xs-3" >
+         <div class="col-xs-3" style="margin-left:60%;margin-bottom:10px;" >
      		<a href="/accountRecovery/account-recovery">비밀번호를 잊으셨습니까?</a>
     	  </div>
          <div class="form-group col-12">
-         	 <input type="password" class="form-control" id="password" name="password" style="margin-left: 10px" placeholder="비밀번호를 입력해주세요" maxlength="20">
+         	 <input type="password" class="form-control" id="password" name="password" style="margin-left: 10px" value="aaa1234" placeholder="비밀번호를 입력해주세요" maxlength="20">
          </div>
 		</div>
           <br>
 		
 		<!-- 로그인 버튼  -->
-         <div class="row" style="margin-left:5%;">
-            <button type="button" id ="submit_action" class="btn btn-primary btn-block blue">로그인</button>
+         <div class="row-8" style="margin-left:10px;">
+            <button type="button" id ="submit_action" class="col-12 btn btn-primary btn-block">로그인</button>
           </div>
       </form>
       

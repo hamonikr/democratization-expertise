@@ -1,6 +1,8 @@
 package com.de.security;
 
 public enum SocialType {
+	ADMIN("admin"),
+	MEMBER("member"),
 	GITHUB("github"),
 	GOOGLE("google"), 
 	KAKAO("kakao"), 
