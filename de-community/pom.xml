@@ -67,6 +67,7 @@
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-oauth2-client</artifactId>
+	
 		    <version>2.1.5.RELEASE</version>
 		</dependency>
 
@@ -89,7 +90,6 @@
 				<artifactId>scribejava-core</artifactId>
 				<version>2.8.1</version>
 			</dependency>
-<<<<<<< HEAD
 		
 		<!-- email 의존성 추가 -->
 		<dependency>
@@ -101,9 +101,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
 		</dependency> -->
-=======
 
->>>>>>> 9f8a5c68cc499f0b0a3544b87f7857ad8aa447b7
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
