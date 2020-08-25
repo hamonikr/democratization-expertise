@@ -6,17 +6,12 @@
 <tiles-definitions>
 
 <!-- login-layout --> 
-<<<<<<< HEAD
   <definition name="login-layout" template="/WEB-INF/views/layout/base/login_base.jsp">
        <put-attribute name="header" value="/WEB-INF/views/layout/common/header.jsp" />
   		<put-attribute name="body" value="" />
-=======
-   <definition name="login-layout" template="/WEB-INF/views/layout/base/login_base.jsp">
-       <put-attribute name="header" value="/WEB-INF/views/layout/common/header.jsp" />
- 		<put-attribute name="body" value="" />
->>>>>>> 9f8a5c68cc499f0b0a3544b87f7857ad8aa447b7
   		<put-attribute name="footer" value="/WEB-INF/views/layout/common/footer.jsp" />
   </definition>
+
 
 <!-- base-layout --> 
    <definition name="sub-layout" template="/WEB-INF/views/layout/base/base.jsp">
@@ -26,7 +21,6 @@
        <put-attribute name="footer" value="/WEB-INF/views/layout/common/footer.jsp" />
    </definition>
 
-<<<<<<< HEAD
   <definition name="/users/*" extends="login-layout">
      <put-attribute name="body" value="/WEB-INF/views/users/{1}.jsp" />  
    </definition>  	
@@ -36,16 +30,5 @@
         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
    </definition>  		
 
-=======
-   <definition name="/users/*" extends="login-layout">
-        <put-attribute name="body" value="/WEB-INF/views/users/{1}.jsp" />
-   </definition>  
-
-  <definition name="/sample/*" extends="sub-layout">
-        <put-attribute name="body" value="/WEB-INF/views/sample/{1}.jsp" />
-   </definition>  		
-
-
->>>>>>> 9f8a5c68cc499f0b0a3544b87f7857ad8aa447b7
 </tiles-definitions>
 
