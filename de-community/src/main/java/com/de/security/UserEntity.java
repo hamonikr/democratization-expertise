@@ -18,16 +18,16 @@ import lombok.NoArgsConstructor;
 public class UserEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String userId;
+	private String userid;
 	
-	private String userName;
-	private String userPassword;
+	private String username;
+	private String userpassword;
 	private String role;
 	
 	@Builder
 	public UserEntity(String username, String password, String role) {
-		this.userName = username;
-		this.userPassword = password;
+		this.username = username;
+		this.userpassword = password;
 		this.role = role;
 	}
 }

@@ -13,7 +13,7 @@
 	 into
   	  tb_users(  	  	
        seq
-      ,reg_date
+      ,regdate
     )
   values
     (   

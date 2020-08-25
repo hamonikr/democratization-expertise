@@ -23,7 +23,7 @@ public class SignupService {
 	
 	public Users save(Users vo) {				
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		vo.setUserPassword(passwordEncoder.encode(vo.getUserPassword()));
+		vo.setUserpassword(passwordEncoder.encode(vo.getUserpassword()));
 		return sr.save(vo);
 	}
 	
@@ -32,16 +32,16 @@ public class SignupService {
 	}
 
 	public boolean isExist (String email) {		
-		return sr.existsByUserEmail(email); 
+		return sr.existsByUseremail(email); 
 	}
 	
 	public boolean idCheck (Users vo) {		
-		List<Users> uu = sr.findByUserId(vo.getUserId());
+		List<Users> uu = sr.findByUserid(vo.getUserid());
 		return uu.listIterator().hasNext();
 	}
 	
 	public boolean bizNoCheck (UsersDetail vo) {		
-		List<UsersDetail> uu = sd.findByEnterpriseNo(vo.getEnterpriseNo());
+		List<UsersDetail> uu = sd.findByEnterpriseno(vo.getEnterpriseno());
 		return uu.listIterator().hasNext();
 	}
 	
