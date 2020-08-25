@@ -8,6 +8,7 @@ public class DeHomeApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DeHomeApplication.class, args);
+		System.out.println(">>>> DeHomeApplication START! >>>>");
 	}
 
 }

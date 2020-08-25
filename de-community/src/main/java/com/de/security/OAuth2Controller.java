@@ -22,9 +22,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.de.findAccount.service.FindAccountService;
 import com.de.login.service.SecurityMember;
+<<<<<<< HEAD
 import com.de.signup.SignupService;
 import com.de.user.Users;
 import com.de.findAccount.service.PostMail;
+=======
+import com.de.user.Users;
+>>>>>>> 9f8a5c68cc499f0b0a3544b87f7857ad8aa447b7
 
 @Controller
 public class OAuth2Controller {
@@ -87,5 +91,23 @@ public class OAuth2Controller {
 	    return "/users/loginFailure";
 	 }
 
+<<<<<<< HEAD
 
+=======
+	@GetMapping("/account-recovery")
+	 public String accountRecovery(HttpServletRequest request) { 		
+		System.out.println("---account-recovery----");
+		
+		return "/users/forgotPw";
+	 } 
+	@GetMapping("/sendRecoveryEmail")
+	 public void sendRecoveryEmail(HttpServletRequest request, Users vo) { 		
+		System.out.println("---sendRecoveryEmail Proc----");
+		System.out.println("userEmail--> " + vo.getUserEmail());
+		
+	//	return "/users/forgotPw";
+	 } 
+	
+	
+>>>>>>> 9f8a5c68cc499f0b0a3544b87f7857ad8aa447b7
 }
