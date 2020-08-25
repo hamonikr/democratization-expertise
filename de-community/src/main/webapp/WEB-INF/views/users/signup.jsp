@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<<<<<<< HEAD
   <title>회원가입</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,18 +18,8 @@
   <meta name="google-signin-scope" content="profile email">
   <meta name="google-signin-client_id" content="1042506284094-s49av9n5sk34ell2u70lachpmihn07gu.apps.googleusercontent.com"></meta>
 
-=======
-
-  <title>회원가입</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- google reecaptcha 추가 --> 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
-  <script src='https://www.google.com/recaptcha/api.js'></script>
->>>>>>> 9f8a5c68cc499f0b0a3544b87f7857ad8aa447b7
 </head>
 <style>
-
 .card{
     background: #fff;
     border-top: 0;
@@ -51,10 +40,6 @@ strong{
 </style>
 
 <body>
-<<<<<<< HEAD
-=======
-
->>>>>>> 9f8a5c68cc499f0b0a3544b87f7857ad8aa447b7
 <!-- contents -->
 <div class="hold-transition login-page">
   <!-- 회원가입 문구 -->
@@ -143,25 +128,24 @@ strong{
 <!-- 스크립트 함수 정의 부분 -->
 
  <script type="text/javascript"> 
- 
+
  $(document).ready(function() {
-	 	
- 	// 비밀번호는 영문+숫자 조합으로
+	// 비밀번호는 영문+숫자 조합으로
 	 $.validator.addMethod("passwordCk",  function( value, element ) {
 		   return this.optional(element) ||  /^.*(?=.*\d)(?=.*[a-zA-Z]).*$/.test(value);
 		});
- 		
+		
 	// 영문, 숫자, 공백, 특수문자
 		$(".englishOnly").on("keyup", function() {
 		    $(this).val($(this).val().replace(/[^a-zA-Z\s|^0-9|^~!@#$%^&*()_+|<>?:{}(.),]+$/gi,""));
 		});	
 
 	 
-		$('#frm').validate({
+	 $('#frm').validate({
 		 rules: {
 		 	  userId:{ required: true, minlength: 3 },
 		 	  userEmail:{ required: true, email: true },
-		     userPassword:{ required: true, minlength:6, passwordCk : true }
+		      userPassword:{ required: true, minlength:6, passwordCk : true }
 		  }, 
 		  messages:{
 		 		userId:{
@@ -221,7 +205,7 @@ strong{
 		 						             	}
 		 						         }); 
 		 							} else{
-											alert("중복된 아이디 입니다. 다른 아이디를 입력해주세요");
+										alert("중복된 아이디 입니다. 다른 아이디를 입력해주세요");
 			 							}			
 		                      	}
 		           		   });				
