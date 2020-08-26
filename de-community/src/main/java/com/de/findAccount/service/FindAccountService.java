@@ -24,7 +24,8 @@ public class FindAccountService {
 		StringBuffer tmpRnd = new StringBuffer();
 		Random rnd = new Random();
 		//입력한 이메일의 계정이 활성화 된경우만 메일 발송
-		if(vo.getActive_at() != 1) {
+
+		if(vo.getActiveat() != 1) {
 		    System.out.println("계정 조회 성공!");
 			for (int i = 0; i < 6; i++) {
 			    int rIndex = rnd.nextInt(3);
@@ -45,20 +46,20 @@ public class FindAccountService {
 			}
 			// 버퍼에있는 값 String으로 변경
 			String rndPw = tmpRnd.toString();		
-			vo.setUser_password(rndPw);
+			vo.setUserpassword(rndPw);
 
-			System.out.println("비밀번호 초기화 성공 ===> "+vo.getUser_password());
+			System.out.println("비밀번호 초기화 성공 ===> "+vo.getUserpassword());
 
 			PostMail sendMail = new PostMail();
 			sendMail.inviteMail(vo);							
 
-			System.out.println("등록된 메일"+ vo.getUser_email()+"로 초기화된 비밀번호-->+"+vo.getUser_password()+" 발송 성공!");
+			System.out.println("등록된 메일"+ vo.getUseremail()+"로 초기화된 비밀번호-->+"+vo.getUserpassword()+" 발송 성공!");
 			
 			//비밀번호 재인코딩
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-	       vo.setUser_password(passwordEncoder.encode(vo.getUser_password()));
+	       vo.setUserpassword(passwordEncoder.encode(vo.getUserpassword()));
 	    
-			System.out.println("비밀번호 초기화 후 재인코딩 성공 ===> "+vo.getUser_password());
+			System.out.println("비밀번호 초기화 후 재인코딩 성공 ===> "+vo.getUserpassword());
 
 		}else {
 		    System.out.println("비활성화된 계정입니다. 비밀번호 조회/변경 실패!");

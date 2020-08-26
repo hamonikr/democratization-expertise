@@ -64,7 +64,7 @@ strong{
      	<h6><strong>Email 주소</strong></h6>
      </div>
           	<div class="form-group col-12"> 	    
-		      	<input type="email" class="form-control englishOnly" id="user_email" name="user_email" value="bono6315@gmail.com" style="margin-left: 10px" placeholder="이메일을 입력해주세요">             	
+		      	<input type="email" class="form-control englishOnly" id="useremail" name="useremail" value="bono6315@gmail.com" style="margin-left: 10px" placeholder="이메일을 입력해주세요">             	
 		   </div>
         </div>
        <br>
@@ -105,7 +105,7 @@ strong{
 		    		  }, 
 		  messages:{
 		 								
-			  user_email: {
+			  useremail: {
 		 			required : "이메일은 필수값 입니다.",
 		 			email : "이메일 형식을 확인해주세요"
 		 			}
