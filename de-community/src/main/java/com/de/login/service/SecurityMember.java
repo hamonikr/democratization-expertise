@@ -26,21 +26,21 @@ public class SecurityMember extends User {
 	private static final long serialVersionUID = 1L;
 	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
 	
-	private int userNo;
-	private String userId;
-	private String userPassword;
-	private String userEmail;
-	private String userName;
-	private int userStatus;
-	private int enterpriseNo;
+	private int userno;
+	private String userid;
+	private String userpassword;
+	private String useremail;
+	private String username;
+	private int userstatus;
+	private int enterpriseno;
 	// session setter
 	public SecurityMember(Login vo) {
-		super(vo.getUserId(), vo.getUserPassword(), makeGrantedAuthority(vo));
-		this.userNo = vo.getUserNo();
-		this.userId = vo.getUserId();
-		this.userPassword = vo.getUserPassword();
-		this.userEmail = vo.getUserEmail();
-		this.userName = vo.getUserName();
+		super(vo.getUserid(), vo.getUserpassword(), makeGrantedAuthority(vo));
+		this.userno = vo.getUserno();
+		this.userid = vo.getUserid();
+		this.userpassword = vo.getUserpassword();
+		this.useremail = vo.getUseremail();
+		this.username = vo.getUsername();
 //		this.userStatus = vo.getUserStatus();
 		//this.enterpriseNo = uvo.getEnterpriseNo();
 		

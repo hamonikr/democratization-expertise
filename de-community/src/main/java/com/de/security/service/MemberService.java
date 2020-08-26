@@ -25,27 +25,8 @@ public class MemberService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserEntity user = ur.findByUserName(username)
-				.orElseThrow(()->new IllegalArgumentException("존재하지 않는 유저입니다"));
-
-		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-		
-		if (user.getRole().equals("0"))
-			grantedAuthorities.add(new SimpleGrantedAuthority(SocialType.ADMIN.getValue()));
-		else if (!user.getRole().equals("1"))
-			grantedAuthorities.add(new SimpleGrantedAuthority(SocialType.MEMBER.getValue()));
-		else if (!user.getRole().equals("2"))
-			grantedAuthorities.add(new SimpleGrantedAuthority(SocialType.GITHUB.getValue()));
-		else if (!user.getRole().equals("4"))
-			grantedAuthorities.add(new SimpleGrantedAuthority(SocialType.GOOGLE.getValue()));
-		else if (!user.getRole().equals("5"))
-			grantedAuthorities.add(new SimpleGrantedAuthority(SocialType.NAVER.getValue()));
-		else if (!user.getRole().equals("6"))
-			grantedAuthorities.add(new SimpleGrantedAuthority(SocialType.KAKAO.getValue()));
-	
-		return	new User(user.getUserName(), user.getUserPassword(), grantedAuthorities);	
-		
-	}
-}		
-	
+		UserEntity user = ur.findByUsername(username).orElseThrow(()->new IllegalArgumentException("존재하지 않는 유저입니다"));
+		return new User(user.getUsername(), user.getUserpassword(), Arrays.asList(new SimpleGrantedAuthority(user.getRole())));
+		}
+	}		
 

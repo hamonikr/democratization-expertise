@@ -24,12 +24,12 @@ public class UsersDetail {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Integer seq;
 	/* 기업 번호 */
-	private Integer enterpriseNo;
+	private Integer enterpriseno;
 	/* 유저 번호 */
-	private Integer userNo;
+	private Integer userno;
 	/* 유저 승인여부 */
-	private Integer userAt;
+	private Integer userat;
 	/* 유저 활성여부 */
-	private Integer activeAt;
+	private Integer activeat;
 
 }

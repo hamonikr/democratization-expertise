@@ -12,10 +12,10 @@ import com.de.user.UsersDetail;
 
 @Repository
 public interface SignupRepository extends JpaRepository<Users, String>{
-	List<Users> findAllByUserEmail(String userEmail);
-	boolean existsByUserEmail(String userEmail);
+	List<Users> findAllByUseremail(String userEmail);
+	boolean existsByUseremail(String userEmail);
 //	@Query(value = "select * from tb_users a where a.user_id like %?1%", nativeQuery = true)
 //    List<Users> findByUserName(String userId);
-    List<Users> findByUserId(String userId);
+    List<Users> findByUserid(String userId);
 }
 

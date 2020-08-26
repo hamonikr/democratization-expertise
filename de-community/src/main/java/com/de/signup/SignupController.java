@@ -63,7 +63,7 @@ public class SignupController {
 	@ResponseBody
 	public String checkIdDuplication(HttpServletRequest request, Users vo, Model model) {
 	String chk = null;
-	System.out.println("아이디 중복체크---> "+vo.getUserId());
+	System.out.println("아이디 중복체크---> "+vo.getUserid());
 	
 	boolean idchk = service.idCheck(vo);
 	
@@ -80,7 +80,7 @@ public class SignupController {
 	@ResponseBody
 	public int checkBizNoDuplication(HttpServletRequest request, Users vo, UsersDetail uvo, Model model) {
 	int chkBiz = 0;
-	System.out.println("사업자 번호 중복체크---> "+uvo.getEnterpriseNo());
+	System.out.println("사업자 번호 중복체크---> "+uvo.getEnterpriseno());
 
 	boolean bizNochk = service.bizNoCheck(uvo);
 	
@@ -98,20 +98,20 @@ public class SignupController {
 	public String signUpProc(Model model, Users vo, UsersDetail uvo, HttpServletRequest request) {
 		System.out.println("----------sign Up Proc----------");
 
-		System.out.println("vo id==>" + vo.getUserId());
-		System.out.println("vo email==>" + vo.getUserEmail());
-		System.out.println("vo pw==>" + vo.getUserPassword());	
+		System.out.println("vo id==>" + vo.getUserid());
+		System.out.println("vo email==>" + vo.getUseremail());
+		System.out.println("vo pw==>" + vo.getUserpassword());	
 		
-		String id = vo.getUserId();
-		String email = vo.getUserEmail();
-		String pw = vo.getUserPassword();
+		String id = vo.getUserid();
+		String email = vo.getUseremail();
+		String pw = vo.getUserpassword();
 		
 			try {
 				 service.save(vo);
-				 if(vo.getUserId() != null) {
+				 if(vo.getUserid() != null) {
 					 System.out.println("=====user info save====");
-					 uvo.setUserNo(vo.getUserNo());
-					 uvo.setActiveAt(0);//setActiveAt 0이면 활성화(default), 1이면 비활성호된 계정
+					 uvo.setUserno(vo.getUserno());
+					 uvo.setActiveat(0);//setActiveAt 0이면 활성화(default), 1이면 비활성호된 계정
 					 service.save(uvo);
 				 }
 			} catch (Exception e) {
@@ -129,17 +129,17 @@ public class SignupController {
 		System.out.println("----------파트너사 sign Up Proc----------");
 		String retVal="aa";
 
-		System.out.println("vo id==>" + vo.getUserId());
-		System.out.println("vo email==>" + vo.getUserEmail());
-		System.out.println("vo pw==>" + vo.getUserPassword());	
-		System.out.println("enterpriseNo-->" + uvo.getEnterpriseNo());
+		System.out.println("vo id==>" + vo.getUserid());
+		System.out.println("vo email==>" + vo.getUseremail());
+		System.out.println("vo pw==>" + vo.getUserpassword());	
+		System.out.println("enterpriseNo-->" + uvo.getEnterpriseno());
 		
-		if(uvo.getEnterpriseNo() != null) {
+		if(uvo.getEnterpriseno() != null) {
 			try {
 				 service.save(vo);
-				 if(vo.getUserId() != null) {
+				 if(vo.getUserid() != null) {
 					 System.out.println("=====user info save====");
-					 uvo.setUserNo(vo.getUserNo());
+					 uvo.setUserno(vo.getUserno());
 					 service.save(uvo);
 					 retVal="S";
 
