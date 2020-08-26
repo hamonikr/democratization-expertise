@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.de.security.SocialType;
 import com.de.security.UserEntity;
 import com.de.security.UserRepository;
 

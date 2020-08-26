@@ -39,7 +39,7 @@ public class FindAccountController {
 			e.printStackTrace();
 		}
 
-		return "redirect:/main";
+		return "redirect:/";
 						
 	}
 }

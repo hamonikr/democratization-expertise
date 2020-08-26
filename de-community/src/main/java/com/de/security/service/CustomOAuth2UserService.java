@@ -36,7 +36,8 @@ import com.de.security.UserRepository;
 import java.util.HashSet;
 import java.util.LinkedHashMap; import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map; 
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession; 
@@ -54,7 +55,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     		new OAuth2UserRequestEntityConverter();
      
     private RestOperations restOperations;
-   
+
     @Autowired
 	private UserRepository ur;
 	 
@@ -139,14 +140,14 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         System.out.println("userAttributes email--->>"+ userAttributes.get("email"));
         
         String email = (String)userAttributes.get("email");
-        ////
-       // UserDetails user;
-		try {
-			UserDetails user = loadUserByUserEmail(email);
+        String name = (String)userAttributes.get("name");
+        String id = (String)userAttributes.get("id");
+
+       try {
+			UserDetails user = loadUserByUseremail(email,name,id);
 	        System.out.println("user>>?" + user.toString());
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
@@ -171,24 +172,50 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
      
      
-     public UserDetails loadUserByUserEmail(String email) throws Exception {
- 		LoginVO user = service.findByUserEmail("bono623@naver.com");
- 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+     public UserDetails loadUserByUseremail(String email, String name,String id) throws Exception {
+    	 
+    	 System.out.println("UserDetails email---> " + email);
+    	 System.out.println("UserDetails name---> " + name);
+    	 System.out.println("UserDetails id---> " + id);
+
+   	   String[] spl1 = email.split("@");
+   	   String[] spl2 = spl1[1].split(".c");
+   	   
+   	   String sns = spl2[0];
+   	   System.out.println("sns?  " + sns);
+
+    	    	 LoginVO lvo = service.findUser(email);
+//    	    	 Optional<UserEntity> userEntity = ur.findByUseremail(email);
+            	 	
+    	    //	 System.out.println("UserDetails user---> " + userEntity.toString());
+        	  	
+        	  	 if(lvo.getUseremail()==null) {
+	       	  	 System.out.println("해당 sns email---> 존재하지않음 >>> 회원계정 저장" );
+	 
+	       	  	 lvo.setUseremail(email);
+	       	  	 lvo.setUserid("@"+sns+id);
+	       	  	 lvo.setUsername(name);
+	       	  	 	
+	       	  	 System.out.println("lvo >>> "+ lvo.toString());
+	       	  	 service.saveSnsAccount(lvo);
+        	  	 }
  		
- 		if (user.getRole().equals("0"))
+        	  	 Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+ 		
+ 		if (lvo.getRole().equals("0"))
  			grantedAuthorities.add(new SimpleGrantedAuthority(SocialType.ADMIN.getValue()));
- 		else if (!user.getRole().equals("1"))
+ 		else if (!lvo.getRole().equals("1"))
  			grantedAuthorities.add(new SimpleGrantedAuthority(SocialType.MEMBER.getValue()));
- 		else if (!user.getRole().equals("2"))
+ 		else if (!lvo.getRole().equals("2"))
  			grantedAuthorities.add(new SimpleGrantedAuthority(SocialType.GITHUB.getValue()));
- 		else if (!user.getRole().equals("4"))
+ 		else if (!lvo.getRole().equals("4"))
  			grantedAuthorities.add(new SimpleGrantedAuthority(SocialType.GOOGLE.getValue()));
- 		else if (!user.getRole().equals("5"))
+ 		else if (!lvo.getRole().equals("5"))
  			grantedAuthorities.add(new SimpleGrantedAuthority(SocialType.NAVER.getValue()));
- 		else if (!user.getRole().equals("6"))
+ 		else if (!lvo.getRole().equals("6"))
  			grantedAuthorities.add(new SimpleGrantedAuthority(SocialType.KAKAO.getValue()));
  	
- 		return	new User(user.getUser_name(), user.getUser_password(), grantedAuthorities);	
+ 		return	new User(lvo.getUsername(), lvo.getUserpassword(), grantedAuthorities);	
  		
  	}
  }

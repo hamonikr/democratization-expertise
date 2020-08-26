@@ -5,6 +5,10 @@ import com.de.security.LoginVO;
 
 @Mapper
 public interface SecurityMapper {
+//	public int loginCheck(String id, String pw)throws Exception;
+
+	public LoginVO findUser(String email)throws Exception;
 	
-	public LoginVO findByUserEmail(String email)throws Exception;
+	public int saveSnsAccount(LoginVO  vo)throws Exception;
+	
 }

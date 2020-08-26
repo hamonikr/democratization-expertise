@@ -23,11 +23,13 @@ import com.de.cmmn.CmmnMap;
 import com.de.cmmn.service.CmmnService;
 import com.de.login.service.SecurityMember;
 import com.de.security.UserEntity;
+import com.de.security.service.CustomOAuth2UserService;
 
 
 @Configuration
 public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 	
+	CustomOAuth2UserService cs;
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws ServletException, IOException {
@@ -41,6 +43,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         
         DefaultOAuth2User user = (DefaultOAuth2User) authentication.getPrincipal();
 
+        
     	String name = (String) user.getAttributes().get("name");
 		String email = (String) user.getAttributes().get("email");
         
@@ -50,7 +53,6 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 		System.out.println("email-->"+ email);
 	
 		
-
        httpSession.setAttribute("UserSession", user);   
       	response.setStatus(HttpServletResponse.SC_OK);
   		 

@@ -38,7 +38,7 @@ strong{
       <div class="login-box-msg">
        <h3>로그인</h3>
       </div>
-      <form id="frm" name="frm" method="post" style="width:95%;">
+      <form id="frm" name="frm" method="post"  style="width:95%;">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<div class="row">
 			<div class="input-group mb-3">
@@ -74,7 +74,7 @@ strong{
 		
 		<!-- 로그인 버튼  -->
          <div class="row-8" style="margin-left:10px;">
-            <button type="button" id ="submit_action" class="col-12 btn btn-primary btn-block">로그인</button>
+            <button type="submit" id ="submit_action" class="col-12 btn btn-primary btn-block">로그인</button>
           </div>
       </form>
       
@@ -141,21 +141,23 @@ strong{
 		$("#submit_action").on("click",submitAction);	
 	 
 	   function submitAction(){
+
+		   document.frm.action = "/loginSuccess";
+			document.frm.submit();		   
+/* 			var userid = $("#username").val();
+			var userpassword = $("#password").val();
 	
-			var userId = $("#username").val();
-			var userPassword = $("#password").val();
-	
-		if(userId == null || userId =="" || userId=="undefinded"){
+		if(userid == null || userid =="" || userid=="undefinded"){
 			alert("아이디를 입력해주세요");
 			$("#username").focus();	
-			} else if(userPassword == null || userPassword =="" || userPassword=="undefinded"){
+			} else if(userpassword == null || userpassword =="" || userpassword=="undefinded"){
 				alert("비밀번호를 입력해주세요");	
 				$("#password").focus();
 				} else{
 					document.frm.action = "/loginSuccess";
 					document.frm.submit();
-					alert("user id---->" + userId+"\n"+"userPassword---->" + userPassword);							
-				}					
+					alert("user id---->" + userid+"\n"+"userPassword---->" + userpassword);							
+				}	 */				
 			}
     });
 

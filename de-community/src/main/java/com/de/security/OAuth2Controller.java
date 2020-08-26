@@ -61,6 +61,7 @@ public class OAuth2Controller {
 		System.out.println("<<--- controller for normal loginSuccess-->> ");
 
 		System.out.println("session--> user name..?"+session.getAttribute("UserSession").toString());
+		System.out.println("session--> user name..? "+user.getUsername());
 		
 		return "/users/profile"; 
 	} 

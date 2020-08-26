@@ -4,15 +4,37 @@
 <mapper namespace="com.de.security.mapper.SecurityMapper">
 
 <!-- 정보 조회 -->
-<select id="findByUserEmail" parameterType="String" resultType="com.de.security.LoginVO">
+<select id="findUser" parameterType="String" resultType="com.de.security.LoginVO">
 SELECT 
 	*
 FROM 
 	tb_users 
 WHERE
-	user_email = #{user_email};
+	useremail = #{useremail};
 </select>	
 
+<!-- 정보 저장 -->
+<insert id="saveSnsAccount" parameterType="com.de.security.LoginVO" >
+<selectKey keyProperty="userno" resultType="Integer" order="BEFORE">
+    SELECT nvl(max(userno),0)+1 FROM tb_users
+  </selectKey>
+	Insert
+	 into
+  	  tb_users(  	  	      
+      userid
+      ,userpassword
+      ,useremail
+      ,regdate
+    )
+  values
+    (   
+    	#{userno}
+       ,#{userid}
+       ,#{userpassword}
+       ,#{useremail}   
+      ,now()
+     )
+</insert>
 
 </mapper>
  

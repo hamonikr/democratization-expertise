@@ -24,12 +24,15 @@ public class UserEntity {
 	private String userid;	
 	private String username;
 	private String userpassword;
+	private String useremail;
 	private String role;
 	
 	@Builder
 	public UserEntity(String username, String password, String role) {
 		this.username = username;
-		this.userpassword = password;
+	this.userpassword = password;
+	this.useremail = useremail;
+
 		this.role = role;
 	}
 }
