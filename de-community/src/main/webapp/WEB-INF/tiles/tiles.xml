@@ -21,10 +21,13 @@
        <put-attribute name="footer" value="/WEB-INF/views/layout/common/footer.jsp" />
    </definition>
 
-  <definition name="/users/*" extends="login-layout">
-     <put-attribute name="body" value="/WEB-INF/views/users/{1}.jsp" />  
+  <definition name="/login/*" extends="login-layout">
+     <put-attribute name="body" value="/WEB-INF/views/login/{1}.jsp" />  
    </definition>  	
 
+  <definition name="/*" extends="login-layout">
+     <put-attribute name="body" value="/WEB-INF/views/index.jsp" />  
+   </definition> 
 
    <definition name="/*/*" extends="sub-layout">
         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />

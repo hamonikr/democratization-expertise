@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -30,25 +31,28 @@
       </div>
     </form>
 	
-	<c:choose> 
-		<c:when test="${user}"> 
-       <button type="button" id="btnSave" class="btn_type2"> 등록</button>
-     </c:when>
-     <c:otherwise>
-	       <button type="button" id="btnUpdate" class="btn_type2"> 수정</button>
-	       <button type="button" class="btn_type2" onclick="goDelete()"> 삭제</button>
-	  </c:otherwise>
-	</c:choose>
-
-	<!-- login/singup button -->
+<!-- login/singup button -->
    <ul class="navbar-nav" style="margin-left:300px;'">
-     <li> <button class="btn btn-block btn-primary" style="margin-left:10px; width:100px;background-color:#58ACFA;border-color:#FFFFFF;" onClick="location.href='/login'">로그인 </button></li>
-   	 <li> <button class="btn btn-block btn-secondary" style="margin-left:30px; width:100px;background-color:#A4A4A4;border-color:#FFFFFF;" onClick="location.href='/signup/signup'">회원가입 </button></li>
-    <li> <button class="btn btn-block btn-primary" style="margin-left:10px; width:100px;background-color:#58ACFA;border-color:#FFFFFF;" onClick="location.href='/logout'">로그아웃 </button></li>
-   
+     <li> 
+     <sec:authorize access="isAnonymous()">
+   		  <button class="btn btn-block btn-primary" style="margin-left:10px; width:100px;background-color:#58ACFA;border-color:#FFFFFF;" onClick="location.href='/login'">로그인 </button>
+     </sec:authorize>
+     </li>
+   	
+   	  <li>    
+   	   <sec:authorize access="isAnonymous()">
+   	  		<button class="btn btn-block btn-secondary" style="margin-left:30px; width:100px;background-color:#A4A4A4;border-color:#FFFFFF;" onClick="location.href='/signup/signup'">회원가입 </button>
+   	  	</sec:authorize>
+   	 </li>
+     <li> 
+     	<sec:authorize access="hasRole('ROLE_USER')">
+     		<button class="btn btn-block btn-primary" style="margin-left:10px; width:100px;background-color:#58ACFA;border-color:#FFFFFF;" onClick="location.href='/login/logout'">로그아웃 </button>
+     	</sec:authorize>
+     </li>   
     </ul>
     
     <!-- Right navbar links -->
+  	<sec:authorize access="hasRole('ROLE_USER')">
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
@@ -82,7 +86,7 @@
                   John Pierce
                   <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
                 </h3>
-                <p class="text-sm">I got your message bro</p>
+                <p class="text-sm">I got your message </p>
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
             </div>
@@ -141,6 +145,7 @@
         </a>
       </li>
     </ul>
+    </sec:authorize>
   </nav>
 
   
