@@ -129,7 +129,7 @@ strong{
  });
  
 function sendRecoveryEmail(){
-		document.frm.action = "/accountRecovery/sendRecoveryEmail";
+		document.frm.action = "/accountRecovery/sendRecoveryEmail.proc";
 		document.frm.submit();
 
 } 

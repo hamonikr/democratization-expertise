@@ -4,10 +4,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 
 import com.de.user.Users;
 import com.de.user.UsersDetail;
@@ -21,9 +19,10 @@ public class SignupService {
 	@Autowired
 	private SignupForDetailRepository sd;
 	
-	public Users save(Users vo) {				
+	public Users save(Users vo) {	
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		vo.setUserpassword(passwordEncoder.encode(vo.getUserpassword()));
+		vo.setRole(1);
 		return sr.save(vo);
 	}
 	
@@ -36,13 +35,18 @@ public class SignupService {
 	}
 	
 	public boolean idCheck (Users vo) {		
-		List<Users> uu = sr.findByUserid(vo.getUserid());
-		return uu.listIterator().hasNext();
+		List<Users> idExt = sr.findByUserid(vo.getUserid());
+		return idExt.listIterator().hasNext();
+	}
+	
+	public boolean emCheck (Users vo) {		
+		List<Users> emExt = sr.findByUseremail(vo.getUseremail());
+		return emExt.listIterator().hasNext();
 	}
 	
 	public boolean bizNoCheck (UsersDetail vo) {		
-		List<UsersDetail> uu = sd.findByEnterpriseno(vo.getEnterpriseno());
-		return uu.listIterator().hasNext();
+		List<UsersDetail> bizExt = sd.findByEnterpriseno(vo.getEnterpriseno());
+		return bizExt.listIterator().hasNext();
 	}
 	
 }

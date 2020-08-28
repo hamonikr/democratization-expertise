@@ -76,13 +76,24 @@ strong{
         </div>
        <br>
 	
+     <!-- 이름 입력 -->
+   <div class="row">
+     <div class="col-8">
+     	<p><strong>이름 </strong><strong style="color:red;">*</strong>
+     </div>
+          	<div class="form-group col-12"> 	    
+		      	<input type="text" class="form-control" id="username" value="이영은" name="username" maxlength="30" style="margin-left: 10px" placeholder="이름을 입력해주세요">             	
+		   </div>
+        </div>
+       <br>
+
 	<!-- 이메일 -->  
      <div class="row">
      <div class="col-8">
      	<p><strong>Email 주소</strong><strong style="color:red;">*</strong>
      </div>
           	<div class="form-group col-12"> 	    
-		      	<input type="email" class="form-control englishOnly" id="useremail" name="useremail" style="margin-left: 10px" placeholder="이메일을 입력해주세요">             	
+		      	<input type="email" class="form-control englishOnly" id="useremail" value="lee@invesume.com" name="useremail" style="margin-left: 10px" placeholder="이메일을 입력해주세요">             	
 		   </div>
         </div>
        <br>
@@ -93,7 +104,7 @@ strong{
      	<p><strong>비밀번호</strong><strong style="color:red;">*</strong>
      </div>
           	<div class="form-group col-12"> 	    
-		      	<input type="password" class="form-control" id="userpassword" name="userpassword" style="margin-left: 10px" placeholder="비밀번호를 입력해주세요">             	
+		      	<input type="password" class="form-control" id="userpassword" value="lee1234" name="userpassword" style="margin-left: 10px" placeholder="비밀번호를 입력해주세요">             	
 		   </div>
         </div>
        <br>
@@ -144,14 +155,19 @@ strong{
 	 $('#frm').validate({
 		 rules: {
 		 	  userid:{ required: true, minlength: 3 },
+		 	  username:{ required: true, minlength: 1 },
 		 	  useremail:{ required: true, email: true },
-		      userpassword:{ required: true, minlength:6, passwordCk : true }
+		     userpassword:{ required: true, minlength:6, passwordCk : true }
 		  }, 
 		  messages:{
 		 		userid:{
 		 			required : "아이디를 입력하시오.",
 		 			minlength : "최소 {0}자 입력해주세요"
-		 		},							
+		 		},
+		 		username:{
+		 			required : "이름을 입력하시오.",
+		 			minlength : "최소 {0}자 입력해주세요"
+		 		},									
 		 	   useremail: {
 		 			required : "이메일은 필수값 입니다.",
 		 			email : "이메일 형식을 확인해주세요"
@@ -174,36 +190,49 @@ strong{
 		 	   	     $(element).removeClass('is-invalid');
 		 	},
 		 	submitHandler: function (frm) {
-				 var userid = $("#userid").val();
-				 	
+				 var userid = $("#userid").val();				 	
 		 	  		 $.ajax({
 		       			 url: '/signup/checkIdDuplication',
 		                  type: 'post',
 		                  data: {userid},
 		                  success: function(retVal) {		 							
 		 						if(retVal == "사용가능한 아이디입니다"){
-		 							alert(retVal);
-			 							  $.ajax({
-		 						             url: '/signup/VerifyRecaptcha',
-		 						             type: 'post',
-		 						             data: {
-		 						                 recaptcha: $("#g-recaptcha-response").val()
-		 						        		     },
-		 						             success: function(data) {
-		 						                 switch (data) {
-		 						                     case 0:
-		 						                         //alert("자동 가입 방지 봇 통과");
-		 						                         signUpProc();
-		 						                         break;			 
-		 						                     case 1:
-		 						                         alert("자동 가입 방지 봇을 확인 한 뒤 진행 해 주세요.");
-		 						                         break;
-		 						                     default:
-		 						                         alert("자동 가입 방지 봇을 실행 하던 중 오류가 발생 했습니다. [Error bot Code : " + Number(data) + "]");
-		 						                         break;
-		 						                 	}
-		 						             	}
-		 						         }); 
+		 							//alert(retVal);
+		 							var useremail = $("#useremail").val();
+			 						//alert(useremail);
+		 							$.ajax({
+		 				       			 url: '/signup/checkEmailDuplication',
+		 				                  type: 'post',
+		 				                  data: {useremail},
+		 					              success: function(retVal) {		 							
+		 				 						if(retVal != ""){
+		 				 							alert(retVal);
+		 				 						} else{								
+		 							
+				 							  $.ajax({
+			 						             url: '/signup/VerifyRecaptcha',
+			 						             type: 'post',
+			 						             data: {
+			 						                 recaptcha: $("#g-recaptcha-response").val()
+			 						        		     },
+			 						             success: function(data) {
+			 						                 switch (data) {
+			 						                     case 0:
+			 						                         //alert("자동 가입 방지 봇 통과");
+			 						                         signUpProc();
+			 						                         break;			 
+			 						                     case 1:
+			 						                         alert("자동 가입 방지 봇을 확인 한 뒤 진행 해 주세요.");
+			 						                         break;
+			 						                     default:
+			 						                         alert("자동 가입 방지 봇을 실행 하던 중 오류가 발생 했습니다. [Error bot Code : " + Number(data) + "]");
+			 						                         break;
+			 						                 	}
+			 						             	}
+			 						         }); 
+		 				 					}
+		 				                  }
+				 				         });
 		 							} else{
 										alert("중복된 아이디 입니다. 다른 아이디를 입력해주세요");
 			 							}			

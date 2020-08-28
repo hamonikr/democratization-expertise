@@ -24,11 +24,9 @@ public class CustomAccessDeniedHandler implements AuthenticationFailureHandler {
 		System.out.println("CustomAccessDeniedHandler exception발생====>"+exception);
 		
 		if(exception instanceof BadCredentialsException) {
-        	request.setAttribute("url", "/login");
-        	request.setAttribute("message", "비밀번호가 올바르지 않습니다. 확인해주세요");
-   //     	request.getRequestDispatcher("/login/message").forward(request, response);;
+        	request.setAttribute("url", "/");
         } else if(exception instanceof InternalAuthenticationServiceException) {
-        	request.setAttribute("url", "/login");
+        	request.setAttribute("url", "/");
         }
 
 	}

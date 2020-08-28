@@ -13,14 +13,14 @@ public class FindAccountController {
 	@Autowired
 	FindAccountService service;
 	
-	@RequestMapping("/account-recovery")
+	@RequestMapping("/sendRecoveryEmail")
 	 public String accountRecovery(HttpServletRequest request) { 		
 		System.out.println("---account-recovery----");
 		
-		return "/users/forgotPw";
+		return "/login/forgotPw";
 	 } 
 	
-	@RequestMapping("/sendRecoveryEmail")
+	@RequestMapping("/sendRecoveryEmail.proc")
 	 public String sendRecoveryEmail(HttpServletRequest request, Account vo) { 		
 		System.out.println("---sendRecoveryEmail Proc----");
 		int up_result;
