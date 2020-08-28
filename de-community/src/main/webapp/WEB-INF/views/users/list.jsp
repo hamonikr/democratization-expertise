@@ -3,7 +3,7 @@
 <head>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Users | Profile</title>
+  <title>Users | List</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -101,8 +101,8 @@
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link" href="/users/activity" data-toggle="tab">활동정보</a></li>
-                  <li class="nav-item"><a class="nav-link active" href="/users/profile" data-toggle="tab">프로필</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">활동정보</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">프로필</a></li>
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">
