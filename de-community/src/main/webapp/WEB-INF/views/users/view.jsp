@@ -66,7 +66,6 @@
 
 						<div class="col-3 profileLeftDiv">
 							<c:if test="${user.userProfileImg != null}">
-								<input type="hidden" name="userProfileImg" value="${user.userProfileImg}">
 								<img alt="profile" src="/upload/${user.userProfileImg}" id="profileImg" class="img" width="100%"><br/>
 							</c:if>
 							<c:if test="${user.userProfileImg == null}">
@@ -75,6 +74,7 @@
 							
 							<c:if test="${ isMypage }">
 								<label class="btn btn-primary" >
+									<input type="hidden" name="userProfileImg" value="${user.userProfileImg}">
 									<input id="iptProfileImg" name="profileImg" type="file" onchange="fnProfileImg()" style="display: none;">
 									<span>사진변경</span><br/>
 								</label>

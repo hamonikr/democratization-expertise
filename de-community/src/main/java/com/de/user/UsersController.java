@@ -69,7 +69,7 @@ public class UsersController {
 		int userSeq = 4;
 		
 		Optional<Users> users = service.findById(userSeq);
-		model.addAttribute("result", users.orElse(null));	// 프로필 정보
+		model.addAttribute("user", users.orElse(null));	// 프로필 정보
 		model.addAttribute("isMypage", seq == userSeq);		// 내 정보 유무
 
 		return "/users/dashboard";
@@ -112,20 +112,19 @@ public class UsersController {
 		// 임시 - 사용자 seq
 		int userSeq = 4;
 		
-		Optional<Users> users = service.findById(seq);
+		Optional<Users> user = service.findById(seq);
 		Optional<Enterprises> enterprise = service.findEnterpriseNo(seq);
 		
-		System.out.println(" ------ users : " + users);
-		System.out.println(" ------ enterprise : " + enterprise);
+		logger.info(" ------ user : " + user);
+		logger.info(" ------ enterprise : " + enterprise);
 		
-		if ( ! users.isPresent()) {
+		if ( ! user.isPresent()) {
 			return "redirect:/users/list";
 		}
 		
-		model.addAttribute("user", users.orElse(null));	// 프로필 정보
+		model.addAttribute("user", user.orElse(null));	// 프로필 정보
 		model.addAttribute("isMypage", seq == userSeq);	// 내 정보 유무
 		model.addAttribute("enterprise", enterprise.orElse(null));	// 회사명 정보
-		model.addAttribute("newslater", false);	// 뉴스레터 수신유무
 		
 		return "/users/view";
 	}
