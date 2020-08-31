@@ -27,24 +27,24 @@ public class Enterprises {
 	@Column
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	/* 기업 고유 번호 */
-	private Integer enterpriseNo;
+	private Integer enterpriseno;
 	/* 기업 승인 여부 */
-	private Integer enterpriseAt;
+	private Integer enterpriseat;
 	/* 기업 아이디 */
-	private String enterpriseId;
+	private String enterpriseid;
 	/* 기업 이름 */
-	private String enterpriseName;
+	private String enterprisename;
 	/* 기업 비밀번호 */
-	private String enterprisePassword;
+	private String enterprisepassword;
 	/* 기업 이메일 */
-	private String enterpriseEmail;
+	private String enterpriseemail;
 	/* 기업 사업자 번호 */
-	private Integer enterpriseBizno;
+	private Integer enterprisebizno;
 	/* 가입 일시 */
 	@CreationTimestamp
-	private Timestamp registerDate;
+	private Timestamp registerdate;
 	/* 수정 일시 */
 	@UpdateTimestamp
-	private Timestamp updateDate;
+	private Timestamp updatedate;
 
 }

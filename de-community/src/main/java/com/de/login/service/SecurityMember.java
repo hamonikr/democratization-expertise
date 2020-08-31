@@ -35,12 +35,12 @@ public class SecurityMember extends User {
 	private int enterpriseNo;
 	// session setter
 	public SecurityMember(Login vo) {
-		super(vo.getUserId(), vo.getUserPassword(), makeGrantedAuthority(vo));
-		this.userNo = vo.getUserNo();
-		this.userId = vo.getUserId();
-		this.userPassword = vo.getUserPassword();
-		this.userEmail = vo.getUserEmail();
-		this.userName = vo.getUserName();
+		super(vo.getUserid(), vo.getUserpassword(), makeGrantedAuthority(vo));
+		this.userNo = vo.getUserno();
+		this.userId = vo.getUserid();
+		this.userPassword = vo.getUserpassword();
+		this.userEmail = vo.getUseremail();
+		this.userName = vo.getUsername();
 //		this.userStatus = vo.getUserStatus();
 		//this.enterpriseNo = uvo.getEnterpriseNo();
 		

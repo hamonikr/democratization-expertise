@@ -5,19 +5,19 @@
 
 <select id="findEnterpriseNo" parameterType="Integer" resultType="com.de.enterprise.Enterprises">
 SELECT 
-	enterprise_no as enterpriseNo,
-	enterprise_name as enterpriseName
+	enterpriseno,
+	enterprisename
 FROM
 	tb_enterprises
 WHERE
-	enterprise_no = 
+	enterpriseno = 
 		(
 			SELECT 
-				enterprise_no 
+				enterpriseno 
 			FROM 
 				tb_users_detail 
 			WHERE 
-				user_no = #{seq}
+				userno = #{seq}
 		)
 </select>
 
@@ -25,46 +25,46 @@ WHERE
 UPDATE
 	tb_users
 SET
-	user_password = #{userPasswordNew},
-	update_date = now()
+	userpassword = #{userpasswordnew},
+	updatedate = now()
 WHERE
-	user_no = #{userNo} and
-	user_password = #{userPassword}
+	userno = #{userno} and
+	userpassword = #{userpassword}
 </update>
 
 <select id="getEnterList" parameterType="com.de.enterprise.Enterprises" resultType="com.de.enterprise.Enterprises">
 SELECT 
-	enterprise_no AS enterpriseNo,
-	enterprise_name AS enterpriseName
+	enterpriseno,
+	enterprisename
 FROM 
 	tb_enterprises
 WHERE
-	 enterprise_at = #{enterpriseAt} and
-	 enterprise_name like '%${enterpriseName}%'
+	 enterpriseat = #{enterpriseat} and
+	 enterprisename like '%${enterprisename}%'
 </select>
 
 <update id="updateUserProfileImg" parameterType="com.de.user.Users">
 UPDATE
 	tb_users
 SET
-	user_profile_img = #{userProfileImg},
-	update_date = now()
+	userprofileimg = #{userprofileimg},
+	updatedate = now()
 WHERE
-	user_no = #{userNo}
+	userno = #{userno}
 </update>
 
 <update id="updateEnterpriseNo" parameterType="com.de.user.UsersDetail">
 UPDATE
 	tb_users_detail
 SET
-	<if test="enterpriseNo != null">
-		enterprise_no = #{enterpriseNo}
+	<if test="enterpriseno != null">
+		enterpriseno = #{enterpriseno}
 	</if>
-	<if test="enterpriseNo == null">
-		enterprise_no = 0
+	<if test="enterpriseno == null">
+		enterpriseno = 0
 	</if>
 WHERE
-	user_no = #{userNo}
+	userno = #{userno}
 </update>
 
 </mapper>

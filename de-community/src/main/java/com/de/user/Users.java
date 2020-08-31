@@ -30,34 +30,34 @@ import lombok.ToString;
 public class Users implements Serializable{
 	
 	@Id
-	@Column(name="user_no")
+	@Column(name="userno")
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	/* 회원 고유 번호 */
-	private Integer userNo;
+	private Integer userno;
 	/* 회원 아이디 */
-	private String userId;
+	private String userid;
 	/* 회원 이름 */
-	private String userName;
+	private String username;
 	/* 회원 비밀번호 */
-	private String userPassword;
+	private String userpassword;
 	/* 프로필 이미지 */
-	private String userProfileImg;
+	private String userprofileimg;
 	/* 회원 소개 */
-	private String aboutMe;
+	private String aboutme;
 	/* 회원 사이트 주소 */
-	private String userUrl;
+	private String userurl;
 	/* 회원 이메일 */
-	private String userEmail;
+	private String useremail;
 	/* 회원 구분 1:회원가입 2:소셜가입  - 소셜가입은 패스워드 없고 정보만 저장*/
-	private Integer userStatus;
+	private Integer userstatus;
 	/* 뉴스레터 */
 	private String newslater;
 	/* 가입 일시 */
 	@CreationTimestamp
-	private Timestamp registerDate;
+	private Timestamp registerdate;
 	/* 수정 일시 */
 	@UpdateTimestamp
-	private Timestamp updateDate;
+	private Timestamp updatedate;
 
 //    @Builder
 //    public Users(String userId, String userPassword) {
@@ -65,11 +65,11 @@ public class Users implements Serializable{
 //        this.userPassword = userPassword;
 //    }
 //    
-	 @OneToOne
-     @JoinTable(name = "tb_user_detail", //조인테이블명
-                joinColumns = @JoinColumn(name="user_no"),  //외래키
-                inverseJoinColumns = @JoinColumn(name="user_no") //반대 엔티티의 외래키
-                )
-     private UsersDetail usersDetail;
+	@OneToOne
+	@JoinTable(name = "tb_users_detail",	//조인테이블명
+				joinColumns = @JoinColumn(name="userno"),	//외래키
+				inverseJoinColumns = @JoinColumn(name="userno")	//반대 엔티티의 외래키
+	)
+	private UsersDetail usersDetail;
 
 }

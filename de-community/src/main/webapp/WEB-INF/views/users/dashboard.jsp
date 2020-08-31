@@ -18,8 +18,8 @@
 		<div class="row">
 			<!-- Content Header (Page header) -->
 			<div class="col-12">
-				<a href="/users/dashboard/${user.userNo}" class="btn btn-primary">활동정보</a>
-				<a href="/users/view/${user.userNo}" class="btn btn-primary">프로필</a>
+				<a href="/users/dashboard/${user.userno}" class="btn btn-primary">활동정보</a>
+				<a href="/users/view/${user.userno}" class="btn btn-primary">프로필</a>
 			</div>
 			
 			<div class="col-12">
@@ -32,8 +32,8 @@
 						
 						<div class="col-8 row">
 							<div class="col-12">
-								<h2><b>${user.userName}</b></h2>
-								<p>${user.aboutMe}</p>
+								<h2><b>${user.username}</b></h2>
+								<p>${user.aboutme}</p>
 							</div>
 							
 							<div class="col-6">
@@ -47,15 +47,15 @@
 						</div>
 	
 						<div class="col-4 profileLeftDiv">
-							<c:if test="${user.userProfileImg != null}">
-								<img alt="profile" src="/upload/${user.userProfileImg}" id="profileImg" class="img" width="100%"><br/>
+							<c:if test="${user.userprofileimg != null}">
+								<img alt="profile" src="/upload/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
 							</c:if>
-							<c:if test="${user.userProfileImg == null}">
+							<c:if test="${user.userprofileimg == null}">
 								<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
 							</c:if>
 							
 							<span>배지 : </span>
-							<span>홈페이지 : </span><a href="${user.userUrl}" target="_blank">${user.userUrl}</a>
+							<span>홈페이지 : </span><a href="${user.userurl}" target="_blank">${user.userurl}</a>
 						</div>
 	
 					</div>

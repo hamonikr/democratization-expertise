@@ -26,7 +26,7 @@
 					</div>
 
 					<!-- <a href="javascript:alert('준비중');" class="btn btn-primary purple">평판</a> -->
-					<a href="/users/list?sort=registerDate,DESC" class="btn btn-primary purple">사용자</a>
+					<a href="/users/list?sort=registerdate,DESC" class="btn btn-primary purple">사용자</a>
 					<!-- <a href="javascript:alert('준비중');" class="btn btn-primary purple">좋아요</a> -->
 				</div>
 			</div>
@@ -35,15 +35,15 @@
 				<div class="row">
 					<c:forEach var="list" items="${data}" varStatus="status">
 						<div class="col-3">
-							<a class="profileImg" href="/users/dashboard/${list.userNo}">
-								<c:if test="${list.userProfileImg != null}">
-									<img alt="userProfileImg_${list.userName}" src="/upload/${list.userProfileImg}">
+							<a class="profileImg" href="/users/dashboard/${list.userno}">
+								<c:if test="${list.userprofileimg != null}">
+									<img alt="userProfileImg_${list.username}" src="/upload/${list.userprofileimg}">
 								</c:if>
-								<c:if test="${list.userProfileImg == null}">
-									<img alt="userProfileImg_${list.userName}" src="/img/user_over.png">
+								<c:if test="${list.userprofileimg == null}">
+									<img alt="userProfileImg_${list.username}" src="/img/user_over.png">
 								</c:if>
 							</a>
-							<a href="/users/dashboard/${list.userNo}">${list.userName}</a>
+							<a href="/users/dashboard/${list.userno}">${list.username}</a>
 						</div>
 					</c:forEach>
 

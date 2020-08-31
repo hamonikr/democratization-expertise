@@ -68,7 +68,7 @@ public class UsersController {
 		// 임시 - 사용자 seq
 		int userSeq = 4;
 		
-		Optional<Users> users = service.findById(userSeq);
+		Optional<Users> users = service.findById(seq);
 		model.addAttribute("user", users.orElse(null));	// 프로필 정보
 		model.addAttribute("isMypage", seq == userSeq);		// 내 정보 유무
 
@@ -141,7 +141,7 @@ public class UsersController {
 	public String modify(Model model, Users vo, UsersDetail userDetail) throws Exception {
 		if(LOG_URL) logger.info(" -- url : /users/modify - user : " + vo + " // detail : " + userDetail);
 		service.updateUser(vo, userDetail);
-		return "redirect:/users/view/" + vo.getUserNo();
+		return "redirect:/users/view/" + vo.getUserno();
 	}
 
 	/**
@@ -162,7 +162,7 @@ public class UsersController {
 		// session 에서 seq 정보 추출
 		// 임시 - 사용자 seq
 		int userSeq = 4;
-		vo.setUserNo(userSeq);
+		vo.setUserno(userSeq);
 		
 		boolean updateVal = service.updateUserPw(vo);
 		
@@ -192,7 +192,7 @@ public class UsersController {
 		int userSeq = 4;
 		
 		Users vo = new Users();
-		vo.setUserNo(userSeq);
+		vo.setUserno(userSeq);
 		
 		boolean updateVal = service.upload(vo, request);
 		

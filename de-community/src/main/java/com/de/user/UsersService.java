@@ -53,7 +53,7 @@ public class UsersService {
 
 		// 기본 정렬 설정
 		String[] sort = pageable.getSort().toString().split(": ");
-		String sortColumn = "registerDate";
+		String sortColumn = "registerdate";
 		Direction direction = Sort.Direction.DESC;
 
 		// 사용자 설정에 따른 변경
@@ -69,33 +69,33 @@ public class UsersService {
 	
 	// 정보 업데이트
 	public void updateUser(Users vo, UsersDetail userDetail) throws Exception {
-		Optional<Users> users = ur.findById(vo.getUserNo());
+		Optional<Users> users = ur.findById(vo.getUserno());
 		Optional<Enterprises> enterprises = null;
 		
 		// find enterprise information
-		if(userDetail != null && userDetail.getEnterpriseNo() != null) {
-			enterprises = er.findById(userDetail.getEnterpriseNo());
+		if(userDetail != null && userDetail.getEnterpriseno() != null) {
+			enterprises = er.findById(userDetail.getEnterpriseno());
 		}
 		
 		// update user information
 		if (users.isPresent()) {
-			users.get().setUserName(vo.getUserName());
-			users.get().setUserEmail(vo.getUserEmail());
-			users.get().setAboutMe(vo.getAboutMe());
-			users.get().setUserUrl(vo.getUserUrl());
+			users.get().setUsername(vo.getUsername());
+			users.get().setUseremail(vo.getUseremail());
+			users.get().setAboutme(vo.getAboutme());
+			users.get().setUserurl(vo.getUserurl());
 			
-			vo.setUserId(users.get().getUserId());
-			vo.setUserPassword(users.get().getUserPassword());
-			vo.setUserStatus(users.get().getUserStatus());
-			vo.setRegisterDate(users.get().getRegisterDate());
+			vo.setUserid(users.get().getUserid());
+			vo.setUserpassword(users.get().getUserpassword());
+			vo.setUserstatus(users.get().getUserstatus());
+			vo.setRegisterdate(users.get().getRegisterdate());
 			
 			ur.save(vo);
 		}
 		
 		// update userDetail enterpriseNo
-		userDetail.setUserNo(users.get().getUserNo());
+		userDetail.setUserno(users.get().getUserno());
 		if( !( enterprises != null && enterprises.isPresent() ) ) {
-			userDetail.setEnterpriseNo(null);
+			userDetail.setEnterpriseno(null);
 		}
 		um.updateEnterpriseNo(userDetail);
 		
@@ -114,7 +114,7 @@ public class UsersService {
 	// 비밀번호 변경
 	public boolean updateUserPw(UserPwVO vo) {
 		boolean updateVal = false;
-		Optional<Users> e = ur.findById(vo.getUserNo());
+		Optional<Users> e = ur.findById(vo.getUserno());
 		
 		if (e.isPresent()) {
 //			if(e.get().getUserPassword().equals(vo.getUserPassword())) {
@@ -149,9 +149,9 @@ public class UsersService {
 			
 			// 파일 확장자명 추출
 			Integer mid = saveFileName.lastIndexOf(".");
-			saveFileName = vo.getUserNo() + saveFileName.substring(mid, saveFileName.length());
+			saveFileName = vo.getUserno() + saveFileName.substring(mid, saveFileName.length());
 			
-			vo.setUserProfileImg(saveFileName);
+			vo.setUserprofileimg(saveFileName);
 			
 			try {
 				// 파일생성
@@ -172,8 +172,8 @@ public class UsersService {
 	// 회사 목록
 	public List<Enterprises> getEnterList(String enterName) {
 		Enterprises vo = new Enterprises();
-		vo.setEnterpriseAt(0);
-		vo.setEnterpriseName(enterName);
+		vo.setEnterpriseat(1);
+		vo.setEnterprisename(enterName);
 		List<Enterprises> list = um.getEnterList(vo);
 		return list;
 	}

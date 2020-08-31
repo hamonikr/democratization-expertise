@@ -28,29 +28,29 @@ import lombok.ToString;
 public class Login implements Serializable{
 	
 	@Id
-	@Column(name="user_no")
+	@Column(name="userno")
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	/* 회원 고유 번호 */
-	private Integer userNo;
+	private Integer userno;
 	/* 회원 아이디 */
-	private String userId;
+	private String userid;
 	/* 회원 이름 */
-	private String userName;
+	private String username;
 	/* 회원 비밀번호 */
-	private String userPassword;
+	private String userpassword;
 	/* 회원 소개 */
-	private String aboutMe;
+	private String aboutme;
 	/* 회원 사이트 주소 */
-	private String userUrl;
+	private String userurl;
 	/* 회원 이메일 */
-	private String userEmail;
+	private String useremail;
 	/* 회원 구분 1:회원가입 2:소셜가입  - 소셜가입은 패스워드 없고 정보만 저장*/
-	private Integer userStatus;
+	private Integer userstatus;
 	/* 가입 일시 */
 	@CreationTimestamp
-	private Timestamp registerDate;
+	private Timestamp registerdate;
 	/* 수정 일시 */
 	@UpdateTimestamp
-	private Timestamp updateDate;
+	private Timestamp updatedate;
 }
 	

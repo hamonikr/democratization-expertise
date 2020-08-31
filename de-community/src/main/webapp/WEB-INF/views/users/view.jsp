@@ -45,15 +45,15 @@
 
 <body>
 	<form id="frm" name="frm" method="post">
-		<input type="hidden" name="userNo" value="${user.userNo}">
+		<input type="hidden" name="userno" value="${user.userno}">
 		<!-- 스프링 시큐리티 form에 추가 해줘야함. -->
 		<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
 
 		<div class="row">
 			<!-- Content Header (Page header) -->
 			<div class="col-12">
-				<a href="/users/dashboard/${user.userNo}" class="btn btn-primary">활동정보</a>
-				<a href="/users/view/${user.userNo}" class="btn btn-primary">프로필</a>
+				<a href="/users/dashboard/${user.userno}" class="btn btn-primary">활동정보</a>
+				<a href="/users/view/${user.userno}" class="btn btn-primary">프로필</a>
 			</div>
 			
 			<div class="col-12">
@@ -65,16 +65,16 @@
 					<div class="card-body card-primary card-outline row" style="width: 100%;">
 
 						<div class="col-3 profileLeftDiv">
-							<c:if test="${user.userProfileImg != null}">
-								<img alt="profile" src="/upload/${user.userProfileImg}" id="profileImg" class="img" width="100%"><br/>
+							<c:if test="${user.userprofileimg != null && user.userprofileimg != ''}">
+								<img alt="profile" src="/upload/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
 							</c:if>
-							<c:if test="${user.userProfileImg == null}">
+							<c:if test="${user.userprofileimg == null || user.userprofileimg == ''}">
 								<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
 							</c:if>
 							
 							<c:if test="${ isMypage }">
 								<label class="btn btn-primary" >
-									<input type="hidden" name="userProfileImg" value="${user.userProfileImg}">
+									<input type="hidden" name="userprofileimg" value="${user.userprofileimg}">
 									<input id="iptProfileImg" name="profileImg" type="file" onchange="fnProfileImg()" style="display: none;">
 									<span>사진변경</span><br/>
 								</label>
@@ -86,20 +86,20 @@
 							<div class="form-group">
 								<label for="userName" class="col-form-label">이름</label>
 								<c:if test="${ isMypage }">
-									<input class="form-control" id="userName" name="userName" value="${user.userName}" autocomplete="off">
+									<input class="form-control" id="userName" name="username" value="${user.username}" autocomplete="off">
 								</c:if>
 								<c:if test="${ ! isMypage }">
-									<input class="form-control" id="userName" name="userName" value="${user.userName}" autocomplete="off" disabled="disabled">
+									<input class="form-control" id="userName" name="username" value="${user.username}" autocomplete="off" disabled="disabled">
 								</c:if>
 							</div>
 
 							<div class="form-group">
 								<label for="userEmail" class="col-form-label">메일</label>
 								<c:if test="${ isMypage }">
-									<input class="form-control" id="userEmail" name="userEmail" value="${user.userEmail}" autocomplete="off">
+									<input class="form-control" id="userEmail" name="useremail" value="${user.useremail}" autocomplete="off">
 								</c:if>
 								<c:if test="${ ! isMypage }">
-									<input class="form-control" id="userEmail" name="userEmail" value="${user.userEmail}" autocomplete="off" disabled="disabled">
+									<input class="form-control" id="userEmail" name="useremail" value="${user.useremail}" autocomplete="off" disabled="disabled">
 								</c:if>
 							</div>
 						</div>
@@ -108,9 +108,9 @@
 							<div class="form-group">
 								<label for="aboutMe" class="col-form-label">자기소개</label>
 								<c:if test="${ isMypage }">
-									<input type="hidden" class="form-control contents" id="aboutMe" name="aboutMe" value="${user.aboutMe}" autocomplete="off">
+									<input type="hidden" class="form-control contents" id="aboutMe" name="aboutme" value="${user.aboutme}" autocomplete="off">
 									<div class="code-html">
-										<div id="editSection">${user.aboutMe}</div> 
+										<div id="editSection">${user.aboutme}</div> 
 									</div>
 									<script class="code-js">
 										var editor = new tui.Editor({
@@ -122,7 +122,7 @@
 						            </script>
 								</c:if>
 								<c:if test="${ ! isMypage }">
-									<input class="form-control contents" id="aboutMe" name="aboutMe" value="${user.aboutMe}" autocomplete="off" disabled="disabled">
+									<input class="form-control contents" id="aboutMe" name="aboutme" value="${user.aboutme}" autocomplete="off" disabled="disabled">
 								</c:if>
 							</div>
 						</div>
@@ -131,10 +131,10 @@
 							<div class="form-group">
 								<label for="userUrl" class="col-form-label">홈페이지</label>
 								<c:if test="${ isMypage }">
-									<input class="form-control" id="userUrl" name="userUrl" value="${user.userUrl}" autocomplete="off">
+									<input class="form-control" id="userUrl" name="userurl" value="${user.userurl}" autocomplete="off">
 								</c:if>
 								<c:if test="${ ! isMypage }">
-									<input class="form-control" id="userUrl" name="userUrl" value="${user.userUrl}" autocomplete="off" disabled="disabled">
+									<input class="form-control" id="userUrl" name="userurl" value="${user.userurl}" autocomplete="off" disabled="disabled">
 								</c:if>
 							</div>
 						</div>
@@ -143,12 +143,12 @@
 							<div class="form-group">
 								<label for="enterpriseName" class="col-form-label">회사명</label>
 								<c:if test="${ isMypage }">
-									<input type="hidden" name="enterpriseNo" id="enterpriseNo" value="${enterprise.enterpriseNo}" autocomplete="off">
-									<input type="text" class="form-control" id="enterpriseNameSearch" value="${enterprise.enterpriseName}" autocomplete="off">
+									<input type="hidden" name="enterpriseno" id="enterpriseNo" value="${enterprise.enterpriseno}" autocomplete="off">
+									<input type="text" class="form-control" id="enterpriseNameSearch" value="${enterprise.enterprisename}" autocomplete="off">
 									<div id="enterpriseListDiv"></div>
 								</c:if>
 								<c:if test="${ ! isMypage }">
-									<input class="form-control" value="${enterprise.enterpriseName}" autocomplete="off" disabled="disabled">
+									<input class="form-control" value="${enterprise.enterprisename}" autocomplete="off" disabled="disabled">
 								</c:if>
 							</div>
 						</div>
@@ -193,13 +193,13 @@
 	
 			<div class="card-body">
 				<div class="input-group mb-3">
-					<input type="password" class="form-control" name="userPassword" placeholder="기존 비밀번호">
+					<input type="password" class="form-control" name="userpassword" placeholder="기존 비밀번호">
 				</div>
 				<div class="input-group mb-3">
-					<input type="password" class="form-control" name="userPasswordNew" placeholder="새 비밀번호">
+					<input type="password" class="form-control" name="userpasswordnew" placeholder="새 비밀번호">
 				</div>
 				<div class="input-group mb-3">
-					<input type="password" class="form-control" name="userPasswordNew2" placeholder="새 비밀번호 확인">
+					<input type="password" class="form-control" name="userpasswordnew2" placeholder="새 비밀번호 확인">
 				</div>
 				<p id="popupPwAlter" class="popupPwAlter"></p>
 			</div>
@@ -249,12 +249,12 @@ function fn_searchEnterpriseName() {
 	$('#enterpriseListDiv').html('');
 	$.ajax({
 		url		: '/users/getEnterList',
-		data	: { 'enterName' : enterpriseNameSearch },
+		data	: { 'entername' : enterpriseNameSearch },
 		type	: 'post',
 		async	: false,
 		success: function(data){
 			for(var i=0; i < data.list.length ; ++i){
-				$('#enterpriseListDiv').append('<p class="entElement" data-value="' + data.list[i].enterpriseNo + '">' + data.list[i].enterpriseName + '</p>');
+				$('#enterpriseListDiv').append('<p class="entElement" data-value="' + data.list[i].enterpriseno + '">' + data.list[i].enterprisename + '</p>');
 			}
 			if(data.list.length == undefined || data.list.length == 0){
 				$('#enterpriseListDiv').html('<p class="entNotElement">등록된 정보가 없습니다.</p>');
@@ -279,9 +279,9 @@ function fnPopupPw(){
 	if('none' == $('#popupPw').css('display')) $('#popupPw').css('display', 'block');
 	else if('block' == $('#popupPw').css('display')) $('#popupPw').css('display', 'none');
 
-	$('input[name=userPassword]').val('');
-	$('input[name=userPasswordNew]').val('');
-	$('input[name=userPasswordNew2]').val('');
+	$('input[name=userpassword]').val('');
+	$('input[name=userpasswordnew]').val('');
+	$('input[name=userpasswordnew2]').val('');
 }
 
 // 사용자 정보 변경
@@ -298,9 +298,9 @@ function fnUpdate() {
 
 // 사용자 비밀번호 변경
 function fnUpdatePw(){
-	var uPw = $('input[name=userPassword]');
-	var uPwNew = $('input[name=userPasswordNew]');
-	var uPwNew2 = $('input[name=userPasswordNew2]');
+	var uPw = $('input[name=userpassword]');
+	var uPwNew = $('input[name=userpasswordnew]');
+	var uPwNew2 = $('input[name=userpasswordnew2]');
 	var uPwVal = $.trim($(uPw).val());
 	var uPwNewVal = $.trim($(uPwNew).val());
 	var uPwNew2Val = $.trim($(uPwNew2).val());
