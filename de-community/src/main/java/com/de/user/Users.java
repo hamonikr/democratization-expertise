@@ -46,7 +46,9 @@ public class Users implements Serializable{
 	private String userurl;
 	/* 회원 이메일 */
 	private String useremail;
-	/* 회원 구분 1:회원가입 2:소셜가입  - 소셜가입은 패스워드 없고 정보만 저장*/
+	/* 회원 역할 */
+	private int role;
+	/* 회원 구분 0:관리자 1:일반유저 */
 	private Integer userstatus;
 	/* 가입 일시 */
 	@CreationTimestamp
@@ -55,12 +57,6 @@ public class Users implements Serializable{
 	@UpdateTimestamp
 	private Timestamp updatedate;
 
-//    @Builder
-//    public Users(String userId, String userPassword) {
-//        this.userId = userId;
-//        this.userPassword = userPassword;
-//    }
-//    
 	 @OneToOne
      @JoinTable(name = "tb_user_detail", //조인테이블명
                 joinColumns = @JoinColumn(name="userno"),  //외래키
