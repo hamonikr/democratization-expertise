@@ -1,7 +1,5 @@
 package com.de.user;
 
-import org.springframework.security.core.GrantedAuthority;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -9,7 +7,7 @@ import lombok.Getter;
 @Getter
 public enum UserRole{
 	ADMIN("ROLE_ADMIN"),
-	MEMBER("ROLE_MEMBER"),
+	USER("ROLE_USER"),
 	CLASS_A("ROLE_CLASS_A"),
 	CLASS_B("ROLE_CLASS_B"),
 	CLASS_C("ROLE_CLASS_C");

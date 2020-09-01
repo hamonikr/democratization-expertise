@@ -20,11 +20,6 @@
   <meta name="google-signin-scope" content="profile email">
   <meta name="google-signin-client_id" content="1042506284094-s49av9n5sk34ell2u70lachpmihn07gu.apps.googleusercontent.com"></meta>
  
-  <!-- materialize -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  
 </head>
 <style>
 .card{
@@ -69,7 +64,7 @@ strong{
      	<h6><strong>Email 주소</strong></h6>
      </div>
           	<div class="form-group col-12"> 	    
-		      	<input type="email" class="form-control englishOnly" id="user_email" name="user_email" value="bono6315@gmail.com" style="margin-left: 10px" placeholder="이메일을 입력해주세요">             	
+		      	<input type="email" class="form-control englishOnly" id="useremail" name="useremail" value="bono6315@gmail.com" style="margin-left: 10px" placeholder="이메일을 입력해주세요">             	
 		   </div>
         </div>
        <br>
@@ -110,7 +105,7 @@ strong{
 		    		  }, 
 		  messages:{
 		 								
-			  user_email: {
+			  useremail: {
 		 			required : "이메일은 필수값 입니다.",
 		 			email : "이메일 형식을 확인해주세요"
 		 			}
@@ -134,7 +129,7 @@ strong{
  });
  
 function sendRecoveryEmail(){
-		document.frm.action = "/accountRecovery/sendRecoveryEmail";
+		document.frm.action = "/accountRecovery/sendRecoveryEmail.proc";
 		document.frm.submit();
 
 } 

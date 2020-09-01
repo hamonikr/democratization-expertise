@@ -47,7 +47,7 @@ public class SignupController {
 		public String signUpViewUsers(Model model, @PageableDefault Pageable pageable) {
 			System.out.println("----------users sign Up----------");
 		
-			return "/users/signup";
+			return "/login/signup";
 		}
 		
 	
@@ -56,7 +56,7 @@ public class SignupController {
 	public String signUpViewPartners(Model model, @PageableDefault Pageable pageable) {
 		System.out.println("---------partners sign Up----------");
 	
-		return "/users/partnerSignup";
+		return "/login/partnerSignup";
 	}
 	
 	@RequestMapping(value = "/checkIdDuplication")
@@ -72,9 +72,30 @@ public class SignupController {
 	}else{
 		chk="중복된 아이디입니다";
 	}
+	
 	System.out.println(chk);		
 		return chk;
 	}
+	
+	
+	@RequestMapping(value = "/checkEmailDuplication")
+	@ResponseBody
+	public String checkEmailDuplication(HttpServletRequest request, Users vo, Model model) {
+	String chk = null;
+	System.out.println("이메일 중복체크---> " + vo.getUseremail());
+	
+	boolean emchk = service.emCheck(vo);
+	
+	if(emchk==false) {
+		chk="";
+	}else{
+		chk="사용중인 이메일입니다";
+	}
+	
+	System.out.println(chk);		
+		return chk;
+	}
+	
 
 	@RequestMapping(value = "/checkBizNoDuplication")
 	@ResponseBody

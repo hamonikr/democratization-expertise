@@ -6,12 +6,11 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 public class Account {
 
-    private String user_id;// 관리자 아이디
-    private String user_password; //관리자 비밀번호
-    private String user_email;// 관리자 이메일
-    private int active_at; //활성화 여부 
+    private String userid;// 관리자 아이디
+    private String userpassword; //관리자 비밀번호
+    private String useremail;// 관리자 이메일
+    private int activeat; //활성화 여부 
    
 }

@@ -27,9 +27,9 @@ public class PostMail {
 		String subject = "[DE-COMMUNITY] 임시비밀번호를 발급해드렸습니다."; // 제목
 		String from = "ivsnoti@gmail.com"; // 보내는 메일
 		String fromName = "decoummunity-support"; // 보낸 사람 표기
-		String toMail = vo.getUser_email();
+		String toMail = vo.getUseremail();
 		
-		System.out.println("email check=====> " +vo.getUser_email());
+		System.out.println("email check=====> " +vo.getUseremail());
 		
 		try {
 
@@ -61,11 +61,11 @@ public class PostMail {
 					"              </p>\n" + 
 					              
 					"              <p style=\"margin:0 0 15px 0\">" + 
-					              "<strong style=\"font-size:20px\">"+ vo.getUser_id()+"</strong>" +"님, 안녕하세요.\n" + 
+					              "<strong style=\"font-size:20px\">"+ vo.getUserid()+"</strong>" +"님, 안녕하세요.\n" + 
 					"                임시비밀번호를 발급해드렸습니다. \n" + 
 					"              </p>\n" + 
 					"              <p style=\"margin:0 0 15px 0\">\n" + 
-									"<strong style=\"margin:0 0px 20px 0; font-size:24px\">"+ vo.getUser_password() + "</strong>"+ 
+									"<strong style=\"margin:0 0px 20px 0; font-size:24px\">"+ vo.getUserpassword() + "</strong>"+ 
 					"              </p>\n" + 
 					"            \n" + 
 					"             <p style=\"margin:0 0 15px 0\">\n" + 
