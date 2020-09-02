@@ -64,7 +64,7 @@ public class Users implements Serializable{
 //        this.userId = userId;
 //        this.userPassword = userPassword;
 //    }
-//    
+    
 	@OneToOne
 	@JoinTable(name = "tb_users_detail",	//조인테이블명
 				joinColumns = @JoinColumn(name="userno"),	//외래키

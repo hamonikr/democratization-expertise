@@ -24,6 +24,10 @@
   <definition name="/users/*" extends="login-layout">
      <put-attribute name="body" value="/WEB-INF/views/users/{1}.jsp" />  
    </definition>  	
+   
+	<definition name="/enterprise/*" extends="login-layout">
+		<put-attribute name="body" value="/WEB-INF/views/enterprises/{1}.jsp" />  
+	</definition>
 
 
    <definition name="/*/*" extends="sub-layout">

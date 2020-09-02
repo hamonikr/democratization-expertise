@@ -28,18 +28,26 @@ public class Enterprises {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	/* 기업 고유 번호 */
 	private Integer enterpriseno;
-	/* 기업 승인 여부 */
-	private Integer enterpriseat;
+	/* 기업 사업자 번호 */
+	private Integer enterprisebizno;
 	/* 기업 아이디 */
 	private String enterpriseid;
 	/* 기업 이름 */
 	private String enterprisename;
 	/* 기업 비밀번호 */
 	private String enterprisepassword;
+	/* 기업 프로필 이미지 */
+	private String enterpriseimg;
+	/* 기업 소개 */
+	private String enterpriseabout;
+	/* 기업 사이트 주소 */
+	private String enterpriseurl;
 	/* 기업 이메일 */
 	private String enterpriseemail;
-	/* 기업 사업자 번호 */
-	private Integer enterprisebizno;
+	/* 기업 승인 여부 */
+	private Integer enterpriseat;
+	/* 기업 지역 */
+	private String enterprisearea;
 	/* 가입 일시 */
 	@CreationTimestamp
 	private Timestamp registerdate;

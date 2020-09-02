@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="com.de.enterprise.mapper.EnterprisesMapper">
+
+<update id="updateEnterprisePw" parameterType="com.de.enterprise.EnterprisePwVO">
+UPDATE
+	tb_enterprises
+SET
+	enterprisepassword = #{enterprisepasswordnew},
+	updatedate = now()
+WHERE
+	enterpriseno = #{enterpriseno} and
+	enterprisepassword = #{enterprisepassword}
+</update>
+
+<update id="updateEnterprisesimg" parameterType="com.de.enterprise.Enterprises">
+UPDATE
+	tb_enterprises
+SET
+	enterpriseimg = #{enterpriseimg},
+	updatedate = now()
+WHERE
+	enterpriseno = #{enterpriseno}
+</update>
+
+<select id="getMembersList" parameterType="Integer" resultType="com.de.user.Users">
+SELECT 
+	U.userno userno, 
+	U.userprofileimg userprofileimg
+FROM
+    tb_users U,
+    tb_users_detail UD
+WHERE
+    U.userno = UD.userno
+    AND UD.enterpriseno = #{enterpriseno}
+</select>
+
+</mapper>

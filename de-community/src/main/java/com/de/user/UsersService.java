@@ -131,7 +131,7 @@ public class UsersService {
 		boolean updateVal = false;
 		
 		String root_path = request.getSession().getServletContext().getRealPath("/");
-		String path = root_path.split("/webapp")[0] + "/resources/static/upload/";
+		String path = root_path.split("/webapp")[0] + "/resources/static/upload/users/";
 
 		
 		List<MultipartFile> fileList = request.getFiles("profileImg"); 

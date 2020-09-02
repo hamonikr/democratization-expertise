@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 		web
 			.ignoring()
-				.antMatchers("/dist/**", "/js/**", "images/**", "/plugins/**", "/tui-editor/**", "/paper-bw/**", "lib/**", "/css/**", "/img/**", "/fonts/**", "/upload/**", "/users/**");
+				.antMatchers("/dist/**", "/js/**", "images/**", "/plugins/**", "/tui-editor/**", "/paper-bw/**", "lib/**", "/css/**", "/img/**", "/fonts/**", "/upload/**", "/users/**", "/enterprises/**");
 	}
 	
 	@Override
@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http
 			.authorizeRequests()  			
-			.antMatchers("/oauth2/**", "/loginSuccess","/account-recovery","/", "/home", "/login/**","/signup/**","/sample/**","/questions/**","/vote/**", "/users/**").permitAll()
+			.antMatchers("/oauth2/**", "/loginSuccess","/account-recovery","/", "/home", "/login/**","/signup/**","/sample/**","/questions/**","/vote/**", "/users/**", "/enterprises/**").permitAll()
 				.antMatchers("/github").hasAuthority(GITHUB.getRoleType())
 			    .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
 				.antMatchers("/kakao").hasAuthority(KAKAO.getRoleType()) 
@@ -135,7 +135,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	                .scope("email", "profile").build(); 
 	        }
 
-	         return null; 
+	         return null;
 	    }
 	
 	

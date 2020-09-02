@@ -9,6 +9,12 @@
 	margin-right: 5px;
 	margin-bottom: 5px; 
 }
+
+.enterprise-list-card { border: 1px solid #ddd }
+.enterprise-list-card p { margin: 0 }
+.enterprise-list-card .title { font-weight: bold }
+.enterprise-list-card .position {  }
+.enterprise-list-card .reputation {  }
 </style>
 </head>
 
@@ -18,8 +24,9 @@
 		<div class="row">
 			<!-- Content Header (Page header) -->
 			<div class="col-12">
-				<a href="/users/dashboard/${user.userno}" class="btn btn-primary">활동정보</a>
-				<a href="/users/view/${user.userno}" class="btn btn-primary">프로필</a>
+				<a href="/enterprises/dashboard/${enterprise.enterpriseno}" class="btn btn-primary">활동정보</a>
+				<a href="/enterprises/view/${enterprise.enterpriseno}" class="btn btn-primary">프로필</a>
+				<a href="/enterprises/members/${enterprise.enterpriseno}" class="btn btn-primary">사람들</a>
 			</div>
 			
 			<div class="col-12">
@@ -32,8 +39,8 @@
 						
 						<div class="col-8 row">
 							<div class="col-12">
-								<h2><b>${user.username}</b></h2>
-								<p>${user.aboutme}</p>
+								<h2><b>${enterprise.enterprisename}</b></h2>
+								<p></p>
 							</div>
 							
 							<div class="col-6">
@@ -47,15 +54,20 @@
 						</div>
 	
 						<div class="col-4 profileLeftDiv">
-							<c:if test="${user.userprofileimg != null}">
-								<img alt="profile" src="/upload/users/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
+							<%-- 
+							<c:if test="${enterprise.enterpriseimg != null}">
+								<img alt="profile" src="/upload/enterprise/${enterprise.enterpriseimg}" id="profileImg" class="img" width="100%"><br/>
 							</c:if>
-							<c:if test="${user.userprofileimg == null}">
+							<c:if test="${enterprise.enterpriseimg == null}">
 								<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
 							</c:if>
+							--%>
+							<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
 							
 							<span>배지 : </span>
-							<span>홈페이지 : </span><a href="${user.userurl}" target="_blank">${user.userurl}</a>
+							<%-- 
+							<span>홈페이지 : </span><a href="${enterprise.enterpriseurl}" target="_blank">${enterprise.enterpriseurl}</a>
+							--%>
 						</div>
 	
 					</div>
@@ -149,6 +161,81 @@
 							<button class="btn-primary btn-xs">더보기</button>
 						</div>
 						
+						<div class="col-12">
+							<div>사람들</div>
+							<hr/>
+							<div class="enterprise-list row">
+								
+								<div class="enterprise-list-card col-4 row">
+									<div class="col-4">
+										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%">
+									</div>
+									<div class="col-8">
+										<p class="title">Kim</p>
+										<p class="position">CEO</p>
+										<p class="reputation">평판 300</p>
+									</div>
+								</div>
+								
+								<div class="enterprise-list-card col-4 row">
+									<div class="col-4">
+										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%">
+									</div>
+									<div class="col-8">
+										<p class="title">Kim</p>
+										<p class="position">CEO</p>
+										<p class="reputation">평판 300</p>
+									</div>
+								</div>
+								
+								<div class="enterprise-list-card col-4 row">
+									<div class="col-4">
+										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%">
+									</div>
+									<div class="col-8">
+										<p class="title">Kim</p>
+										<p class="position">CEO</p>
+										<p class="reputation">평판 300</p>
+									</div>
+								</div>
+								
+								<div class="enterprise-list-card col-4 row">
+									<div class="col-4">
+										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%">
+									</div>
+									<div class="col-8">
+										<p class="title">Kim</p>
+										<p class="position">CEO</p>
+										<p class="reputation">평판 300</p>
+									</div>
+								</div>
+								
+								<div class="enterprise-list-card col-4 row">
+									<div class="col-4">
+										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%">
+									</div>
+									<div class="col-8">
+										<p class="title">Kim</p>
+										<p class="position">CEO</p>
+										<p class="reputation">평판 300</p>
+									</div>
+								</div>
+								
+								<div class="enterprise-list-card col-4 row">
+									<div class="col-4">
+										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%">
+									</div>
+									<div class="col-8">
+										<p class="title">Kim</p>
+										<p class="position">CEO</p>
+										<p class="reputation">평판 300</p>
+									</div>
+								</div>
+								
+								<button class="btn-primary btn-xs">더보기</button>
+								
+							</div>
+						</div>
 					</div>
 					
 				</div>
