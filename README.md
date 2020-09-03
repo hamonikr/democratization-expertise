@@ -1,4 +1,7 @@
 ## 개방형OS 사용자 중심의 전문지식 민주화 플랫폼<br/>(Democratization of Expertise)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ![GitHub
 License](https://img.shields.io/github/license/hamonikr/democratization-expertise)
@@ -141,3 +144,22 @@ issues](https://img.shields.io/github/issues/hamonikr/democratization-expertise?
 
 ## 라이선스
 [라이선스 문서](LICENSE)
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="http://openbee.kr"><img src="https://avatars2.githubusercontent.com/u/405502?v=4" width="100px;" alt=""/><br /><sub><b>Kevin Kim</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=chaeya" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
