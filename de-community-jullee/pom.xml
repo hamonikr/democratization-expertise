@@ -35,10 +35,12 @@
 	<build>
 	    <testResources>
 	        <testResource>
-	            <directory>src/test/com/DeHomeApplicationTests</directory>
-	        </testResource>
+	            <directory>src/test/com/com.DeHomeApplicationTest</directory>
+	        </testResource> 
 
 	    </testResources>
+	    
+	    
 			<plugins>
 				<plugin>
 					<groupId>org.springframework.boot</groupId>
