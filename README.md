@@ -1,4 +1,4 @@
-## __개방형OS 사용자 중심의 전문지식 민주화 플랫폼(Democratization of Expertise)__
+## 개방형OS 사용자 중심의 전문지식 민주화 플랫폼<br/>(Democratization of Expertise)
 
 ![GitHub
 License](https://img.shields.io/github/license/hamonikr/democratization-expertise)
