@@ -34,7 +34,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/eejungee515"><img src="https://avatars1.githubusercontent.com/u/66405821?v=4" width="100px;" alt=""/><br /><sub><b>eejungee515</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=eejungee515" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/x3x-m"><img src="https://avatars2.githubusercontent.com/u/66405896?v=4" width="100px;" alt=""/><br /><sub><b>x3x-m</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=x3x-m" title="Code">💻</a></td>
-    <td align="center"><a href="http://nimbuscloud.io"><img src="https://avatars0.githubusercontent.com/u/14984268?v=4" width="100px;" alt=""/><br /><sub><b>nimbus</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=Nimbus" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/Nimbus-2020/democratization-expertise"><img src="https://avatars0.githubusercontent.com/u/14984268?v=4" width="100px;" alt=""/><br /><sub><b>nimbus</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=Nimbus-2020" title="Code">💻</a></td>
   </tr>
 </table>
 
