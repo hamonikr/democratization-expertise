@@ -159,6 +159,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/bsairline"><img src="https://avatars0.githubusercontent.com/u/51113223?v=4" width="100px;" alt=""/><br /><sub><b>ParkTaeEun_Hamonikr</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=bsairline" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/bdh1993"><img src="https://avatars2.githubusercontent.com/u/58254473?v=4" width="100px;" alt=""/><br /><sub><b>bdh1993</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=bdh1993" title="Code">💻</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/eejungee515"><img src="https://avatars1.githubusercontent.com/u/66405821?v=4" width="100px;" alt=""/><br /><sub><b>eejungee515</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=eejungee515" title="Code">💻</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-enable -->
