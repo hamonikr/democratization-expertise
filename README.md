@@ -1,6 +1,6 @@
 ## 개방형OS 사용자 중심의 전문지식 민주화 플랫폼<br/>(Democratization of Expertise)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ![GitHub
@@ -155,6 +155,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="http://openbee.kr"><img src="https://avatars2.githubusercontent.com/u/405502?v=4" width="100px;" alt=""/><br /><sub><b>Kevin Kim</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=chaeya" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/bigeden"><img src="https://avatars0.githubusercontent.com/u/51899018?v=4" width="100px;" alt=""/><br /><sub><b>Eden</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=bigeden" title="Code">💻</a></td>
   </tr>
 </table>
 
