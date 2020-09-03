@@ -1,6 +1,6 @@
 ## 개방형OS 사용자 중심의 전문지식 민주화 플랫폼<br/>(Democratization of Expertise)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ![GitHub
@@ -159,6 +159,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/jullee96"><img src="https://avatars0.githubusercontent.com/u/66409676?v=4" width="100px;" alt=""/><br /><sub><b>julie lee</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=jullee96" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/SHRyu416"><img src="https://avatars0.githubusercontent.com/u/55476465?v=4" width="100px;" alt=""/><br /><sub><b>SHRyu416</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=SHRyu416" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/yeji0407"><img src="https://avatars3.githubusercontent.com/u/55476302?v=4" width="100px;" alt=""/><br /><sub><b>yeji0407</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=yeji0407" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/bsairline"><img src="https://avatars0.githubusercontent.com/u/51113223?v=4" width="100px;" alt=""/><br /><sub><b>ParkTaeEun_Hamonikr</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=bsairline" title="Code">💻</a></td>
   </tr>
 </table>
 
