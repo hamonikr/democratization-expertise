@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.de.enterprise.mapper.EnterprisesMapper;
 import com.de.user.Users;
+import com.de.user.UsersDetail;
 
 @Service
 @Transactional
@@ -132,7 +133,15 @@ public class EnterpriseService {
 	}
 
 	// 기업 회원 목록
-	public List<Users> getMembersList(int seq) {
-		return em.getMembersList(seq);
+	public List<Users> getMembersList(UsersDetail vo) {
+		return em.getMembersList(vo);
+	}
+	
+	public boolean updateActivaet(UsersDetail vo) {
+		return em.updateActivaet(vo);
+	}
+
+	public boolean updateUserat(UsersDetail vo) {
+		return em.updateUserat(vo);
 	}
 }

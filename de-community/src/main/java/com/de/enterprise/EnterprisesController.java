@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.de.cmmn.util.CodeMessage;
 import com.de.user.Users;
+import com.de.user.UsersDetail;
 
 
 /**
@@ -157,9 +158,9 @@ public class EnterprisesController {
 		
 		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
 		// session 에서 seq 정보 추출
-		// 임시 - 사용자 seq
-		int enterSeq = 4;
-		vo.setEnterpriseno(enterSeq);
+		// 임시 - 기업회원 enterpriseno
+		int enterpriseno = 4;
+		vo.setEnterpriseno(enterpriseno);
 		
 		boolean updateVal = service.updateEnterprisePw(vo);
 		
@@ -185,11 +186,11 @@ public class EnterprisesController {
 		
 		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
 		// session 에서 seq 정보 추출
-		// 임시 - 사용자 seq
-		int enterSeq = 4;
+		// 임시 - 기업회원 enterpriseno
+		int enterpriseno = 4;
 		
 		Enterprises vo = new Enterprises();
-		vo.setEnterpriseno(enterSeq);
+		vo.setEnterpriseno(enterpriseno);
 		
 		boolean updateVal = service.upload(vo, request);
 		
@@ -213,14 +214,52 @@ public class EnterprisesController {
 
 		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
 		// session 에서 seq 정보 추출
-		// 임시 - 사용자 seq
-		int enterSeq = 4;
+		// 임시 - 기업회원 enterpriseno
+		int enterpriseno = 4;
+		UsersDetail vo = new UsersDetail();
 		
-		List<Users> users = service.getMembersList(seq);
-		model.addAttribute("users", users);	// 프로필 정보
-		model.addAttribute("isMypage", seq == enterSeq);		// 내 정보 유무
-		model.addAttribute("enterpriseno", seq);		// 페이지 번호
+		vo.setEnterpriseno(seq);
+		
+		vo.setUserat(0);	// 승인 대기
+		List<Users> users = service.getMembersList(vo);	// 승인 대기 회원 목록
+		model.addAttribute("users", users);
+		
+		vo.setUserat(1);	// 승인
+		users = service.getMembersList(vo);	// 승인 회원 목록
+		model.addAttribute("atusers", users);
+		
+		model.addAttribute("isMypage", seq == enterpriseno);	// 내 정보 유무
+		model.addAttribute("enterpriseno", seq);	// 페이지 번호
 
 		return "/enterprises/members";
+	}
+	
+	/**
+	 *  기업 맴버 승인/거절
+	 * @param model
+	 * @param vo
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping(value="/updateUserat", method=RequestMethod.POST)
+	public HashMap<String, Object> updateUserat(Model model, UsersDetail vo) throws Exception {
+		if(LOG_URL) logger.info(" -- url : /enterprises/updateUserat - UsersDetail : " + vo);
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
+		// session 에서 seq 정보 추출
+		// 임시 - 기업회원 enterpriseno
+		int enterpriseno = 4;
+		vo.setEnterpriseno(enterpriseno);
+		
+		boolean updateVal = service.updateUserat(vo);
+		
+		if(updateVal) map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
+		else map.put("message", CodeMessage.ERROR_000004_정보가_잘못_입력되었습니다__확인_후_다시_시도해_주세요_);
+		
+		map.put("updateVal", updateVal);
+		return map;
 	}
 }

@@ -10,7 +10,11 @@
 	margin-bottom: 5px; 
 }
 
-.enterprise-list-card { border: 1px solid #ddd }
+.enterprise-list { margin: 0 }
+.enterprise-list-card { 
+	border: 1px solid #ddd;
+	margin: 0; 
+}
 .enterprise-list-card p { margin: 0 }
 .enterprise-list-card .title { font-weight: bold }
 .enterprise-list-card .position {  }
@@ -26,13 +30,12 @@
 			<div class="col-12">
 				<a href="/enterprises/dashboard/${enterpriseno}" class="btn btn-primary">활동정보</a>
 				<a href="/enterprises/view/${enterpriseno}" class="btn btn-primary">프로필</a>
-				<a href="/enterprises/member/${enterpriseno}" class="btn btn-primary">사람들</a>
+				<a href="/enterprises/members/${enterpriseno}" class="btn btn-primary">사람들</a>
 			</div>
 			
 			<div class="col-12">
 				<div class="card card-primary" style="width: 100%;">
 
-${ users }
 					<div class="card-body card-primary row" style="width: 100%;">
 						
 						<div class="col-12">
@@ -40,71 +43,48 @@ ${ users }
 							<hr/>
 							<div class="enterprise-list row">
 								
-								<div class="enterprise-list-card col-4 row">
-									<div class="col-4">
-										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%">
-									</div>
-									<div class="col-8">
-										<p class="title">Kim</p>
-										<p class="position">CEO</p>
-										<p class="reputation">평판 300</p>
-									</div>
-								</div>
+								<c:if test="${ atusers.size() == 0 }">
+									<p>활동중인 사람이 없습니다.</p>
+								</c:if>
 								
-								<div class="enterprise-list-card col-4 row">
-									<div class="col-4">
-										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%">
-									</div>
-									<div class="col-8">
-										<p class="title">Kim</p>
-										<p class="position">CEO</p>
-										<p class="reputation">평판 300</p>
-									</div>
-								</div>
-								
-								<div class="enterprise-list-card col-4 row">
-									<div class="col-4">
-										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%">
-									</div>
-									<div class="col-8">
-										<p class="title">Kim</p>
-										<p class="position">CEO</p>
-										<p class="reputation">평판 300</p>
-									</div>
-								</div>
-								
-								<div class="enterprise-list-card col-4 row">
-									<div class="col-4">
-										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%">
-									</div>
-									<div class="col-8">
-										<p class="title">Kim</p>
-										<p class="position">CEO</p>
-										<p class="reputation">평판 300</p>
-									</div>
-								</div>
-								
-								<div class="enterprise-list-card col-4 row">
-									<div class="col-4">
-										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%">
-									</div>
-									<div class="col-8">
-										<p class="title">Kim</p>
-										<p class="position">CEO</p>
-										<p class="reputation">평판 300</p>
-									</div>
-								</div>
-								
-								<div class="enterprise-list-card col-4 row">
-									<div class="col-4">
-										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%">
-									</div>
-									<div class="col-8">
-										<p class="title">Kim</p>
-										<p class="position">CEO</p>
-										<p class="reputation">평판 300</p>
-									</div>
-								</div>
+								<c:if test="${ atusers.size() != 0 }">
+									<c:forEach var="mem" items="${ atusers }" varStatus="status">
+										<c:if test="${ mem.usersDetail != null && mem.usersDetail.userat != 0 }">
+											<div class="enterprise-list-card col-6 row">
+												<div class="col-4">
+													<c:if test="${ mem.userprofileimg != null && mem.userprofileimg != ''}">
+														<img alt="profile" src="/upload/users/${mem.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
+													</c:if>
+													<c:if test="${ mem.userprofileimg == null || mem.userprofileimg == ''}">
+														<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
+													</c:if>
+												</div>
+												
+												<div class="col-4">
+													<p class="title">${mem.username}</p>
+													<p class="position">CEO</p>
+													<p class="reputation">평판 300</p>
+												</div>
+												
+												<div class="col-4">
+													
+													<!-- 활성 -->
+													<c:if test="${ mem.usersDetail.activeat == 1 }">
+														<input type="button" class="btn btn-primary active" onclick="fnt_activeatUser('activeat','${mem.userno}');" value="활성"><br/>
+														<input type="button" class="btn btn-primary" onclick="fnt_activeatUser('not','${mem.userno}');" value="비활성">
+													</c:if>
+													
+													<!-- 비활성 -->
+													<c:if test="${ mem.usersDetail.activeat == 0 }">
+														<input type="button" class="btn btn-primary" onclick="fnt_activeatUser('activeat','${mem.userno}');" value="활성"><br/>
+														<input type="button" class="btn btn-primary active" onclick="fnt_activeatUser('not','${mem.userno}');" value="비활성">
+													</c:if>
+													
+												</div>
+											</div>
+										</c:if>
+									</c:forEach>
+								</c:if>
 								
 							</div>
 						</div>
@@ -113,72 +93,33 @@ ${ users }
 							<div>요청한 사람들</div>
 							<hr/>
 							<div class="enterprise-list row">
+								<c:if test="${ users.size() == 0 }">
+									<p>요청한 사람이 없습니다.</p>
+								</c:if>
 								
-								<div class="enterprise-list-card col-4 row">
-									<div class="col-4">
-										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%">
-									</div>
-									<div class="col-8">
-										<p class="title">Kim</p>
-										<p class="position">CEO</p>
-										<p class="reputation">평판 300</p>
-									</div>
-								</div>
-								
-								<div class="enterprise-list-card col-4 row">
-									<div class="col-4">
-										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%">
-									</div>
-									<div class="col-8">
-										<p class="title">Kim</p>
-										<p class="position">CEO</p>
-										<p class="reputation">평판 300</p>
-									</div>
-								</div>
-								
-								<div class="enterprise-list-card col-4 row">
-									<div class="col-4">
-										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%">
-									</div>
-									<div class="col-8">
-										<p class="title">Kim</p>
-										<p class="position">CEO</p>
-										<p class="reputation">평판 300</p>
-									</div>
-								</div>
-								
-								<div class="enterprise-list-card col-4 row">
-									<div class="col-4">
-										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%">
-									</div>
-									<div class="col-8">
-										<p class="title">Kim</p>
-										<p class="position">CEO</p>
-										<p class="reputation">평판 300</p>
-									</div>
-								</div>
-								
-								<div class="enterprise-list-card col-4 row">
-									<div class="col-4">
-										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%">
-									</div>
-									<div class="col-8">
-										<p class="title">Kim</p>
-										<p class="position">CEO</p>
-										<p class="reputation">평판 300</p>
-									</div>
-								</div>
-								
-								<div class="enterprise-list-card col-4 row">
-									<div class="col-4">
-										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%">
-									</div>
-									<div class="col-8">
-										<p class="title">Kim</p>
-										<p class="position">CEO</p>
-										<p class="reputation">평판 300</p>
-									</div>
-								</div>
+								<c:if test="${ users.size() != 0 }">
+									<c:forEach var="mem" items="${ users }" varStatus="status">
+										<c:if test="${ mem.usersDetail != null && mem.usersDetail.userat == 0 }">
+											<div class="enterprise-list-card col-6 row">
+												<div class="col-4">
+													<c:if test="${ mem.userprofileimg != null && mem.userprofileimg != ''}">
+														<img alt="profile" src="/upload/users/${mem.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
+													</c:if>
+													<c:if test="${ mem.userprofileimg == null || mem.userprofileimg == ''}">
+														<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
+													</c:if>
+												</div>
+												
+												<div class="col-4">
+													<c:if test="${ isMypage }">
+														<input type="button" class="btn btn-primary" onclick="fnt_useratUser('userat','${mem.userno}');" value="승인"><br/>
+														<input type="button" class="btn btn-primary" onclick="fnt_useratUser('not','${mem.userno}');" value="거절">
+													</c:if>
+												</div>
+											</div>
+										</c:if>
+									</c:forEach>
+								</c:if>
 								
 							</div>
 						</div>
@@ -192,6 +133,27 @@ ${ users }
 <!-- FLOT CHARTS -->
 <script src="../../plugins/flot/jquery.flot.js"></script>
 <script type="text/javascript">
+// 승인/거절
+function fnt_useratUser(type,uno){
+	if(type == 'not') type = 2;
+	else if(type == 'userat') type = 1;
+	else return;
+	
+	$.ajax({
+		url			: '/enterprises/updateUserat',
+		data		: { 'userat' : type , 'userno' : uno},
+		type		: 'post',
+		success	: function(data){
+			alert(data.message);
+			if(data.updateVal) location.reload(true);
+		},
+		error		: function(xhr, status, error){
+			console.log(xhr, status, error);
+		}
+	});
+}
+
+
 $(function() {
 	
 	/*

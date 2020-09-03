@@ -54,7 +54,7 @@
 			<div class="col-12">
 				<a href="/enterprises/dashboard/${enter.enterpriseno}" class="btn btn-primary">활동정보</a>
 				<a href="/enterprises/view/${enter.enterpriseno}" class="btn btn-primary">프로필</a>
-				<a href="/enterprises/members/${enterprise.enterpriseno}" class="btn btn-primary">사람들</a>
+				<a href="/enterprises/members/${enter.enterpriseno}" class="btn btn-primary">사람들</a>
 			</div>
 			
 			<div class="col-12">
