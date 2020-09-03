@@ -1,7 +1,4 @@
 ## 개방형OS 사용자 중심의 전문지식 민주화 플랫폼<br/>(Democratization of Expertise)
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ![GitHub
 License](https://img.shields.io/github/license/hamonikr/democratization-expertise)
