@@ -14,6 +14,36 @@ forks](https://img.shields.io/github/forks/hamonikr/democratization-expertise?st
 issues](https://img.shields.io/github/issues/hamonikr/democratization-expertise?style=social)
 
 
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="http://openbee.kr"><img src="https://avatars2.githubusercontent.com/u/405502?v=4" width="100px;" alt=""/><br /><sub><b>Kevin Kim</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=chaeya" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/bigeden"><img src="https://avatars0.githubusercontent.com/u/51899018?v=4" width="100px;" alt=""/><br /><sub><b>Eden</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=bigeden" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/jullee96"><img src="https://avatars0.githubusercontent.com/u/66409676?v=4" width="100px;" alt=""/><br /><sub><b>julie lee</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=jullee96" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/SHRyu416"><img src="https://avatars0.githubusercontent.com/u/55476465?v=4" width="100px;" alt=""/><br /><sub><b>SHRyu416</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=SHRyu416" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/yeji0407"><img src="https://avatars3.githubusercontent.com/u/55476302?v=4" width="100px;" alt=""/><br /><sub><b>yeji0407</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=yeji0407" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/bsairline"><img src="https://avatars0.githubusercontent.com/u/51113223?v=4" width="100px;" alt=""/><br /><sub><b>ParkTaeEun_Hamonikr</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=bsairline" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/bdh1993"><img src="https://avatars2.githubusercontent.com/u/58254473?v=4" width="100px;" alt=""/><br /><sub><b>bdh1993</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=bdh1993" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/eejungee515"><img src="https://avatars1.githubusercontent.com/u/66405821?v=4" width="100px;" alt=""/><br /><sub><b>eejungee515</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=eejungee515" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/x3x-m"><img src="https://avatars2.githubusercontent.com/u/66405896?v=4" width="100px;" alt=""/><br /><sub><b>x3x-m</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=x3x-m" title="Code">💻</a></td>
+    <td align="center"><a href="http://nimbuscloud.io"><img src="https://avatars0.githubusercontent.com/u/14984268?v=4" width="100px;" alt=""/><br /><sub><b>nimbus</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=Nimbus" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
 ## **목차**
 * [프로젝트 소개](#프로젝트-소개)
 * [소스코드 저장소](#소스코드-저장소)
@@ -142,32 +172,3 @@ issues](https://img.shields.io/github/issues/hamonikr/democratization-expertise?
 ## 라이선스
 [라이선스 문서](LICENSE)
 
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="http://openbee.kr"><img src="https://avatars2.githubusercontent.com/u/405502?v=4" width="100px;" alt=""/><br /><sub><b>Kevin Kim</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=chaeya" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/bigeden"><img src="https://avatars0.githubusercontent.com/u/51899018?v=4" width="100px;" alt=""/><br /><sub><b>Eden</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=bigeden" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/jullee96"><img src="https://avatars0.githubusercontent.com/u/66409676?v=4" width="100px;" alt=""/><br /><sub><b>julie lee</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=jullee96" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/SHRyu416"><img src="https://avatars0.githubusercontent.com/u/55476465?v=4" width="100px;" alt=""/><br /><sub><b>SHRyu416</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=SHRyu416" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/yeji0407"><img src="https://avatars3.githubusercontent.com/u/55476302?v=4" width="100px;" alt=""/><br /><sub><b>yeji0407</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=yeji0407" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/bsairline"><img src="https://avatars0.githubusercontent.com/u/51113223?v=4" width="100px;" alt=""/><br /><sub><b>ParkTaeEun_Hamonikr</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=bsairline" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/bdh1993"><img src="https://avatars2.githubusercontent.com/u/58254473?v=4" width="100px;" alt=""/><br /><sub><b>bdh1993</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=bdh1993" title="Code">💻</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/eejungee515"><img src="https://avatars1.githubusercontent.com/u/66405821?v=4" width="100px;" alt=""/><br /><sub><b>eejungee515</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=eejungee515" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/x3x-m"><img src="https://avatars2.githubusercontent.com/u/66405896?v=4" width="100px;" alt=""/><br /><sub><b>x3x-m</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=x3x-m" title="Code">💻</a></td>
-    <td align="center"><a href="http://nimbuscloud.io"><img src="https://avatars0.githubusercontent.com/u/14984268?v=4" width="100px;" alt=""/><br /><sub><b>nimbus</b></sub></a><br /><a href="https://github.com/hamonikr/democratization-expertise/commits?author=Nimbus" title="Code">💻</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-enable -->
-<!-- prettier-ignore-end -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
