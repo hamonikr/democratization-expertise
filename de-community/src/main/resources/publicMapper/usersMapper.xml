@@ -61,7 +61,9 @@ SET
 		enterpriseno = #{enterpriseno}
 	</if>
 	<if test="enterpriseno == null">
-		enterpriseno = 0
+		enterpriseno = 0,
+		userat = 0,
+		activeat = 0
 	</if>
 WHERE
 	userno = #{userno}
