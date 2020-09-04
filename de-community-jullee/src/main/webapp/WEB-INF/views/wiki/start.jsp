@@ -3,8 +3,12 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<!-- ckeditor js -->
-<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+<!-- tui editor-->
+	<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+	<!-- Editor's Dependecy Style -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+	<!-- Editor's Style -->
+	<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 
 <title>wiki domain</title>
 </head>
@@ -12,9 +16,193 @@
 .inputStyle{
 	padding : 3%;
 }
+
+.menu {
+    min-width: 100%;
+    position: absolute;
+    top: 2.5em;
+    left: -1px;
+    background-color: white;
+    border: solid 1px silver;
+    border-top-width: 0;
+    clear: both;
+    text-align: left;
+    display: none;
+    z-index: 1;
+}
+.mw-body {
+    margin-left: 10em;
+    padding: 1em;
+    border: 1px solid #a7d7f9;
+    border-right-width: 0;
+    margin-top: -1px;
+    background-color: #ffffff;
+    color: #252525;
+    direction: ltr;
+}
+#mw-head-base {
+    margin-top: -5em;
+    margin-left: 10em;
+    height: 5em;
+}
+#mw-head {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+}
+#mw-panel {
+    font-size: inherit;
+    position: absolute;
+    top: 160px;
+    padding-top: 1em;
+    width: 10em;
+    left: 0;
+}
+
+#mw-page-base {
+    height: 5em;
+    background-position: bottom left;
+    background-repeat: repeat-x;
+    background-image: url(/skins/VectorV2/images/page-fade.png?1d168);
+    background-color: #f6f6f6;
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(50%,#ffffff),color-stop(100%,#f6f6f6));
+    background-image: -webkit-linear-gradient(top,#ffffff 50%,#f6f6f6 100%);
+    background-image: -moz-linear-gradient(top,#ffffff 50%,#f6f6f6 100%);
+    background-image: linear-gradient(#ffffff 50%,#f6f6f6 100%);
+    background-color: #ffffff;
+}
+
+#mw-head-base {
+    margin-top: -5em;
+    margin-left: 10em;
+    height: 5em;
+}
+.vectorTabs li.selected {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABkAQAAAABvV2fNAAAADElEQVR4AWNoGB4QAInlMgFKeRKBAAAAAElFTkSuQmCC);
+    background-image: url(/skins/VectorV2/images/tab-current-fade.png?22887)!ie;
+}
+.vectorTabs {
+    float: left;
+    height: 2.5em;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAuCAIAAABmjeQ9AAAAQ0lEQ…OcUegfarWjP3ojZvEzxs6j+nygmo+zzsk79nY+tOxdEhlf3UHVgUFrVwAAAABJRU5ErkJggg==);
+    background-image: url(/skins/VectorV2/images/tab-break.png?09d4b)!ie;
+    background-position: bottom left;
+    background-repeat: no-repeat;
+    padding-left: 1px;
+}
+.mw-body .mw-indicators {
+    float: right;
+    line-height: 1.6;
+    font-size: 0.875em;
+    position: relative;
+    z-index: 1;
+}
+.emptyPortlet {
+    display: none;
+}
+#mw-navigation h2 {
+    position: absolute;
+    top: -9999px;
+}
+
+.vectorMenu {
+    direction: ltr;
+    float: left;
+    cursor: pointer;
+    position: relative;
+}
+.vectorMenu h3 {
+    float: left;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAuCAIAAABmjeQ9AAAAQ0lEQ…OcUegfarWjP3ojZvEzxs6j+nygmo+zzsk79nY+tOxdEhlf3UHVgUFrVwAAAABJRU5ErkJggg==);
+    background-image: url(/skins/VectorV2/images/tab-break.png?09d4b)!ie;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    font-size: 1em;
+    height: 2.5em;
+    padding-right: 1px;
+    margin-right: -1px;
+}
+#left-navigation {
+    float: left;
+    margin-left: 10em;
+    margin-top: 2.5em;
+    margin-bottom: -2.5em;
+    display: inline;
+}
+#right-navigation {
+    float: right;
+    margin-top: 2.5em;
+}
+
+#p-personal {
+    position: absolute;
+    top: 0.33em;
+    right: 0.75em;
+    z-index: 100;
+}
+
+#p-personal li {
+    line-height: 1.125em;
+    float: left;
+    margin-left: 0.75em;
+    margin-top: 0.5em;
+    font-size: 0.75em;
+    white-space: nowrap;
+}
+span {
+    display: block;
+    font-size: 0.8em;
+    padding-left: 0.7em;
+    padding-top: 1.375em;
+    margin-right: 20px;
+    font-weight: normal;
+    color: #4d4d4d;
+}
+ul li {
+    line-height: 1.125em;
+    margin: 0;
+    padding: 0.25em 0;
+    font-size: 0.75em;
+    word-wrap: break-word;
+}
+
+a {
+    text-decoration: none;
+    color: #0645ad;
+    background: none;
+}
+#p-logo {
+    position: absolute;
+    top: -160px;
+    left: 0;
+    width: 10em;
+    height: 160px;
+}
+#footer {
+    margin-left: 10em;
+    margin-top: 0;
+    padding: 0.75em;
+    direction: ltr;
+}
+
+.portal {
+    margin: 0 0.6em 0 0.7em;
+    padding: 0.25em 0;
+    direction: ltr;
+    background-position: top left;
+    background-repeat: no-repeat;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAAABCAAAAAAphRnkAAAAJ0lEQVQIW7XFsQEAIAyAMPD/b7uLWz8wS5youFW1UREfiIpH1Q2VBz7fGPS1dOGeAAAAAElFTkSuQmCC);
+    background-image: url(/skins/VectorV2/images/portal-break.png?3ea1b)!ie;
+}
 </style>
+
  <body >
- 	<form class="inputStyle">
+ <div id="mw-page-base" class="noprint"></div>
+ <div id="mw-head-base" class="noprint"></div>
+  <!-- start of contents  -->   
+    <div id="content" class="mw-body" role="main">
+    <div class="mw-indicators mw-body-content"></div>
  		<div class="row">
  			<div class="col-md-10" data-placeholder="WikiPlaceholder-HelpCenterIntro">
 				<p><br></p>
@@ -40,7 +228,7 @@
 					    <svg aria-hidden="true" class="svg-icon iconTack" width="18" height="18" viewBox="0 0 18 18"><path d="M6.79 12.67l3.53 3.53a6 6 0 001.18-6.83l2.03-2.03A4 4 0 0018 5.5L12.53.03A4 4 0 0010.7 4.5L8.67 6.54a6 6 0 00-6.83 1.18l3.53 3.53-3.18 3.18-1.77 3.19 3.18-1.77 3.19-3.18z"></path></svg>     
 					  	<a href="">"우리는 더 이상 이 계정에서 질문/대답을 받지 않는다"를 받을 때 어떻게 해야 하는가?</a></li>
 					</ul>
-		<hr>
+				<hr>
 			</div>
 		
  		</div>
@@ -76,10 +264,104 @@
 					  <li> Jquery</li>
 				</ul>	 						
 			</div>
- 		</div>
-     </form>     
+ 		 <div>    
+     </div>
+ 	</div>
+    	<a href="/wiki/create">[작성하기]</a>
+  </div>  
+  <!-- end of contents  -->   
+  <!-- start of  nav -->
+ <div id = "mv-navigation">
+ <h2>둘러보기 메뉴</h2>
+ <!-- right-top nav bar -->
+  <div id="mw-head">
+	<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+			<h3 id="p-personal-label">개인 도구</h3>
+			<ul>
+			<li id="pt-createaccount"><a href="/index.php?title=%ED%8A%B9%EC%88%98:%EA%B3%84%EC%A0%95%EB%A7%8C%EB%93%A4%EA%B8%B0&amp;returnto=%ED%95%9C%EC%84%B1%EB%8C%80%ED%95%99%EA%B5%90+%EB%AF%B8%EB%94%94%EC%96%B4%EC%9C%84%ED%82%A4%3A%EB%8C%80%EB%AC%B8" title="계정을 만들고 로그인하는 것이 좋습니다; 하지만, 필수는 아닙니다">계정 만들기</a></li><li id="pt-login"><a href="/index.php?title=%ED%8A%B9%EC%88%98:%EB%A1%9C%EA%B7%B8%EC%9D%B8&amp;returnto=%ED%95%9C%EC%84%B1%EB%8C%80%ED%95%99%EA%B5%90+%EB%AF%B8%EB%94%94%EC%96%B4%EC%9C%84%ED%82%A4%3A%EB%8C%80%EB%AC%B8" title="꼭 로그인해야 하는 것은 아니지만, 로그인을 권장합니다. [alt-shift-o]" accesskey="o">로그인</a></li>						</ul>
+	</div>
+	<div id="left-navigation">
+		<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+				<h3 id="p-namespaces-label">이름공간</h3>
+				<ul>
+					<li id="ca-nstab-project" class="selected">
+						<span><a href="/index.php/%ED%95%9C%EC%84%B1%EB%8C%80%ED%95%99%EA%B5%90_%EB%AF%B8%EB%94%94%EC%96%B4%EC%9C%84%ED%82%A4:%EB%8C%80%EB%AC%B8" title="프로젝트 문서 보기 [alt-shift-a]" accesskey="a">프로젝트 문서</a></span></li>
+					<li id="ca-talk">
+						<span><a href="/index.php/%ED%95%9C%EC%84%B1%EB%8C%80%ED%95%99%EA%B5%90_%EB%AF%B8%EB%94%94%EC%96%B4%EC%9C%84%ED%82%A4%ED%86%A0%EB%A1%A0:%EB%8C%80%EB%AC%B8" title="문서의 내용에 대한 토론 문서 [alt-shift-t]" accesskey="t" rel="discussion">토론</a></span></li>
+				</ul>
+			</div>
+		<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+				<h3 id="p-variants-label" tabindex="0">
+					<span>변수</span><a href="#" tabindex="-1"></a>
+				</h3>
+		</div>
+		</div>
+				
+		<div id="right-navigation">
+			<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+				<h3 id="p-views-label">보기</h3>
+				<ul>
+					<li id="ca-view" class="selected">
+						<span><a href="/index.php/%ED%95%9C%EC%84%B1%EB%8C%80%ED%95%99%EA%B5%90_%EB%AF%B8%EB%94%94%EC%96%B4%EC%9C%84%ED%82%A4:%EB%8C%80%EB%AC%B8">읽기</a></span></li>
+					<li id="ca-viewsource">
+						<span><a href="/index.php?title=%ED%95%9C%EC%84%B1%EB%8C%80%ED%95%99%EA%B5%90_%EB%AF%B8%EB%94%94%EC%96%B4%EC%9C%84%ED%82%A4:%EB%8C%80%EB%AC%B8&amp;action=edit" title="이 문서가 보호되어 있습니다. 문서의 원본을 볼 수 있습니다. [alt-shift-e]" accesskey="e">원본 보기</a></span></li>
+					<li id="ca-history" class="collapsible">
+						<span><a href="/index.php?title=%ED%95%9C%EC%84%B1%EB%8C%80%ED%95%99%EA%B5%90_%EB%AF%B8%EB%94%94%EC%96%B4%EC%9C%84%ED%82%A4:%EB%8C%80%EB%AC%B8&amp;action=history" title="문서의 과거 판 [alt-shift-h]" accesskey="h">역사 보기</a></span></li>
+				</ul>
+			</div>
+			<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label" style="">
+				<h3 id="p-cactions-label" tabindex="0">
+					<span>더 보기</span><a href="#" tabindex="-1"></a>
+				</h3>
+				<div class="menu">
+					<ul>
+					</ul>
+				</div>
+			</div>
+			<div id="p-search" role="search">
+				<h3>
+					<label for="searchInput">검색</label>
+				</h3>
+				<form action="/index.php" id="searchform">
+					<div id="simpleSearch">
+					<input type="search" name="search" placeholder="위키 검색" title="한성대학교 미디어위키 검색 [alt-shift-f]" accesskey="f" id="searchInput" tabindex="1" autocomplete="off"><input type="hidden" value="특수:검색" name="title"><input type="submit" name="go" value="보기" title="이 이름의 문서가 존재하면 그 문서로 바로 가기" id="searchButton" class="searchButton">							</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- left pannel -->
+	<div id="mw-panel">
+		<div id="p-logo" role="banner"><a class="mw-wiki-logo" href="/index.php/%EB%8C%80%EB%AC%B8" title="대문으로 가기"></a></div>
+			<div class="portal" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label">
+			<h3 id="p-navigation-label">둘러보기</h3>
+
+			<div class="body">
+				<ul>
+					<li id="n-mainpage-description"><a href="/index.php/%EB%8C%80%EB%AC%B8" title="대문으로 가기 [alt-shift-z]" accesskey="z">대문</a></li><li id="n-recentchanges"><a href="/index.php/%ED%8A%B9%EC%88%98:%EC%B5%9C%EA%B7%BC%EB%B0%94%EB%80%9C" title="위키의 최근 바뀐 목록 [alt-shift-r]" accesskey="r">최근 바뀜</a></li><li id="n-randompage"><a href="/index.php/%ED%8A%B9%EC%88%98:%EC%9E%84%EC%9D%98%EB%AC%B8%EC%84%9C" title="임의 문서 불러오기 [alt-shift-x]" accesskey="x">임의 문서로</a></li><li id="n-help"><a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" title="도움말">도움말</a></li>					</ul>
+			</div>
+		</div>
+		<div class="portal" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+			<h3 id="p-tb-label">도구</h3>
+			<div class="body">
+				<ul>
+					<li id="t-whatlinkshere"><a href="/index.php/%ED%8A%B9%EC%88%98:%EA%B0%80%EB%A6%AC%ED%82%A4%EB%8A%94%EB%AC%B8%EC%84%9C/%ED%95%9C%EC%84%B1%EB%8C%80%ED%95%99%EA%B5%90_%EB%AF%B8%EB%94%94%EC%96%B4%EC%9C%84%ED%82%A4:%EB%8C%80%EB%AC%B8" title="여기를 가리키는 모든 위키 문서의 목록 [alt-shift-j]" accesskey="j">여기를 가리키는 문서</a></li><li id="t-recentchangeslinked"><a href="/index.php/%ED%8A%B9%EC%88%98:%EB%A7%81%ED%81%AC%EC%B5%9C%EA%B7%BC%EB%B0%94%EB%80%9C/%ED%95%9C%EC%84%B1%EB%8C%80%ED%95%99%EA%B5%90_%EB%AF%B8%EB%94%94%EC%96%B4%EC%9C%84%ED%82%A4:%EB%8C%80%EB%AC%B8" rel="nofollow" title="이 문서에서 링크한 문서의 최근 바뀜 [alt-shift-k]" accesskey="k">가리키는 글의 최근 바뀜</a></li><li id="t-specialpages"><a href="/index.php/%ED%8A%B9%EC%88%98:%ED%8A%B9%EC%88%98%EB%AC%B8%EC%84%9C" title="모든 특수 문서의 목록 [alt-shift-q]" accesskey="q">특수 문서 목록</a></li><li id="t-print"><a href="/index.php?title=%ED%95%9C%EC%84%B1%EB%8C%80%ED%95%99%EA%B5%90_%EB%AF%B8%EB%94%94%EC%96%B4%EC%9C%84%ED%82%A4:%EB%8C%80%EB%AC%B8&amp;printable=yes" rel="alternate" title="이 문서의 인쇄용 판 [alt-shift-p]" accesskey="p">인쇄용 판</a></li><li id="t-permalink"><a href="/index.php?title=%ED%95%9C%EC%84%B1%EB%8C%80%ED%95%99%EA%B5%90_%EB%AF%B8%EB%94%94%EC%96%B4%EC%9C%84%ED%82%A4:%EB%8C%80%EB%AC%B8&amp;oldid=68725" title="문서의 이 판에 대한 고유링크">고유 링크</a></li><li id="t-info"><a href="/index.php?title=%ED%95%9C%EC%84%B1%EB%8C%80%ED%95%99%EA%B5%90_%EB%AF%B8%EB%94%94%EC%96%B4%EC%9C%84%ED%82%A4:%EB%8C%80%EB%AC%B8&amp;action=info" title="이 문서에 대한 자세한 정보">문서 정보</a></li>					</ul>
+			</div>
+		</div>
+	</div>	
+  </div>  
+  <!-- start of  nav  -->
 </body>
-    
-      
+
+<script>
+/* const viewer = toastui.Editor({
+	 el: document.querySelector('#viewer'),
+    initialValue: content
+  });	   */  
+
+
+  </script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"smw":{"limitreport-intext-parsertime":0.002},"limitreport":{"cputime":"0.042","walltime":"0.045","ppvisitednodes":{"value":79,"limit":1000000},"ppgeneratednodes":{"value":96,"limit":1000000},"postexpandincludesize":{"value":0,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.000      1 -total"]},"cachereport":{"timestamp":"20200903150212","ttl":86400,"transientcontent":false}}});});</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":594});});</script>
+
 
 </html>
