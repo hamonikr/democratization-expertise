@@ -13,5 +13,12 @@ public class WikiController {
 		System.out.println("---wiki start---");
 		
 		return "/wiki/start";
+	 }
+	
+	@RequestMapping("/create")
+	 public String create(HttpServletRequest request) { 		
+		System.out.println("---wiki create!---");
+		
+		return "/wiki/create";
 	 } 
 }
