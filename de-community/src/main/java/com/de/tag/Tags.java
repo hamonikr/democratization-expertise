@@ -25,16 +25,16 @@ public class Tags {
 	/* 태그 고유 번호 */
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Integer tagNo;
+	private Integer tagno;
 	/* 태그 이름 */
 	private String title;
 	/* 회원 고유 번호 */
-	private String userNo;
+	private String userno;
 	/* 가입 일시 */
 	@CreationTimestamp
-	private Timestamp registerDate;
+	private Timestamp registerdate;
 	/* 수정 일시 */
 	@UpdateTimestamp
-	private Timestamp updateDate;
+	private Timestamp updatedate;
 
 }
