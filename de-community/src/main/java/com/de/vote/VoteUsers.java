@@ -20,8 +20,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@Table(name = "tb_vote")
-public class Vote {
+@Table(name = "tb_vote_users")
+public class VoteUsers {
 	
 	/* 투표 고유 번호 */
 	@Id
@@ -32,14 +32,8 @@ public class Vote {
 	private Integer pno;
 	/* 구분 */
 	private String section;
-	/* 점수 +1*/
-	private Integer likes;
-	/* 점수 -1*/
-	private Integer dislikes;
 	/* 회원 고유 번호 */
 	private Integer userno;
-	/* 투표한 회원 고유 번호 */
-	private Integer senduserno;
 	/* 등록 일시 */
 	@CreationTimestamp
 	private Timestamp registerdate;

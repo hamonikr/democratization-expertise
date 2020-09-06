@@ -4,20 +4,15 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.de.user.Users;
-import com.de.user.UsersDetail;
 import com.de.vote.Vote;
 
 import lombok.Getter;
@@ -34,7 +29,6 @@ public class Questions {
 	/* 질문 고유 번호 */
 	@Id
 	@Column
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Integer questionno;
 	/* 질문 수정 권한 */
 	private Integer editauth;
@@ -49,7 +43,7 @@ public class Questions {
 	/* 태그 고유 번호 */
 	private String tagno;
 	/* 질문 조회수 */
-	private Integer readcnt;
+	private Integer readcnt = 0;
 	/* 삭제여부 1-삭제 0-활성*/
 	private Integer deleteat = 0;
 	/* 등록 일시 */
@@ -58,13 +52,18 @@ public class Questions {
 	/* 수정 일시 */
 	@UpdateTimestamp
 	private Timestamp updatedate;
+	//추후 테이블에서 삭제할 컬럼
+	/* 정렬 */
+	private Integer sort;
+	/* 검색 */
+	private String searchtext;
 	
 	/* 페이징 */
 	private int firstRecordIndex;
 	private int recordCountPerPage;
 	
 	@ManyToOne
-	@JoinColumn(name= "pNo", insertable = false, updatable = false)
+	@JoinColumn(name= "pno", insertable = false, updatable = false)
 	private Vote vote;
 	
 	@ManyToOne
