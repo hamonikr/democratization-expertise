@@ -58,7 +58,7 @@ public class Users implements Serializable{
 	private Timestamp updatedate;
 
 	 @OneToOne
-     @JoinTable(name = "tb_user_detail", //조인테이블명
+     @JoinTable(name = "tb_users_detail", //조인테이블명
                 joinColumns = @JoinColumn(name="userno"),  //외래키
                 inverseJoinColumns = @JoinColumn(name="userno") //반대 엔티티의 외래키
                 )

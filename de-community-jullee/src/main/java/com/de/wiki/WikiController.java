@@ -12,6 +12,8 @@ public class WikiController {
 	 public String accountRecovery(HttpServletRequest request) { 		
 		System.out.println("---wiki start---");
 		
+		
+		
 		return "/wiki/start";
 	 }
 	
