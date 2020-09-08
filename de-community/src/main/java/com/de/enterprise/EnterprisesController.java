@@ -1,4 +1,4 @@
-package com.de.user;
+package com.de.enterprise;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.de.cmmn.util.CodeMessage;
-import com.de.enterprise.Enterprises;
+import com.de.user.Users;
+import com.de.user.UsersDetail;
+
 
 /**
  * @author LukeHan
@@ -40,19 +42,19 @@ import com.de.enterprise.Enterprises;
  */
 
 @Controller
-@RequestMapping(value = "/users")
-public class UsersController {
+@RequestMapping(value = "/enterprises")
+public class EnterprisesController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private final boolean LOG_URL = true;
+	
+	@Autowired
+	EnterpriseService service;
 
 	@Autowired
-	UsersService service;
-
-	@Autowired
-	UsersRepository repository;
+	EnterprisesRepository repository;
 
 	/**
-	 * 사용자 활동정보 대시보드
+	 * 기업회원 활동정보 대시보드
 	 * @param model
 	 * @param seq
 	 * @return
@@ -60,31 +62,31 @@ public class UsersController {
 	 */
 	@RequestMapping(value="/activity/{seq}", method=RequestMethod.GET)
 	public String dashboard(Model model, @PathVariable("seq") int seq) throws Exception {
-		if(LOG_URL) logger.info(" -- url : /users/activity - seq : " + seq);
+		if(LOG_URL) logger.info(" -- url : /enterprises/activity - seq : " + seq);
 
 		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
 		// session 에서 seq 정보 추출
 		// 임시 - 사용자 seq
 		int userSeq = 4;
 		
-		Optional<Users> users = service.findById(seq);
-		model.addAttribute("user", users.orElse(null));	// 프로필 정보
+		Optional<Enterprises> enterprises = service.findById(seq);
+		model.addAttribute("enterprise", enterprises.orElse(null));	// 프로필 정보
 		model.addAttribute("isMypage", seq == userSeq);		// 내 정보 유무
 
-		return "/users/activity";
-	}	
+		return "/enterprises/activity";
+	}
 	
 	/**
-	 * 사용자 목록
+	 * 기업회원 목록
 	 * @param model
 	 * @param pageable
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/list")
-	public String userList(Model model, @PageableDefault Pageable pageable) throws Exception {
-		if(LOG_URL) logger.info(" -- url : /users/list - pageable : " + pageable);
-		Page<Users> list = service.findAll(pageable);
+	public String enterprisesList(Model model, @PageableDefault Pageable pageable) throws Exception {
+		if(LOG_URL) logger.info(" -- url : /enterprises/list - pageable : " + pageable);
+		Page<Enterprises> list = service.findAll(pageable);
 
 		logger.info("총 element 수 : {" + list.getTotalElements() + "}, 전체 page 수 : {" + list.getTotalPages() + "}, "
 				+ "페이지에 표시할 element 수 : {" + list.getSize() + "}, 현재 페이지 index : {" + list.getNumber() + "}, "
@@ -92,11 +94,11 @@ public class UsersController {
 
 		model.addAttribute("paging", list);
 		model.addAttribute("data", list.getContent());
-		return "/users/list";
+		return "/enterprises/list";
 	}
-
+	
 	/**
-	 * 사용자 상세 정보
+	 * 기업회원 상세 정보
 	 * @param model
 	 * @param seq
 	 * @return
@@ -104,32 +106,29 @@ public class UsersController {
 	 */
 	@RequestMapping(value="/profile/{seq}", method=RequestMethod.GET)
 	public String modify(Model model, @PathVariable("seq") int seq) throws Exception {
-		if(LOG_URL) logger.info(" -- url : /users/profile - seq : " + seq);
+		if(LOG_URL) logger.info(" -- url : /enterprises/profile - seq : " + seq);
 		
 		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
 		// session 에서 seq 정보 추출
 		// 임시 - 사용자 seq
-		int userSeq = 4;
+		int enterSeq = 4;
 		
-		Optional<Users> user = service.findById(seq);
-		Optional<Enterprises> enterprise = service.findEnterpriseNo(seq);
+		Optional<Enterprises> enterprise = service.findById(seq);
 		
-		logger.info(" ------ user : " + user);
 		logger.info(" ------ enterprise : " + enterprise);
 		
-		if ( ! user.isPresent()) {
-			return "redirect:/users/list";
+		if ( ! enterprise.isPresent()) {
+			return "redirect:/enterprises/list";
 		}
 		
-		model.addAttribute("user", user.orElse(null));	// 프로필 정보
-		model.addAttribute("isMypage", seq == userSeq);	// 내 정보 유무
-		model.addAttribute("enterprise", enterprise.orElse(null));	// 회사명 정보
+		model.addAttribute("enter", enterprise.orElse(null));	// 파트너사 정보
+		model.addAttribute("isMypage", seq == enterSeq);	// 내 정보 유무
 		
-		return "/users/profile";
+		return "/enterprises/profile";
 	}
 	
 	/**
-	 * 사용자 정보 수정
+	 * 기업회원 정보 수정
 	 * @param model
 	 * @param vo
 	 * @param newslater
@@ -137,14 +136,14 @@ public class UsersController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String modify(Model model, Users vo, UsersDetail userDetail) throws Exception {
-		if(LOG_URL) logger.info(" -- url : /users/modify - user : " + vo + " // detail : " + userDetail);
-		service.updateUser(vo, userDetail);
-		return "redirect:/users/profile/" + vo.getUserno();
+	public String modify(Model model, Enterprises vo) throws Exception {
+		if(LOG_URL) logger.info(" -- url : /enterprises/modify - Enterprises : " + vo);
+		service.updateEnterprises(vo);
+		return "redirect:/enterprises/profile/" + vo.getEnterpriseno();
 	}
-
+	
 	/**
-	 * 사용자 비밀번호 수정
+	 *  기업회원 비밀번호 수정
 	 * @param model
 	 * @param vo
 	 * @return
@@ -152,18 +151,18 @@ public class UsersController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/modifyPw", method=RequestMethod.POST)
-	public HashMap<String, Object> modifyPassword(Model model, UserPwVO vo) throws Exception {
-		if(LOG_URL) logger.info(" -- url : /users/modify - UserPwVO : " + vo);
+	public HashMap<String, Object> modifyPassword(Model model, EnterprisePwVO vo) throws Exception {
+		if(LOG_URL) logger.info(" -- url : /enterprises/modify - EnterprisePwVO : " + vo);
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
 		// session 에서 seq 정보 추출
-		// 임시 - 사용자 seq
-		int userSeq = 4;
-		vo.setUserno(userSeq);
+		// 임시 - 기업회원 enterpriseno
+		int enterpriseno = 4;
+		vo.setEnterpriseno(enterpriseno);
 		
-		boolean updateVal = service.updateUserPw(vo);
+		boolean updateVal = service.updateEnterprisePw(vo);
 		
 		if(updateVal) map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
 		else map.put("message", CodeMessage.MSG_100009_비밀번호가_일치하지_않습니다__다시_확인해주세요_);
@@ -181,17 +180,17 @@ public class UsersController {
 	@ResponseBody
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public HashMap<String, Object> upload(MultipartHttpServletRequest request) throws Exception{
-		if(LOG_URL) logger.info(" -- url : /users/upload - request : " + request);
+		if(LOG_URL) logger.info(" -- url : /enterprises/upload - request : " + request);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
 		// session 에서 seq 정보 추출
-		// 임시 - 사용자 seq
-		int userSeq = 4;
+		// 임시 - 기업회원 enterpriseno
+		int enterpriseno = 4;
 		
-		Users vo = new Users();
-		vo.setUserno(userSeq);
+		Enterprises vo = new Enterprises();
+		vo.setEnterpriseno(enterpriseno);
 		
 		boolean updateVal = service.upload(vo, request);
 		
@@ -201,27 +200,66 @@ public class UsersController {
 		map.put("result", updateVal);
 		return map;
 	}
-
-
+	
 	/**
-	 * 회사 목록
-	 * @param enterName
+	 * 기업회원 회원 목록
+	 * @param model
+	 * @param seq
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/members/{seq}", method=RequestMethod.GET)
+	public String members(Model model, @PathVariable("seq") int seq) throws Exception {
+		if(LOG_URL) logger.info(" -- url : /enterprises/members - seq : " + seq);
+
+		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
+		// session 에서 seq 정보 추출
+		// 임시 - 기업회원 enterpriseno
+		int enterpriseno = 4;
+		UsersDetail vo = new UsersDetail();
+		
+		vo.setEnterpriseno(seq);
+		
+		vo.setUserat(0);	// 승인 대기
+		List<Users> users = service.getMembersList(vo);	// 승인 대기 회원 목록
+		model.addAttribute("users", users);
+		
+		vo.setUserat(1);	// 승인
+		users = service.getMembersList(vo);	// 승인 회원 목록
+		model.addAttribute("atusers", users);
+		
+		model.addAttribute("isMypage", seq == enterpriseno);	// 내 정보 유무
+		model.addAttribute("enterpriseno", seq);	// 페이지 번호
+
+		return "/enterprises/members";
+	}
+	
+	/**
+	 *  기업 맴버 승인/거절
+	 * @param model
+	 * @param vo
 	 * @return
 	 * @throws Exception
 	 */
 	@ResponseBody
-	@RequestMapping(value="/getEnterList", method=RequestMethod.POST)
-	public HashMap<String, Object> getEnterList(String enterName) throws Exception{
-		if(LOG_URL) logger.info(" -- url : /users/getEnterList - enterName : " + enterName);
-		
+	@RequestMapping(value="/updateUserat", method=RequestMethod.POST)
+	public HashMap<String, Object> updateUserat(Model model, UsersDetail vo) throws Exception {
+		if(LOG_URL) logger.info(" -- url : /enterprises/updateUserat - UsersDetail : " + vo);
+
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		 List<Enterprises> list= service.getEnterList(enterName);
+		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
+		// session 에서 seq 정보 추출
+		// 임시 - 기업회원 enterpriseno
+		int enterpriseno = 4;
+		vo.setEnterpriseno(enterpriseno);
 		
-//		if(updateVal) map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
-//		else map.put("message", CodeMessage.MSG_000024_변경_중_오류가_발생하였습니다_);
+		boolean updateVal = service.updateUserat(vo);
 		
-		map.put("list", list);
+		if(updateVal) map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
+		else map.put("message", CodeMessage.ERROR_000004_정보가_잘못_입력되었습니다__확인_후_다시_시도해_주세요_);
+		
+		map.put("updateVal", updateVal);
 		return map;
 	}
 }
