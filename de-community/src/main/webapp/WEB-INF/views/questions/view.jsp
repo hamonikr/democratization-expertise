@@ -62,7 +62,6 @@
 
 					</div>
 					<div class="card-footer cont_btn_div">
-					${user.userno } ${ result.userno} ${result.editauth}
 					<c:if test="${(result.editauth eq 1 or result.userno eq user.userno)}">
 						<a href="/questions/edit/${result.questionno}" class="btn btn-primary purple">수정</a>
 						</c:if>

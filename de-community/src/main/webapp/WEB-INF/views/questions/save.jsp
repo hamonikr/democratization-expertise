@@ -113,7 +113,7 @@
 		   var tagno = document.frm.tag.value;
 			   //$('form[name=frm] input[name=tag]').val();
 			var tagnoArr = tagno.split(',');
-			alert(tagnoArr);
+			//alert(tagnoArr);
 			for(var i in tagnoArr){
 			$("#tagno option").each(function(){
 				if($(this).val() == tagnoArr[i]){
