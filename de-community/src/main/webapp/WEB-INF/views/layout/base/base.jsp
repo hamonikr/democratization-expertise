@@ -51,44 +51,22 @@
 
 <body class="hold-transition sidebar-mini control-sidebar-slide-open accent-indigo">
 	<div class="wrapper">
-		<!-- Navbar -->
-		<!-- 		<nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0px;"> -->
 		<tiles:insertAttribute name="header" />
-		<!-- 		</nav> -->
-		<!-- /.navbar -->
 
-		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-light elevation-4">
 			<tiles:insertAttribute name="left" />
 		</aside>
-		<!-- body [start] -->
-		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
-			<!-- Main content -->
-<!-- 			<section class="content"> -->
-				<!-- Default box -->
-<!-- 				<div class="card card-solid"> -->
-<!-- 					<div class="card-body"> -->
-<!-- 						<div class="row"> -->
-							<div class="row">
-								 <div class="col-sm-8">
-								<tiles:insertAttribute name="body" />
-								</div>
-								 <div class="col-sm-4" > <!-- style="background-color:black;" -->
-						          	<img src="/img/stackedViewR.jpg">
-						          </div>
-							</div>
-<!-- 						</div> -->
-<!-- 					</div> -->
-					<!-- /.card-body -->
-<!-- 				</div> -->
-				<!-- /.card -->
-<!-- 			</section> -->
-
-			
+			<div class="row">
+				<div class="col-sm-8">
+					<tiles:insertAttribute name="body" />
+				</div>
+				<div class="col-sm-4" id="bodyrightLayer">
+					<!-- style="background-color:black;" -->
+					<img src="/img/stackedViewR.jpg">
+				</div>
+			</div>
 		</div>
-		<!-- /.content-wrapper -->
-		<!-- body [END] -->
 		<footer class="main-footer">
 			<tiles:insertAttribute name="footer" />
 		</footer>

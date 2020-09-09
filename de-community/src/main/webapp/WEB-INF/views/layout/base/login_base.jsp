@@ -53,7 +53,7 @@ function numberWithCommas(x) {
 	<div class="wrapper">
 		<!-- Navbar -->
 		<nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0px;">
-			<tiles:insertAttribute name="header" />
+<%-- 			<tiles:insertAttribute name="header" /> --%>
 		</nav>
 		<!-- /.navbar -->
 
