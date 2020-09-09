@@ -28,7 +28,7 @@
          당신의 능력을 향상시킬수 있도록 돕습니다</h5>
       </div>
       <div class="row center">
-        <a href="/de/stackedlist" id="download-button" class="btn-large waves-effect waves-light blue lighten-3" style="border-bottom:3px solid #b4e7f8; box-shadow:inset 0 -4px 0 #b4e7f8">
+        <a href="/questions/list" id="download-button" class="btn-large waves-effect waves-light blue lighten-3" style="border-bottom:3px solid #b4e7f8; box-shadow:inset 0 -4px 0 #b4e7f8">
         커뮤니티 시작하기.........</a>
       </div>
       <br><br>
