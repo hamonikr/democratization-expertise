@@ -68,7 +68,7 @@
 		a.contents like '%' || #{searchtext} || '%')
 		</where>
 		</if>
-		<if test="sort == ''" >order by a.registerdate desc</if>
+		<if test="sort == null" >order by a.registerdate desc</if>
 		<if test="sort == 1" >order by a.registerdate desc</if>
 		<if test="sort == 2" >order by a.registerdate asc</if>
 		<if test="sort == 3" >order by c.likes desc</if>
