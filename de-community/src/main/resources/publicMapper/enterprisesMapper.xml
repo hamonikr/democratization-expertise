@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="com.de.enterprise.mapper.EnterprisesMapper">
+
+<resultMap id="usersDetailMap" type="com.de.user.UsersDetail">
+	<result property="seq"			column="seq"			/>
+	<result property="enterpriseno"	column="enterpriseno"/>
+	<result property="userno"		column="userno"		/>
+	<result property="userat"		column="userat"		/>
+	<result property="activeat"		column="activeat"		/>
+</resultMap> 
+
+<resultMap id="usersMap" type="com.de.user.Users">
+	<result property="userno"			column="userno"			/>
+	<result property="userid"			column="userid"			/>
+	<result property="username"			column="username"			/>
+	<result property="userpassword"		column="userpassword"	/>
+	<result property="userprofileimg"	column="userprofileimg"	/>
+	<result property="aboutme"			column="aboutme"			/>
+	<result property="userurl"			column="userurl"			/>
+	<result property="useremail"		column="useremail"		/>
+	<result property="userstatus"		column="userstatus"		/>
+	<result property="newslater"		column="newslater"		/>
+	<result property="registerdate"		column="registerdate"	/>
+	<result property="updatedate"		column="updatedate"		/>
+	<collection property="usersDetail" resultMap="usersDetailMap" />
+</resultMap>
+
+
+<update id="updateEnterprisePw" parameterType="com.de.enterprise.EnterprisePwVO">
+UPDATE
+	tb_enterprises
+SET
+	enterprisepassword = #{enterprisepasswordnew},
+	updatedate = now()
+WHERE
+	enterpriseno = #{enterpriseno} and
+	enterprisepassword = #{enterprisepassword}
+</update>
+
+<update id="updateEnterprisesimg" parameterType="com.de.enterprise.Enterprises">
+UPDATE
+	tb_enterprises
+SET
+	enterpriseimg = #{enterpriseimg},
+	updatedate = now()
+WHERE
+	enterpriseno = #{enterpriseno}
+</update>
+
+<select id="getMembersList" parameterType="com.de.user.UsersDetail" resultMap="usersMap">
+SELECT 
+	U.userno,
+	U.username,
+	U.userprofileimg,
+	UD.userat,
+	UD.activeat 
+FROM
+    tb_users U
+LEFT JOIN 
+    tb_user_detail UD
+ON 
+    U.userno = UD.userno
+WHERE
+	UD.enterpriseno = #{enterpriseno}
+	AND UD.userat = #{userat}
+</select>
+
+<update id="updateActivaet" parameterType="com.de.user.UsersDetail">
+UPDATE 
+	tb_user_detail 
+SET 
+	activeat = #{activeat}
+WHERE 
+	enterpriseno = #{enterpriseno}
+	AND userno = #{userno}
+</update>
+
+<update id="updateUserat" parameterType="com.de.user.UsersDetail">
+UPDATE 
+	tb_user_detail 
+SET 
+	userat = #{userat}
+WHERE 
+	enterpriseno = #{enterpriseno}
+	AND userno = #{userno}
+</update>
+
+</mapper>
