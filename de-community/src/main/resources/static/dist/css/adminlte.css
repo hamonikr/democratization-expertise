@@ -11306,7 +11306,7 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
   height: inherit;
   min-height: 100%;
   position: absolute;
-  top: 80;
+  top: 0;
 }
 
 .layout-fixed .brand-link {
@@ -11319,7 +11319,7 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
   height: 100vh;
   left: 0;
   position: fixed;
-  top: 80;
+  top: 0;
 }
 
 .layout-fixed .control-sidebar {
@@ -11327,7 +11327,7 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
   float: none;
   height: 100vh;
   position: fixed;
-  top: 80;
+  top: 0;
 }
 
 .layout-fixed .control-sidebar .control-sidebar-content {
@@ -11417,7 +11417,7 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
 }
 
 .main-header .navbar-nav[class*='-right'] .dropdown-menu {
-  left: 0;
+  left: auto;
   margin-top: -3px;
   right: 0;
 }
