@@ -12,11 +12,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import lombok.AllArgsConstructor;
-import lombok.extern.java.Log;
 import com.AuthSuccessHandler;
 import com.CustomAccessDeniedHandler;
-import com.de.login.service.MemberService;;
+import com.de.login.service.MemberService;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
+
 
 @Log
 @Configuration
@@ -43,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 		web
 			.ignoring()
-				.antMatchers("/dist/**", "/js/**", "images/**", "/wiki/**", "/plugins/**", "/tui-editor/**", "/paper-bw/**", "lib/**", "/css/**", "/img/**", "/fonts/**");
+				.antMatchers("/dist/**", "/js/**", "images/**", "/plugins/**", "/tui-editor/**", "/paper-bw/**", "lib/**", "/css/**", "/img/**", "/fonts/**");
 	}
 	
 	@Override

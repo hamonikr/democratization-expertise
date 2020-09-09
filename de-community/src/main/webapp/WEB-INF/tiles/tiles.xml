@@ -29,11 +29,6 @@
      <put-attribute name="body" value="/WEB-INF/views/index.jsp" />  
    </definition> 
 
-<!--  <definition name="/wiki/*" extends="login-layout">
-     <put-attribute name="header" value="/WEB-INF/views/layout/common/header.jsp" />
-     <put-attribute name="body" value="/WEB-INF/views/wiki/{1}.jsp" />  
-   </definition> -->
-
    <definition name="/*/*" extends="sub-layout">
         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
    </definition>  		
