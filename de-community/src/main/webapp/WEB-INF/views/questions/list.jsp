@@ -72,7 +72,8 @@
               <!-- /.card-body -->
             </div>
             <!-- page number -->
-                    <ui:pagination paginationInfo = "${paginationInfo}" type="text" jsFunction="linkPage"/>
+                    <%-- <ui:pagination paginationInfo = "${paginationInfo}" type="text" jsFunction="linkPage"/> --%>
+                    <jsp:include page="/WEB-INF/views/include/paging.jsp" />
             <!-- /.card -->
           </div>
         </div>
@@ -111,8 +112,8 @@ $(function() {
 						alert($(".like").eq(index).attr('value'));
 					}) */
 					}else if(data == "LOGIN"){
-						alert("로그인 후 투표해주세요.");
-						location.href = "/";
+						alert("로그인이 필요한 기능입니다.");
+						location.href = "/login";
 						}else{
 						alert("투표하였습니다.");
 						++l;
