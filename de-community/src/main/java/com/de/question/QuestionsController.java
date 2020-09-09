@@ -1,5 +1,6 @@
 package com.de.question;
 
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -9,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +29,7 @@ import com.de.vote.VoteService;
 
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
+
 @Controller
 @RequestMapping(value = "/questions")
 public class QuestionsController {
@@ -33,10 +38,10 @@ public class QuestionsController {
 
 	@Autowired
 	QuestionsService qs;
-	
+
 	@Autowired
 	VoteService vs;
-	
+
 	@Autowired
 	CmmnService cs;
 
@@ -59,22 +64,23 @@ public class QuestionsController {
 //		}
 //		return "/questions/list";
 //	}
-	
+
 	@RequestMapping(value = "/list")
-	public String getList(@RequestParam Map<String, String> params, Model model,Questions questions,@AuthenticationPrincipal SecurityMember user) throws Exception{
-		
+	public String getList(@RequestParam Map<String, String> params, Model model, Questions questions,
+			@AuthenticationPrincipal SecurityMember user, @PageableDefault Pageable pageable) throws Exception {
+
 		CmmnMap param = new CmmnMap();
 		param.putAll(params);
-		
+
 		logger.info("----------excel param-----------------------");
 		logger.debug("");
 		logger.debug(param.toString());
 		logger.debug("");
 		logger.debug("----------excel param-----------------------");
-		System.out.println("sort=========="+questions.getSort());
+		System.out.println("sort==========" + questions.getSort());
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(param.getInt("pageNo") > 0 ? param.getInt("pageNo") : 1); // 현재 페이지 번호
-		paginationInfo.setRecordCountPerPage(500); // 한 페이지에 게시되는 게시물 건수
+		paginationInfo.setRecordCountPerPage(5); // 한 페이지에 게시되는 게시물 건수
 		paginationInfo.setPageSize(5); // 페이징 리스트의 사이즈
 
 		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
@@ -84,49 +90,50 @@ public class QuestionsController {
 
 		List<Questions> list = qs.getList(questions);
 		List<Tags> tagList = qs.tagList();
-		
-		for(int i = 0; i < list.size();i++) {
-			System.out.println("list====="+list.get(i));
-		}
-		
-		for(int i = 0; i < tagList.size();i++) {
-			System.out.println("tagList====="+tagList.get(i));
-		}
+
 		int listCount = qs.getListCount(questions);
 		paginationInfo.setTotalRecordCount(listCount); // 전체 게시물 건 수
 		model.addAttribute("list", list);
-		model.addAttribute("tagList",tagList);
+		model.addAttribute("tagList", tagList);
 		model.addAttribute("paginationInfo", paginationInfo);
 		model.addAttribute("vo", param);
 		return "/questions/list";
 	}
 
+
 	@RequestMapping(value = "/save")
-	public String save(Model model, Questions qvo, Tags tvo,@AuthenticationPrincipal SecurityMember user) {
-		List<Tags> list = qs.tagList();
-		model.addAttribute("tag",list);
-		return "/questions/save";
+	public String save(Model model, Questions qvo, Tags tvo, @AuthenticationPrincipal SecurityMember user) {
+		if (user == null) {
+			return "redirect:/login";
+		} else {
+			List<Tags> list = qs.tagList();
+			model.addAttribute("tag", list);
+			return "/questions/save";
+		}
 	}
+
 
 	@RequestMapping(value = "/save.proc")
 	public String saveproc(HttpServletRequest request, Model model, Questions vo, Vote vvo) throws Exception {
 		CmmnMap param = new CmmnMap();
-		vo.setQuestionno(Integer.parseInt(cs.selectObject("selectQNO",param).getString("questionno")));
+		vo.setQuestionno(Integer.parseInt(cs.selectObject("selectQNO", param).getString("questionno")));
 		vvo.setPno(vo.getQuestionno());
 		vvo.setSection(vo.getSection());
 		vvo.setUserno(vo.getUserno());
-		//질문등록
+		// 질문등록
 		qs.save(vo);
-		//투표등록
+		// 투표등록
 		vs.save(vvo);
 		// model.addAttribute("sample", ss.findById(sample.getSeq()));
 		return "redirect:/questions/list";
 	}
 
+
 	@RequestMapping("/view/{questionno}")
-	public String view(@PathVariable("questionno") int questionno, Model model,@AuthenticationPrincipal SecurityMember user) throws Exception{
+	public String view(@PathVariable("questionno") int questionno, Model model,
+			@AuthenticationPrincipal SecurityMember user) throws Exception {
 		List<Tags> list = qs.tagList();
-		model.addAttribute("tag",list);
+		model.addAttribute("tag", list);
 		Questions qvo = new Questions();
 		qvo = qs.getView(questionno);
 		qs.updateReanCnt(questionno);
@@ -140,28 +147,31 @@ public class QuestionsController {
 		return "/questions/view";
 	}
 
+
 	@RequestMapping("/edit/{questionno}")
-	public String edit(@PathVariable("questionno") int questionno, Model model,@AuthenticationPrincipal SecurityMember user) throws Exception{
+	public String edit(@PathVariable("questionno") int questionno, Model model,
+			@AuthenticationPrincipal SecurityMember user) throws Exception {
 		List<Tags> list = qs.tagList();
-		model.addAttribute("tag",list);
+		model.addAttribute("tag", list);
 		Questions qvo = new Questions();
 		qvo = qs.getView(questionno);
 		model.addAttribute("result", qvo);
 		model.addAttribute("user", user);
-		//Optional<Questions> sample = qs.findById(questionno);
-		//model.addAttribute("result", sample.orElse(null));
+		// Optional<Questions> sample = qs.findById(questionno);
+		// model.addAttribute("result", sample.orElse(null));
 		return "/questions/save";
 	}
-	
+
+
 	@RequestMapping(value = "/edit.proc")
 	public String editproc(HttpServletRequest request, Model model, Questions vo) throws Exception {
 		CmmnMap param = new CmmnMap();
-		//질문수정
+		// 질문수정
 		qs.save(vo);
 		// model.addAttribute("sample", ss.findById(sample.getSeq()));
 		return "redirect:/questions/list";
 	}
-	
+
 //	@RequestMapping(value = "/edit.proc")
 //	public String editproc(HttpServletRequest request, Model model, Questions vo) {
 //		qs.updateById(vo);

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
+
+
 <body>
 
 	<section class="content-header">
@@ -21,7 +23,7 @@
 					<div class="col-12">
 						<div class="callout callout-info">
 							<h5>
-								<i class="fas fa-info"></i> 모든 질문들:
+								<!-- <i class="fas fa-info"></i> --> 모든 질문들:
 							</h5>
 
 
@@ -39,12 +41,12 @@
 									</div>
 								</div>
 								<div class="float-right">
-									<button type="button" class="btn btn-primary float-right" id="btnSave" onclick="location.href='save'">등록</button>
+									<button type="button" class="btn btn-outline-primary float-right" id="btnSave" onclick="location.href='save'">질문하기</button>
 								</div>
 							</div>
 						</div>
 
-						<div class="invoice p-3 mb-3">
+						<div class="invoice p-3 mb-3" style="border-left: 5px solid #117a8b;">
 
 							<!-- Table row -->
 							<div class="row">
@@ -55,9 +57,11 @@
 											<tr>
 												<td>
 													<strong>총 <span class="total"><c:out value="${paginationInfo.totalRecordCount}" /></span>건중, 현재페이지 <i class="min">${paginationInfo.currentPageNo}</i>/<i class="max">${paginationInfo.totalPageCount}</i></strong>
-													<button type="submit" class="btn btn-primary float-right" name="sort" class="sort" value="1">신규등록</button>
-													<button type="submit" class="btn btn-primary float-right" name="sort" class="sort" value="2">답변없는순</button>
-													<button type="submit" class="btn btn-primary float-right" name="sort" class="sort" value="3">좋아요 많은 순</button>
+													
+													<button type="submit" class="btn btn-outline-primary float-right" name="sort" class="sort" value="1">신규등록</button>
+													<button type="submit" class="btn btn-outline-primary float-right" name="sort" class="sort" value="2">답변없는순</button>
+													<button type="submit" class="btn btn-outline-primary float-right" name="sort" class="sort" value="3">좋아요 많은 순</button>
+													
 												</td>
 											</tr>
 										</tbody>
@@ -67,7 +71,9 @@
 										<c:set var="tag" value="${fn:split(list.tagno,',')}" />
 										<div class="info-box">
 											<div class="">
-												<span class="info-box-icon bg-info elevation-1" style="height: 80px;"><i class="fas fa-cog"></i></span>${list.users.username}
+<!-- 												<span class="info-box-icon bg-info elevation-1" style="height: 80px;"><i class="fas fa-cog"></i></span> -->
+												<img src="/img/noprofile.png">
+												${list.users.username}
 											</div>
 											<div class="row col-12">
 												<div class="col-8">
@@ -89,7 +95,6 @@
 														<i class="ion ion-android-arrow-up text-success"></i> 
 													</a>
 													<font id="like${status.count }" value="${list.vote.likes }">${list.vote.likes }</font></span> 
-													
 													<br> 
 													<span class="font-weight-bold">
 													<a href="#" onclick="fnDisLike('${list.questionno}','${list.userno}','Q')">
@@ -102,74 +107,12 @@
 												</div>
 												<div class="col-2">
 													<span class="info-box-icon bg-info elevation-1" style="height: 80px;">답변</span>
+													
+													
 												</div>
 											</div>
 										</div>
 									</c:forEach>
-
-
-									
-
-
-
-
-
-									
-									<table class="table table-striped">
-										<thead>
-											<tr>
-												<th>번호</th>
-												<th>제목</th>
-												<th>내용</th>
-												<th>답변</th>
-												<th>투표</th>
-												<th>태그</th>
-												<th>성명</th>
-												<th>등록일</th>
-												<th>조회수</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach var="list" items="${list}" varStatus="status">
-												<c:set var="tag" value="${fn:split(list.tagno,',')}" />
-												<tr>
-													<th scope="row">${paginationInfo.totalRecordCount - ((paginationInfo.currentPageNo-1) * paginationInfo.recordCountPerPage + status.index) }</th>
-													<td>
-														<a href="view/${list.questionno }">${list.title }</a>
-													</td>
-													<td>${list.contents}</td>
-													<td>-</td>
-													<td>
-														<a href="#" onclick="fnLike('${list.questionno}','${list.userno}','Q','${status.count }','${list.vote.likes }')">like</a>
-														<div id="like${status.count }" value="${list.vote.likes }">${list.vote.likes }</div>
-														<a href="#" onclick="fnDisLike('${list.questionno}','${list.userno}','Q')">dislike</a>
-														<div id="dislike${status.count }" value="${list.vote.dislikes }">${list.vote.dislikes }</div>
-													</td>
-													<td>
-														<c:forEach var="tagName1" items="${tagList }" varStatus="status">
-															<c:forEach var="tagName2" items="${tag }" varStatus="status">
-																<c:if test="${tagName1.tagno == tagName2}">${tagName1.title}</c:if>
-															</c:forEach>
-														</c:forEach>
-													</td>
-													<td>${list.users.username}</td>
-													<td>
-														<fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd" />
-													</td>
-													<td>${list.readcnt}</td>
-												</tr>
-											</c:forEach>
-											<c:if test="${empty list}">
-												<!-- 게시물이 없을 경우 -->
-												<tr>
-													<td colspan="9">
-														<p class="nodata">결과가 없습니다.</p>
-													</td>
-												</tr>
-											</c:if>
-
-										</tbody>
-									</table>
 								</div>
 								<!-- /.col -->
 							</div>
@@ -182,6 +125,7 @@
 			<jsp:include page="/WEB-INF/views/include/paging.jsp" />
 		</form>
 	</section>
+
 
 
 </body>
