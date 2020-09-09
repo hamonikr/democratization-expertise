@@ -1,0 +1,105 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "chaeya",
+      "name": "Kevin Kim",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/405502?v=4",
+      "profile": "http://openbee.kr",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "bigeden",
+      "name": "Eden",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/51899018?v=4",
+      "profile": "https://github.com/bigeden",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "jullee96",
+      "name": "julie lee",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/66409676?v=4",
+      "profile": "https://github.com/jullee96",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "SHRyu416",
+      "name": "SHRyu416",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/55476465?v=4",
+      "profile": "https://github.com/SHRyu416",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "yeji0407",
+      "name": "yeji0407",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/55476302?v=4",
+      "profile": "https://github.com/yeji0407",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "bsairline",
+      "name": "ParkTaeEun_Hamonikr",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/51113223?v=4",
+      "profile": "https://github.com/bsairline",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "bdh1993",
+      "name": "bdh1993",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/58254473?v=4",
+      "profile": "https://github.com/bdh1993",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "eejungee515",
+      "name": "eejungee515",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/66405821?v=4",
+      "profile": "https://github.com/eejungee515",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "x3x-m",
+      "name": "x3x-m",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/66405896?v=4",
+      "profile": "https://github.com/x3x-m",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Nimbus",
+      "name": "nimbus",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/14984268?v=4",
+      "profile": "http://nimbuscloud.io",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "democratization-expertise",
+  "projectOwner": "hamonikr",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}

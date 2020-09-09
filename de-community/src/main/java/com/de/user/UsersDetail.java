@@ -1,4 +1,4 @@
-package com.de.wiki;
+package com.de.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,24 +11,25 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-
 @Getter
 @Setter
 @ToString
 @Entity
-@Table(name = "tb_help")
-public class help {
+@Table(name = "tb_user_detail")
+public class UsersDetail {
+	
 	/* 고유 번호 */
 	@Id
 	@Column
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Integer seq;
-	/* 제목 */
-	private String title;
-	/* 내용 */
-	private String subject;
-	/* 구분 = {q: 질문내용 , a: 답변내용} */
-	private String type;
-
+	/* 기업 번호 */
+	private Integer enterpriseno;
+	/* 유저 번호 */
+	private Integer userno;
+	/* 유저 승인여부 */
+	private Integer userat;
+	/* 유저 활성여부 */
+	private Integer activeat;
 
 }
