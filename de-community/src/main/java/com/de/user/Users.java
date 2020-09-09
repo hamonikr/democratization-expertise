@@ -40,6 +40,8 @@ public class Users implements Serializable{
 	private String username;
 	/* 회원 비밀번호 */
 	private String userpassword;
+	/* 프로필 이미지 */
+	private String userprofileimg;
 	/* 회원 소개 */
 	private String aboutme;
 	/* 회원 사이트 주소 */
@@ -50,6 +52,8 @@ public class Users implements Serializable{
 	private int role;
 	/* 회원 구분 0:관리자 1:일반유저 */
 	private Integer userstatus;
+	/* 뉴스레터 */
+	private String newslater;
 	/* 가입 일시 */
 	@CreationTimestamp
 	private Timestamp registerdate;
@@ -57,11 +61,10 @@ public class Users implements Serializable{
 	@UpdateTimestamp
 	private Timestamp updatedate;
 
-	 @OneToOne
-     @JoinTable(name = "tb_user_detail", //조인테이블명
-                joinColumns = @JoinColumn(name="userno"),  //외래키
-                inverseJoinColumns = @JoinColumn(name="userno") //반대 엔티티의 외래키
-                )
-     private UsersDetail usersDetail;
-
+	@OneToOne
+	@JoinTable(name = "tb_user_detail", //조인테이블명
+		joinColumns = @JoinColumn(name="userno"),  //외래키
+		inverseJoinColumns = @JoinColumn(name="userno") //반대 엔티티의 외래키
+	)
+	private UsersDetail usersDetail;
 }
