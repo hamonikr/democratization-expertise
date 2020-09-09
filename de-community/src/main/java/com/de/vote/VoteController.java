@@ -67,6 +67,7 @@ public class VoteController {
 	@ResponseBody
 	@RequestMapping(value = "/dislike")
 	public String dislike(HttpServletRequest request, Model model, Vote vo,@AuthenticationPrincipal SecurityMember user) throws Exception{
+		if(user != null) {
 		int result = 0;
 		Vote vo2 = vs.getSeq(vo);
 		if(vo2 != null) {
@@ -79,6 +80,9 @@ public class VoteController {
 			vs.dislikes(vo);
 		result = vs.saveVoteUser(vo2);
 		return "SUCCESS";
+		}
+		}else {
+			return "LOGIN";
 		}
 	}
 

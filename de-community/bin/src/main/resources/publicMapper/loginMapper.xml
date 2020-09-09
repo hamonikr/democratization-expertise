@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="com.de.login.mapper.LoginMapper">
+
+<!-- 정보 조회 -->
+<select id="getUser" parameterType="com.de.login.vo.LoginVO" resultType="com.de.login.vo.LoginVO">
+SELECT 
+	ta.*,tb.activeat
+FROM 
+	tb_users ta left outer join tb_users_detail tb on ta.userno = tb.userno
+WHERE
+	ta.userid = #{username} 
+</select>	
+
+
+</mapper>
+ 
+	

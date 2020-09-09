@@ -2,13 +2,13 @@
 <%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
 <!-- Brand Logo -->
     <div style="background-color:#8056D6">
-    <a href="../../index3.html" class="brand-link">
-      <img src="../../dist/img/AdminLTELogo.png"
+    <font class="brand-link" style="height:56px;">
+      <img src="/img/HamoniKR_logo600.png"
            alt="AdminLTE Logo"
            class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
-    </a>
+      <span class="brand-text font-weight-light">Hamoni-KR </span>
+    </font>
 </div>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -22,13 +22,25 @@
                with font-awesome or any other icon font library -->
          
           <li class="nav-item">
-            <a href="../widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Widgets
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
+            <a href="/" class="nav-link"><i class="nav-icon fas fa-th"></i> <p>Home</p></a>
+          </li>
+          <li class="nav-item">
+            <a href="/questions/list" class="nav-link"><i class="nav-icon fas fa-th"></i> <p>Stacked Q&A</p></a>
+          </li>
+          <li class="nav-item">
+            <a href="" class="nav-link"><i class="nav-icon fas fa-th"></i> <p>Tags</p></a>
+          </li>
+          <li class="nav-item">
+            <a href="/users/list" class="nav-link"><i class="nav-icon fas fa-th"></i> <p>Users</p></a>
+          </li>
+          <li class="nav-item">
+            <a href="/enterprises/list" class="nav-link"><i class="nav-icon fas fa-th"></i> <p>Partners</p></a>
+          </li>
+          <li class="nav-item">
+            <a href="/" class="nav-link"><i class="nav-icon fas fa-th"></i> <p>Wiki</p></a>
+          </li>
+          <li class="nav-item">
+            <a href="/" class="nav-link"><i class="nav-icon fas fa-th"></i> <p>NewsLetters</p></a>
           </li>
           
         </ul>

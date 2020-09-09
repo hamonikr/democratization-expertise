@@ -37,7 +37,7 @@ public class QuestionsService {
 	
 	public Page<Questions> findAll(Pageable pageable){
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
-        pageable = PageRequest.of(page, 5,new Sort(Sort.Direction.DESC,"registerDate"));
+        pageable = PageRequest.of(page, 5,new Sort(Sort.Direction.DESC,"registerdate"));
 		Page<Questions> list = qr.findAllByDeleteat(0,pageable);
 
 		return list;
