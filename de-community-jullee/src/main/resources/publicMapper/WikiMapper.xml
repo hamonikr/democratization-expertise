@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="com.de.wiki.mapper.WikiMapper">
+
+<!-- <resultMap type="com.de.user.Users" id="Users">
+	<result column="userno" property="userno"/>
+	<result column="userid" property="userid"/>
+	<result column="username" property="username"/>
+	<result column="useremail" property="useremail"/>
+	<result column="userstatus" property="userstatus"/>
+</resultMap>
+
+<resultMap type="com.de.tag.Tags" id="Tags">
+	<result column="tagno" property="tagno"/>
+	<result column="title" property="title"/>
+	<result column="userno" property="userno"/>
+</resultMap>
+
+<resultMap type="com.de.wiki.Help" id="Help">
+	<result column="seq" property="seq"/>
+	<result column="type" property="type"/>
+	<result column="question" property="question"/>
+	<result column="answer" property="answer"/>
+	<result column="category" property="category"/>
+</resultMap>
+
+<resultMap type="com.de.wiki.Wiki" id="Wiki">
+	<result column="wikino" property="wikino"/>
+	<result column="section" property="section"/>
+	<result column="pno" property="pno"/>
+	<result column="title" property="title"/>
+	<result column="contents" property="contents"/>
+	<result column="registerdate" property="registerdate"/>
+	<result column="updatedate" property="updatedate"/>
+	<collection property="users" resultMap="Users"/>
+	<collection property="tags" resultMap="Tags"/>
+	<collection property="help" resultMap="Help"/>
+</resultMap>
+ -->
+
+<!-- 조회 -->
+<select id="getTagList" resultType="com.de.wiki.Wiki">
+ select *
+ from tb_tags 
+</select>	
+
+<select id="getTagListCount" resultType="com.de.wiki.Wiki">
+ select count(*) from tb_tags
+ </select>	
+
+
+</mapper>
+ 
+	
