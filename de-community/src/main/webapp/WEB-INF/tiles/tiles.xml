@@ -22,6 +22,8 @@
    </definition>
 
   <definition name="/login/*" extends="login-layout">
+       <put-attribute name="header" value="/WEB-INF/views/layout/common/header.jsp" />
+       <put-attribute name="left" value="/WEB-INF/views/layout/common/left.jsp" />
      <put-attribute name="body" value="/WEB-INF/views/login/{1}.jsp" />  
    </definition>  	
 

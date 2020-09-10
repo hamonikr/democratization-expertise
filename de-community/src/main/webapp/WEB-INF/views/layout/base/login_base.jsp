@@ -45,33 +45,40 @@ function numberWithCommas(x) {
 
 <!-- css -->
 <link rel="stylesheet" type="text/css" href="/css/index.css" />
-
+<style>
+ .loginLayerBg {	 
+ 	background-image: url(/img/signbg.jpg); 
+     background-size: cover; 
+     height: 100%;
+     width: 100%; 
+ } 
+</style>
 </head>
 
-
 <body class="hold-transition sidebar-mini control-sidebar-slide-open accent-indigo">
-	<div class="wrapper">
-		<!-- Navbar -->
-		<nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0px;">
-<%-- 			<tiles:insertAttribute name="header" /> --%>
-		</nav>
-		<!-- /.navbar -->
+	<div class="wrapper loginLayerBg">
+		<tiles:insertAttribute name="header" />
 
-		<!-- Main Sidebar Container -->
-<!-- 		<aside class="main-sidebar sidebar-dark-purple elevation-4"> -->
-<%-- 			<tiles:insertAttribute name="left" /> --%>
-<!-- 		</aside> -->
-<!-- body [start] -->
-		<!-- Content Wrapper. Contains page content -->
-		<div class="content-wrapper" style="margin-left: 0px;">
-			<tiles:insertAttribute name="body" />
+		<aside class="main-sidebar sidebar-light elevation-4">
+			<tiles:insertAttribute name="left" />
+		</aside>
+		<div class="content-wrapper">
+			<div class="row">
+				<div class="col-sm-8">
+					<tiles:insertAttribute name="body" />
+				</div>
+				<div class="col-sm-4" id="bodyrightLayer">
+					<!-- style="background-color:black;" -->
+					<img src="/img/stackedViewR.jpg">
+				</div>
+			</div>
 		</div>
-		<!-- /.content-wrapper -->
-<!-- body [END] -->
-<!-- 		<footer class="main-footer"> -->
-<%-- 			<tiles:insertAttribute name="footer" /> --%>
-<!-- 		</footer> -->
-</div>
+		<footer class="main-footer">
+			<tiles:insertAttribute name="footer" />
+		</footer>
+	</div>
 
 </body>
+
+
 </html>
