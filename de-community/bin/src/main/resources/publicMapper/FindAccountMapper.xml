@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="com.de.findAccount.mapper.FindAccountMapper">
+
+<!-- 정보 조회 -->
+<select id="isExistAccount" parameterType="com.de.findAccount.Account" resultType="com.de.findAccount.Account">
+SELECT 
+	ta.*,tb.activeat
+FROM 
+	tb_users ta left outer join tb_users_detail tb on ta.userno = tb.userno
+WHERE
+	ta.useremail = #{useremail} and tb.activeat!=1;
+</select>	
+
+<!-- 비밀번호 초기화 -->
+<update id="resetUserPw" parameterType="com.de.findAccount.Account">
+UPDATE 
+	tb_users
+		SET 
+			userpassword= #{userpassword}
+WHERE 
+	 userid = #{userid}
+</update>
+
+</mapper>
+ 
+	

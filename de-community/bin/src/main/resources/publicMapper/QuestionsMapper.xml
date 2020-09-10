@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+
+<mapper namespace="com.de.question.mapper.QuestionsMapper">
+
+<resultMap type="com.de.vote.Vote" id="Vote">
+	<result column="seq" property="seq"/>
+	<result column="pno" property="pno"/>
+	<result column="section" property="section"/>
+	<result column="likes" property="likes"/>
+	<result column="dislikes" property="dislikes"/>
+	<result column="userno" property="userno"/>
+	<result column="senduserno" property="senduserno"/>
+</resultMap>
+
+<resultMap type="com.de.vote.VoteUsers" id="VoteUsers">
+	<result column="seq" property="seq"/>
+	<result column="pno" property="pno"/>
+	<result column="section" property="section"/>
+	<result column="userno" property="userno"/>
+</resultMap>
+
+<resultMap type="com.de.user.Users" id="Users">
+	<result column="userno" property="userno"/>
+	<result column="userid" property="userid"/>
+	<result column="username" property="username"/>
+	<result column="useremail" property="useremail"/>
+	<result column="userstatus" property="userstatus"/>
+</resultMap>
+
+<resultMap type="com.de.tag.Tags" id="Tags">
+	<result column="tagno" property="tagno"/>
+	<result column="title" property="title"/>
+	<result column="userno" property="userno"/>
+</resultMap>
+
+<resultMap type="com.de.question.Questions" id="Questions">
+	<result column="questionno" property="questionno"/>
+	<result column="editauth" property="editauth"/>
+	<result column="editauth" property="editauth"/>
+	<result column="title" property="title"/>
+	<result column="contents" property="contents"/>
+	<result column="userno" property="userno"/>
+	<result column="tagno" property="tagno"/>
+	<result column="readcnt" property="readcnt"/>
+	<result column="deleteat" property="deleteat"/>
+	<result column="registerdate" property="registerdate"/>
+	<result column="updatedate" property="updatedate"/>
+	<result column="firstRecordIndex" property="firstRecordIndex"/>
+	<result column="recordCountPerPage" property="recordCountPerPage"/>
+	<collection property="users" resultMap="Users"/>
+	<collection property="vote" resultMap="Vote"/>
+</resultMap>
+
+	<select id="selectQNO" resultType="com.de.cmmn.CmmnMap">
+      SELECT COALESCE(max(questionno),0)+1 AS questionno FROM tb_questions
+	</select>
+	
+	<select id="getList" parameterType="com.de.question.Questions" resultMap="Questions">
+		select a.*,b.*,c.*
+		from tb_questions a left outer join tb_users b on a.userno = b.userno
+		left outer join tb_vote c on a.questionno = c.pno
+		<if test="searchtext != null and searchtext != ''">
+		<where>
+		(a.title like '%' || #{searchtext} || '%' 
+		or
+		a.contents like '%' || #{searchtext} || '%')
+		</where>
+		</if>
+		<if test="sort == ''" >order by a.registerdate desc</if>
+		<if test="sort == 1" >order by a.registerdate desc</if>
+		<if test="sort == 2" >order by a.registerdate asc</if>
+		<if test="sort == 3" >order by c.likes desc</if>
+		OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage}
+	</select>
+	
+	<select id="getListCount" parameterType="com.de.question.Questions" resultType="java.lang.Integer">
+		select count(*) from tb_questions
+	</select>
+	
+	<select id="getView" parameterType="integer" resultMap="Questions">
+		select a.*,b.*,c.*
+		from tb_questions a left outer join tb_users b on a.userno = b.userno
+		left outer join tb_vote c on a.questionno = c.pno
+		<where>
+		a.questionno = #{questionno}
+		</where>
+	</select>
+	
+	<update id="updateReanCnt" parameterType="integer">
+	update tb_questions set readcnt = readcnt + 1
+	<where>
+	questionno = #{questionno}
+	</where>
+	
+	</update>
+
+</mapper>
+ 
+	
