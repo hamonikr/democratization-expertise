@@ -64,7 +64,7 @@
 	<!-- wiki -->
 	<nav class="mt-2">
 		<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-			<li class="nav-item"><a href="/sample/list" class="nav-link"> <i class="nav-icon far fa-wikipedia-w"></i>
+			<li class="nav-item"><a href="/wiki/getStart" class="nav-link"> <i class="nav-icon far fa-wikipedia-w"></i>
 					<p>Wiki </p>
 			</a></li>
 		</ul>
