@@ -7,7 +7,7 @@
            alt="AdminLTE Logo"
            class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Hamoni-KR </span>
+      <span class="brand-text font-weight-light">DE-COMMUNITY </span>
     </font>
 </div>
     <!-- Sidebar -->
@@ -21,9 +21,11 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
          
-          <li class="nav-item">
-            <a href="/" class="nav-link"><i class="nav-icon fas fa-th"></i> <p>Home</p></a>
-          </li>
+<!--           <li class="nav-item"> -->
+<!--             <a href="/" class="nav-link"></a> -->
+<!--           </li> -->
+
+<br>
           <li class="nav-item">
             <a href="/questions/list" class="nav-link"><i class="nav-icon fas fa-th"></i> <p>Stacked Q&A</p></a>
           </li>

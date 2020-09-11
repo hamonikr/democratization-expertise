@@ -1,76 +1,168 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<head>
-	<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
-	<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" /> 	
- </head>
-<title>wiki 작성하기 페이지</title>
-</head>
+<%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
+<!-- 
+<script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script src='/tui-editor/markdown-it/dist/markdown-it.js'></script>
+<script src="/tui-editor/to-mark/dist/to-mark.js"></script>
+<script src="/tui-editor/tui-code-snippet/dist/tui-code-snippet.js"></script>
+<script src="/tui-editor/codemirror/lib/codemirror.js"></script>
+<script src="/tui-editor/highlightjs/highlight.pack.js"></script>
+<script src="/tui-editor/squire-rte/build/squire-raw.js"></script>
+<script src="/tui-editor/tui-editor/dist/tui-editor-Editor.js"></script>
+ -->
+ 
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+ 
+ <!-- Select2 -->
+<link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
+<link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 
 <style>
-.inputStyle{
-	padding : 2%;
-}
 
-.edit_part{
-display: block;
-}
-
-#mw-panel {
-    font-size: inherit;
-    position: absolute;
-    top: 160px;
-    padding-top: 1em;
-    width: 10em;
-    left: 0;
-}
 </style>
 <body>
-<form id="frm" name="frm">
-	<input type="hidden" name="section" id="section" value="helps">
-	   <div class="form-group inputStyle">	
-			<!-- title -->	
-			<div class="title">
-				<label for="contents">질문 제목<span class="important">*</span></label>
-				<input type="text" id="title">
-			</div>
-			<!-- contents -->
-			<div class="content">
-				<div class="form-group">
-					<label for="contents">답변 내용<span class="important">*</span></label>
-					<input type="hidden" name="contents" id="contents" value="">
-					<div class="code-html">
-						<div id="editSection"></div>
-					</div>
-					<script class="code-js">
-						var editor = new toastui.Editor(
-								{
-									el : document.querySelector('#editSection'),
-									initialEditType : 'wysiwyg',
-									previewStyle : 'vertical',
-									height : '500px'
-								});
-					</script>
+
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1></h1>
 				</div>
 			</div>
-			<!-- end contents  -->
-		        <br>
-		        <!-- 버튼부 -->
-			 <div>
-			 	<input type="button" id="create_btn" name="create_btn" value="생성하기">
-			 	<input type="button" id="cancel_btn" name="cancel_btn" value="취소하기" onclick="location.href='/wiki/getStart';">	 	
-			 </div>
-        </div>
-	
-   </form>
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+
+	<section class="content" style="padding: 2px 12px 6px 19px;">
+		<form id="frm" name="frm" method="post">
+			<!-- 스프링 시큐리티 form에 추가 해줘야함. -->
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<input type="hidden" name="section" value="h" />			
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="callout callout-info" >
+							<h5>Helps 작성하기</h5>
+						</div>
+
+						<div class="invoice p-3 mb-3" style="border-left: 5px solid #117a8b;">
+
+							<!-- Table row -->
+							<div class="row">
+								<div class="card-body card-primary card-outline">
+									<div class="form-group">
+										<label for="subject">
+											제목 <span class="important">*</span>
+										</label>
+										<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="${result.title}" />
+									</div>
+									<div class="form-group">
+										<label for="contents">
+											내용<span class="important">*</span>
+										</label>
+										<input type="hidden" name="contents" id="contents" value="">
+										<div class="code-html">
+											<div id="editor"></div>
+										</div>
+										<script class="code-js">
+					                      var editor = new toastui.Editor( {
+					                      el : document.querySelector( '#editor' ),
+					                      initialEditType : 'wysiwyg',
+					                      previewStyle : 'vertical',
+					                      height : '600px'
+					                      } );
+					                    </script>
+									</div>
+									
+
+								</div>
+							</div>
+							
+							<div class="card-footer cont_btn_div">
+								<c:choose>
+									<c:when test="${empty result.wikno}">
+										<button type="submit" name="btnSubmit" class="btn btn-primary purple" value="c">등록</button>
+									</c:when>
+									<c:otherwise>
+										<button type="submit" name="btnSubmit" class="btn btn-primary purple" value="u">수정</button>
+										<button type="button" id="btnDelete" class="btn btn-primary red">삭제</button>
+									</c:otherwise>
+								</c:choose>
+								<button type="button" class="btn btn-primary gray" onclick="location.href='/wiki/getStart'">목록</button>
+							</div>
+				
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</section>
+
+	<script type="text/javascript">
+    $( function() {
+      $( "input[data-bootstrap-switch]" ).each( function() {
+        $( this ).bootstrapSwitch( 'state', $( this ).prop( 'checked' ) );
+      } );
+      
+
+      $( "#btnDelete" ).on( "click", fnDelete );
+
+      $.validator.setDefaults( {
+        submitHandler : function() {
+        		fnSave();
+            }
+      } );
+
+       $( '#frm' ).validate( {
+      rules : {
+      title : {
+        required : true
+      },
+      contents : {
+        required : true
+      	}
+      },
+      messages : {
+      title : {
+        required : "제목을 입력 해주세요."
+      },contents : {
+        required : "내용을 입력 해주세요."
+      	}
+      },
+      errorElement : 'span',
+      errorPlacement : function(error, element) {
+        error.addClass( 'invalid-feedback' );
+        element.closest( '.form-group' ).append( error );
+      },
+      highlight : function(element, errorClass, validClass) {
+        $( element ).addClass( 'is-invalid' );
+      },
+      unhighlight : function(element, errorClass, validClass) {
+        $( element ).removeClass( 'is-invalid' );
+      }
+      } );
+
+    } );
+
+    function fnSave() {
+        document.frm.action = "/wiki/save.proc";
+        document.frm.contents.value = editor.getHtml();
+        document.frm.submit();
+        
+      }
+
+    
+    function fnDelete() {
+      document.frm.action = "/wiki/delete.proc";
+      document.frm.submit();
+    }
+
+    function fnUdate() {
+        document.frm.action = "/wiki/update.proc";
+        document.frm.submit();
+      }
+  </script>
 </body>
-  
-
-<!-- script 부분 -->
-
-<script>
-
-
-
-</script>
+</html>

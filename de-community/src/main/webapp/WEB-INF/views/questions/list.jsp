@@ -75,8 +75,8 @@
 												<img src="/img/noprofile.png">
 												${list.users.username}
 											</div>
-											<div class="row col-12">
-												<div class="col-8">
+											<div class="row col-11">
+												<div class="col-9">
 													<div class="info-box-content">
 														<span class="info-box-text"><a href="view/${list.questionno }">${list.title }</a></span>
 														<span class="info-box-number"> ${fn:substring(list.contents, 0, 50)}
@@ -107,7 +107,7 @@
 													<br>
 													<fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd" />
 												</div>
-												<div class="col-2">
+												<div class="">
 													<span class="info-box-icon bg-info elevation-1" style="height: 80px;">답변</span>
 													
 													

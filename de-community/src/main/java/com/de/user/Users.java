@@ -46,6 +46,8 @@ public class Users implements Serializable{
 	private String aboutme;
 	/* 회원 사이트 주소 */
 	private String userurl;
+	/* 회원 지역 */
+	private String location;
 	/* 회원 이메일 */
 	private String useremail;
 	/* 회원 역할 */
@@ -62,7 +64,7 @@ public class Users implements Serializable{
 	private Timestamp updatedate;
 
 	@OneToOne
-	@JoinTable(name = "tb_user_detail", //조인테이블명
+	@JoinTable(name = "tb_users_detail", //조인테이블명
 		joinColumns = @JoinColumn(name="userno"),  //외래키
 		inverseJoinColumns = @JoinColumn(name="userno") //반대 엔티티의 외래키
 	)

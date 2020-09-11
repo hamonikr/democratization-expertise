@@ -56,29 +56,21 @@ function numberWithCommas(x) {
 </head>
 
 <body class="hold-transition sidebar-mini control-sidebar-slide-open accent-indigo">
-	<div class="wrapper loginLayerBg">
+	<div class="wrapper " style="margin-left: -250px;">
 		<tiles:insertAttribute name="header" />
 
-		<aside class="main-sidebar sidebar-light elevation-4">
-			<tiles:insertAttribute name="left" />
-		</aside>
-		<div class="content-wrapper">
-			<div class="row">
-				<div class="col-sm-8">
+		<div class="content-wrapper" style="margin-left: -250px;">
+				<div class="col-12">
 					<tiles:insertAttribute name="body" />
 				</div>
-				<div class="col-sm-4" id="bodyrightLayer">
-					<!-- style="background-color:black;" -->
-					<img src="/img/stackedViewR.jpg">
-				</div>
-			</div>
 		</div>
-		<footer class="main-footer">
-			<tiles:insertAttribute name="footer" />
-		</footer>
+<!-- 		<footer class="main-footer"> -->
+<%-- 			<tiles:insertAttribute name="footer" /> --%>
+<!-- 		</footer> -->
 	</div>
 
 </body>
 
 
 </html>
+
