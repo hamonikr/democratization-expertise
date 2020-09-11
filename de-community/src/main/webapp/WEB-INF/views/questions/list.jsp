@@ -67,7 +67,7 @@
 										</tbody>
 									</table>
 									
-									<c:forEach var="list" items="${list}" varStatus="status">
+									<c:forEach var="list" items="${list}" varStatus="stat">
 										<c:set var="tag" value="${fn:split(list.tagno,',')}" />
 										<div class="info-box">
 											<div class="">
@@ -79,7 +79,9 @@
 												<div class="col-9">
 													<div class="info-box-content">
 														<span class="info-box-text"><a href="view/${list.questionno }">${list.title }</a></span>
-														<span class="info-box-number"> ${list.contents}<!--  <small>%</small> --></span> 
+														<span class="info-box-number"> ${fn:substring(list.contents, 0, 50)}
+														<c:if test="${fn:length(list.contents) > 49}"> ... </c:if>
+														<!--  <small>%</small> --></span> 
 														<span class="info-box-text">
 															<c:forEach var="tagName1" items="${tagList }" varStatus="status">
 																<c:forEach var="tagName2" items="${tag }" varStatus="status">
@@ -91,16 +93,16 @@
 												</div>
 												<div class="col-2">
 													<span class="font-weight-bold"> 
-													<a href="#" onclick="fnLike('${list.questionno}','${list.userno}','Q','${status.count }','${list.vote.likes }')">
+													<a href="#" onclick="fnLike('${list.questionno}','${list.userno}','Q','${stat.count }','${list.vote.likes }')">
 														<i class="ion ion-android-arrow-up text-success"></i> 
 													</a>
-													<font id="like${status.count }" value="${list.vote.likes }">${list.vote.likes }</font></span> 
+													<font id="like${stat.count }" >${list.vote.likes }</font></span> 
 													<br> 
 													<span class="font-weight-bold">
-													<a href="#" onclick="fnDisLike('${list.questionno}','${list.userno}','Q')">
+													<a href="#" onclick="fnDisLike('${list.questionno}','${list.userno}','Q','${stat.count }','${list.vote.dislikes }')">
 														<i class="ion ion-android-arrow-down text-success"></i>
 													</a> 
-													<font id="dislike${status.count }" value="${list.vote.dislikes }">${list.vote.dislikes }</font>
+													<font id="dislike${stat.count }">${list.vote.dislikes }</font>
 													</span>
 													<br>
 													<fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd" />
@@ -164,7 +166,7 @@ $(function() {
 						}else{
 						alert("투표하였습니다.");
 						++l;
-						$("#like"+i).html(l);
+						$("#like"+i).text(l);
 					}
 				}, 
 				error: function (e) { 
@@ -185,10 +187,13 @@ $(function() {
 				console.log(data);
 				if (data == "FAIL"){
 					alert("이미 투표하셨습니다.");
-					}else{
+					}else if(data == "LOGIN"){
+						alert("로그인이 필요한 기능입니다.");
+						location.href = "/login";
+						}else{
 						alert("투표하였습니다.");
 						++l;
-						$("#dislike"+i).html(l);
+						$("#dislike"+i).text(l);
 						}
 				}, 
 				error: function (e) { 
