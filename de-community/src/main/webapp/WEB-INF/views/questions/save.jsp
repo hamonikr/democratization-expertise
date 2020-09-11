@@ -63,7 +63,7 @@
 			<input type="hidden" name="section" value="Q" />
 			<input type="hidden" name="username" value="" /> 
 			<input type="hidden" name="editauth" value="" /> 
-			<input type="hidden" name="tag" value="${result.tagno }" /> 
+			<input type="hidden" name="tags" value="${result.tagno }" /> 
 			<input type="hidden" name="questionno" value="${result.questionno }" />
 			
 			<div class="container-fluid">
@@ -227,16 +227,22 @@
         $( this ).bootstrapSwitch( 'state', $( this ).prop( 'checked' ) );
       } );
       //Initialize Select2 Elements
-      $( '.select2' ).select2()
-      var tagno = document.frm.tag.value;
+      $( '.select2' ).select2({
+			width: 'resolve',
+			//language: 'ko',
+			minimumInputLength: 2
+		});
+      var tagno = $('form[name=frm] input[name=tags]').val();
+      //alert("tags==="+tagno);
       //$('form[name=frm] input[name=tag]').val();
-      var tagnoArr = tagno.split( ',' );
-      //alert(tagnoArr);
+      var tagnoArr = tagno.split(',');
+      //alert("tagnoArr===="+tagnoArr[1]);
       for ( var i in tagnoArr) {
         $( "#tagno option" ).each( function() {
-          if ($( this ).val() == tagnoArr[i]) {
-            $( "#tagno" ).select2( 'val', tagnoArr );
-          }
+          //if ($( this ).val() == tagnoArr[i]) {
+            //$( "#tagno" ).select2( 'val', tagnoArr );
+            $("#tagno").val(tagnoArr).trigger("change");
+         // }
         } );
       }
 
@@ -254,10 +260,13 @@
           console.log( "val====" + document.frm.editauth.value );
           var vv = $( "input[name=btnSubmit]" ).val();
           document.frm.contents.value = editor.getHtml();
+          alert("vv===="+vv);
           if (vv == "c")
             document.frm.action = "/questions/save.proc";
           else if (vv == "u")
             document.frm.action = "/questions/edit.proc";
+        
+          alert(ocument.frm.tagno.value );
           document.frm.submit();
         }
       } );
