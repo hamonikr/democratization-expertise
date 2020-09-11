@@ -1,64 +1,64 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
 
-<head>
-	<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-	<!-- Editor's Dependecy Style -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
-	<!-- Editor's Style -->
-	<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-</head>
-<title>wiki 작성하기 페이지</title>
-</head>
-
-<style>
-.inputStyle{
-	padding : 2%;
-}
-
-.edit_part{
-display: block;
-}
-
-#mw-panel {
-    font-size: inherit;
-    position: absolute;
-    top: 160px;
-    padding-top: 1em;
-    width: 10em;
-    left: 0;
-}
-</style>
 <body>
+	<form id="frm" name="frm" method="post">
+		<!-- 스프링 시큐리티 form에 추가 해줘야함. -->
+		<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
 
+		<div class="row">
+			<!-- Content Header (Page header) -->
+			<div class="col-12">
+				<div class="card card-primary">
+					<div class="card-header">
+						<h3 class="card-title">wiki view</h3>
+					</div>
 
-	<form id="frm" name="frm">
-       <div class="form-group inputStyle">
-			<div id= "editor">
+					<div class="card-body card-primary card-outline">
+
+						<div class="form-group">
+							<label for="title" class="col-form-label">Title</label> <span
+								class="form-control">${result.title}</span>
+						</div>
+
+						<div class="form-group">
+							<label for="writerId" class="col-form-label">ID</label> <span
+								class="form-control">${result.userId}</span>
+						</div>
+
+						<div class="form-group">
+							<label for="writerName" class="col-form-label">이름</label> <span
+								class="form-control">${result.userName}</span>
+						</div>
+						<div class="form-group">
+							<label for="contents" class="col-form-label">상세내용</label> <span
+								class="form-control contents">${result.contents }</span>
+						</div>
+
+					</div>
+					<div class="card-footer cont_btn_div">
+						<a href="/sample/edit/${result.seq}" class="btn btn-primary purple">수정</a>
+						<button type="button" class="btn btn-primary gray"
+							onclick="location.href='/sample/list'">목록</button>
+					</div>
+				</div>
 			</div>
-		        <br>
-		        <!-- 버튼부 -->
-			 <div>
-			 	<input type="button" id="create_btn" name="create_btn" value="생성하기">
-			 	<input type="button" id="cancel_btn" name="cancel_btn" value="취소하기" onclick="location.href='/wiki/getStart';">	 	
-			 </div>
-        </div>
-	
-   </form>
+		</div>
+	</form>
+
+	<script type="text/javascript">
+		$(function() {
+			//승인 버튼
+			$("#btnConsent").on("click", fnConsent);
+			$("#btnUpdate").on("click", fnUpdate);
+			$("#btnSale").on("click", fnSale);
+		});
+
+		function fnUpdate() {
+			document.frm.action = "save.ivs";
+			document.frm.submit();
+		}
+	</script>
 </body>
-  
-
-<!-- script 부분 -->
-
-<script>
-
-
-
-var editor = new toastui.Editor({
-    el: document.querySelector('#editor'),
-    initialEditType: 'wysiwyg',
-    previewStyle: 'vertical',
-    height: '500px';
-
-});
-
-</script>
+</html>

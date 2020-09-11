@@ -15,7 +15,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@Table(name = "tb_user_detail")
+@Table(name = "tb_users_detail")
 public class UsersDetail {
 	
 	/* 고유 번호 */
