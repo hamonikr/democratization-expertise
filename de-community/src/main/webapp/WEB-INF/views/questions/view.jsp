@@ -47,8 +47,7 @@
 									<span class="font-weight-bold"> 
 										<a href="#" onclick="fnLike('${result.questionno}','${result.userno}','Q','${result.vote.likes }')"> 
 										<i class="far fa-thumbs-up mr-1"></i>Up </a>
-										 
-										<font id="like${status.count }" value="${list.vote.likes }">${list.vote.likes }</font>
+										<font id="like">${result.vote.likes }</font>
 									</span> 
 									
 									<hr> 
@@ -56,7 +55,7 @@
 									<span class="font-weight-bold"> 
 										<a href="#"  onclick="fnDisLike('${result.questionno}','${result.userno}','Q','${result.vote.dislikes }')"> 
 											<i class="far fa-thumbs-down mr-1"></i> Down </a> 
-										<font id="dislike${status.count }" value="${list.vote.dislikes }">${list.vote.dislikes }</font>
+										<font id="dislike">${result.vote.dislikes }</font>
 									</span>
 								</div>
 								
@@ -144,7 +143,7 @@
           }) */
         } else if (data == "LOGIN") {
           alert( "로그인 후 투표해주세요." );
-          location.href = "/";
+          location.href = "/login";
         } else {
           alert( "투표하였습니다." );
           ++l;
@@ -174,6 +173,9 @@
         console.log( data );
         if (data == "FAIL") {
           alert( "이미 투표하셨습니다." );
+        } else if (data == "LOGIN") {
+            alert( "로그인 후 투표해주세요." );
+            location.href = "/login";
         } else {
           alert( "투표하였습니다." );
           ++l;
