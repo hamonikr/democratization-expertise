@@ -3,27 +3,6 @@
  
 <mapper namespace="com.de.wiki.mapper.WikiMapper">
 
-<!-- <resultMap type="com.de.user.Users" id="Users">
-	<result column="userno" property="userno"/>
-	<result column="userid" property="userid"/>
-	<result column="username" property="username"/>
-	<result column="useremail" property="useremail"/>
-	<result column="userstatus" property="userstatus"/>
-</resultMap>
-
-
-<resultMap type="com.de.wiki.Wiki" id="Wiki">
-	<result column="wikino" property="wikino"/>
-	<result column="section" property="section"/>
-	<result column="pno" property="pno"/>
-	<result column="title" property="title"/>
-	<result column="contents" property="contents"/>
-	<result column="registerdate" property="registerdate"/>
-	<result column="updatedate" property="updatedate"/>
-	<collection property="users" resultMap="Users"/>
-</resultMap>
- -->
-
 <select id="getWikiHelp" parameterType="com.de.wiki.Wiki" resultType="com.de.wiki.Wiki">
 select *
 from tb_wiki
