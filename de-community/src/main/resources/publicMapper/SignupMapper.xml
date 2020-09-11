@@ -8,8 +8,8 @@
 <insert id="save" parameterType="com.de.user.Users">
 <selectKey keyProperty="seq" resultType="Integer" order="BEFORE">
     SELECT nvl(max(seq),0)+1 FROM tb_users
-  </selectKey>
-	Insert
+  </selectKey>	
+  	Insert
 	 into
   	  tb_users(  	  	
        seq

@@ -3,37 +3,58 @@
  
 <mapper namespace="com.de.wiki.mapper.WikiMapper">
 
-<resultMap type="com.de.user.Users" id="Users">
-	<result column="userno" property="userno"/>
-	<result column="userid" property="userid"/>
-	<result column="username" property="username"/>
-	<result column="useremail" property="useremail"/>
-	<result column="userstatus" property="userstatus"/>
-</resultMap>
+<select id="getWikiHelp" parameterType="com.de.wiki.Wiki" resultType="com.de.wiki.Wiki">
+select *
+from tb_wiki
+where section='h'
+</select>
 
+<!-- 저장 -->
+<insert id="save" parameterType="com.de.wiki.Wiki">
+Insert
+	 into
+  	  tb_wiki(  	  	       
+  	  	wikino
+      ,title
+      ,contents
+      ,section
+      ,userno
+      ,registerdate
+      ,updatedate
+    )
+  values
+    (   
+    	#{wikino}       
+      ,#{title}
+      ,#{contents}
+      ,#{section}
+      ,#{userno}
+      ,now()
+      ,now()
+     )
+</insert>	
 
-<resultMap type="com.de.wiki.Wiki" id="Wiki">
-	<result column="wikino" property="wikino"/>
-	<result column="section" property="section"/>
-	<result column="pno" property="pno"/>
-	<result column="title" property="title"/>
-	<result column="contents" property="contents"/>
-	<result column="registerdate" property="registerdate"/>
-	<result column="updatedate" property="updatedate"/>
-	<collection property="users" resultMap="Users"/>
-</resultMap>
-
-
-<!-- 조회 -->
-<select id="getTagList" resultType="com.de.tag.Tags">
- select *
- from tb_tags 
-</select>	
-
-<select id="getTagListCount" resultType="com.de.tag.Tags">
- select count(*) from tb_tags
- </select>	
-
+<insert id="saveHistory" parameterType="com.de.wiki.Wiki">	
+Insert
+	 into
+  	  tb_wiki_history(  	  	
+      wikino
+      ,userno
+      ,title
+      ,contents
+      ,registerdate
+      ,updatedate
+    )
+  values
+    (   
+    	#{wikino}      
+      ,#{userno}
+      ,#{title}
+      ,#{contents}
+      ,now()
+      ,now()
+     )
+</insert>	
 
 </mapper>
  

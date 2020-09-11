@@ -13,7 +13,6 @@
 </head> 
 -->
 
-<body >
 <div style="background-image: url(/img/signbg.jpg);background-size: cover; height: 100%; ">
   <!-- contents -->
   <div class="section no-pad-bot" id="index-banner" >
@@ -104,4 +103,3 @@
   <script src="/js/materialize.js"></script>
   <script src="/js/init.js"></script>
 
-  </body>
