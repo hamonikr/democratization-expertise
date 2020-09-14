@@ -56,7 +56,7 @@
 								<div class="card-body card-primary card-outline">
 									<div class="form-group">
 										<label for="subject">
-											[Tag] 이름 <span class="important">*</span>
+											제목 <span class="important">*</span>
 										</label>
 										<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="" />
 									</div>
@@ -92,7 +92,7 @@
 										<button type="button" id="btnDelete" class="btn btn-primary red">삭제</button>
 									</c:otherwise>
 								</c:choose>
-								<button type="button" class="btn btn-primary gray" onclick="location.href='/wiki/getStart'">목록</button>
+								<button type="button" class="btn btn-primary gray" onclick="location.href='/wiki/Help'">목록</button>
 							</div>
 				
 						</div>

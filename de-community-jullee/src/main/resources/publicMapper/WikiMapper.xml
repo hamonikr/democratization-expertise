@@ -6,14 +6,18 @@
 
 <select id="getWikiHelp" resultType="com.de.wiki.Wiki">
 select *
-from tb_wiki
-where section='h'
+from 
+	tb_wiki
+where
+	section='h'
 </select>
 
 <select id="getWikiTag" resultType="com.de.wiki.Wiki">
 select *
-from tb_wiki
-where section='t'
+from 
+	tb_wiki
+where
+	section='t'
 </select>
 
 
@@ -64,6 +68,16 @@ Insert
       ,now()
      )
 </insert>	
+
+<select id="getView" parameterType="integer" resultType="com.de.wiki.Wiki">
+	select
+		 a.*
+	from
+		 tb_wiki a left outer join tb_wiki_history b on a.wikino = b.wikino		
+	where
+		a.wikino = #{wikino}
+	
+</select>
 
 </mapper>
  

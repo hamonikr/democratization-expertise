@@ -24,7 +24,12 @@ public class WikiService {
 	public List<Wiki> getWikiTag()throws Exception{
 			return mapper.getWikiHelp();		
 		};
-	
+
+	// view 페이지 불러오기
+	public Wiki getView(int wikino) throws Exception{		
+		return	mapper.getView(wikino);
+	}
+		
 	// 위키문서 저장
 	public int save(Wiki vo)throws Exception{
 		return mapper.save(vo);		

@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.de.login.service.SecurityMember;
-import com.de.tag.Tags;
 import com.de.wiki.service.WikiService;
 
 @Controller
@@ -23,39 +22,69 @@ public class WikiController {
 	@Autowired
 	WikiService service;
 	
-	AtomicLong seq = new AtomicLong(1);
 		
 	
 	@RequestMapping("/getStart")
-	 public String accountRecovery(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo) throws Exception { 		
+	 public String accountRecovery(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo,Model model) throws Exception { 		
 		System.out.println("---wiki start---");		
 		if(user!=null) {
 			System.out.println("user type -->" +user.getRole());
 		}
+		
+		// fna list
+		List<Wiki> fna_list = service.getWikiHelp();
+		model.addAttribute("result", fna_list);
+	
 		return "/wiki/start";
 	 }
 	
 
 	@RequestMapping("/Help")
-	 public String helplist(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo) throws Exception { 		
+	 public String helplist(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo,Model model) throws Exception { 		
 		System.out.println("---wiki view---");		
 		vo.setSection("h");
+		// fna list
+		List<Wiki> fna_list = service.getWikiHelp();
+		model.addAttribute("result", fna_list);
+		for(int i =0;i<fna_list.size();i++){
+			System.out.println(fna_list.get(i).getTitle());
+		}
+		// etc list
+		
 		
 		return "/wiki/HelpList";
 	 }
+	
+	
 	@RequestMapping("/view/{wikino}")
-	 public String view(HttpServletRequest request,@PathVariable("questionno") int wikino, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model) throws Exception { 		
+	 public String view(HttpServletRequest request, @PathVariable("wikino") int wikino, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model) throws Exception { 		
 		System.out.println("---wiki view---");		
-		List<Wiki> help_list = service.getWikiHelp();
-		model.addAttribute("result", help_list);
-		
-		for(int i =0;i<help_list.size();i++){
-			System.out.println(help_list.get(i).getTitle());
+		if(user!=null) {
+			System.out.println("user type -->" +user.getUserid());
 		}
+		
+		Wiki wiki_view = service.getView(wikino);
+		model.addAttribute("result", wiki_view);	
+		System.out.println(wiki_view.getTitle());
 		
 		return "/wiki/view";
 	 }
 	
+
+	@RequestMapping("/edit/{wikino}")
+	 public String edit(HttpServletRequest request, @PathVariable("wikino") int wikino, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model) throws Exception { 		
+		System.out.println("---wiki view---");		
+		if(user!=null) {
+			System.out.println("user type -->" +user.getUserid());
+		}
+		
+		Wiki wiki_view = service.getView(wikino);
+		model.addAttribute("result", wiki_view);	
+		System.out.println(wiki_view.getTitle());
+		
+		return "/wiki/createHelp";
+	 }
+
 	
 	@RequestMapping("/saveHelp")
 	 public String createHelp(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model)throws Exception { 		
