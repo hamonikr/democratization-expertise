@@ -24,7 +24,8 @@
 
 	<section class="content" style="padding: 2px 12px 6px 19px;">
 		<form id="frm" name="frm" method="post">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> <input type="hidden" name="pageNo" value="${paginationInfo.currentPageNo }" />
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			 <input type="hidden" name="page" value="${paginationInfo.currentPageNo }" />
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12">
@@ -80,7 +81,7 @@
 											</span>
 						            		<div class="info-box-content">
 						              		<span class="info-box-text">${list.username}</span>
-						              		<span class="info-box-number">1,410</span>
+						              		<span class="info-box-number">${list.userno }</span>
 						            		</div>
 						          	</div>
 						        	</div>
@@ -101,7 +102,7 @@
 
 			</div>
 			<!-- page number -->
-			<jsp:include page="/WEB-INF/views/include/paging.jsp" />
+			<jsp:include page="/WEB-INF/views/include/paging_jpa.jsp" />
 		</form>
 	</section>
 	
@@ -109,6 +110,6 @@
 
 <script type="text/javascript">
 function linkPage(pageNo){
-	location.href = "list.ivs?pageNo="+pageNo;
+	location.href = "users/list?page="+pageNo;
 }
 </script>
