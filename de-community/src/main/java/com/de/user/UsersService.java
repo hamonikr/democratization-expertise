@@ -58,7 +58,7 @@ public class UsersService {
 			sortColumn = sort[0];
 		}
 
-		pageable = PageRequest.of(page, 5, new Sort(direction, sortColumn));
+		pageable = PageRequest.of(page, 30, new Sort(direction, sortColumn));
 		Page<Users> list = ur.findAll(pageable);
 		return list;
 	}

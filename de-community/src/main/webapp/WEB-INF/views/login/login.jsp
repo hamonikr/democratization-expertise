@@ -4,25 +4,6 @@
 
 <link rel="stylesheet" href="/dist/css/adminlte.min.css">
 
-<style>
-/* #algin-center{ */
-/* 	margin : 10% 10% 10% 10%; */
-/* } */
-/* strong{ */
-/* 	margin-left:5%; */
-/* 	font-weight:20px; */
-/* 	font-weight:bold; */
-/* } */
-/*  .loginLayerBg {	  */
-/*  	background-image: url(/img/signbg.jpg);  */
-/*      background-size: cover;  */
-/*      height: 100%; */
-/*      width: 100%;  */
-/*  }  */
-</style>
-
-
-
 
 
 	<section class="content" style="padding: 2px 12px 6px 19px;">
@@ -129,40 +110,17 @@
 
  <script type="text/javascript">
 	// 일반 로그인 
- let socials = document.getElementsByClassName("btn_social"); 
+ 	let socials = document.getElementsByClassName("btn_social"); 
 
-    for(let social of socials) {
-       social.addEventListener('click', function(){ 
-       	let socialType = this.getAttribute('data-social'); 
+   for(let social of socials) {
+		social.addEventListener('click', function(){ 
+			let socialType = this.getAttribute('data-social'); 
     		location.href="/oauth2/authorization/" + socialType; 
     	})
-     }
+	}
 
 
-    $(document).ready(function(){
-		$("#submit_action").on("click",submitAction);	
-	 
-	   function submitAction(){
-
-/* 		   document.frm.action = "/login";
-			document.frm.submit();		   
- */
- /* 			var userid = $("#username").val();
-			var userpassword = $("#password").val();
-	
-		if(userid == null || userid =="" || userid=="undefinded"){
-			alert("아이디를 입력해주세요");
-			$("#username").focus();	
-			} else if(userpassword == null || userpassword =="" || userpassword=="undefinded"){
-				alert("비밀번호를 입력해주세요");	
-				$("#password").focus();
-				} else{
-					document.frm.action = "/loginSuccess";
-					document.frm.submit();
-					alert("user id---->" + userid+"\n"+"userPassword---->" + userpassword);							
-				}	 */				
-			}
-    });
+   
 
   </script> 
 
