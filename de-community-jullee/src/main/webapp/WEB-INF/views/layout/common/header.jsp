@@ -28,23 +28,25 @@
 		</div>
 	</form>
 
-	<!-- Right navbar links -->
+<!-- Right navbar links -->
 	<ul class="navbar-nav ">
 	<sec:authorize access="hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')">
 		<li class="nav-item dropdown"><img src="/img/profile.png"></li>
 		<li><img src="/img/alert.png" style="margin-left: 15px;"></li>
 		<li><img src="/img/help.png" style="margin-left: 15px;"></li>
-		<li><img src="/img/logout.png" style="margin-left: 15px;"><span style="color: white;"> 
-	     		<a href="javascript:;" style="margin-left:10px; width:100px;color: wheat;" 
-	     		onClick="location.href='/login/logout'">로그아웃 </a>
-	     	</sec:authorize>
-	     	<sec:authorize access="!(hasRole('ROLE_USER') || hasRole('ROLE_ADMIN'))">
-	     	<a href="/login" style="margin-left:10px; width:100px;color: wheat;">Login</a>
-	     	<a href="/signup/signup" style="margin-left:10px; width:100px;color: wheat;">Sign up</a>
-	     	</sec:authorize>
-			</span>
-		</li>
+		<li>
+			<img src="/img/logout.png" style="margin-left: 15px;"><span style="color: white;"> 
+	     	<a href="javascript:;" style="margin-left:10px; width:100px;color: wheat;" onClick="location.href='/login/logout'">Sign out </a>
+	</sec:authorize>
+	<sec:authorize access="!(hasRole('ROLE_USER') || hasRole('ROLE_ADMIN'))">
+	   	<li><img src="/img/alert.png" style="margin-left: 15px;"></li>
+		<li><img src="/img/help.png" style="margin-left: 15px;"></li>
+		<li><a href="/login" style="margin-left:10px; width:100px;color: wheat;">Sign in</a></li>
+		<li><a href="/signup/signup" style="margin-left:10px; width:100px;color: wheat;">Sign up</a></li>
+	</sec:authorize>
+			
 	</ul>
+
 
 	<!-- <ul class="navbar-nav ">
       <li class="nav-item dropdown">

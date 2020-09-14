@@ -58,7 +58,7 @@ public class UsersService {
 			sortColumn = sort[0];
 		}
 
-		pageable = PageRequest.of(page, 5, new Sort(direction, sortColumn));
+		pageable = PageRequest.of(page, 30, new Sort(direction, sortColumn));
 		Page<Users> list = ur.findAll(pageable);
 		return list;
 	}
@@ -127,8 +127,10 @@ public class UsersService {
 		boolean updateVal = false;
 		
 		String root_path = request.getSession().getServletContext().getRealPath("/");
-		String path = root_path.split("/webapp")[0] + "/resources/static/upload/users/";
+		String path = root_path.split("webapp")[0] + "resources/static/upload/users/";
 
+		System.out.println(" ------ root_path : " + root_path);
+		System.out.println(" ------ path : " + path);
 		
 		List<MultipartFile> fileList = request.getFiles("profileImg"); 
 		File fileDir = new File(path); 
