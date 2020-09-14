@@ -75,7 +75,7 @@ public class UsersController {
 		model.addAttribute("user", users.orElse(null));	// 프로필 정보
 		model.addAttribute("isMypage", isUserNo);		// 내 정보 유무
 		model.addAttribute("enterprise", enterprise.orElse(null));	// 회사명 정보
-		model.addAttribute("tab", tab);
+//		model.addAttribute("tab", tab);
 
 		return "/users/activity";
 	}	
