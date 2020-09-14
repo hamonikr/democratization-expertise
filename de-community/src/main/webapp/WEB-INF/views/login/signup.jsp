@@ -43,8 +43,8 @@ strong{
 <!-- contents -->
 <div class="hold-transition login-page">
   <!-- 회원가입 문구 -->
-<div class="row" style=" width: 1200px;">
-  <div class="col-4" style="margin-left:40px;right:80px;">
+<div class="row col-md-10" >
+  <div class="col-6" >
 	   <h3>
 	    <img src="/img/HamoniKR_logo600.png" style="height:60px;"> 회원가입
 	 	</h3><br>
@@ -60,54 +60,46 @@ strong{
    </div>
 	
 <!-- 입력 박스 -->
-<div class="col-5" style="margin-left:80px;">
-<div class="card" style="width:450;">
+<div class="col-6" >
+<!-- <div class="card" style="width:450;"> -->
  <div class="login-card-body" >
   <form id ="frm" name="frm" method="post">      
    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
      <!-- 아이디 입력 -->
    <div class="row">
-     <div class="col-8">
-     	<p><strong>아이디 </strong><strong style="color:red;">*</strong>
-     </div>
-          	<div class="form-group col-12"> 	    
-		      	<input type="text" class="form-control englishOnly" id="userid" name="userid" maxlength="20" style="margin-left: 10px" placeholder="아이디를 입력해주세요">             	
-		   </div>
-        </div>
-       <br>
+     	<div class="col-12"><span>아이디 * </span></div>
+		<div class="form-group col-12"> 	    
+			<input type="text" class="form-control englishOnly" id="userid" name="userid" maxlength="20"  placeholder="아이디를 입력해주세요">             	
+		</div>
+	</div>
+   
 	
      <!-- 이름 입력 -->
    <div class="row">
-     <div class="col-8">
-     	<p><strong>이름 </strong><strong style="color:red;">*</strong>
-     </div>
-          	<div class="form-group col-12"> 	    
-		      	<input type="text" class="form-control" id="username" value="이영은" name="username" maxlength="30" style="margin-left: 10px" placeholder="이름을 입력해주세요">             	
-		   </div>
-        </div>
-       <br>
+     	<div class="col-12"><span>이름 * </span></div>
+		<div class="form-group col-12"> 	    
+			<input type="text" class="form-control" id="username" value="이영은" name="username" maxlength="30" placeholder="이름을 입력해주세요">             	
+		</div>
+	</div>
+   
 
 	<!-- 이메일 -->  
-     <div class="row">
-     <div class="col-8">
-     	<p><strong>Email 주소</strong><strong style="color:red;">*</strong>
-     </div>
-          	<div class="form-group col-12"> 	    
-		      	<input type="email" class="form-control englishOnly" id="useremail" value="lee@invesume.com" name="useremail" style="margin-left: 10px" placeholder="이메일을 입력해주세요">             	
-		   </div>
-        </div>
-       <br>
+	<div class="row">
+		<div class="col-12"><span>Email 주소 * </span></div>
+		<div class="form-group col-12"> 	    
+			<input type="email" class="form-control englishOnly" id="useremail" value="lee@invesume.com" name="useremail"  placeholder="이메일을 입력해주세요">             	
+		</div>
+	</div>
+   
      
-     <!-- 비밀번호 -->
-     <div class="row">
-     <div class="col-8">
-     	<p><strong>비밀번호</strong><strong style="color:red;">*</strong>
-     </div>
-          	<div class="form-group col-12"> 	    
-		      	<input type="password" class="form-control" id="userpassword" value="lee1234" name="userpassword" style="margin-left: 10px" placeholder="비밀번호를 입력해주세요">             	
-		   </div>
-        </div>
-       <br>
+    <!-- 비밀번호 -->
+	<div class="row">
+		<div class="col-12"><span>비밀번호 * </span></div>
+		<div class="form-group col-12"> 	    
+			<input type="password" class="form-control" id="userpassword" value="lee1234" name="userpassword"  placeholder="비밀번호를 입력해주세요">             	
+		</div>
+	</div>
+   
              
        <!-- g-recaptcha -->
        <div class="row">
@@ -127,7 +119,7 @@ strong{
         
       </form>
     </div>
-  </div>
+<!--   </div> -->
   </div>
  </div>
 </div>
