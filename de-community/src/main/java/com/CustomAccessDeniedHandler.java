@@ -17,6 +17,8 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 
 @Configuration
 public class CustomAccessDeniedHandler implements AuthenticationFailureHandler {
+	@Autowired
+	private MessageSource messageSource;
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
@@ -24,7 +26,10 @@ public class CustomAccessDeniedHandler implements AuthenticationFailureHandler {
 		System.out.println("CustomAccessDeniedHandler exception발생====>"+exception);
 		
 		if(exception instanceof BadCredentialsException) {
-        	request.setAttribute("url", "/");
+        	//request.setAttribute("url", "/");
+			request.setAttribute("message", messageSource.getMessage("com.test", null, Locale.getDefault()));
+        	request.setAttribute("url", "/login");
+        	request.getRequestDispatcher("/login/message").forward(request, response);
         } else if(exception instanceof InternalAuthenticationServiceException) {
         	request.setAttribute("url", "/");
         }
