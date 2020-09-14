@@ -48,11 +48,10 @@ public class UsersController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/activity/{seq}/{tab}", method=RequestMethod.GET)
-	public String dashboard(Model model, @PathVariable("seq") int seq, @PathVariable("tab") String tab, @AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
+	@RequestMapping(value="/activity/{seq}", method=RequestMethod.GET)
+	public String dashboard(Model model, @PathVariable("seq") int seq, @AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
 		if(LOG_URL) logger.info(" -- url : /users/activity - seq : " + seq);
 
-		System.out.println("tab=="+tab);
 		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
 		// session 에서 seq 정보 추출
 		// 임시 - 사용자 seq
