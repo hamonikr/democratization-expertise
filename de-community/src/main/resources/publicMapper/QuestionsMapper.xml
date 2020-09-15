@@ -27,12 +27,20 @@
 	<result column="username" property="username"/>
 	<result column="useremail" property="useremail"/>
 	<result column="userstatus" property="userstatus"/>
+	<result column="userprofileimg" property="userprofileimg"/>
 </resultMap>
 
 <resultMap type="com.de.tag.Tags" id="Tags">
 	<result column="tagno" property="tagno"/>
 	<result column="title" property="title"/>
 	<result column="userno" property="userno"/>
+</resultMap>
+
+<resultMap type="com.de.wiki.Wiki" id="Wiki">
+	<result column="wikino" property="wikino"/>
+	<result column="title" property="title"/>
+	<result column="userno" property="userno"/>
+	<result column="contents" property="contents"/>
 </resultMap>
 
 <resultMap type="com.de.question.Questions" id="Questions">
@@ -42,6 +50,7 @@
 	<result column="title" property="title"/>
 	<result column="contents" property="contents"/>
 	<result column="userno" property="userno"/>
+	<result column="firstuserno" property="firstuserno"/>
 	<result column="tagno" property="tagno"/>
 	<result column="readcnt" property="readcnt"/>
 	<result column="deleteat" property="deleteat"/>
@@ -51,21 +60,24 @@
 	<result column="recordCountPerPage" property="recordCountPerPage"/>
 	<collection property="users" resultMap="Users"/>
 	<collection property="vote" resultMap="Vote"/>
+	<collection property="wiki" resultMap="Wiki"/>
 </resultMap>
 
 	<select id="selectQNO" resultType="com.de.cmmn.CmmnMap">
       SELECT COALESCE(max(questionno),0)+1 AS questionno FROM tb_questions
 	</select>
-	
+	<sql id="listWhere">
+		(title like '%' || #{searchtext} || '%' 
+		or
+		contents like '%' || #{searchtext} || '%')
+	</sql>
 	<select id="getList" parameterType="com.de.question.Questions" resultMap="Questions">
 		select a.*,b.*,c.*
 		from tb_questions a left outer join tb_users b on a.userno = b.userno
 		left outer join tb_vote c on a.questionno = c.pno
 		<if test="searchtext != null and searchtext != ''">
 		<where>
-		(a.title like '%' || #{searchtext} || '%' 
-		or
-		a.contents like '%' || #{searchtext} || '%')
+		<include refid="listWhere" />
 		</where>
 		</if>
 		<if test="sort == null" >order by a.registerdate desc</if>
@@ -77,6 +89,11 @@
 	
 	<select id="getListCount" parameterType="com.de.question.Questions" resultType="java.lang.Integer">
 		select count(*) from tb_questions
+		<if test="searchtext != null and searchtext != ''">
+		<where>
+		<include refid="listWhere" />
+		</where>
+		</if>
 	</select>
 	
 	<select id="getView" parameterType="integer" resultMap="Questions">
@@ -95,6 +112,13 @@
 	</where>
 	
 	</update>
+	
+	<insert id="insertHistory" parameterType="com.de.cmmn.CmmnMap">
+	INSERT INTO TB_QUESTIONS_HISTORY (seq, pno, contents, section, title, deleteat, editauth, readcnt, registerdate, tagno, updatedate, userno)
+		VALUES
+				((SELECT COALESCE(max(seq),0)+1 FROM tb_questions_history),#{questionno},#{contents},#{section},#{title}
+				,#{deleteat},#{editauth},#{readcnt},#{registerdate},#{tagno},#{updatedate},#{userno})
+	</insert>
 
 </mapper>
  

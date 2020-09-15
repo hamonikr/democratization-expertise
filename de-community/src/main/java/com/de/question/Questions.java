@@ -9,11 +9,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.de.user.Users;
 import com.de.vote.Vote;
+import com.de.wiki.Wiki;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +26,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "tb_questions")
+@org.hibernate.annotations.DynamicUpdate
 public class Questions {
 	
 	/* 질문 고유 번호 */
@@ -40,6 +43,8 @@ public class Questions {
 	private String contents;
 	/* 회원 고유 번호 */
 	private Integer userno;
+	/* 최초 등록 회원 고유 번호 */
+	private Integer firstuserno;
 	/* 태그 고유 번호 */
 	private String tagno;
 	/* 질문 조회수 */
@@ -48,9 +53,11 @@ public class Questions {
 	private Integer deleteat = 0;
 	/* 등록 일시 */
 	@CreationTimestamp
+	@Column(name = "registerdate", updatable = false)
 	private Timestamp registerdate;
 	/* 수정 일시 */
 	@UpdateTimestamp
+	@Column(name = "updatedate")
 	private Timestamp updatedate;
 	//추후 테이블에서 삭제할 컬럼
 	/* 정렬 */
@@ -69,5 +76,9 @@ public class Questions {
 	@ManyToOne
 	@JoinColumn(name= "userno", insertable = false, updatable = false)
 	private Users users;
+	
+	@ManyToOne
+	@JoinColumn(name= "wikino", insertable = false, updatable = false)
+	private Wiki wiki;
 
 }

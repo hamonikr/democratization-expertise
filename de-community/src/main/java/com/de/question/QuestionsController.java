@@ -26,6 +26,7 @@ import com.de.login.service.SecurityMember;
 import com.de.tag.Tags;
 import com.de.vote.Vote;
 import com.de.vote.VoteService;
+import com.de.wiki.Wiki;
 
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
@@ -89,7 +90,8 @@ public class QuestionsController {
 		questions.setRecordCountPerPage(recordCountPerPage);
 
 		List<Questions> list = qs.getList(questions);
-		List<Tags> tagList = qs.tagList();
+		//List<Tags> tagList = qs.tagList();
+		List<Wiki> tagList = qs.findAllTag();
 
 		int listCount = qs.getListCount(questions);
 		paginationInfo.setTotalRecordCount(listCount); // 전체 게시물 건 수
@@ -102,12 +104,14 @@ public class QuestionsController {
 
 
 	@RequestMapping(value = "/save")
-	public String save(Model model, Questions qvo, Tags tvo, @AuthenticationPrincipal SecurityMember user) {
+	public String save(Model model, Questions qvo, Tags tvo, @AuthenticationPrincipal SecurityMember user) throws Exception {
 		if (user == null) {
 			return "redirect:/login";
 		} else {
-			List<Tags> list = qs.tagList();
-			model.addAttribute("tag", list);
+			//List<Tags> tagList = qs.tagList();
+			List<Wiki> tagList = qs.findAllTag();
+			model.addAttribute("tagList", tagList);
+			model.addAttribute("user",user);
 			return "/questions/save";
 		}
 	}
@@ -132,18 +136,17 @@ public class QuestionsController {
 	@RequestMapping("/view/{questionno}")
 	public String view(@PathVariable("questionno") int questionno, Model model,
 			@AuthenticationPrincipal SecurityMember user) throws Exception {
-		List<Tags> list = qs.tagList();
-		model.addAttribute("tag", list);
+		//List<Tags> tagList = qs.tagList();
+		List<Wiki> tagList = qs.findAllTag();
+		model.addAttribute("tagList", tagList);
+		//조회수 증가
+		qs.updateReanCnt(questionno);
+		
 		Questions qvo = new Questions();
 		qvo = qs.getView(questionno);
-		qs.updateReanCnt(questionno);
 		model.addAttribute("result", qvo);
+		if(user != null)
 		model.addAttribute("user", user);
-//		Optional<Questions> questions = qs.findById(questionNo);
-//		Questions vo;
-//		vo = questions.orElse(null);
-//		qs.updateByIdReadCnt(vo);
-//		model.addAttribute("result", questions.orElse(null));
 		return "/questions/view";
 	}
 
@@ -151,24 +154,27 @@ public class QuestionsController {
 	@RequestMapping("/edit/{questionno}")
 	public String edit(@PathVariable("questionno") int questionno, Model model,
 			@AuthenticationPrincipal SecurityMember user) throws Exception {
-		List<Tags> list = qs.tagList();
-		model.addAttribute("tag", list);
+		if (user == null) {
+			return "redirect:/login";
+		}
+		//List<Tags> list = qs.tagList();
+		List<Wiki> tagList = qs.findAllTag();
+		model.addAttribute("tagList", tagList);
 		Questions qvo = new Questions();
 		qvo = qs.getView(questionno);
 		model.addAttribute("result", qvo);
 		model.addAttribute("user", user);
-		// Optional<Questions> sample = qs.findById(questionno);
-		// model.addAttribute("result", sample.orElse(null));
 		return "/questions/save";
 	}
 
 
 	@RequestMapping(value = "/edit.proc")
-	public String editproc(HttpServletRequest request, Model model, Questions vo) throws Exception {
-		CmmnMap param = new CmmnMap();
+	public String editproc(HttpServletRequest request, Model model, Questions vo,@AuthenticationPrincipal SecurityMember user) throws Exception {
+		if (user == null) {
+			return "redirect:/login";
+		}
 		// 질문수정
-		qs.save(vo);
-		// model.addAttribute("sample", ss.findById(sample.getSeq()));
+		qs.updateById(vo);
 		return "redirect:/questions/list";
 	}
 
