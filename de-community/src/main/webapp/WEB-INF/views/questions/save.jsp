@@ -59,12 +59,19 @@
 			
 			<!-- 스프링 시큐리티 form에 추가 해줘야함. -->
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			<input type="hidden" name="userid" value="${result.users.userid }" /> 
+			<input type="hidden" name="tags" value="${result.tagno }" />
 			<input type="hidden" name="section" value="Q" />
-			<input type="hidden" name="username" value="" /> 
-			<input type="hidden" name="editauth" value="" /> 
-			<input type="hidden" name="tags" value="${result.tagno }" /> 
+			<input type="hidden" name="editauth" value="" />
+			<input type="hidden" name="userno" value="${user.userno }" /> 
+			<c:if test="${empty result.users.userid}">
+			<input type="hidden" name="firstuserno" value="${user.userno }" />
+			</c:if>
+			<c:if test="${not empty result.users.userid}">
+			<input type="hidden" name="userid" value="${result.users.userid }" /> 
+			<input type="hidden" name="readcnt" value="${result.readcnt }" /> 
 			<input type="hidden" name="questionno" value="${result.questionno }" />
+			<input type="hidden" name="firstuserno" value="${result.users.userno }" /> 
+			</c:if>
 			
 			<div class="container-fluid">
 				<div class="row">
@@ -106,12 +113,12 @@
 										<label for="Tag">태그</label>
 										<%-- <input type="text" name="tag" id="tag" class="form-control" placeholder="ex)" value="${result.tag}"/ --%>
 										<select class="select2" multiple="multiple" name="tagno" id="tagno" data-placeholder="" style="width: 100%; background-color: #8056d6;">
-											<c:forEach var="item" items="${tag}" varStatus="status">
-												<option value="${item.tagno }">${item.title }</option>
+											<c:forEach var="item" items="${tagList}" varStatus="status">
+												<option value="${item.wikino }">${item.title }</option>
 											</c:forEach>
 										</select>
 									</div>
-									
+									<c:if test="${result.users.userno eq user.userno or result.users.userno eq null}">
 									<div class=" row form-group">
 										<div class="col-1">
 											수정권한
@@ -125,9 +132,9 @@
 				                      		off을 선택할 경우 다른 사람이 내 질문을 수정할 수 없습니다.
 										</div>
 									</div>
+									</c:if>
 								</div>
 							</div>
-							
 							<div class="card-footer cont_btn_div">
 								<c:choose>
 									<c:when test="${empty result.users.userid}">
@@ -228,9 +235,9 @@
       } );
       //Initialize Select2 Elements
       $( '.select2' ).select2({
-			width: 'resolve',
+			width: 'resolve'
 			//language: 'ko',
-			minimumInputLength: 2
+			//minimumInputLength: 2
 		});
       var tagno = $('form[name=frm] input[name=tags]').val();
       //alert("tags==="+tagno);
@@ -257,16 +264,13 @@
             document.frm.editauth.value = 1;
           else
             document.frm.editauth.value = 0;
-          console.log( "val====" + document.frm.editauth.value );
           var vv = $( "input[name=btnSubmit]" ).val();
           document.frm.contents.value = editor.getHtml();
-          alert("vv===="+vv);
           if (vv == "c")
             document.frm.action = "/questions/save.proc";
           else if (vv == "u")
             document.frm.action = "/questions/edit.proc";
-        
-          alert(ocument.frm.tagno.value );
+
           document.frm.submit();
         }
       } );
@@ -307,7 +311,7 @@
       }
       } );
 
-    } );
+    });
 
     /* function fnSave() {
     document.frm.contents.value = editor.getHtml();

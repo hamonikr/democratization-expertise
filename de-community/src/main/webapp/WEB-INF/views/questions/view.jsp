@@ -72,9 +72,21 @@
 										</div>
 										<code><p>${result.contents }</p></code>
 										<p>
-											<font class="link-black text-sm rcorners1"> Tags : ${result.tagno }</font> 
+										<c:set var="tag" value="${fn:split(result.tagno,',')}" />
+											<font class="link-black text-sm rcorners1"> Tags : 
+											<c:forEach var="tagName2" items="${tag }" varStatus="status">
+												<c:forEach var="tagName1" items="${tagList }" varStatus="status">
+													<c:if test="${tagName1.wikino == tagName2}">${tagName1.title}</c:if>
+												</c:forEach>
+											</c:forEach>
+											</font> 
 											<span class="float-right "> 
-												<img src="/img/noprofile.png">
+												<c:if test="${result.users.userprofileimg != null}">
+													<img src="/upload/users/${result.users.userprofileimg}">
+												</c:if>
+												<c:if test="${result.users.userprofileimg == null}">
+													<img src="/img/noprofile.png">
+												</c:if>
 												<a href="#" class="link-black text-sm"> ${result.users.userid}</a>
 											</span>
 										</p>

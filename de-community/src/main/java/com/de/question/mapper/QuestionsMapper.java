@@ -2,6 +2,7 @@ package com.de.question.mapper;
 
 import java.util.List;
 
+import com.de.cmmn.CmmnMap;
 import com.de.question.Questions;
 
 public interface QuestionsMapper {
@@ -13,5 +14,7 @@ public interface QuestionsMapper {
 	public Questions getView(int questionno) throws Exception;
 	
 	public int updateReanCnt(int questionno) throws Exception;
+	
+	public int insertHistory(CmmnMap param) throws Exception;
 
 }
