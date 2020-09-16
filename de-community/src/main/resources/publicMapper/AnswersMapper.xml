@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
  
 
-<mapper namespace="com.de.question.mapper.QuestionsMapper">
+<mapper namespace="com.de.answer.mapper.AnswersMapper">
 
 <resultMap type="com.de.vote.Vote" id="Vote">
 	<result column="seq" property="seq"/>
@@ -46,6 +46,7 @@
 <resultMap type="com.de.question.Questions" id="Questions">
 	<result column="questionno" property="questionno"/>
 	<result column="editauth" property="editauth"/>
+	<result column="editauth" property="editauth"/>
 	<result column="title" property="title"/>
 	<result column="contents" property="contents"/>
 	<result column="userno" property="userno"/>
@@ -55,7 +56,6 @@
 	<result column="deleteat" property="deleteat"/>
 	<result column="registerdate" property="registerdate"/>
 	<result column="updatedate" property="updatedate"/>
-	<result column="commentcnt" property="commentcnt"/>
 	<result column="firstRecordIndex" property="firstRecordIndex"/>
 	<result column="recordCountPerPage" property="recordCountPerPage"/>
 	<collection property="users" resultMap="Users"/>
@@ -63,8 +63,8 @@
 	<collection property="wiki" resultMap="Wiki"/>
 </resultMap>
 
-	<select id="selectQNO" resultType="com.de.cmmn.CmmnMap">
-      SELECT COALESCE(max(questionno),0)+1 AS questionno FROM tb_questions
+	<select id="selectANO" resultType="com.de.cmmn.CmmnMap">
+      SELECT COALESCE(max(answerno),0)+1 AS answerno FROM tb_answers
 	</select>
 	<sql id="listWhere">
 		(title like '%' || #{searchtext} || '%' 
@@ -72,20 +72,7 @@
 		contents like '%' || #{searchtext} || '%')
 	</sql>
 	<select id="getList" parameterType="com.de.question.Questions" resultMap="Questions">
-		select 
-		a.questionno
-		,a.title
-		,a.contents
-		,a.section
-		,a.deleteat
-		,a.editauth
-		,a.readcnt
-		,a.registerdate
-		,a.tagno
-		,a.updatedate
-		,a.userno
-		,b.*,c.*
-		,(select count(d.answerno) from tb_answers d where a.questionno = d.questionno) as commentcnt
+		select a.*,b.*,c.*
 		from tb_questions a left outer join tb_users b on a.userno = b.userno
 		left outer join tb_vote c on a.questionno = c.pno
 		<if test="searchtext != null and searchtext != ''">

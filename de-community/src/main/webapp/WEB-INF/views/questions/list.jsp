@@ -114,7 +114,7 @@
 													<fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd" />
 												</div>
 												<div class="">
-													<span class="info-box-icon bg-info elevation-1" style="height: 80px;">답변</span>
+													<span class="info-box-icon bg-info elevation-1" style="height: 80px;">답변${list.commentcnt }</span>
 													
 													
 												</div>
