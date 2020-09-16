@@ -81,7 +81,7 @@ public class QuestionsController {
 		System.out.println("sort==========" + questions.getSort());
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(param.getInt("pageNo") > 0 ? param.getInt("pageNo") : 1); // 현재 페이지 번호
-		paginationInfo.setRecordCountPerPage(5); // 한 페이지에 게시되는 게시물 건수
+		paginationInfo.setRecordCountPerPage(100); // 한 페이지에 게시되는 게시물 건수
 		paginationInfo.setPageSize(5); // 페이징 리스트의 사이즈
 
 		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
@@ -90,6 +90,9 @@ public class QuestionsController {
 		questions.setRecordCountPerPage(recordCountPerPage);
 
 		List<Questions> list = qs.getList(questions);
+		for(int i = 0; i < list.size();i++) {
+			System.out.println("list====="+list.get(i));
+		}
 		//List<Tags> tagList = qs.tagList();
 		List<Wiki> tagList = qs.findAllTag();
 
