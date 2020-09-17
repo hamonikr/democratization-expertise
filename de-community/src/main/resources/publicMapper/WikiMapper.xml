@@ -4,22 +4,13 @@
 <mapper namespace="com.de.wiki.mapper.WikiMapper">
 
 
-<select id="getWikiHelp" resultType="com.de.wiki.Wiki">
+<select id="getWiki" resultType="com.de.wiki.Wiki">
 select *
 from 
 	tb_wiki 
 where
-	section='h' and deleteat=0 
+	section=#{section} and deleteat=0 
 </select>
-
-<select id="getWikiTag" resultType="com.de.wiki.Wiki">
-select b.*
-from 
-	tb_wiki a left outer join tb_wiki_history b on a.wikino=b.wikino 
-where
-	a.section='t' and b.deleteat=0
-</select>
-
 
 <!-- 저장 -->
 <insert id="save" parameterType="com.de.wiki.Wiki">

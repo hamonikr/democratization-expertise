@@ -17,14 +17,9 @@ public class WikiService {
 	WikiMapper mapper;
 
 	// helps 불러오기
-	public List<Wiki> getWikiHelp()throws Exception{
-		return mapper.getWikiHelp();		
+	public List<Wiki> getWiki(String section) throws Exception{
+		return mapper.getWiki(section);		
 	}
-
-	// tag 불러오기
-	public List<Wiki> getWikiTag()throws Exception{
-			return mapper.getWikiHelp();		
-		}
 
 	// view 페이지 불러오기
 	public Wiki getView(int wikino) throws Exception{		

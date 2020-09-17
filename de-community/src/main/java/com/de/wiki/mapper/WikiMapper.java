@@ -11,8 +11,7 @@ import com.de.wiki.WikiHistory;
 public interface WikiMapper {
 	
 	
-	public List<Wiki> getWikiHelp()throws Exception;
-	public List<Wiki> getWikiTag()throws Exception;
+	public List<Wiki> getWiki(String section)throws Exception;
 	public Wiki getView(int wikino) throws Exception;
 	public WikiHistory getHistoryView(int seq) throws Exception;
 	public List<WikiHistory> getHistory(int wikino) throws Exception;

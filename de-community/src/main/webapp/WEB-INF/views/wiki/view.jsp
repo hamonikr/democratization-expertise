@@ -54,7 +54,7 @@ button {
               <div class="card-header p-0 border-bottom-0">
               		<br>
               		<div align="right">
-              			<a href="/wiki/Help">[목록으로 되돌아가기]</a>
+              			<a href="/wiki/getStart">[목록으로 되돌아가기]</a>
               		</div>
                   <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
                   <li class="nav-item">
