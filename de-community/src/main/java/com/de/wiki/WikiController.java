@@ -32,9 +32,14 @@ public class WikiController {
 		}
 		
 		// fna list
-		List<Wiki> fna_list = service.getWikiHelp();
+		List<Wiki> fna_list = service.getWiki("h");
 		model.addAttribute("result", fna_list);
-	
+		
+		// tag list
+		List<Wiki> tags_list = service.getWiki("t");
+		model.addAttribute("tags", tags_list);
+
+		
 		return "/wiki/start";
 	 }
 	
@@ -44,7 +49,7 @@ public class WikiController {
 		System.out.println("---wiki view---");		
 		vo.setSection("h");
 		// fna list
-		List<Wiki> fna_list = service.getWikiHelp();
+		List<Wiki> fna_list = service.getWiki("h");
 		model.addAttribute("result", fna_list);
 		for(int i =0;i<fna_list.size();i++){
 			System.out.println(fna_list.get(i).getTitle());

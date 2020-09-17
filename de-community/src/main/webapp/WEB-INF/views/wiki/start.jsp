@@ -29,12 +29,6 @@
 
  <body >
 
-	<div class="col-12">       
-          	
-            <div class="card-primary card-outline card-outline-tabs">             
-              <div class="card-header p-0 border-bottom-0">
-    
-
   <!-- start of contents  -->   
     <div id="content" class="" role="main">
  		<div class="row">
@@ -75,29 +69,18 @@
 		</div>
 		<div class="row">
 			<div class="col-md-3">
-			<hr>		
-				<ul>
-					  <li> JavaScript</li>
-					  <li> Java</li>
-					  <li> Jquery</li>
-				</ul>	  
+			<hr>
+				<c:forEach var="list" items="${tags}" varStatus="status">
+					<ul>
+					 	<li>
+						  <svg aria-hidden="true" class="svg-icon iconTack" width="18" height="18" viewBox="0 0 18 18"><path d="M6.79 12.67l3.53 3.53a6 6 0 001.18-6.83l2.03-2.03A4 4 0 0018 5.5L12.53.03A4 4 0 0010.7 4.5L8.67 6.54a6 6 0 00-6.83 1.18l3.53 3.53-3.18 3.18-1.77 3.19 3.18-1.77 3.19-3.18z"></path></svg>     
+						  <a href="/wiki/view/${list.wikino}">${list.title}</a>
+						  </li>
+					</ul>
+				</c:forEach>		 
+			  
 			</div>
-			<div class="col-md-3" style="margin-left:5%">		
-			<hr>		
-				<ul>
-					  <li> JavaScript</li>
-					  <li> Java</li>
-					  <li> Jquery</li>
-				</ul>	 				
-			</div>
-			<div class="col-md-3" style="margin-left:5%">		
-				<hr>		
-				<ul>
-					  <li> JavaScript</li>
-					  <li> Java</li>
-					  <li> Jquery</li>
-				</ul>	 						
-			</div>
+
  		 <div>    
      </div>
  	</div>
