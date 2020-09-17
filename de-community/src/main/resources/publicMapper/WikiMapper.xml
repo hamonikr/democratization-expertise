@@ -39,7 +39,7 @@ Insert
       ,#{userno}
       ,now()
      )
-</insert>	
+</insert>
 
 <insert id="saveHistory" parameterType="com.de.wiki.Wiki">
 <selectKey keyProperty="wikino" resultType="Integer" order="BEFORE">
