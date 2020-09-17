@@ -3,38 +3,48 @@
  
 <mapper namespace="com.de.wiki.mapper.WikiMapper">
 
-<select id="getWikiHelp" parameterType="com.de.wiki.Wiki" resultType="com.de.wiki.Wiki">
+
+<select id="getWikiHelp" resultType="com.de.wiki.Wiki">
 select *
-from tb_wiki
-where section='h'
+from 
+	tb_wiki 
+where
+	section='h' and deleteat=0 
 </select>
+
+<select id="getWikiTag" resultType="com.de.wiki.Wiki">
+select b.*
+from 
+	tb_wiki a left outer join tb_wiki_history b on a.wikino=b.wikino 
+where
+	a.section='t' and b.deleteat=0
+</select>
+
 
 <!-- 저장 -->
 <insert id="save" parameterType="com.de.wiki.Wiki">
 Insert
 	 into
-  	  tb_wiki(  	  	       
-  	  	wikino
-      ,title
+  	  tb_wiki(  	  	        	  	
+      title
       ,contents
       ,section
       ,userno
       ,registerdate
-      ,updatedate
     )
   values
-    (   
-    	#{wikino}       
-      ,#{title}
+    (  #{title}
       ,#{contents}
       ,#{section}
       ,#{userno}
       ,now()
-      ,now()
      )
 </insert>	
 
-<insert id="saveHistory" parameterType="com.de.wiki.Wiki">	
+<insert id="saveHistory" parameterType="com.de.wiki.Wiki">
+<selectKey keyProperty="wikino" resultType="Integer" order="BEFORE">
+    SELECT  max(wikino) FROM tb_wiki 
+</selectKey>	
 Insert
 	 into
   	  tb_wiki_history(  	  	
@@ -42,7 +52,6 @@ Insert
       ,userno
       ,title
       ,contents
-      ,registerdate
       ,updatedate
     )
   values
@@ -52,9 +61,55 @@ Insert
       ,#{title}
       ,#{contents}
       ,now()
-      ,now()
      )
 </insert>	
+
+<update id="updateWiki" parameterType="com.de.wiki.Wiki">
+update 
+	tb_wiki 
+set
+	title = #{title},
+   contents = #{contents}
+where
+	wikino = #{wikino}
+</update>
+
+
+<update id="deleteWiki" parameterType="integer">
+update 
+	tb_wiki 
+set
+	deleteat = 1
+where
+	wikino = #{wikino}
+</update>
+
+
+<select id="getView" parameterType="integer" resultType="com.de.wiki.Wiki">
+select *
+ from tb_wiki_history
+  where seq in (select max(seq) from tb_wiki_history where wikino = #{wikino} )
+</select>
+
+<select id="getHistoryView" parameterType="integer" resultType="com.de.wiki.WikiHistory">
+select *
+ from tb_wiki_history
+  where seq = #{seq}
+ </select>
+
+
+<select id="getHistory" parameterType="integer" resultType="com.de.wiki.WikiHistory">
+	select
+		 a.*, b.username
+	from
+		 tb_wiki_history a left outer join tb_users b on a.userno = b.userno				
+	where
+		wikino = #{wikino}
+	
+order by updatedate desc
+
+</select>
+
 
 </mapper>
  
