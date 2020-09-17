@@ -39,8 +39,10 @@
 		<form id="frm" name="frm" method="post">
 			<!-- 스프링 시큐리티 form에 추가 해줘야함. -->
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			<input type="hidden" name="section" value="h" />			
-			<div class="container-fluid">
+			<input type="hidden" name="section" value="h" />		
+<%-- 			<input type="hidden" name="wikino" value="${result.wikino}" />
+			<input type="hidden" name="userno" value="${result.userno}" />
+ --%>			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12">
 						<div class="callout callout-info" >
@@ -82,7 +84,7 @@
 							
 							<div class="card-footer cont_btn_div">
 								<c:choose>
-									<c:when test="${empty result.wikno}">
+									<c:when test="${empty result}">
 										<button type="submit" name="btnSubmit" class="btn btn-primary purple" value="c">등록</button>
 									</c:when>
 									<c:otherwise>
@@ -90,7 +92,7 @@
 										<button type="button" id="btnDelete" class="btn btn-primary red">삭제</button>
 									</c:otherwise>
 								</c:choose>
-								<button type="button" class="btn btn-primary gray" onclick="location.href='/wiki/getStart'">목록</button>
+								<button type="button" class="btn btn-primary gray" onclick="location.href='/wiki/Help'">목록</button>
 							</div>
 				
 						</div>
@@ -106,8 +108,6 @@
         $( this ).bootstrapSwitch( 'state', $( this ).prop( 'checked' ) );
       } );
       
-
-      $( "#btnDelete" ).on( "click", fnDelete );
 
       $.validator.setDefaults( {
         submitHandler : function() {
@@ -153,16 +153,6 @@
         
       }
 
-    
-    function fnDelete() {
-      document.frm.action = "/wiki/delete.proc";
-      document.frm.submit();
-    }
-
-    function fnUdate() {
-        document.frm.action = "/wiki/update.proc";
-        document.frm.submit();
-      }
-  </script>
+     </script>
 </body>
 </html>
