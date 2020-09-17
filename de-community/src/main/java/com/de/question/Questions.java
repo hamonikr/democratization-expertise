@@ -9,10 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.de.answer.Answers;
 import com.de.user.Users;
 import com.de.vote.Vote;
 import com.de.wiki.Wiki;
@@ -64,6 +64,8 @@ public class Questions {
 	private Integer sort;
 	/* 검색 */
 	private String searchtext;
+	/* 댓글수 */
+	private Integer commentcnt;
 	
 	/* 페이징 */
 	private int firstRecordIndex;
@@ -80,5 +82,9 @@ public class Questions {
 	@ManyToOne
 	@JoinColumn(name= "wikino", insertable = false, updatable = false)
 	private Wiki wiki;
+	
+	@ManyToOne
+	@JoinColumn(name= "questionno", insertable = false, updatable = false)
+	private Answers answers;
 
 }
