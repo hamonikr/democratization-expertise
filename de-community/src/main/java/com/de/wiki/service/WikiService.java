@@ -17,8 +17,8 @@ public class WikiService {
 	WikiMapper mapper;
 
 	// helps 불러오기
-	public List<Wiki> getWiki(String section) throws Exception{
-		return mapper.getWiki(section);		
+	public List<Wiki> getWikiList(String section) throws Exception{
+		return mapper.getWikiList(section);		
 	}
 
 	// view 페이지 불러오기
@@ -26,18 +26,19 @@ public class WikiService {
 		return	mapper.getView(wikino);
 	}
 	
-	//과거 ㄴ내역 불러오기
+	//과거 내역 불러오기
 	public WikiHistory getHistoryView(int seq) throws Exception{
 		return mapper.getHistoryView(seq);
 	}
-
 	
 	// 히스토리 리스트 불러오기 
 	public List<WikiHistory> getHistory(int wikino) throws Exception{
 		return mapper.getHistory(wikino);
 	}
+	
 	// 위키문서 저장
 	public int save(Wiki vo)throws Exception{
+		saveHistory(vo);
 		return mapper.save(vo);		
 	}
 	//위키 히스토리 저장
@@ -45,10 +46,16 @@ public class WikiService {
 		return mapper.saveHistory(vo);		
 	}
 	
-	public int updateWiki(Wiki vo)throws Exception{
-			saveHistory(vo);
+	// 위키 문서 수정 - 히스토리 저장
+ 	public int updateWiki(Wiki vo)throws Exception{
+ 		 addWikiHistory(vo);
 		return mapper.updateWiki(vo);
 	}
+	public int addWikiHistory(Wiki vo)throws Exception{
+		return mapper.addWikiHistory(vo);
+	}
+
+ 	
 	// 위키문서 삭제
 	public int deleteWiki(int wikino)throws Exception{		
 		return mapper.deleteWiki(wikino);

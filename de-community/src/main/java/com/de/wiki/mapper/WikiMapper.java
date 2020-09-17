@@ -11,14 +11,15 @@ import com.de.wiki.WikiHistory;
 public interface WikiMapper {
 	
 	
-	public List<Wiki> getWiki(String section)throws Exception;
+	public List<Wiki> getWikiList(String section)throws Exception;
 	public Wiki getView(int wikino) throws Exception;
 	public WikiHistory getHistoryView(int seq) throws Exception;
 	public List<WikiHistory> getHistory(int wikino) throws Exception;
 
 	public int save(Wiki vo)throws Exception;
 	public int saveHistory(Wiki vo)throws Exception;
-
+	public int addWikiHistory(Wiki vo)throws Exception;
+	
 	public int updateWiki(Wiki vo)throws Exception;
 	public int deleteWiki(int wikino)throws Exception;
 }

@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.de.login.service.SecurityMember;
+import com.de.question.QuestionsService;
 import com.de.wiki.service.WikiService;
 
 @Controller
@@ -22,7 +23,9 @@ public class WikiController {
 	@Autowired
 	WikiService service;
 	
-		
+	@Autowired
+	QuestionsService qs;
+
 	
 	@RequestMapping("/getStart")
 	 public String accountRecovery(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo,Model model) throws Exception { 		
@@ -32,11 +35,11 @@ public class WikiController {
 		}
 		
 		// fna list
-		List<Wiki> fna_list = service.getWiki("h");
+		List<Wiki> fna_list = service.getWikiList("h");
 		model.addAttribute("result", fna_list);
 		
 		// tag list
-		List<Wiki> tags_list = service.getWiki("t");
+		List<Wiki> tags_list = service.getWikiList("t");
 		model.addAttribute("tags", tags_list);
 
 		
@@ -49,7 +52,7 @@ public class WikiController {
 		System.out.println("---wiki view---");		
 		vo.setSection("h");
 		// fna list
-		List<Wiki> fna_list = service.getWiki("h");
+		List<Wiki> fna_list = service.getWikiList("h");
 		model.addAttribute("result", fna_list);
 		for(int i =0;i<fna_list.size();i++){
 			System.out.println(fna_list.get(i).getTitle());
@@ -71,9 +74,8 @@ public class WikiController {
 		}
 		
 		Wiki wiki_view = service.getView(wikino);
-		model.addAttribute("result", wiki_view);	
-	//	System.out.println(wiki_view.getTitle());
-		
+		System.out.println("section---?"+wiki_view.getSection());
+		model.addAttribute("result", wiki_view);		
 	
 		List<WikiHistory> history = service.getHistory(wikino);
 		model.addAttribute("history", history);
@@ -96,24 +98,7 @@ public class WikiController {
 		return "/wiki/view";
 	 }
 	
-	
 
-	@RequestMapping("/edit.proc")
-	 public String edit(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model) throws Exception { 		
-		System.out.println("---wiki edit proc---");
-		System.out.println("넘어온 값?" + vo.toString());
-		if(user!=null) {
-			vo.setUserno(user.getUserno());
-			service.updateWiki(vo);
-			
-		} else {
-			return "redirect:/login";
-		}
-		
-		return "redirect:/wiki/Help";
-	 }
-
-	
 	@RequestMapping("/saveHelp")
 	 public String createHelp(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model)throws Exception { 		
 		System.out.println("---wiki help create!---");
@@ -148,7 +133,10 @@ public class WikiController {
 			System.out.println("section ==>" +vo.getSection());
 			System.out.println("user id ==>" + user.getUserid());
 			System.out.println("userno ==>"+ user.getUserno());
-			
+	
+			List<Wiki> tagList = qs.findAllTag();
+			model.addAttribute("tagList", tagList);
+
 			return "/wiki/createTag";
 		}
 		
@@ -158,25 +146,31 @@ public class WikiController {
 
 	@RequestMapping("/save.proc")
 	 public String save(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model) throws Exception { 		
-		System.out.println("---wiki help create proc---");
-		int ret=0;
-		
+		System.out.println("---wiki create proc---");
 		vo.setUserno(user.getUserno());
 		System.out.println("section==?" + vo.getSection());
 		
-		ret=service.save(vo);			
+		//wiki 문서 생성	
+		service.save(vo);	
 		
-		if(ret==0) {
-			System.out.println("도움말 문서 저장 실패");
-		} else {			
-			service.saveHistory(vo);
-			System.out.println("도움말 문서 정상적으로 저장");			
-		
-		}
-	
-		return "redirect:/wiki/Help";
+		return "redirect:/wiki/getStart";
 
 	} 
+
+	@RequestMapping("/edit.proc")
+	 public String edit(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model) throws Exception { 		
+		System.out.println("---wiki edit proc---");
+		System.out.println("수정할 wikino?-->"+ vo.getWikino());
+		if(user!=null) {
+			vo.setUserno(user.getUserno());
+			service.updateWiki(vo);
+			
+		} else {
+			return "redirect:/login";
+		}
+		
+		return "redirect:/wiki/getStart";
+	 }
 
 	
 	@RequestMapping("/delete.proc")
@@ -196,7 +190,7 @@ public class WikiController {
 		
 		}
 	
-		return "redirect:/wiki/Help";
+		return "redirect:/wiki/getStart";
 
 	} 
 

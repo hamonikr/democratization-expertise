@@ -112,12 +112,19 @@ button {
           					
           				</div>
           				<div class="card-header">
-							<h3 class=""><input class="form-control" type="text" name="title" value="${result.title}"></h3>
-						</div>	<br>
+						<c:choose>
+						<c:when test="${result.section == 'h'}">
+							<h4><input class="form-control" type="text" name="title" value="${result.title}"></h4>
+						</c:when>
+						<c:otherwise>
+							<h3><span>${result.title}</span></h3>
+						</c:otherwise>
+						</c:choose>	
+						</div>	
+						<br>
           				<input type="hidden" name="contents" id="contents" value="">
 							<div class="code-html">
 								<div id="editSection">
-									
 									${result.contents}
 								</div>
 							</div>
@@ -127,7 +134,7 @@ button {
 			                      initialEditType : 'wysiwyg',
 			                      //	initialEditType: 'markdown',
 			                      previewStyle : 'vertical',
-			                      height : '400px'
+			                      height : '700px'
 			                      } );
 		                  </script>	
                   	</div>
