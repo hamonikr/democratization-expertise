@@ -12,7 +12,6 @@ import com.de.user.UsersDetail;
 @Repository
 public interface SignupForDetailRepository extends JpaRepository<UsersDetail, Integer>{
 	List<UsersDetail> findAll();
-    List<UsersDetail> findByEnterpriseno(Integer enterpriseNo);
-
+   List<UsersDetail> findByEnterpriseno(Integer enterpriseno);
+   
 }
-
