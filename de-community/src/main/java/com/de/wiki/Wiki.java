@@ -40,6 +40,8 @@ public class Wiki  implements Serializable{
 	private String contents;	
 	/* 삭제 여부 = 0:유지, 1:삭제0 */
 	private Integer deleteat;
+	/* 연관 질문 갯수 */
+	private Integer relatedcnt;
 	/* 등록 일시 */
 	@CreationTimestamp
 	private Timestamp registerdate;
