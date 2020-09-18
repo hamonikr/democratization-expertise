@@ -42,13 +42,14 @@ public class LoginController {
 	
 	
 	@RequestMapping("/login")
-	 public String loginSuccess(Model model, @AuthenticationPrincipal SecurityMember user ) {
+	 public String loginSuccess(Model model, @AuthenticationPrincipal SecurityMember user ) throws Exception{
 		System.out.println("<<--- controller for normal loginSuccess-->> ");
 	
+		if(user!=null) {
 		System.out.println("user id --->" + user.getUserid());
 		System.out.println("user pw --->" + user.getUserpassword());
 		System.out.println("user no --- >" + user.getUserno());
-		
+		}
 		model.addAttribute("loginUser", user);
 		
 		

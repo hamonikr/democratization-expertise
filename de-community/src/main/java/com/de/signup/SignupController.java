@@ -105,6 +105,7 @@ public class SignupController {
 
 	boolean bizNochk = service.bizNoCheck(uvo);
 	
+	// 존재하면 true:0, 존재하지 않으면 false:1
 	if(bizNochk==false) {
 		chkBiz=1;
 	}else{
