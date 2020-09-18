@@ -89,7 +89,6 @@ height: 3.6em;
 				</div>
 
 
-
 			</div>
 			<!-- page number -->
 			<%-- 			<jsp:include page="/WEB-INF/views/include/paging.jsp" /> --%>
