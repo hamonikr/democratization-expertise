@@ -117,6 +117,7 @@ button {
 							<h4><input class="form-control" type="text" name="title" value="${result.title}"></h4>
 						</c:when>
 						<c:otherwise>
+						<input type="hidden" name="title" value="${result.title}">
 							<h3><span>${result.title}</span></h3>
 						</c:otherwise>
 						</c:choose>	
