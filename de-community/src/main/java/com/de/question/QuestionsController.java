@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.de.answer.Answers;
+import com.de.answer.AnswersService;
 import com.de.cmmn.CmmnMap;
 import com.de.cmmn.service.CmmnService;
 import com.de.login.service.SecurityMember;
@@ -42,6 +44,9 @@ public class QuestionsController {
 
 	@Autowired
 	VoteService vs;
+	
+	@Autowired
+	AnswersService as;
 
 	@Autowired
 	CmmnService cs;
@@ -141,10 +146,14 @@ public class QuestionsController {
 			@AuthenticationPrincipal SecurityMember user) throws Exception {
 		//List<Tags> tagList = qs.tagList();
 		List<Wiki> tagList = qs.findAllTag();
+		List<Answers> answerList = as.findAllByquestionno(questionno);
 		model.addAttribute("tagList", tagList);
+		model.addAttribute("answerList", answerList);
+		for(int i =0;i<answerList.size();i++) {
+			System.out.println("answerList====="+answerList.get(i));
+		}
 		//조회수 증가
 		qs.updateReanCnt(questionno);
-		
 		Questions qvo = new Questions();
 		qvo = qs.getView(questionno);
 		model.addAttribute("result", qvo);

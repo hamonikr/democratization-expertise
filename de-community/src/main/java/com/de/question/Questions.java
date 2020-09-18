@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -83,7 +85,7 @@ public class Questions {
 	@JoinColumn(name= "wikino", insertable = false, updatable = false)
 	private Wiki wiki;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name= "questionno", insertable = false, updatable = false)
 	private Answers answers;
 

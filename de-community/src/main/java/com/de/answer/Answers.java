@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.de.user.Users;
 import com.de.vote.Vote;
 
 import lombok.Getter;
@@ -49,6 +50,10 @@ public class Answers {
 	/* 수정 일시 */
 	@UpdateTimestamp
 	private Timestamp updatedate;
+	
+	@ManyToOne
+	@JoinColumn(name= "userno", insertable = false, updatable = false)
+	private Users users;
 	
 	@ManyToOne
 	@JoinColumn(name= "pno", insertable = false, updatable = false)
