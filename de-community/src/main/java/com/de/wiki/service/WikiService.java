@@ -36,6 +36,11 @@ public class WikiService {
 		return mapper.getHistory(wikino);
 	}
 	
+	// 질문 갯수 가져오기
+	public int getWikiCount(int tagno)throws Exception{
+		return mapper.getWikiCount(tagno);
+	}
+	
 	// 위키문서 저장
 	public int save(Wiki vo)throws Exception{
 		saveHistory(vo);

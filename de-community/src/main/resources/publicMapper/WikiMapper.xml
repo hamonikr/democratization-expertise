@@ -48,6 +48,14 @@ order by updatedate desc
 </select>
 
 
+<!-- qustion 쿼리 바뀌면 tagno -> wikino로 조회하는결로 변경 예정  -->
+<select id="getWikiCount" parameterType="Integer" resultType="Integer">
+select  count(*)
+from public.tb_questions
+where tagno  like '%' || #{tagno} || '%'
+</select>
+
+
 <!-- 저장 -->
 <insert id="save" parameterType="com.de.wiki.Wiki">
 Insert
