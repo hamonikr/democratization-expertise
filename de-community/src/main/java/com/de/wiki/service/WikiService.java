@@ -43,11 +43,12 @@ public class WikiService {
 	
 	// 위키문서 저장
 	public int save(Wiki vo)throws Exception{
-		saveHistory(vo);
+//		saveHistory(vo);
 		return mapper.save(vo);		
 	}
 	//위키 히스토리 저장
 	public int saveHistory(Wiki vo)throws Exception{
+			save(vo);
 		return mapper.saveHistory(vo);		
 	}
 	

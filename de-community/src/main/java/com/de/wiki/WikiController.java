@@ -151,8 +151,8 @@ public class WikiController {
 		System.out.println("section==?" + vo.getSection());
 		
 		//wiki 문서 생성	
-		service.save(vo);	
-		
+		//service.save(vo);	
+		service.saveHistory(vo);
 		return "redirect:/wiki/getStart";
 
 	} 

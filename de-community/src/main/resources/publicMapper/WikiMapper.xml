@@ -80,7 +80,7 @@ Insert
 
 <insert id="saveHistory" parameterType="com.de.wiki.Wiki">	
 <selectKey keyProperty="wikino" resultType="Integer" order="BEFORE">
-    SELECT  max(wikino) FROM tb_wiki 
+    SELECT max(wikino) FROM tb_wiki 
 </selectKey>
     Insert
 	 into
