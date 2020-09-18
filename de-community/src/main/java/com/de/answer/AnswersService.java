@@ -1,19 +1,13 @@
 package com.de.answer;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.de.cmmn.CmmnMap;
 import com.de.question.mapper.QuestionsMapper;
 import com.de.tag.Tags;
 import com.de.tag.TagsRepository;
@@ -67,8 +61,12 @@ public class AnswersService {
 		return qm.updateReanCnt(questionno);
 	}
 	
-	public Optional<Answers> findById(int questionNo) {
-		return ar.findById(questionNo);
+	public Optional<Answers> findById(int questionno) {
+		return ar.findById(questionno);
+	}
+	
+	public List<Answers> findAllByquestionno(int questionno) {
+		return ar.findAllByquestionno(questionno);
 	}
 	
 	public Answers save(Answers vo) throws Exception {

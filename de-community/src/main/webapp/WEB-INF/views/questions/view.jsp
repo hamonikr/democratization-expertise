@@ -116,7 +116,13 @@
 							<div class="row p-3 col-12" style="border-bottom: thick double #32a1ce;"></div>
 							
 							<div class="row">
-								답변
+								<c:forEach var="list" items="${answerList}" varStatus="stat">
+								<div class="col-10">
+								답변내용:${list.contents } <br/>
+								등록자:${list.users.userid } <br/>
+								등록일:<fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd" /><br/>
+								</div>
+								</c:forEach>
 								<div class="mb-3">
 								<input type="hidden" name="contents" id="contents" value="">
 										<div class="code-html">
