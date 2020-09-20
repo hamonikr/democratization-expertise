@@ -128,12 +128,20 @@ public class QuestionsService {
 	}
 	
 	public void updateByIdReadCnt(Questions vo) throws Exception {
-	Optional<Questions> e = qr.findById(vo.getQuestionno());
-	if (e.isPresent()) {
-		e.get().setReadcnt(vo.getReadcnt() +1);
-		qr.save(vo);
+		Optional<Questions> e = qr.findById(vo.getQuestionno());
+		if (e.isPresent()) {
+			e.get().setReadcnt(vo.getReadcnt() +1);
+			qr.save(vo);
+		}
+	
 	}
 
-}
-
+	// 내 질문 목록
+	public List<Questions> getMyList(Questions vo) throws Exception {
+		return qm.getMyList(vo);
+	}
+	// 내 게시물 카운트
+	public int getMyListCount(Questions vo) throws Exception {
+		return qm.getMyListCount(vo);
+	}
 }

@@ -16,9 +16,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.de.answer.Answers;
+import com.de.answer.AnswersRepository;
 import com.de.enterprise.Enterprises;
 import com.de.enterprise.EnterprisesRepository;
+import com.de.question.Questions;
+import com.de.question.QuestionsRepository;
 import com.de.user.mapper.UsersMapper;
+import com.de.wiki.Wiki;
 
 @Service
 @Transactional
@@ -34,7 +39,13 @@ public class UsersService {
 	
 	@Autowired
 	UsersMapper um;
-
+	
+	@Autowired
+	QuestionsRepository qr;
+	
+	@Autowired
+	AnswersRepository ar;
+	
 	public Optional<Users> findById(int seq) throws Exception {
 		return ur.findById(seq);
 	}
@@ -174,5 +185,39 @@ public class UsersService {
 		vo.setEnterprisename(enterName);
 		List<Enterprises> list = um.getEnterList(vo);
 		return list;
+	}
+
+	// 내 질문 등록 수
+	public int cntQuestionsById(int seq) {
+		return um.cntQuestionsById(seq);
+	}
+	
+	// 내 질문 목록 - 최근 5개
+	public Page<Questions> findQuestionsByUserno(int seq) {
+		Pageable pageable = PageRequest.of(0, 5, new Sort(Sort.Direction.DESC, "registerdate"));
+		Page<Questions> list = qr.findAllByUserno(seq, pageable);
+		return list;
+	}
+
+	// 내 답변 등록 수
+	public int cntAnswerById(int seq) {
+		return um.cntAnswerById(seq);
+	}
+	
+	// 내 답변 목록 - 최근 5개
+	public Page<Answers> findAnswerByUserno(int seq) {
+		Pageable pageable = PageRequest.of(0, 5, new Sort(Sort.Direction.DESC, "registerdate"));
+		Page<Answers> list = ar.findAllByUserno(seq, pageable);
+		return list;
+	}
+
+	// 내 태그/위키 등록 수
+	public int cntTagAndWikiById(Wiki vo) {
+		return um.cntTagAndWikiById(vo);
+	}
+	
+	// 내 태그/위키 목록 - 최근 5개
+	public List<Wiki> findTagAndWikiByUserno(Wiki vo) {
+		return um.findTagAndWikiByUserno(vo);
 	}
 }
