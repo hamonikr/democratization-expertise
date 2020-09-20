@@ -69,4 +69,46 @@ WHERE
 	userno = #{userno}
 </update>
 
+
+<select id="cntQuestionsById" parameterType="Integer" resultType="Integer">
+SELECT 
+	count(*) 
+FROM 
+	tb_questions
+WHERE
+	userno = #{seq}
+</select>
+
+<select id="cntAnswerById" parameterType="Integer" resultType="Integer">
+SELECT 
+	count(*) 
+FROM 
+	tb_answers
+WHERE
+	userno = #{seq}
+</select>
+
+<select id="cntTagAndWikiById" parameterType="com.de.wiki.Wiki" resultType="Integer">
+SELECT 
+	count(*) 
+FROM 
+	tb_wiki
+WHERE
+	userno = CAST(#{userno} AS TEXT)
+	AND section = #{section}
+</select>
+
+<select id="findTagAndWikiByUserno" parameterType="com.de.wiki.Wiki" resultType="com.de.wiki.Wiki">
+SELECT 
+	wikino,
+	title
+FROM 
+	tb_wiki
+WHERE
+	userno = CAST(#{userno} AS TEXT)
+	AND section = #{section}
+ORDER BY registerdate DESC
+LIMIT 5
+</select>
+
 </mapper>

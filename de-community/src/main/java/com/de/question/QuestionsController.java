@@ -3,14 +3,12 @@ package com.de.question;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -196,4 +194,42 @@ public class QuestionsController {
 //		return "redirect:/sample/list";
 //	}
 
+	//내 질문 목록
+	@RequestMapping(value = "/myList")
+	public String getMyList(@RequestParam Map<String, String> params, Model model, Questions questions,
+			@AuthenticationPrincipal SecurityMember user, @PageableDefault Pageable pageable) throws Exception {
+
+		CmmnMap param = new CmmnMap();
+		param.putAll(params);
+
+		logger.info("----------excel param-----------------------");
+		logger.debug("");
+		logger.debug(param.toString());
+		logger.debug("");
+		logger.debug("----------excel param-----------------------");
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(param.getInt("pageNo") > 0 ? param.getInt("pageNo") : 1); // 현재 페이지 번호
+		paginationInfo.setRecordCountPerPage(100); // 한 페이지에 게시되는 게시물 건수
+		paginationInfo.setPageSize(5); // 페이징 리스트의 사이즈
+
+		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
+		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
+		questions.setFirstRecordIndex(firstRecordIndex);
+		questions.setRecordCountPerPage(recordCountPerPage);
+
+		List<Questions> list = qs.getMyList(questions);
+		for(int i = 0; i < list.size();i++) {
+			System.out.println("list====="+list.get(i));
+		}
+		//List<Tags> tagList = qs.tagList();
+		List<Wiki> tagList = qs.findAllTag();
+
+		int listCount = qs.getMyListCount(questions);
+		paginationInfo.setTotalRecordCount(listCount); // 전체 게시물 건 수
+		model.addAttribute("list", list);
+		model.addAttribute("tagList", tagList);
+		model.addAttribute("paginationInfo", paginationInfo);
+		model.addAttribute("vo", param);
+		return "/questions/list";
+	}
 }

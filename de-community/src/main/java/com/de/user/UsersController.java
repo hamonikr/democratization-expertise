@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.de.cmmn.CmmnMap;
+import com.de.answer.Answers;
 import com.de.cmmn.util.CodeMessage;
 import com.de.enterprise.Enterprises;
 import com.de.login.service.SecurityMember;
-
-import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+import com.de.question.Questions;
+import com.de.wiki.Wiki;
 
 
 @Controller
@@ -52,11 +52,6 @@ public class UsersController {
 	public String dashboard(Model model, @PathVariable("seq") int seq, @AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
 		if(LOG_URL) logger.info(" -- url : /users/activity - seq : " + seq);
 
-		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
-		// session 에서 seq 정보 추출
-		// 임시 - 사용자 seq
-//		int userSeq = 4;
-		
 		boolean isUserNo = false;
 		
 		if ( loginUserData == null ) {
@@ -70,15 +65,59 @@ public class UsersController {
 		Optional<Users> users = usersService.findById(seq);
 		Optional<Enterprises> enterprise = usersService.findEnterpriseNo(seq);
 		
+		// 질문
+		int qCnt = usersService.cntQuestionsById(seq);
+		Page<Questions> qList = usersService.findQuestionsByUserno(seq);
+		
+		// 답변
+		int aCnt = usersService.cntAnswerById(seq);
+		Page<Answers> aList = usersService.findAnswerByUserno(seq);
+		
+		// 태그 n 위키
+		Wiki vo = new Wiki();
+		vo.setUserno(seq);
+		
+		// 태그
+		vo.setSection("t");
+		int tCnt = usersService.cntTagAndWikiById(vo);
+		List<Wiki> tList = usersService.findTagAndWikiByUserno(vo);
+		
+		// 위키
+		vo.setSection("h");
+		int wCnt = usersService.cntTagAndWikiById(vo);
+		List<Wiki> wList = usersService.findTagAndWikiByUserno(vo);
+		
+		if(LOG_URL) {
+			logger.info(" ------ qCnt : " + qCnt);
+			logger.info(" ------ qList Content : " + qList.getContent());
+			logger.info(" ------ aCnt : " + aCnt);
+			logger.info(" ------ aList Content : " + aList.getContent());
+			logger.info(" ------ tCnt : " + tCnt);
+			logger.info(" ------ tList Content : " + tList);
+			logger.info(" ------ wCnt : " + wCnt);
+			logger.info(" ------ wList Content : " + wList);
+		}
 		
 		System.out.println("1==========++"+ users.get().getUserprofileimg());
 		model.addAttribute("user", users.orElse(null));	// 프로필 정보
 		model.addAttribute("isMypage", isUserNo);		// 내 정보 유무
 		model.addAttribute("enterprise", enterprise.orElse(null));	// 회사명 정보
+		
+		model.addAttribute("qCnt", qCnt);					// 질문 전체 수
+		model.addAttribute("qList", qList.getContent());	// 질문 목록
+		
+		model.addAttribute("aCnt", aCnt);					// 답변 전체 수
+		model.addAttribute("aList", aList.getContent());	// 답변 목록
+		
+		model.addAttribute("tCnt", tCnt);		// 태그 전체 수
+		model.addAttribute("tList", tList);	// 태그 목록
+		
+		model.addAttribute("wCnt", wCnt);		// 위키 전체 수
+		model.addAttribute("wList", wList);	// 위키 목록
 //		model.addAttribute("tab", tab);
 
 		return "/users/activity";
-	}	
+	}
 	
 	/**
 	 * 사용자 목록
@@ -108,11 +147,6 @@ public class UsersController {
 	@RequestMapping(value="/profile/{seq}", method=RequestMethod.GET)
 	public String modify(Model model, @PathVariable("seq") int seq, @AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
 		if(LOG_URL) logger.info(" -- url : /users/profile - seq : " + seq);
-		
-		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
-		// session 에서 seq 정보 추출
-		// 임시 - 사용자 seq
-//		int userSeq = 4;
 		
 		boolean isUserNo = false;
 		
@@ -167,10 +201,6 @@ public class UsersController {
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
-		// session 에서 seq 정보 추출
-		// 임시 - 사용자 seq
-//		int userSeq = 4;
 		vo.setUserno(loginUserData.getUserno());
 		
 		boolean updateVal = usersService.updateUserPw(vo);
@@ -194,11 +224,6 @@ public class UsersController {
 		if(LOG_URL) logger.info(" -- url : /users/upload - request : " + request);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
-		// session 에서 seq 정보 추출
-		// 임시 - 사용자 seq
-//		int userSeq = 4;
 		
 		Users vo = new Users();
 		vo.setUserno(loginUserData.getUserno());
