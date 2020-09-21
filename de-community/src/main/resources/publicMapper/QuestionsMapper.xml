@@ -155,23 +155,38 @@
 				WHERE 
 					a.questionno = d.questionno) AS commentcnt
 		FROM 
-			tb_questions a LEFT OUTER JOIN tb_users b ON a.userno = b.userno
-			LEFT OUTER JOIN tb_vote c ON a.questionno = c.pno
+			<if test='section == "Q"'>
+				tb_questions a LEFT OUTER JOIN tb_users b ON a.userno = b.userno
+				LEFT OUTER JOIN tb_vote c ON a.questionno = c.pno
+			</if>
+			<if test='section == "A"'>
+				(
+				    SELECT 
+			        	qstn.questionno
+			        	,qstn.title
+			        	,qstn.contents
+			        	,qstn.section
+			        	,qstn.deleteat
+			        	,qstn.editauth
+			        	,qstn.readcnt
+			        	,qstn.registerdate
+			        	,qstn.tagno
+			        	,qstn.updatedate
+			        	,qstn.userno
+			        FROM 
+			        	tb_answers ansr
+			        	LEFT JOIN tb_questions qstn
+			        	ON ansr.questionno = qstn.questionno
+			        WHERE
+			        	ansr.userno = #{userno}
+				) a LEFT OUTER JOIN tb_users b ON a.userno = b.userno
+				LEFT OUTER JOIN tb_vote c ON a.questionno = c.pno
+			</if>
 		WHERE
 			a.userno = #{userno}
+			AND c.section = #{section}
 		ORDER BY a.registerdate DESC
 		OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage}
 	</select>
 	
-	<select id="getMyListCount" parameterType="com.de.question.Questions" resultType="java.lang.Integer">
-		SELECT 
-			count(*) 
-		FROM 
-			tb_questions
-		WHERE
-			userno = #{userno}
-	</select>
-
 </mapper>
- 
-	
