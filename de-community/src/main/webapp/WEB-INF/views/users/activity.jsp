@@ -87,47 +87,41 @@
 						<div class="card-body card-primary row" style="width: 100%;">
 						
 							<div class="col-6">
-								<div>질문(101)</div>
+								<div>질문(${ qCnt })</div>
 								<hr/>
-								<div class="dash-list">
-									<span class="float-left badge bg-primary">like</span>
-									<a href="#">우분투 업그레이드 어떻게 해요?</a>
-								</div>
-								<div class="dash-list">
-									<span class="float-left badge bg-primary">like</span>
-									<a href="#">하모니카 설치 어떻게 하죠?</a>
-								</div>
-								<div class="dash-list">
-									<span class="float-left badge bg-primary">like</span>
-									<a href="#">우분투 업그레이드 어떻게 해요?</a>
-								</div>
-								<div class="dash-list">
-									<span class="float-left badge bg-primary">like</span>
-									<a href="#">하모니카 설치 어떻게 하죠?</a>
-								</div>
-								<button class="btn-primary btn-xs">더보기</button>
+								<c:forEach var="list" items="${ qList }" varStatus="status">
+									<div class="dash-list">
+										<a href="/questions/view/${ list.questionno }">${ list.title }</a>
+									</div>
+								</c:forEach>
+								
+								<c:if test="${ qCnt > 5 }">
+									<form action="/questions/myList">
+										<input type="hidden" name="userno" value="${ user.userno }">
+										<input type="hidden" name="type" value="Q">
+										<button type="submit" class="btn-primary btn-xs" >더보기</button>
+									</form>
+								</c:if>
 							</div>
 						
 							<div class="col-6">
-								<div>답변(521)</div>
+								<div>답변(${ aCnt })</div>
 								<hr/>
-								<div class="dash-list">
-									<span class="float-left badge bg-primary">like</span>
-									<a href="#">이렇게 하시면 됩니다.</a>
-								</div>
-								<div class="dash-list">
-									<span class="float-left badge bg-primary">like</span>
-									<a href="#">답변입니다</a>
-								</div>
-								<div class="dash-list">
-									<span class="float-left badge bg-primary">like</span>
-									<a href="#">답변입니다</a>
-								</div>
-								<div class="dash-list">
-									<span class="float-left badge bg-primary">like</span>
-									<a href="#">답변입니다~</a>
-								</div>
-								<button class="btn-primary btn-xs">더보기</button>
+								<c:forEach var="list" items="${ aList }" varStatus="status">
+									<div class="dash-list">
+										<a href="/questions/view/${ list.questionno }">
+											${fn:substring(list.contents.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""), 0, 150)}
+										</a>
+									</div>
+								</c:forEach>
+								
+								<c:if test="${ aCnt > 5 }">
+									<form action="/questions/myList">
+										<input type="hidden" name="userno" value="${ user.userno }">
+										<input type="hidden" name="type" value="A">
+										<button type="submit" class="btn-primary btn-xs" >더보기</button>
+									</form>
+								</c:if>
 							</div>
 						</div>
 					
@@ -135,32 +129,39 @@
 						<div class="card-body card-primary row" style="width: 100%;">
 						
 							<div class="col-6 row">
-								<div class="col-12">태그(5)</div>
+								<div class="col-12">태그(${ tCnt })</div>
 								<hr/>
 								<div class="dash-list col-12">
-									<span class="float-left badge bg-primary tagSpan">java</span>
-									<span class="float-left badge bg-primary tagSpan">linux</span>
-									<span class="float-left badge bg-primary tagSpan">ubuntu</span>
-									<span class="float-left badge bg-primary tagSpan">javascript</span>
-									<span class="float-left badge bg-primary tagSpan">ios</span>
-									<span class="float-left badge bg-primary tagSpan">css</span>
-									<span class="float-left badge bg-primary tagSpan">node</span>
-									<span class="float-left badge bg-primary tagSpan">android</span>
-									<span class="float-left badge bg-primary tagSpan">html</span>
-									<span class="float-left badge bg-primary tagSpan">shell</span>
-									<span class="float-left badge bg-primary tagSpan">hamonikr</span>
+									<c:forEach var="list" items="${ tList }" varStatus="status">
+										<a href="/wiki/view/${ list.wikino }" class="float-left badge bg-primary tagSpan">${ list.title }</a>
+									</c:forEach>
 								</div>
-								<button class="btn-primary btn-xs">더보기</button>
+								
+								<c:if test="${ tCnt > 5 }">
+									<form action="/questions/myList">
+										<input type="hidden" name="userno" value="${ user.userno }">
+										<input type="hidden" name="type" value="A">
+										<button type="submit" class="btn-primary btn-xs" >더보기</button>
+									</form>
+								</c:if>
 							</div>
 						
 							<div class="col-6">
-								<div>위키(51)</div>
+								<div>위키(${ wCnt })</div>
 								<hr/>
-								<div class="dash-list"><a href="#">이렇게 하시면 됩니다.</a></div>
-								<div class="dash-list"><a href="#">답변입니다</a></div>
-								<div class="dash-list"><a href="#">답변입니다</a></div>
-								<div class="dash-list"><a href="#">답변입니다~</a></div>
-								<button class="btn-primary btn-xs">더보기</button>
+								<c:forEach var="list" items="${ wList }" varStatus="status">
+									<div class="dash-list">
+										<a href="/wiki/view/${ list.wikino }">${ list.title }</a>
+									</div>
+								</c:forEach>
+								
+								<c:if test="${ wCnt > 5 }">
+									<form action="/questions/myList">
+										<input type="hidden" name="userno" value="${ user.userno }">
+										<input type="hidden" name="type" value="A">
+										<button type="submit" class="btn-primary btn-xs" >더보기</button>
+									</form>
+								</c:if>
 							</div>
 						</div>
 					</div>
@@ -324,7 +325,6 @@
 		</div>
 	</form>
 </div>
-
 
 
 <!-- FLOT CHARTS -->
