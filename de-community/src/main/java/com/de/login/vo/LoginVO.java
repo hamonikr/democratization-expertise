@@ -15,4 +15,10 @@ public class LoginVO {
 	private String useremail; // 멤버 이메일
 	private int role; // 멤버 이메일
 	private int activeat; // 계정 활성상태 0:활성, 1:비활성 
+	
+	/* 회사계정 */
+	private int enterpriseno; 
+	private String enterpriseid; // 회사계정 비밀번호
+	private String enterprisepassword; // 회사계정 비밀번호
+
 }
