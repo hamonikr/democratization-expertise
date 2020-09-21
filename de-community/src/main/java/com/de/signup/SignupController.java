@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.de.enterprise.Enterprises;
 import com.de.user.Users;
 import com.de.user.UsersDetail;
 
@@ -99,14 +101,14 @@ public class SignupController {
 
 	@RequestMapping(value = "/checkBizNoDuplication")
 	@ResponseBody
-	public int checkBizNoDuplication(HttpServletRequest request, Users vo, UsersDetail uvo, Model model) {
+	public int checkBizNoDuplication(HttpServletRequest request, Enterprises evo, Model model) throws Exception {
 	int chkBiz = 0;
-	System.out.println("사업자 번호 중복체크---> "+uvo.getEnterpriseno());
+	System.out.println("사업자 번호 중복체크---> "+evo.getEnterprisebizno());
 
-	boolean bizNochk = service.bizNoCheck(uvo);
-	
-	// 존재하면 true:0, 존재하지 않으면 false:1
-	if(bizNochk==false) {
+//	boolean bizNochk = service.bizNoCheck(uvo);
+	Integer bizNochk = service.bizNoCheck(evo);
+	// 존재하면 : 1 반환, 존재하지 않으면 :0
+	if(bizNochk==0) {
 		chkBiz=1;
 	}else{
 		chkBiz=0;
@@ -134,7 +136,7 @@ public class SignupController {
 					 System.out.println("=====user info save====");
 					 uvo.setUserno(vo.getUserno());
 					 uvo.setActiveat(0);//setActiveAt 0이면 활성화(default), 1이면 비활성호된 계정
-					 service.save(uvo);
+					 service.saveDetail(uvo);
 				 }
 			} catch (Exception e) {
 				System.out.println("저장 실패!");
@@ -147,22 +149,24 @@ public class SignupController {
 	//파트너사 회원가입
 	@RequestMapping(value = "/signupForPartner.proc")
 	@ResponseBody
-	public String signUpForPartnerProc(Model model, Users vo, UsersDetail uvo, HttpServletRequest request) {
+	public String signUpForPartnerProc(Model model, Users vo, Enterprises evo ,UsersDetail uvo, HttpServletRequest request) {
 		System.out.println("----------파트너사 sign Up Proc----------");
 		String retVal="aa";
 
 		System.out.println("vo id==>" + vo.getUserid());
 		System.out.println("vo email==>" + vo.getUseremail());
 		System.out.println("vo pw==>" + vo.getUserpassword());	
-		System.out.println("enterpriseNo-->" + uvo.getEnterpriseno());
+		System.out.println("enterprisebizno-->" +evo.getEnterprisebizno());
 		
-		if(uvo.getEnterpriseno() != null) {
+		if(evo.getEnterprisebizno() != null) {
 			try {
 				 service.save(vo);
+				 service.saveEnterprisebizno(evo);
 				 if(vo.getUserid() != null) {
 					 System.out.println("=====user info save====");
 					 uvo.setUserno(vo.getUserno());
-					 service.save(uvo);
+					 uvo.setEnterpriseno(service.getEnterpriseno(evo));
+					 service.saveDetail(uvo);
 					 retVal="S";
 
 				 }
