@@ -1,7 +1,6 @@
 package com.de.question;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -136,12 +135,8 @@ public class QuestionsService {
 	
 	}
 
-	// 내 질문 목록
+	// 내 질문/답변 목록
 	public List<Questions> getMyList(Questions vo) throws Exception {
 		return qm.getMyList(vo);
-	}
-	// 내 게시물 카운트
-	public int getMyListCount(Questions vo) throws Exception {
-		return qm.getMyListCount(vo);
 	}
 }
