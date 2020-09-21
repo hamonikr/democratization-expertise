@@ -133,6 +133,45 @@
 				,#{deleteat},#{editauth},#{readcnt},#{registerdate},#{tagno},#{updatedate},#{userno})
 	</insert>
 
+
+	<select id="getMyList" parameterType="com.de.question.Questions" resultMap="Questions">
+		SELECT
+			a.questionno
+			,a.title
+			,a.contents
+			,a.section
+			,a.deleteat
+			,a.editauth
+			,a.readcnt
+			,a.registerdate
+			,a.tagno
+			,a.updatedate
+			,a.userno
+			,b.*,c.*
+			,(SELECT 
+					count(d.answerno) 
+				FROM 
+					tb_answers d 
+				WHERE 
+					a.questionno = d.questionno) AS commentcnt
+		FROM 
+			tb_questions a LEFT OUTER JOIN tb_users b ON a.userno = b.userno
+			LEFT OUTER JOIN tb_vote c ON a.questionno = c.pno
+		WHERE
+			a.userno = #{userno}
+		ORDER BY a.registerdate DESC
+		OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage}
+	</select>
+	
+	<select id="getMyListCount" parameterType="com.de.question.Questions" resultType="java.lang.Integer">
+		SELECT 
+			count(*) 
+		FROM 
+			tb_questions
+		WHERE
+			userno = #{userno}
+	</select>
+
 </mapper>
  
 	
