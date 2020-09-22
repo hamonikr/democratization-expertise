@@ -18,7 +18,4 @@ public interface QuestionsMapper {
 	public int insertHistory(CmmnMap param) throws Exception;
 
 	public List<Questions> getMyList(Questions vo) throws Exception;
-
-	public int getMyListCount(Questions vo) throws Exception;
-
 }
