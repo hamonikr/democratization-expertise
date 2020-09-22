@@ -194,9 +194,9 @@ public class QuestionsController {
 //		return "redirect:/sample/list";
 //	}
 
-	//내 질문 목록
+	// 내 답변 목록
 	@RequestMapping(value = "/myList")
-	public String getMyList(@RequestParam Map<String, String> params, Model model, Questions questions,
+	public String getMyQList(@RequestParam Map<String, String> params, Model model, Questions questions,
 			@AuthenticationPrincipal SecurityMember user, @PageableDefault Pageable pageable) throws Exception {
 
 		CmmnMap param = new CmmnMap();
@@ -224,7 +224,8 @@ public class QuestionsController {
 		//List<Tags> tagList = qs.tagList();
 		List<Wiki> tagList = qs.findAllTag();
 
-		int listCount = qs.getMyListCount(questions);
+//		int listCount = qs.getMyListCount(questions);
+		int listCount = list.size();
 		paginationInfo.setTotalRecordCount(listCount); // 전체 게시물 건 수
 		model.addAttribute("list", list);
 		model.addAttribute("tagList", tagList);
