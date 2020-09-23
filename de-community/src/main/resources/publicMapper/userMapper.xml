@@ -9,6 +9,13 @@ SELECT
 	enterprisename
 FROM
 	tb_enterprises
+WHERE userno = #{seq}
+</select>
+<!-- SELECT 
+	enterpriseno,
+	enterprisename
+FROM
+	tb_enterprises
 WHERE
 	enterpriseno = 
 		(
@@ -18,9 +25,7 @@ WHERE
 				tb_user_detail 
 			WHERE 
 				userno = #{seq}
-		)
-</select>
-
+		) -->
 <update id="updateUserPw" parameterType="com.de.user.UserPwVO">
 UPDATE
 	tb_users

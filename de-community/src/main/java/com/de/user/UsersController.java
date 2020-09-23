@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -247,12 +249,14 @@ public class UsersController {
 	@ResponseBody
 	@RequestMapping(value="/getEnterList", method=RequestMethod.POST)
 	public HashMap<String, Object> getEnterList(String enterName) throws Exception{
+		
 		if(LOG_URL) logger.info(" -- url : /users/getEnterList - enterName : " + enterName);
+		
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		 List<Enterprises> list= usersService.getEnterList(enterName);
-		
+		System.out.println("list-----------" + list);
 //		if(updateVal) map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
 //		else map.put("message", CodeMessage.MSG_000024_변경_중_오류가_발생하였습니다_);
 		

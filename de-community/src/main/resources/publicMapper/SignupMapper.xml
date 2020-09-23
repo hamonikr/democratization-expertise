@@ -22,11 +22,22 @@
  insert
   	into
   	tb_enterprises(
-	
-  		enterprisebizno	
+  		enterprisebizno
+  		, userno
+  		, userat
+  		, activeat
+  		, representat
+  		, enterprisename
+		, registerdate  		
   	)
  	values(
- 		 #{enterprisebizno}
+ 		#{enterprisebizno}
+ 		, #{userno}
+		, #{userat}	 
+	   	, #{activeat}
+	   	, #{representat}
+	   	, #{enterprisename}
+	   	, now()
  	)
 </insert>
 
