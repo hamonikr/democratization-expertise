@@ -213,12 +213,11 @@ strong{
 			                  data: {userid},
 			                  success: function(retVal) {		 							
 			 						if(retVal == "사용가능한 아이디입니다"){
-			 							alert(retVal);
 			 						 	var enterprisebizno = ($("#bizNo1").val() + $("#bizNo2").val() + $("#bizNo3").val());
-			 							var chkbiz = checkBizNo(enterprisebizno);
+			 							var chkbiz = true; //checkBizNo(enterprisebizno);
 			 														
 			 							if(chkbiz == true){
-			 								alert("유효한 사업자 번호이다 --> "+chkbiz);
+			 								alert("유효한 사업자 번호이다 kkkk--> "+chkbiz);
 			 								$.ajax({
 			 					             data : {'enterprisebizno':enterprisebizno},
 			 					             url : "/signup/checkBizNoDuplication",
@@ -293,7 +292,7 @@ strong{
 		if(confirm("가입하시겠습니까?")==true){
 		   $.ajax({
 	             url: '/signup/signupForPartner.proc',
-	             data: {'userid': userid, 'useremail':useremail, 'enterprisebizno':enterprisebizno, 'userpassword':userpassword},
+	             data: {'userid': userid, 'useremail':useremail, 'enterprisebizno':enterprisebizno, 'userpassword':userpassword,  'username':$("#username").val()},
 	             success: function(retVal) {
 						if(retVal == "S"){
 							location.href="/login";

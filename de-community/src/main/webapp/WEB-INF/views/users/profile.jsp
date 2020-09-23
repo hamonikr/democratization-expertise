@@ -232,6 +232,7 @@ $('#enterpriseNameSearch').on("propertychange change keyup paste input", fn_sear
 
 // 회사명 실시간 검색 기능
 function fn_searchEnterpriseName() {
+	
 	var enterpriseNameSearch = $('#enterpriseNameSearch').val();
 	if(enterpriseNameSearch == null) enterpriseNameSearch ='';
 	enterpriseNameSearch = $.trim(enterpriseNameSearch);

@@ -2,17 +2,22 @@
 <%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
 
 <!-- tui-editor 사용 -->
-<script src='/tui-editor/markdown-it/dist/markdown-it.js'></script>
-<script src="/tui-editor/to-mark/dist/to-mark.js"></script>
-<script src="/tui-editor/tui-code-snippet/dist/tui-code-snippet.js"></script>
-<script src="/tui-editor/codemirror/lib/codemirror.js"></script>
-<script src="/tui-editor/highlightjs/highlight.pack.js"></script>
-<script src="/tui-editor/squire-rte/build/squire-raw.js"></script>
-<script src="/tui-editor/tui-editor/dist/tui-editor-Editor.js"></script>
-<link rel="stylesheet" href="/tui-editor/tui-editor/dist/tui-editor.css">
-<link rel="stylesheet" href="/tui-editor/tui-editor/dist/tui-editor-contents.css"> 
-<link rel="stylesheet" href="/tui-editor/codemirror/lib/codemirror.css">
-<link rel="stylesheet" href="/tui-editor/highlightjs/styles/github.css">
+<!-- <script src='/tui-editor/markdown-it/dist/markdown-it.js'></script> -->
+<!-- <script src="/tui-editor/to-mark/dist/to-mark.js"></script> -->
+<!-- <script src="/tui-editor/tui-code-snippet/dist/tui-code-snippet.js"></script> -->
+<!-- <script src="/tui-editor/codemirror/lib/codemirror.js"></script> -->
+<!-- <script src="/tui-editor/highlightjs/highlight.pack.js"></script> -->
+<!-- <script src="/tui-editor/squire-rte/build/squire-raw.js"></script> -->
+<!-- <script src="/tui-editor/tui-editor/dist/tui-editor-Editor.js"></script> -->
+<!-- <link rel="stylesheet" href="/tui-editor/tui-editor/dist/tui-editor.css"> -->
+<!-- <link rel="stylesheet" href="/tui-editor/tui-editor/dist/tui-editor-contents.css">  -->
+<!-- <link rel="stylesheet" href="/tui-editor/codemirror/lib/codemirror.css"> -->
+<!-- <link rel="stylesheet" href="/tui-editor/highlightjs/styles/github.css"> -->
+
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
 
 <!-- jquery-validation -->
 <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
@@ -263,7 +268,7 @@
 											<div id="editSection">${user.aboutme}</div> 
 										</div>
 										<script class="code-js">
-											var editor = new tui.Editor({
+											var editor = new toastui.Editor( { //new tui.Editor({
 												el: document.querySelector('#editSection'),
 												initialEditType: 'wysiwyg',
 												previewStyle: 'vertical',
@@ -364,11 +369,10 @@ function fn_searchEnterpriseName() {
 	}
 
 	oldEnterName = enterpriseNameSearch;
-
 	$('#enterpriseListDiv').html('');
 	$.ajax({
 		url		: '/users/getEnterList',
-		data	: { 'entername' : enterpriseNameSearch },
+		data	: { 'enterName' : enterpriseNameSearch },
 		type	: 'post',
 		async	: false,
 		beforeSend : function(xhr) {

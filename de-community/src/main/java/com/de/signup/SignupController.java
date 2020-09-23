@@ -102,6 +102,7 @@ public class SignupController {
 	@RequestMapping(value = "/checkBizNoDuplication")
 	@ResponseBody
 	public int checkBizNoDuplication(HttpServletRequest request, Enterprises evo, Model model) throws Exception {
+		
 	int chkBiz = 0;
 	System.out.println("사업자 번호 중복체크---> "+evo.getEnterprisebizno());
 
@@ -157,10 +158,19 @@ public class SignupController {
 		System.out.println("vo email==>" + vo.getUseremail());
 		System.out.println("vo pw==>" + vo.getUserpassword());	
 		System.out.println("enterprisebizno-->" +evo.getEnterprisebizno());
+		System.out.println("username----" + vo.getUsername());
 		
 		if(evo.getEnterprisebizno() != null) {
 			try {
+				// 사용자 정보 저장.
 				 service.save(vo);
+				 
+				 evo.setEnterprisename(vo.getUsername());// 회사명
+				 evo.setRepresentat(1);
+				 evo.setUserno(vo.getUserno());
+				 
+				 System.out.println("entp----" + evo.toString());
+				 // 기업정보 저장.
 				 service.saveEnterprisebizno(evo);
 				 if(vo.getUserid() != null) {
 					 System.out.println("=====user info save====");
