@@ -28,7 +28,7 @@ public class SignupController {
     @ResponseBody
 	@RequestMapping(value = "/VerifyRecaptcha", method = RequestMethod.POST)
     public int VerifyRecaptcha(HttpServletRequest request) {
-		//Recaptcha 서버단 시크릿 키
+		//Recaptcha 서버단 시크릿 키 
         VerifyRecaptcha.setSecretKey("6LeS16wZAAAAAEXib5WsF1ynZt5NSSPBS5uj-GWh");
         String gRecaptchaResponse = request.getParameter("recaptcha");
       
