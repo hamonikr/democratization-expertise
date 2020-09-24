@@ -228,6 +228,10 @@ public class EnterprisesController {
 		users = service.getMembersList(vo);	// 승인 회원 목록
 		model.addAttribute("atusers", users);
 		
+		vo.setUserat(3);	// 비활성
+		users = service.getMembersList(vo);	// 비활성 회원 목록
+		model.addAttribute("unatusers", users);
+		
 		model.addAttribute("isMypage", seq == enterpriseno);	// 내 정보 유무
 		model.addAttribute("enterpriseno", seq);	// 페이지 번호
 
