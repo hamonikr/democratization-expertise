@@ -49,7 +49,7 @@ public class EnterpriseService {
 			sortColumn = sort[0];
 		}
 
-		pageable = PageRequest.of(page, 5, new Sort(direction, sortColumn));
+		pageable = PageRequest.of(page, 30, new Sort(direction, sortColumn));
 		Page<Enterprises> list = er.findAll(pageable);
 		return list;
 	}

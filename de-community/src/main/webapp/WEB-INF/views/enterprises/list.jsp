@@ -43,7 +43,7 @@
 									<img alt="userProfileImg_${list.enterprisename}" src="/img/user_over.png">
 								</c:if>
 							</a>
-							<a href="/enterprises/activity/${list.enterpriseno}">${list.enterprisename}</a>
+							<a href="/enterprises/activity/${list.enterpriseno}">${list.enterprisename}, ${list.enterpriseno}</a>
 						</div>
 					</c:forEach>
 

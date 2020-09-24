@@ -54,6 +54,7 @@ public class Enterprises {
 	/* 수정 일시 */
 	@UpdateTimestamp
 	private Timestamp updatedate;
+	
 
 
 	/* users no (seq)*/
