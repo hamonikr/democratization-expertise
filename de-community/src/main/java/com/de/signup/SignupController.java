@@ -176,6 +176,8 @@ public class SignupController {
 					 System.out.println("=====user info save====");
 					 uvo.setUserno(vo.getUserno());
 					 uvo.setEnterpriseno(service.getEnterpriseno(evo));
+					 uvo.setRepresentat(1); //대표 :1 일반 :0
+					 uvo.setActiveat(0);// 0이면 활성계정 1이면 비활성계정
 					 service.saveDetail(uvo);
 					 retVal="S";
 
