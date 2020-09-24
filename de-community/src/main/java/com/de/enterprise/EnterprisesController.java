@@ -251,10 +251,14 @@ public class EnterprisesController {
 		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
 		// session 에서 seq 정보 추출
 		// 임시 - 기업회원 enterpriseno
-		int enterpriseno = 4;
-		vo.setEnterpriseno(enterpriseno);
+		//int enterpriseno = 4;
+		//vo.setEnterpriseno(enterpriseno);
+		System.out.println("변경할려는 userno => "+vo.getUserno());
+		System.out.println("변경하려는 값? "+vo.getActiveat());
+		vo.setRepresentat(2);//회사의 하위 멤버 :2
 		
 		boolean updateVal = service.updateUserat(vo);
+		
 		
 		if(updateVal) map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
 		else map.put("message", CodeMessage.ERROR_000004_정보가_잘못_입력되었습니다__확인_후_다시_시도해_주세요_);

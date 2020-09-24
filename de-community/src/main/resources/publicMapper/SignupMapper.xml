@@ -23,6 +23,7 @@
   	into
   	tb_enterprises(
   		enterprisebizno
+  		, enterpriseat
   		, userno
   		, userat
   		, activeat
@@ -32,6 +33,7 @@
   	)
  	values(
  		#{enterprisebizno}
+ 		, #{enterpriseat}
  		, #{userno}
 		, #{userat}	 
 	   	, #{activeat}
