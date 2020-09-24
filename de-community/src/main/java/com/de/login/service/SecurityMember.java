@@ -24,7 +24,8 @@ public class SecurityMember extends User {
 	private String username; // 멤버 이름
 	private String useremail; // 멤버 이메일
 	private int role; // 멤버권한
-	private int activeat; // 계정 활성상태 0:활성, 1:비활성 
+	private int activeat; // 계정 활성상태 0:활성, 1:비활성
+	private int enterpriseno;
 
 	// session setter
 		public SecurityMember(LoginVO vo) {
@@ -36,7 +37,7 @@ public class SecurityMember extends User {
 			this.useremail = vo.getUseremail();
 			this.role = vo.getRole();
 			this.activeat = vo.getActiveat();
-			
+			this.enterpriseno = vo.getEnterpriseno();
 		}
 		
 		private static Set<GrantedAuthority> makeGrantedAuthority(LoginVO vo) {

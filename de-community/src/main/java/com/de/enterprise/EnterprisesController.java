@@ -2,6 +2,7 @@ package com.de.enterprise;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -10,15 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.de.cmmn.util.CodeMessage;
+import com.de.login.service.SecurityMember;
 import com.de.user.Users;
 import com.de.user.UsersDetail;
 
@@ -61,17 +65,30 @@ public class EnterprisesController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/activity/{seq}", method=RequestMethod.GET)
-	public String dashboard(Model model, @PathVariable("seq") int seq) throws Exception {
+	public String dashboard(Model model, @PathVariable("seq") int seq, @AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
 		if(LOG_URL) logger.info(" -- url : /enterprises/activity - seq : " + seq);
 
 		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
 		// session 에서 seq 정보 추출
 		// 임시 - 사용자 seq
-		int userSeq = 4;
+//		int userSeq = 4;
 		
+		boolean isUserNo = false;
+		
+		if ( loginUserData == null ) {
+			isUserNo = false;
+		} else {
+			if( loginUserData.getEnterpriseno() == seq ) {
+				isUserNo = true;
+			}else {
+				isUserNo = false;	
+			}
+		}
+		System.out.println("loginUserData.getUserno()=========+++++"+loginUserData.getEnterpriseno() );
 		Optional<Enterprises> enterprises = service.findById(seq);
+		
 		model.addAttribute("enterprise", enterprises.orElse(null));	// 프로필 정보
-		model.addAttribute("isMypage", seq == userSeq);		// 내 정보 유무
+		model.addAttribute("isMypage", isUserNo);		// 내 정보 유무
 
 		return "/enterprises/activity";
 	}
@@ -96,6 +113,8 @@ public class EnterprisesController {
 		model.addAttribute("data", list.getContent());
 		return "/enterprises/list";
 	}
+	
+
 	
 	/**
 	 * 기업회원 상세 정보
