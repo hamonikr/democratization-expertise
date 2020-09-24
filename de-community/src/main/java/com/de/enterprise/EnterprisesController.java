@@ -87,6 +87,26 @@ public class EnterprisesController {
 		System.out.println("loginUserData.getUserno()=========+++++"+loginUserData.getEnterpriseno() );
 		Optional<Enterprises> enterprises = service.findById(seq);
 		
+UsersDetail vo = new UsersDetail();
+		
+		vo.setEnterpriseno(seq);
+		
+		vo.setUserat(0);	// 승인 대기
+		List<Users> users = service.getMembersList(vo);	// 승인 대기 회원 목록
+		model.addAttribute("users", users);
+		
+		vo.setUserat(1);	// 승인
+		users = service.getMembersList(vo);	// 승인 회원 목록
+		model.addAttribute("atusers", users);
+		
+		vo.setUserat(3);	// 비활성
+		users = service.getMembersList(vo);	// 비활성 회원 목록
+		model.addAttribute("unatusers", users);
+		
+//		model.addAttribute("isMypage", seq == enterpriseno);	// 내 정보 유무
+//		model.addAttribute("enterpriseno", seq);	// 페이지 번호
+		
+		
 		model.addAttribute("enterprise", enterprises.orElse(null));	// 프로필 정보
 		model.addAttribute("isMypage", isUserNo);		// 내 정보 유무
 
