@@ -8,5 +8,6 @@ import com.de.login.vo.LoginVO;
 public interface LoginMapper {
 
 	public LoginVO getUser(String username) throws Exception;
+	public LoginVO getUserInfo(String username) throws Exception;
 	
 }

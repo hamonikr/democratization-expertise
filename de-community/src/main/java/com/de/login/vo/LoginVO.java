@@ -18,7 +18,6 @@ public class LoginVO {
 	
 	/* 회사계정 */
 	private int enterpriseno; 
-	private String enterpriseid; // 회사계정 비밀번호
-	private String enterprisepassword; // 회사계정 비밀번호
-
+	private int representat; //회사 대표여부 1:대표, 2:일반직원 ,0 (default): 일반유저
+	private int userat; //회사등록 요청 여부 
 }
