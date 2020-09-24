@@ -31,6 +31,6 @@ public class UsersDetail {
 	private Integer userat;
 	/* 유저 활성여부 ㅣ 활성: 0, 비활성:1*/
 	private Integer activeat;
-	/* 회사 대표 계정 여부 : 없음, 일반:0, 대표:1 */
+	/* 회사 대표 계정 여부 : 일반:0, 대표:1, 하위:2 */
 	private Integer representat;
 }
