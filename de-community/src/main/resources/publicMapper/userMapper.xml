@@ -60,10 +60,11 @@ WHERE
 
 <update id="updateEnterpriseNo" parameterType="com.de.user.UsersDetail">
 UPDATE
-	tb_user_detail
+	tb_users_detail
 SET
 	<if test="enterpriseno != null">
-		enterpriseno = #{enterpriseno}
+		enterpriseno = #{enterpriseno},
+		userat = 0
 	</if>
 	<if test="enterpriseno == null">
 		enterpriseno = 0,

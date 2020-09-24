@@ -128,10 +128,12 @@
 												</div>
 												
 												<div class="col-4">
-													<c:if test="${ isMypage }">
+												<%-- 	<c:if test="${ isMypage }">
 														<input type="button" class="btn btn-primary" onclick="fnt_useratUser('userat','${mem.userno}');" value="승인"><br/>
 														<input type="button" class="btn btn-primary" onclick="fnt_useratUser('not','${mem.userno}');" value="거절">
-													</c:if>
+													</c:if> --%>
+													<input type="button" class="btn btn-primary" onclick="fnt_useratUser('userat','${mem.userno}');" value="승인"><br> 
+													<input type="button" class="btn btn-primary" onclick="fnt_useratUser('not','${mem.userno}');" value="거절">													
 												</div>
 											</div>
 											

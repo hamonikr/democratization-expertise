@@ -168,6 +168,7 @@ public class SignupController {
 				 evo.setEnterprisename(vo.getUsername());// 회사명
 				 evo.setRepresentat(1);
 				 evo.setUserno(vo.getUserno());
+				 evo.setEnterpriseat(1);
 				 
 				 System.out.println("entp----" + evo.toString());
 				 // 기업정보 저장.
