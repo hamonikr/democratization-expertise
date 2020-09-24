@@ -27,7 +27,7 @@ public class UsersDetail {
 	private Integer enterpriseno;
 	/* 유저 번호 */
 	private Integer userno;
-	/* 유저 승인여부 : 없음, 대기0, 승인1, 거부:2 */
+	/* 유저 승인여부 :  대기0, 승인(활성):1, 거부:2 , 비활성:3*/
 	private Integer userat;
 	/* 유저 활성여부 ㅣ 활성: 0, 비활성:1*/
 	private Integer activeat;
