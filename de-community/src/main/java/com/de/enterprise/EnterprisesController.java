@@ -87,7 +87,7 @@ public class EnterprisesController {
 		System.out.println("loginUserData.getUserno()=========+++++"+loginUserData.getEnterpriseno() );
 		Optional<Enterprises> enterprises = service.findById(seq);
 		
-UsersDetail vo = new UsersDetail();
+		UsersDetail vo = new UsersDetail();
 		
 		vo.setEnterpriseno(seq);
 		
