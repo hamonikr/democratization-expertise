@@ -34,7 +34,7 @@
 						     	
 						     	<div class=" form-group col-8" style="margin-bottom:10px;"><span> 아이디 </span></div>
 						      <div class="form-group col-12"> 	    
-								  	<input type="text" class="form-control" id="username" name="username" value="testComy1" placeholder="아이디를 입력해주세요" maxlength="20">             	
+								  	<input type="text" class="form-control" id="username" name="username" value="lee12343" placeholder="아이디를 입력해주세요" maxlength="20">             	
 								</div>
 						      <br>
 						       
@@ -43,7 +43,7 @@
 						         <div class="form-group col-8"><a class="float-right" href="/accountRecovery/sendRecoveryEmail">비밀번호를 잊으셨습니까?</a></div>
 								</div>
 						      <div class="form-group col-12">
-						      		<input type="password" class="form-control" id="password" name="password"  value="test1234" placeholder="비밀번호를 입력해주세요" maxlength="20">
+						      		<input type="password" class="form-control" id="password" name="password"  value="lee1234" placeholder="비밀번호를 입력해주세요" maxlength="20">
 						      </div>
 						      
 						      <br>
