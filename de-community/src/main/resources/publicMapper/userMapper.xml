@@ -3,13 +3,14 @@
  
 <mapper namespace="com.de.user.mapper.UsersMapper">
 
-<select id="findEnterpriseNo" parameterType="Integer" resultType="com.de.enterprise.Enterprises">
+<select id="findEnterpriseno" parameterType="Integer" resultType="com.de.enterprise.Enterprises">
 SELECT 
-	enterpriseno,
-	enterprisename
+	a.enterpriseno,
+	a.userat,
+	b.enterprisename
 FROM
-	tb_enterprises
-WHERE userno = #{seq}
+	tb_users_detail a left outer join tb_enterprises b on a.enterpriseno = b.enterpriseno
+WHERE a.userno = #{seq}
 </select>
 <!-- SELECT 
 	enterpriseno,

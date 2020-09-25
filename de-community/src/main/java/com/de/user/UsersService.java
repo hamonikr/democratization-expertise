@@ -50,10 +50,12 @@ public class UsersService {
 		return ur.findById(seq);
 	}
 	
-	public Optional<Enterprises> findEnterpriseNo(int seq) throws Exception {
-		return um.findEnterpriseNo(seq);
+//	public Optional<Enterprises> findEnterpriseno(int seq) throws Exception {
+//		return um.findEnterpriseno(seq);
+//	}
+	public Enterprises findEnterpriseno(int seq) throws Exception {
+		return um.findEnterpriseno(seq);
 	}
-	
 	// 목록
 	public Page<Users> findAll(Pageable pageable) throws Exception {
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);

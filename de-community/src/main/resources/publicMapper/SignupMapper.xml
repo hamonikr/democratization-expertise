@@ -29,6 +29,7 @@
   		, activeat
   		, representat
   		, enterprisename
+  		, enterpriseemail
 		, registerdate  		
   	)
  	values(
@@ -39,6 +40,7 @@
 	   	, #{activeat}
 	   	, #{representat}
 	   	, #{enterprisename}
+	   	, #{enterpriseemail}
 	   	, now()
  	)
 </insert>

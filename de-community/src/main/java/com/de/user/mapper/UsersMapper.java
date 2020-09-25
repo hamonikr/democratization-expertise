@@ -11,7 +11,8 @@ import com.de.user.UsersDetail;
 import com.de.wiki.Wiki;
 
 public interface UsersMapper {
-	public Optional<Enterprises> findEnterpriseNo(int seq);
+//	public Optional<Enterprises> findEnterpriseno(int seq);
+	public Enterprises findEnterpriseno(int seq);
 	public int updateUserPw(UserPwVO vo);
 	public void updateUserProfileImg(Users vo);
 	public List<Enterprises> getEnterList(Enterprises vo);
