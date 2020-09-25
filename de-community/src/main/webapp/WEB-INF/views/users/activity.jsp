@@ -233,16 +233,18 @@
 								<div class="form-group">
 									<label for="enterpriseName" class="col-form-label">회사명</label>
 									<c:if test="${ isMypage }">
+									<input type="hidden" name="enterpriseno" id="enterpriseNo" value="${enterprise.enterpriseno}" autocomplete="off">
 										<%-- <input type="hidden" name="enterpriseno" id="enterpriseNo" value="${enterprise.enterpriseno}" autocomplete="off">
 										<input type="text" class="form-control" id="enterpriseNameSearch" value="${enterprise.enterprisename}" autocomplete="off">
 										<div id="enterpriseListDiv"></div> --%>
 										<c:choose>
 											<c:when test="${enterprise.userat == 1}">
 												<input type="text" class="form-control" id="enterpriseNameSearch" value="${enterprise.enterprisename}" autocomplete="off">
-												<div id="enterpriseListDiv"></div>
+										
 											</c:when>		
 											<c:otherwise>
-												<input type="text" class="form-control" id="enterpriseNameSearch" value="" autocomplete="off">										
+												<input type="text" class="form-control" id="enterpriseNameSearch" value="" autocomplete="off">	
+													<div id="enterpriseListDiv"></div>									
 											</c:otherwise>
 										</c:choose>
 										

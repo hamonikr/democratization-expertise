@@ -64,13 +64,11 @@ UPDATE
 	tb_users_detail
 SET
 	<if test="enterpriseno != null">
-		enterpriseno = #{enterpriseno},
-		userat = 0
+		enterpriseno = #{enterpriseno}
 	</if>
 	<if test="enterpriseno == null">
 		enterpriseno = 0,
-		userat = 0,
-		activeat = 0
+		userat = 0
 	</if>
 WHERE
 	userno = #{userno}

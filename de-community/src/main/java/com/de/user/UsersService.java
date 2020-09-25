@@ -81,6 +81,8 @@ public class UsersService {
 		Optional<Users> users = ur.findById(vo.getUserno());
 		Optional<Enterprises> enterprises = null;
 		
+		System.out.println("수정 클릭시 확인==>"+userDetail.getEnterpriseno());
+		
 		// find enterprise information
 		if(userDetail != null && userDetail.getEnterpriseno() != null) {
 			enterprises = er.findById(userDetail.getEnterpriseno());
