@@ -134,6 +134,10 @@ public class QuestionsController {
 		qs.save(vo);
 		// 투표등록
 		vs.save(vvo);
+		param.put("userno", vo.getUserno());
+		param.put("score", 5);
+		// 점수등록
+		cs.updateObject("saveScore", param);
 		// model.addAttribute("sample", ss.findById(sample.getSeq()));
 		return "redirect:/questions/list";
 	}

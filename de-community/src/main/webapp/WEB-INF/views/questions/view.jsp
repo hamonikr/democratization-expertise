@@ -121,6 +121,9 @@
 								답변내용:${list.contents } <br/>
 								등록자:${list.users.userid } <br/>
 								등록일:<fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd" /><br/>
+								<c:if test="${(list.users.userno eq user.userno)}">
+									<a href="#" class="btn btn-primary purple">수정</a>
+								</c:if>
 								</div>
 								</c:forEach>
 								<div class="mb-3">

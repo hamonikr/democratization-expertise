@@ -132,15 +132,18 @@ public class AnswersController {
 		} else {
 			CmmnMap param = new CmmnMap();
 			vo.setAnswerno(Integer.parseInt(cs.selectObject("selectANO", param).getString("answerno")));
-			System.out.println("userno====="+user.getUserno());
 			vo.setUserno(user.getUserno());
 			vvo.setPno(vo.getAnswerno());
 			vvo.setSection("A");
 			vvo.setUserno(user.getUserno());
-			// 질문등록
+			// 답변등록
 			as.save(vo);
 			// 투표등록
 			vs.save(vvo);
+			param.put("userno", vo.getUserno());
+			param.put("score", 8);
+			// 점수등록
+			cs.updateObject("saveScore", param);
 			return "redirect:/questions/view/"+vo.getQuestionno();
 		}
 	}
