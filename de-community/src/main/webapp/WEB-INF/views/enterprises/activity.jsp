@@ -78,14 +78,41 @@
 						<div class="card-body card-primary row" style="width: 100%;">
 						
 							<div class="col-6">
-								<div>질문()</div>
+								<div>질문(${ qCnt })</div>
 								<hr/>
+								<c:forEach var="list" items="${ qList }" varStatus="status">
+									<div class="dash-list">
+										<a href="/questions/view/${ list.questionno }">${ list.title }</a>
+									</div>
+								</c:forEach>
 								
+								<c:if test="${ qCnt > 5 }">
+									<form action="/questions/myList">
+										<input type="hidden" name="userno" value="${ user.userno }">
+										<input type="hidden" name="section" value="Q">
+										<button type="submit" class="btn-primary btn-xs" >더보기</button>
+									</form>
+								</c:if>
 							</div>
 						
 							<div class="col-6">
-								<div>답변()</div>
+								<div>답변(${ aCnt })</div>
 								<hr/>
+								<c:forEach var="list" items="${ aList }" varStatus="status">
+									<div class="dash-list">
+										<a href="/questions/view/${ list.questionno }">
+											${fn:substring(list.contents.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""), 0, 150)}
+										</a>
+									</div>
+								</c:forEach>
+								
+								<c:if test="${ aCnt > 5 }">
+									<form action="/questions/myList">
+										<input type="hidden" name="userno" value="${ user.userno }">
+										<input type="hidden" name="section" value="A">
+										<button type="submit" class="btn-primary btn-xs" >더보기</button>
+									</form>
+								</c:if>
 							</div>
 						</div>
 					
@@ -93,15 +120,39 @@
 						<div class="card-body card-primary row" style="width: 100%;">
 						
 							<div class="col-6 row">
-								<div class="col-12">태그()</div>
+								<div class="col-12">태그(${ tCnt })</div>
 								<hr/>
 								<div class="dash-list col-12">
+									<c:forEach var="list" items="${ tList }" varStatus="status">
+										<a href="/wiki/view/${ list.wikino }" class="float-left badge bg-primary tagSpan">${ list.title }</a>
+									</c:forEach>
 								</div>
+								
+								<c:if test="${ tCnt > 5 }">
+									<form action="/questions/myList">
+										<input type="hidden" name="userno" value="${ user.userno }">
+										<input type="hidden" name="type" value="A">
+										<button type="submit" class="btn-primary btn-xs" >더보기</button>
+									</form>
+								</c:if>
 							</div>
 						
 							<div class="col-6">
-								<div>위키()</div>
+								<div>위키(${ wCnt })</div>
 								<hr/>
+								<c:forEach var="list" items="${ wList }" varStatus="status">
+									<div class="dash-list">
+										<a href="/wiki/view/${ list.wikino }">${ list.title }</a>
+									</div>
+								</c:forEach>
+								
+								<c:if test="${ wCnt > 5 }">
+									<form action="/questions/myList">
+										<input type="hidden" name="userno" value="${ user.userno }">
+										<input type="hidden" name="type" value="A">
+										<button type="submit" class="btn-primary btn-xs" >더보기</button>
+									</form>
+								</c:if>
 							</div>
 						</div>
 					</div>

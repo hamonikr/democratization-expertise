@@ -21,10 +21,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.de.answer.Answers;
 import com.de.cmmn.util.CodeMessage;
 import com.de.login.service.SecurityMember;
+import com.de.question.Questions;
 import com.de.user.Users;
 import com.de.user.UsersDetail;
+import com.de.wiki.Wiki;
 
 
 /**
@@ -84,12 +87,45 @@ public class EnterprisesController {
 				isUserNo = false;	
 			}
 		}
-		System.out.println("loginUserData.getUserno()=========+++++"+loginUserData.getEnterpriseno() );
+//		System.out.println("loginUserData.getUserno()=========+++++"+loginUserData.getEnterpriseno() );
 		Optional<Enterprises> enterprises = service.findById(seq);
 		
 		UsersDetail vo = new UsersDetail();
 		
 		vo.setEnterpriseno(seq);
+		
+		// 질문
+		int qCnt = service.cntQuestionsById(seq);
+		Page<Questions> qList = service.findQuestionsByUserno(seq);
+		
+		// 답변
+		int aCnt = service.cntAnswerById(seq);
+		Page<Answers> aList = service.findAnswerByUserno(seq);
+		
+		// 태그 n 위키
+		Wiki wVo = new Wiki();
+		wVo.setUserno(seq);
+		
+		// 태그
+		wVo.setSection("t");
+		int tCnt = service.cntTagAndWikiById(wVo);
+		List<Wiki> tList = service.findTagAndWikiByUserno(wVo);
+		
+		// 위키
+		wVo.setSection("h");
+		int wCnt = service.cntTagAndWikiById(wVo);
+		List<Wiki> wList = service.findTagAndWikiByUserno(wVo);
+		
+		if(LOG_URL) {
+			logger.info(" ------ qCnt : " + qCnt);
+			logger.info(" ------ qList Content : " + qList.getContent());
+			logger.info(" ------ aCnt : " + aCnt);
+			logger.info(" ------ aList Content : " + aList.getContent());
+			logger.info(" ------ tCnt : " + tCnt);
+			logger.info(" ------ tList Content : " + tList);
+			logger.info(" ------ wCnt : " + wCnt);
+			logger.info(" ------ wList Content : " + wList);
+		}
 		
 		vo.setUserat(0);	// 승인 대기
 		List<Users> users = service.getMembersList(vo);	// 승인 대기 회원 목록
@@ -103,12 +139,23 @@ public class EnterprisesController {
 		users = service.getMembersList(vo);	// 비활성 회원 목록
 		model.addAttribute("unatusers", users);
 		
-//		model.addAttribute("isMypage", seq == enterpriseno);	// 내 정보 유무
 //		model.addAttribute("enterpriseno", seq);	// 페이지 번호
 		
 		
 		model.addAttribute("enterprise", enterprises.orElse(null));	// 프로필 정보
 		model.addAttribute("isMypage", isUserNo);		// 내 정보 유무
+		
+		model.addAttribute("qCnt", qCnt);					// 질문 전체 수
+		model.addAttribute("qList", qList.getContent());	// 질문 목록
+		
+		model.addAttribute("aCnt", aCnt);					// 답변 전체 수
+		model.addAttribute("aList", aList.getContent());	// 답변 목록
+		
+		model.addAttribute("tCnt", tCnt);		// 태그 전체 수
+		model.addAttribute("tList", tList);	// 태그 목록
+		
+		model.addAttribute("wCnt", wCnt);		// 위키 전체 수
+		model.addAttribute("wList", wList);	// 위키 목록
 
 		return "/enterprises/activity";
 	}
