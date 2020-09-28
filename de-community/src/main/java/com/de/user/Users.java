@@ -69,4 +69,11 @@ public class Users implements Serializable{
 		inverseJoinColumns = @JoinColumn(name="userno") //반대 엔티티의 외래키
 	)
 	private UsersDetail usersDetail;
+	
+//	@OneToOne
+//	@JoinTable(name = "tb_score", //조인테이블명
+//		joinColumns = @JoinColumn(name="userno"),  //외래키
+//		inverseJoinColumns = @JoinColumn(name="userno") //반대 엔티티의 외래키
+//	)
+//	private UsersDetail userScore;
 }

@@ -116,4 +116,21 @@ ORDER BY registerdate DESC
 LIMIT 5
 </select>
 
+<select id="getUserScore" resultType="com.de.cmmn.CmmnMap">
+select a.*,b.*,c.* from tb_users a 
+left outer join tb_score b on a.userno = b.userno
+left outer join tb_users_detail c on a.userno = c.userno
+where b.score is not null and c.representat = 0
+order by b.score desc
+</select>
+
+<select id="getPartnerScore" resultType="com.de.cmmn.CmmnMap">
+select a.*,b.*,c.*,d.* from tb_users a 
+left outer join tb_score b on a.userno = b.userno
+left outer join tb_users_detail c on a.userno = c.userno
+left outer join tb_enterprises d on a.userno = d.userno
+where b.score is not null
+order by b.score desc
+</select>
+
 </mapper>
