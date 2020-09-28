@@ -134,4 +134,11 @@ WHERE
 ORDER BY registerdate DESC
 LIMIT 5
 </select>
+
+<select id="getScore" parameterType="Integer" resultType="Integer">
+SELECT (
+    (SELECT score FROM tb_score WHERE userno=#{seq}) 
+    + (SELECT count(*) FROM tb_vote WHERE userno=#{seq})
+    )
+</select>
 </mapper>

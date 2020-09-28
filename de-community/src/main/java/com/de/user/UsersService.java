@@ -224,4 +224,9 @@ public class UsersService {
 	public List<Wiki> findTagAndWikiByUserno(Wiki vo) {
 		return um.findTagAndWikiByUserno(vo);
 	}
+
+	// 평판점수
+	public Integer getScore(int seq) {
+		return um.getScore(seq);
+	}
 }
