@@ -42,12 +42,24 @@ $(function() {
 	$.ajax({ 
 		//type: "POST", 
 		//contentType: "application/json", 
-		url: "/cmmn/view", 
+		url: "/cmmn/list", 
 		//dataType: 'json', 
 		success: function (data) { 
 			console.log(data);
 			if (data != null){
-		$("#bodyrightLayer").html(data.contents);
+				for(i=0;i<data.user.length;i++){
+						$("#bodyrightLayer").append("사용자");
+						$("#bodyrightLayer").append(data.user[i].userid+"=");
+						$("#bodyrightLayer").append(data.user[i].score);
+						$("#bodyrightLayer").append("<br/>");
+				}
+				for(y=0;y<data.partner.length;y++){
+					$("#bodyrightLayer").append("파트너사");
+					$("#bodyrightLayer").append(data.partner[i].username+"=");
+					$("#bodyrightLayer").append(data.partner[i].score);
+					$("#bodyrightLayer").append("<br/>");
+				}
+		//$("#bodyrightLayer").html(data.contents);
 				}
 			}, 
 			error: function (e) { 
