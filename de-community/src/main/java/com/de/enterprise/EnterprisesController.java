@@ -78,10 +78,12 @@ public class EnterprisesController {
 		
 		boolean isUserNo = false;
 		
+		System.out.println("user enterprise no : " + loginUserData.getEnterpriseno() +" \n대표계정 여부 : "+ loginUserData.getRepresentat());
+		
 		if ( loginUserData == null ) {
 			isUserNo = false;
 		} else {
-			if( loginUserData.getEnterpriseno() == seq ) {
+			if( loginUserData.getEnterpriseno() == seq && loginUserData.getRepresentat()==1) {
 				isUserNo = true;
 			}else {
 				isUserNo = false;	
@@ -156,6 +158,8 @@ public class EnterprisesController {
 		
 		model.addAttribute("wCnt", wCnt);		// 위키 전체 수
 		model.addAttribute("wList", wList);	// 위키 목록
+
+		model.addAttribute("isMypage", isUserNo );	// 내 정보 유무
 
 		return "/enterprises/activity";
 	}
@@ -295,13 +299,29 @@ public class EnterprisesController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/members/{seq}", method=RequestMethod.GET)
-	public String members(Model model, @PathVariable("seq") int seq) throws Exception {
+	public String members(Model model, @PathVariable("seq") int seq,  @AuthenticationPrincipal SecurityMember loginUserData ) throws Exception {
 		if(LOG_URL) logger.info(" -- url : /enterprises/members - seq : " + seq);
 
 		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
 		// session 에서 seq 정보 추출
 		// 임시 - 기업회원 enterpriseno
-		int enterpriseno = 4;
+
+		//boolean isUserNo = false;
+		System.out.println("기업회원 상세");
+		System.out.println("userno ???"+ loginUserData.getEnterpriseno() + "대표계정 여부"+loginUserData.getRepresentat());
+		
+		boolean isUserNo = false;
+		
+		if ( loginUserData == null ) {
+			isUserNo = false;
+		} else {
+			if( loginUserData.getEnterpriseno() == seq ) {
+				isUserNo = true;
+			}else {
+				isUserNo = false;	
+			}
+		}
+		
 		UsersDetail vo = new UsersDetail();
 		
 		vo.setEnterpriseno(seq);
@@ -318,7 +338,7 @@ public class EnterprisesController {
 		users = service.getMembersList(vo);	// 비활성 회원 목록
 		model.addAttribute("unatusers", users);
 		
-		model.addAttribute("isMypage", seq == enterpriseno);	// 내 정보 유무
+		model.addAttribute("isMypage", isUserNo);	// 내 정보 유무
 		model.addAttribute("enterpriseno", seq);	// 페이지 번호
 
 		return "/enterprises/members";
