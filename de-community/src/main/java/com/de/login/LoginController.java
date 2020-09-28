@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,13 +13,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.de.login.service.LoginService;
+import com.de.login.service.MemberService;
 import com.de.login.service.SecurityMember;
+import com.de.login.vo.LoginVO;
 
 
 @Controller
 @RequestMapping(value = "/login")
 public class LoginController {
-	
+	@Autowired
+	LoginService service;
 	
 	@RequestMapping("")
 	 public String login() {
@@ -42,7 +47,7 @@ public class LoginController {
 	
 	
 	@RequestMapping("/login")
-	 public String loginSuccess(Model model, @AuthenticationPrincipal SecurityMember user ) throws Exception{
+	 public String loginSuccess(Model model, @AuthenticationPrincipal SecurityMember user, LoginVO vo ) throws Exception{
 		System.out.println("<<--- controller for normal loginSuccess-->> ");
 	
 		if(user!=null) {
@@ -52,9 +57,20 @@ public class LoginController {
 		}
 		model.addAttribute("loginUser", user);
 		
+		// 유저가 회사계정이냐 일반 유저이냐에 따라 프로필 페이지 변경
+		vo = service.getUserInfo(user.getUserid());
 		
-//		return "/users/profile";
-		return "redirect:/users/activity/"+user.getUserno();
+		System.out.println("대표 유저 여부==?? "+vo.getRepresentat());
+		Integer val = null;
+		
+		if(vo.getRepresentat()==1) {
+			return "redirect:/enterprises/activity/"+vo.getEnterpriseno();
+
+		} else {
+			return "redirect:/users/activity/"+user.getUserno();
+				}
+		
+		//		return "/users/profile";
 	} 
 
 	 @RequestMapping("/message")

@@ -39,7 +39,11 @@
 		<form id="frm" name="frm" method="post">
 			<!-- 스프링 시큐리티 form에 추가 해줘야함. -->
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			<input type="hidden" name="section" value="h" />		
+<!-- 			<input type="hidden" name="section" value="h" /> -->
+<!-- 			<select name="section" id="section"> -->
+<!-- 				<option value="h">Help</option> -->
+<!-- 				<option value="m">menual</option> -->
+<!-- 			</select>		 -->
 <%-- 			<input type="hidden" name="wikino" value="${result.wikino}" />
 			<input type="hidden" name="userno" value="${result.userno}" />
  --%>			<div class="container-fluid">
@@ -83,6 +87,7 @@
 							</div>
 							
 							<div class="card-footer cont_btn_div">
+								<input type="text" id="section" name="section" value="${gubun }">
 								<c:choose>
 									<c:when test="${empty result}">
 										<button type="submit" name="btnSubmit" class="btn btn-primary purple" value="c">등록</button>
@@ -92,7 +97,7 @@
 										<button type="button" id="btnDelete" class="btn btn-primary red">삭제</button>
 									</c:otherwise>
 								</c:choose>
-								<button type="button" class="btn btn-primary gray" onclick="location.href='/wiki/Help'">목록</button>
+								<button type="button" class="btn btn-primary gray" onclick="location.href='/wiki/Help/${gubun}'">목록</button>
 							</div>
 				
 						</div>

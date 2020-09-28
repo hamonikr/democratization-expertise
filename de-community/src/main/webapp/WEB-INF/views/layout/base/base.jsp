@@ -38,6 +38,23 @@
 <!-- <script src="/dist/js/common.js"></script> -->
 <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
 <script type="text/javascript">
+$(function() {
+	$.ajax({ 
+		//type: "POST", 
+		//contentType: "application/json", 
+		url: "/cmmn/view", 
+		//dataType: 'json', 
+		success: function (data) { 
+			console.log(data);
+			if (data != null){
+		$("#bodyrightLayer").html(data.contents);
+				}
+			}, 
+			error: function (e) { 
+				alert("fail"); 
+			} 
+			});
+});
   function numberWithCommas(x) {
     return x.toString().replace( /\B(?=(\d{3})+(?!\d))/g, "," );
   }
@@ -63,7 +80,7 @@
 				</div>
 				<div class="col-sm-4" id="bodyrightLayer">
 					<!-- style="background-color:black;" -->
-					<img src="/img/stackedViewR.jpg">
+					<!-- <img src="/img/stackedViewR.jpg"> -->
 				</div>
 			</div>
 		</div>

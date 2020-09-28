@@ -34,7 +34,7 @@
 						     	
 						     	<div class=" form-group col-8" style="margin-bottom:10px;"><span> 아이디 </span></div>
 						      <div class="form-group col-12"> 	    
-								  	<input type="text" class="form-control" id="username" name="username" value="lee2" placeholder="아이디를 입력해주세요" maxlength="20">             	
+								  	<input type="text" class="form-control" id="username" name="username" value="lee12343" placeholder="아이디를 입력해주세요" maxlength="20">             	
 								</div>
 						      <br>
 						       

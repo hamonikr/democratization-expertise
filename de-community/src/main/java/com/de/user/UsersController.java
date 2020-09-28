@@ -67,7 +67,21 @@ public class UsersController {
 		}
 		
 		Optional<Users> users = usersService.findById(seq);
-		Optional<Enterprises> enterprise = usersService.findEnterpriseNo(seq);
+		//Optional<Enterprises> enterprise = usersService.findEnterpriseno(seq);
+		Enterprises enterprise = usersService.findEnterpriseno(seq);
+	
+		try{
+
+			System.out.println("enterprise?" + enterprise.getEnterpriseno());
+			System.out.println("enterprise?" + enterprise.getEnterprisename());
+			System.out.println("enterprise?" + enterprise.getUserat());
+
+		}catch (Exception e){
+		    //에러시 수행
+			System.out.println("enterprise 없는 일반 유저");
+		     e.printStackTrace(); //오류 출력(방법은 여러가지)
+		}
+		
 		
 		// 질문
 		int qCnt = usersService.cntQuestionsById(seq);
@@ -105,7 +119,7 @@ public class UsersController {
 		System.out.println("1==========++"+ users.get().getUserprofileimg());
 		model.addAttribute("user", users.orElse(null));	// 프로필 정보
 		model.addAttribute("isMypage", isUserNo);		// 내 정보 유무
-		model.addAttribute("enterprise", enterprise.orElse(null));	// 회사명 정보
+		model.addAttribute("enterprise", enterprise);	// 회사명 정보
 		
 		model.addAttribute("qCnt", qCnt);					// 질문 전체 수
 		model.addAttribute("qList", qList.getContent());	// 질문 목록
@@ -155,7 +169,10 @@ public class UsersController {
 		boolean isUserNo = false;
 		
 		Optional<Users> user = usersService.findById(seq);
-		Optional<Enterprises> enterprise = usersService.findEnterpriseNo(seq);
+		//Optional<Enterprises> enterprise = usersService.findEnterpriseno(seq);
+		Enterprises enterprise = usersService.findEnterpriseno(seq);
+		System.out.println("profile -- > enterprise name > " +enterprise.getEnterprisename());
+		System.out.println("userat? "+enterprise.getUserat());
 		
 		logger.info(" ------ user : " + user);
 		logger.info(" ------ enterprise : " + enterprise);
@@ -171,7 +188,7 @@ public class UsersController {
 		
 		model.addAttribute("user", user.orElse(null));	// 프로필 정보
 		model.addAttribute("isMypage", isUserNo );	// 내 정보 유무
-		model.addAttribute("enterprise", enterprise.orElse(null));	// 회사명 정보
+		model.addAttribute("enterprise", enterprise);	// 회사명 정보
 		
 		return "/users/profile";
 	}
@@ -187,6 +204,8 @@ public class UsersController {
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public String modify(Model model, Users vo, UsersDetail userDetail) throws Exception {
 		if(LOG_URL) logger.info(" -- url : /users/modify - user : " + vo + " // detail : " + userDetail);
+		
+		System.out.println("userDetail? " + userDetail.getEnterpriseno());
 		usersService.updateUser(vo, userDetail);
 		return "redirect:/users/activity/" + vo.getUserno();
 	}
@@ -253,13 +272,13 @@ public class UsersController {
 	public HashMap<String, Object> getEnterList(String enterName,HttpServletRequest req) throws Exception{
 		if(LOG_URL) logger.info(" -- url : /users/getEnterList - enterName : " + enterName);
 		
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		 List<Enterprises> list= usersService.getEnterList(req.getParameter("entername"));
 		 for(int i=0;i<list.size();i++) {
 			 System.out.println("enter===="+list.get(i));
 		 }
-		
 //		if(updateVal) map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
 //		else map.put("message", CodeMessage.MSG_000024_변경_중_오류가_발생하였습니다_);
 		

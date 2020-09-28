@@ -38,25 +38,45 @@ public class WikiController {
 		List<Wiki> fna_list = service.getWikiList("h");
 		model.addAttribute("result", fna_list);
 		
-		// tag list
-		List<Wiki> tags_list = service.getWikiList("t");
-		model.addAttribute("tags", tags_list);
 
+		// MENUAL list
+		List<Wiki> menual_list = service.getWikiList("m");
+		model.addAttribute("menual_result", menual_list);
+		
+		// tag list
+//		List<Wiki> tags_list = service.getWikiList("t");
+//		model.addAttribute("tags", tags_list);
+
+		
+		List<Wiki> get_list = service.getWikiList("t");
+		//List <Integer> tagno_cnt= new ArrayList<>();
+		int [] tagno_cnt = new int[get_list.size()];
+		for(int i=0;i<get_list.size();i++) {
+			System.out.println(get_list.get(i).getWikino()+" : "+get_list.get(i).getTitle()+"\n : "+ get_list.get(i).getContents());			
+			tagno_cnt[i] = service.getWikiCount(get_list.get(i).getWikino());
+			System.out.println(get_list.get(i).getWikino()+" 번 태그가 포함된 질문 갯수-->" +tagno_cnt[i]);
+			System.out.println("-------------------------------------------------------------");
+			get_list.get(i).setRelatedcnt(tagno_cnt[i]);
+		}
+		
+		
+		model.addAttribute("tagsResult", get_list);
 		
 		return "/wiki/start";
 	 }
 	
 
-	@RequestMapping("/Help")
-	 public String helplist(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo,Model model) throws Exception { 		
+	@RequestMapping("/Help/{gubun}")
+	 public String helplist(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo,Model model,@PathVariable("gubun") String gubun ) throws Exception { 		
 		System.out.println("---wiki view---");		
 		vo.setSection("h");
 		// fna list
-		List<Wiki> fna_list = service.getWikiList("h");
+		List<Wiki> fna_list = service.getWikiList(gubun);
 		model.addAttribute("result", fna_list);
-		for(int i =0;i<fna_list.size();i++){
-			System.out.println(fna_list.get(i).getTitle());
-		}
+		model.addAttribute("gubun", gubun);
+		
+		
+		
 		// etc list
 		
 		
@@ -99,8 +119,8 @@ public class WikiController {
 	 }
 	
 
-	@RequestMapping("/saveHelp")
-	 public String createHelp(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model)throws Exception { 		
+	@RequestMapping("/saveHelp/{gubun}")
+	 public String createHelp(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model,@PathVariable("gubun") String gubun )throws Exception { 		
 		System.out.println("---wiki help create!---");
 		
 		if(user==null) {
@@ -114,7 +134,7 @@ public class WikiController {
 			System.out.println("user id ==>" + user.getUserid());
 			System.out.println("userno ==>"+ user.getUserno());		
 			
-			
+			model.addAttribute("gubun", gubun);	
 			return "/wiki/createHelp";
 		}
 	 } 
@@ -150,10 +170,21 @@ public class WikiController {
 		vo.setUserno(user.getUserno());
 		System.out.println("section==?" + vo.getSection());
 		
+		String retunUrl = "";
+		String gubun = request.getParameter("gubun");
+		
+		if(vo.getSection().equals("h")) {
+			retunUrl = "/wiki/Help/h";
+		}else if(vo.getSection().equals("m")) {
+			retunUrl = "/wiki/Help/m";
+		}else {
+			retunUrl ="/wiki/getStart";
+		}
 		//wiki 문서 생성	
 		//service.save(vo);	
 		service.saveHistory(vo);
-		return "redirect:/wiki/getStart";
+		return "redirect:" + retunUrl;
+//		return "redirect:/wiki/getStart";
 
 	} 
 

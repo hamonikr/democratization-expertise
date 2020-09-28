@@ -3,8 +3,16 @@
  
 <mapper namespace="com.de.user.mapper.UsersMapper">
 
-<select id="findEnterpriseNo" parameterType="Integer" resultType="com.de.enterprise.Enterprises">
+<select id="findEnterpriseno" parameterType="Integer" resultType="com.de.enterprise.Enterprises">
 SELECT 
+	a.enterpriseno,
+	a.userat,
+	b.enterprisename
+FROM
+	tb_users_detail a left outer join tb_enterprises b on a.enterpriseno = b.enterpriseno
+WHERE a.userno = #{seq}
+</select>
+<!-- SELECT 
 	enterpriseno,
 	enterprisename
 FROM
@@ -18,9 +26,7 @@ WHERE
 				tb_user_detail 
 			WHERE 
 				userno = #{seq}
-		)
-</select>
-
+		) -->
 <update id="updateUserPw" parameterType="com.de.user.UserPwVO">
 UPDATE
 	tb_users
@@ -55,15 +61,14 @@ WHERE
 
 <update id="updateEnterpriseNo" parameterType="com.de.user.UsersDetail">
 UPDATE
-	tb_user_detail
+	tb_users_detail
 SET
 	<if test="enterpriseno != null">
 		enterpriseno = #{enterpriseno}
 	</if>
 	<if test="enterpriseno == null">
 		enterpriseno = 0,
-		userat = 0,
-		activeat = 0
+		userat = 0
 	</if>
 WHERE
 	userno = #{userno}

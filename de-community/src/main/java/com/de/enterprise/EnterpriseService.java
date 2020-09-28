@@ -16,9 +16,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.de.answer.Answers;
+import com.de.answer.AnswersRepository;
 import com.de.enterprise.mapper.EnterprisesMapper;
+import com.de.question.Questions;
+import com.de.question.QuestionsRepository;
 import com.de.user.Users;
 import com.de.user.UsersDetail;
+import com.de.wiki.Wiki;
 
 @Service
 @Transactional
@@ -29,6 +34,12 @@ public class EnterpriseService {
 	
 	@Autowired
 	EnterprisesMapper em;
+	
+	@Autowired
+	QuestionsRepository qr;
+	
+	@Autowired
+	AnswersRepository ar;
 
 	public Optional<Enterprises> findById(int seq) throws Exception {
 		return er.findById(seq);
@@ -49,7 +60,7 @@ public class EnterpriseService {
 			sortColumn = sort[0];
 		}
 
-		pageable = PageRequest.of(page, 5, new Sort(direction, sortColumn));
+		pageable = PageRequest.of(page, 30, new Sort(direction, sortColumn));
 		Page<Enterprises> list = er.findAll(pageable);
 		return list;
 	}
@@ -142,5 +153,39 @@ public class EnterpriseService {
 
 	public boolean updateUserat(UsersDetail vo) {
 		return em.updateUserat(vo);
+	}
+
+	// 내 질문 등록 수
+	public int cntQuestionsById(int seq) {
+		return em.cntQuestionsById(seq);
+	}
+	
+	// 내 질문 목록 - 최근 5개
+	public Page<Questions> findQuestionsByUserno(int seq) {
+		Pageable pageable = PageRequest.of(0, 5, new Sort(Sort.Direction.DESC, "registerdate"));
+		Page<Questions> list = qr.findAllByUserno(seq, pageable);
+		return list;
+	}
+
+	// 내 답변 등록 수
+	public int cntAnswerById(int seq) {
+		return em.cntAnswerById(seq);
+	}
+	
+	// 내 답변 목록 - 최근 5개
+	public Page<Answers> findAnswerByUserno(int seq) {
+		Pageable pageable = PageRequest.of(0, 5, new Sort(Sort.Direction.DESC, "registerdate"));
+		Page<Answers> list = ar.findAllByUserno(seq, pageable);
+		return list;
+	}
+
+	// 내 태그/위키 등록 수
+	public int cntTagAndWikiById(Wiki vo) {
+		return em.cntTagAndWikiById(vo);
+	}
+	
+	// 내 태그/위키 목록 - 최근 5개
+	public List<Wiki> findTagAndWikiByUserno(Wiki vo) {
+		return em.findTagAndWikiByUserno(vo);
 	}
 }

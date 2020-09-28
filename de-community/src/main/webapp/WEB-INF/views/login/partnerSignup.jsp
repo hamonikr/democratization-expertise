@@ -65,7 +65,14 @@ strong{
 <!-- <div class="card" style="width:450px;"> -->
  <div class="login-card-body" >
   <form id ="frm" name="frm" method="post">      
-   	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+   	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>     
+     <!-- 회사이름 입력 -->
+   		<div class="row">
+     		<div class=" col-12"><span>회사명 * </span></div>
+			<div class="form-group col-12"> 	    
+		   		<input type="text" class="form-control englishOnly" id="username" name="username" value="testCompany" placeholder="회사명을 입력해주세요">             	
+		   </div>
+		</div>
      <!-- 아이디 입력 -->
    		<div class="row">
      		<div class=" col-12"><span>아이디 * </span></div>
@@ -154,7 +161,8 @@ strong{
 		//validation check	 
 		 $('#frm').validate({
 			 rules: {
-                 userid : { required: true, minlength: 3 },
+					username : { required: true },
+				 	userid : { required: true, minlength: 3 },
                  useremail : { required: true, email: true },
                  userpassword : { required: true, minlength:6, passwordCk : true },
                  bizNo1 : { required: true },
@@ -205,14 +213,13 @@ strong{
 			                  data: {userid},
 			                  success: function(retVal) {		 							
 			 						if(retVal == "사용가능한 아이디입니다"){
-			 							alert(retVal);
-			 						 	var enterpriseno = ($("#bizNo1").val() + $("#bizNo2").val() + $("#bizNo3").val());
-			 							var chkbiz = checkBizNo(enterpriseno);
+			 						 	var enterprisebizno = ($("#bizNo1").val() + $("#bizNo2").val() + $("#bizNo3").val());
+			 							var chkbiz = true; //checkBizNo(enterprisebizno);
 			 														
 			 							if(chkbiz == true){
-			 								alert("유효한 사업자 번호이다 --> "+chkbiz);
+			 								alert("유효한 사업자 번호이다 kkkk--> "+chkbiz);
 			 								$.ajax({
-			 					             data : {'enterpriseno':enterpriseno},
+			 					             data : {'enterprisebizno':enterprisebizno},
 			 					             url : "/signup/checkBizNoDuplication",
 			 					             dataType : "json",
 			 					             contentType: "application/json; charset=UTF-8",
@@ -276,7 +283,7 @@ strong{
 	
 
 	function signUpProc(){
-		var enterpriseno = ($("#bizNo1").val() + $("#bizNo2").val() + $("#bizNo3").val());
+		var enterprisebizno = ($("#bizNo1").val() + $("#bizNo2").val() + $("#bizNo3").val());
 		var userid = $("#userid").val();
 		var useremail = $("#useremail").val();
 		var userpassword = $("#userpassword").val();
@@ -285,7 +292,7 @@ strong{
 		if(confirm("가입하시겠습니까?")==true){
 		   $.ajax({
 	             url: '/signup/signupForPartner.proc',
-	             data: {'userid': userid, 'useremail':useremail, 'enterpriseno':enterpriseno, 'userpassword':userpassword},
+	             data: {'userid': userid, 'useremail':useremail, 'enterprisebizno':enterprisebizno, 'userpassword':userpassword,  'username':$("#username").val()},
 	             success: function(retVal) {
 						if(retVal == "S"){
 							location.href="/login";
