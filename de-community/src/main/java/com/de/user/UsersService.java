@@ -50,10 +50,12 @@ public class UsersService {
 		return ur.findById(seq);
 	}
 	
-	public Optional<Enterprises> findEnterpriseNo(int seq) throws Exception {
-		return um.findEnterpriseNo(seq);
+//	public Optional<Enterprises> findEnterpriseno(int seq) throws Exception {
+//		return um.findEnterpriseno(seq);
+//	}
+	public Enterprises findEnterpriseno(int seq) throws Exception {
+		return um.findEnterpriseno(seq);
 	}
-	
 	// 목록
 	public Page<Users> findAll(Pageable pageable) throws Exception {
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
@@ -78,6 +80,8 @@ public class UsersService {
 	public void updateUser(Users vo, UsersDetail userDetail) throws Exception {
 		Optional<Users> users = ur.findById(vo.getUserno());
 		Optional<Enterprises> enterprises = null;
+		
+		System.out.println("수정 클릭시 확인==>"+userDetail.getEnterpriseno());
 		
 		// find enterprise information
 		if(userDetail != null && userDetail.getEnterpriseno() != null) {

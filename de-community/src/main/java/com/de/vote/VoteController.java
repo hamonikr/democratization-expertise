@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.de.cmmn.CmmnMap;
+import com.de.cmmn.service.CmmnService;
 import com.de.login.service.SecurityMember;
 
 @Controller
@@ -21,6 +23,9 @@ public class VoteController {
 
 	@Autowired
 	VoteService vs;
+	
+	@Autowired
+	CmmnService cs;
 
 //	@RequestMapping(value = "/list")
 //	public String getList(Model model, @PageableDefault Pageable pageable) {
@@ -57,6 +62,11 @@ public class VoteController {
 			}else {
 				vs.likes(vo);
 			result = vs.saveVoteUser(vo2);
+			CmmnMap param = new CmmnMap();
+			param.put("userno", vo.getUserno());
+			param.put("score", 1);
+			// 점수등록
+			cs.updateObject("saveScore", param);
 			return "SUCCESS";
 			}
 		}else {
@@ -79,6 +89,11 @@ public class VoteController {
 		}else {
 			vs.dislikes(vo);
 		result = vs.saveVoteUser(vo2);
+		CmmnMap param = new CmmnMap();
+		param.put("userno", vo.getUserno());
+		param.put("score", 1);
+		// 점수등록
+		cs.updateObject("saveScore", param);
 		return "SUCCESS";
 		}
 		}else {

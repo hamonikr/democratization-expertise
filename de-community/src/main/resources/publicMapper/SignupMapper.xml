@@ -3,23 +3,69 @@
  
 
 <mapper namespace="com.de.signup.mapper.SignupMapper">
-
 <!-- 조회 -->
-<insert id="bizNoCheck" parameterType="com.de.user.Users">
-  	Insert
+<select id ="getEnterpriseno" parameterType="com.de.enterprise.Enterprises" resultType="Integer">
+ select enterpriseno 
+ 	from tb_enterprises 
+ 	where enterprisebizno = #{enterprisebizno} 
+</select>
+
+<select id ="bizNoCheck" parameterType="com.de.enterprise.Enterprises" resultType="Integer">
+ select count(*) 
+ 	from tb_enterprises 
+ 	where enterprisebizno = #{enterprisebizno} 
+</select>
+
+
+<!-- 저장 -->
+<insert id="saveEnterprisebizno" parameterType="com.de.enterprise.Enterprises">
+ insert
+  	into
+  	tb_enterprises(
+  		enterprisebizno
+  		, enterpriseat
+  		, userno
+  		, userat
+  		, activeat
+  		, representat
+  		, enterprisename
+  		, enterpriseemail
+		, registerdate  		
+  	)
+ 	values(
+ 		#{enterprisebizno}
+ 		, #{enterpriseat}
+ 		, #{userno}
+		, #{userat}	 
+	   	, #{activeat}
+	   	, #{representat}
+	   	, #{enterprisename}
+	   	, #{enterpriseemail}
+	   	, now()
+ 	)
+</insert>
+
+<insert id="saveDetail" parameterType="com.de.user.UsersDetail" >
+    Insert
 	 into
-  	  tb_users(  	  	
-       seq
-      ,regdate
-    )
+  	  tb_users_detail(  	  	
+  	  	userno
+  	  	,userat
+  	  	,activeat
+  	  	,representat
+  	  	,enterpriseno
+
+      )
   values
     (   
-    	#{seq}
-      ,now()
+       #{userno}
+      ,#{userat}	 
+	   ,#{activeat}
+	   ,#{representat}
+      ,#{enterpriseno}
+     
      )
-	</insert>
-	
-
+</insert>	
 </mapper>
  
 	

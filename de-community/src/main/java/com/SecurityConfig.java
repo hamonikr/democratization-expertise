@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		System.out.println("security config-----------!!!");
 		log.info("security config log===>");
 		
-		http.csrf().ignoringAntMatchers("/api/**","/signup/**","/login/**","/wiki/**","/accountRecovery/**");
+		http.csrf().ignoringAntMatchers("/api/**","/signup/**","/login/**","/wiki/**","/accountRecovery/**","/cmmn/**");
 		
 		http.authorizeRequests()
 			.antMatchers("/users/userInfo").hasRole("USER")
