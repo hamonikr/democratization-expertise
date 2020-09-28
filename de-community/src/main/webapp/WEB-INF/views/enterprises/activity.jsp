@@ -61,7 +61,7 @@
 						<div class="card-body card-primary row" style="width: 100%;">
 							<div class="col-8 row">
 								<div class="col-12"><h2><b>${enterprise.enterprisename}</b></h2><p>aboutme</p></div>
-								<div class="col-6"><h4>평판</h4><span>123,456</span></div>
+								<div class="col-6"><h4>평판</h4><span>${ score }</span></div>
 								<div class="col-6"><div id="line-chart" style="height: 300px;"></div></div>
 							</div>
 	
@@ -72,7 +72,7 @@
 <%-- 								<c:if test="${user.userprofileimg == null}"> --%>
 									<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
 <%-- 								</c:if> --%>
-								<span>배지 : </span>
+								<span>배지 : </span><br/>
 								<span>홈페이지 : </span> <%-- <a href="${user.userurl}" target="_blank">${user.userurl}</a> --%>
 							</div>
 						</div>

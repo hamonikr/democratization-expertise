@@ -82,6 +82,13 @@ public class UsersController {
 		     e.printStackTrace(); //오류 출력(방법은 여러가지)
 		}
 		
+		// 평판점수
+		Integer score = usersService.getScore(seq);
+		logger.info(" ---- score : " + score);
+		if(score == null) score = 0;
+		
+		// 평판 그래프 데이터
+		
 		
 		// 질문
 		int qCnt = usersService.cntQuestionsById(seq);
@@ -120,6 +127,8 @@ public class UsersController {
 		model.addAttribute("user", users.orElse(null));	// 프로필 정보
 		model.addAttribute("isMypage", isUserNo);		// 내 정보 유무
 		model.addAttribute("enterprise", enterprise);	// 회사명 정보
+		
+		model.addAttribute("score", score);					// 평판점수
 		
 		model.addAttribute("qCnt", qCnt);					// 질문 전체 수
 		model.addAttribute("qList", qList.getContent());	// 질문 목록

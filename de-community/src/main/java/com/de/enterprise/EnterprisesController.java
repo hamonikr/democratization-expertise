@@ -78,7 +78,7 @@ public class EnterprisesController {
 		
 		boolean isUserNo = false;
 		
-		System.out.println("user enterprise no : " + loginUserData.getEnterpriseno() +" \n대표계정 여부 : "+ loginUserData.getRepresentat());
+//		System.out.println("user enterprise no : " + loginUserData.getEnterpriseno() +" \n대표계정 여부 : "+ loginUserData.getRepresentat());
 		
 		if ( loginUserData == null ) {
 			isUserNo = false;
@@ -95,6 +95,12 @@ public class EnterprisesController {
 		UsersDetail vo = new UsersDetail();
 		
 		vo.setEnterpriseno(seq);
+		
+		// 평판점수
+		Integer score = service.getScore(seq);
+		if(score == null) score = 0;
+		
+		// 평판 그래프 데이터
 		
 		// 질문
 		int qCnt = service.cntQuestionsById(seq);
@@ -119,6 +125,7 @@ public class EnterprisesController {
 		List<Wiki> wList = service.findTagAndWikiByUserno(wVo);
 		
 		if(LOG_URL) {
+			logger.info(" ------ score : " + score);
 			logger.info(" ------ qCnt : " + qCnt);
 			logger.info(" ------ qList Content : " + qList.getContent());
 			logger.info(" ------ aCnt : " + aCnt);
@@ -146,6 +153,8 @@ public class EnterprisesController {
 		
 		model.addAttribute("enterprise", enterprises.orElse(null));	// 프로필 정보
 		model.addAttribute("isMypage", isUserNo);		// 내 정보 유무
+		
+		model.addAttribute("score", score);					// 평판점수
 		
 		model.addAttribute("qCnt", qCnt);					// 질문 전체 수
 		model.addAttribute("qList", qList.getContent());	// 질문 목록
