@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -246,12 +250,15 @@ public class UsersController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/getEnterList", method=RequestMethod.POST)
-	public HashMap<String, Object> getEnterList(String enterName) throws Exception{
+	public HashMap<String, Object> getEnterList(String enterName,HttpServletRequest req) throws Exception{
 		if(LOG_URL) logger.info(" -- url : /users/getEnterList - enterName : " + enterName);
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		 List<Enterprises> list= usersService.getEnterList(enterName);
+		 List<Enterprises> list= usersService.getEnterList(req.getParameter("entername"));
+		 for(int i=0;i<list.size();i++) {
+			 System.out.println("enter===="+list.get(i));
+		 }
 		
 //		if(updateVal) map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
 //		else map.put("message", CodeMessage.MSG_000024_변경_중_오류가_발생하였습니다_);
