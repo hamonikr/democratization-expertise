@@ -1,7 +1,6 @@
 package com.de.user.mapper;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.de.enterprise.Enterprises;
 import com.de.question.Questions;
@@ -22,4 +21,5 @@ public interface UsersMapper {
 	public int cntAnswerById(int seq);
 	public int cntTagAndWikiById(Wiki vo);
 	public List<Wiki> findTagAndWikiByUserno(Wiki vo);
+	public Integer getScore(int seq);
 }
