@@ -19,4 +19,5 @@ public interface EnterprisesMapper {
 	public int cntAnswerById(int seq);
 	public int cntTagAndWikiById(Wiki vo);
 	public List<Wiki> findTagAndWikiByUserno(Wiki vo);
+	public Integer getScore(int seq);
 }

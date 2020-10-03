@@ -188,4 +188,9 @@ public class EnterpriseService {
 	public List<Wiki> findTagAndWikiByUserno(Wiki vo) {
 		return em.findTagAndWikiByUserno(vo);
 	}
+	
+	// 평판점수
+	public Integer getScore(int seq) {
+		return em.getScore(seq);
+	}
 }

@@ -133,4 +133,11 @@ where b.score is not null
 order by b.score desc
 </select>
 
+<select id="getScore" parameterType="Integer" resultType="Integer">
+SELECT (
+    (SELECT score FROM tb_score WHERE userno=#{seq}) 
+    + (SELECT count(*) FROM tb_vote_users WHERE userno=#{seq})
+    )
+</select>
+
 </mapper>
