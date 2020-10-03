@@ -49,14 +49,14 @@ $(function() {
 			if (data != null){
 				for(i=0;i<data.user.length;i++){
 						$("#bodyrightLayer").append("사용자");
-						$("#bodyrightLayer").append(data.user[i].userid+"=");
+						$("#bodyrightLayer").append(data.user[i].username+"=");
 						$("#bodyrightLayer").append(data.user[i].score);
 						$("#bodyrightLayer").append("<br/>");
 				}
 				for(y=0;y<data.partner.length;y++){
 					$("#bodyrightLayer").append("파트너사");
-					$("#bodyrightLayer").append(data.partner[i].username+"=");
-					$("#bodyrightLayer").append(data.partner[i].score);
+					$("#bodyrightLayer").append(data.partner[y].enterprisename+"=");
+					$("#bodyrightLayer").append(data.partner[y].score);
 					$("#bodyrightLayer").append("<br/>");
 				}
 		//$("#bodyrightLayer").html(data.contents);

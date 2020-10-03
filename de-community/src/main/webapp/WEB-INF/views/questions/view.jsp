@@ -87,18 +87,20 @@
 											<font class="link-black text-sm rcorners1"> Tags : 
 											<c:forEach var="tagName2" items="${tag }" varStatus="status">
 												<c:forEach var="tagName1" items="${tagList }" varStatus="status">
-													<c:if test="${tagName1.wikino == tagName2}">${tagName1.title}</c:if>
+													<c:if test="${tagName1.wikino == tagName2}"><a href="/wiki/view/${tagName1.wikino }">${tagName1.title}</a></c:if>
 												</c:forEach>
 											</c:forEach>
 											</font> 
 											<span class="float-right "> 
+											<a href = "/users/activity/${result.userno}">
 												<c:if test="${result.users.userprofileimg != null}">
 													<img src="/upload/users/${result.users.userprofileimg}">
 												</c:if>
 												<c:if test="${result.users.userprofileimg == null}">
 													<img src="/img/noprofile.png">
 												</c:if>
-												<a href="#" class="link-black text-sm"> ${result.users.userid}</a>
+												</a>
+												<a href="/users/activity/${result.userno}" class="link-black text-sm"> ${result.users.userid}</a>
 											</span>
 										</p>
 									</div>

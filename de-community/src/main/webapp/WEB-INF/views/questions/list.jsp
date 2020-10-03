@@ -91,7 +91,7 @@
 														<span class="info-box-text">
 															<c:forEach var="tagName2" items="${tag }" varStatus="status">
 																<c:forEach var="tagName1" items="${tagList }" varStatus="status">
-																	<c:if test="${tagName1.wikino == tagName2}">${tagName1.title}</c:if>
+																	<c:if test="${tagName1.wikino == tagName2}"><a href="/wiki/view/${tagName1.wikino }">${tagName1.title}</a></c:if>
 																</c:forEach>
 															</c:forEach>
 														</span>
