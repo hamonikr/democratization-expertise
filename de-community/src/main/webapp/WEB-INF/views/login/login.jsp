@@ -69,6 +69,7 @@
 							       <!-- 구글 -->
 								<div class="col-2" style="margin-left:20px;">     	           
 								 	<a href="javascript:;" class="g-signin2 btn_social" data-width="32" data-height="32" data-social="google"></a> 
+								 	<a href="/login/google"> Google</a>
 						 	    </div>
 						
 							        <!-- 네이버 -->

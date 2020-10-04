@@ -1,5 +1,8 @@
 package com.de.login;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -78,6 +81,16 @@ public class LoginController {
 		 return "/cmmn/message";
 		 
 	 }
+	 
+//	 private HttpSession httpSession;
+//	 @RequestMapping("/me")
+//	 public Map<String, Object> me( HttpServletRequest request ) throws Exception {
+//		 Map<String, Object> response = new LinkedHashMap<>();
+//	        response.put("profile", httpSession.getAttribute("user"));
+//	        System.out.println(response.get("profile"));
+//	        return response;
+//		 
+//	 }
 	 
 	
 	
