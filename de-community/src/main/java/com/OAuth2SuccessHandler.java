@@ -36,7 +36,6 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler{
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		// TODO Auto-generated method stub
 //		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 //		OAuth2Authentication oAuth2Authentication = (OAuth2Authentication) authentication; 
 //		Map<String, Object> goo = new LinkedHashMap<>();
