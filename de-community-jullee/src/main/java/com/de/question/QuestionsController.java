@@ -3,14 +3,12 @@ package com.de.question;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,12 +18,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.de.answer.Answers;
+import com.de.answer.AnswersService;
 import com.de.cmmn.CmmnMap;
 import com.de.cmmn.service.CmmnService;
 import com.de.login.service.SecurityMember;
 import com.de.tag.Tags;
 import com.de.vote.Vote;
 import com.de.vote.VoteService;
+import com.de.wiki.Wiki;
 
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
@@ -41,6 +42,9 @@ public class QuestionsController {
 
 	@Autowired
 	VoteService vs;
+	
+	@Autowired
+	AnswersService as;
 
 	@Autowired
 	CmmnService cs;
@@ -80,7 +84,7 @@ public class QuestionsController {
 		System.out.println("sort==========" + questions.getSort());
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(param.getInt("pageNo") > 0 ? param.getInt("pageNo") : 1); // 현재 페이지 번호
-		paginationInfo.setRecordCountPerPage(5); // 한 페이지에 게시되는 게시물 건수
+		paginationInfo.setRecordCountPerPage(100); // 한 페이지에 게시되는 게시물 건수
 		paginationInfo.setPageSize(5); // 페이징 리스트의 사이즈
 
 		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
@@ -89,7 +93,11 @@ public class QuestionsController {
 		questions.setRecordCountPerPage(recordCountPerPage);
 
 		List<Questions> list = qs.getList(questions);
-		List<Tags> tagList = qs.tagList();
+		for(int i = 0; i < list.size();i++) {
+			System.out.println("list====="+list.get(i));
+		}
+		//List<Tags> tagList = qs.tagList();
+		List<Wiki> tagList = qs.findAllTag();
 
 		int listCount = qs.getListCount(questions);
 		paginationInfo.setTotalRecordCount(listCount); // 전체 게시물 건 수
@@ -102,12 +110,14 @@ public class QuestionsController {
 
 
 	@RequestMapping(value = "/save")
-	public String save(Model model, Questions qvo, Tags tvo, @AuthenticationPrincipal SecurityMember user) {
+	public String save(Model model, Questions qvo, Tags tvo, @AuthenticationPrincipal SecurityMember user) throws Exception {
 		if (user == null) {
 			return "redirect:/login";
 		} else {
-			List<Tags> list = qs.tagList();
-			model.addAttribute("tag", list);
+			//List<Tags> tagList = qs.tagList();
+			List<Wiki> tagList = qs.findAllTag();
+			model.addAttribute("tagList", tagList);
+			model.addAttribute("user",user);
 			return "/questions/save";
 		}
 	}
@@ -124,6 +134,10 @@ public class QuestionsController {
 		qs.save(vo);
 		// 투표등록
 		vs.save(vvo);
+		param.put("userno", vo.getUserno());
+		param.put("score", 5);
+		// 점수등록
+		cs.updateObject("saveScore", param);
 		// model.addAttribute("sample", ss.findById(sample.getSeq()));
 		return "redirect:/questions/list";
 	}
@@ -132,18 +146,21 @@ public class QuestionsController {
 	@RequestMapping("/view/{questionno}")
 	public String view(@PathVariable("questionno") int questionno, Model model,
 			@AuthenticationPrincipal SecurityMember user) throws Exception {
-		List<Tags> list = qs.tagList();
-		model.addAttribute("tag", list);
+		//List<Tags> tagList = qs.tagList();
+		List<Wiki> tagList = qs.findAllTag();
+		List<Answers> answerList = as.findAllByquestionno(questionno);
+		model.addAttribute("tagList", tagList);
+		model.addAttribute("answerList", answerList);
+		for(int i =0;i<answerList.size();i++) {
+			System.out.println("answerList====="+answerList.get(i));
+		}
+		//조회수 증가
+		qs.updateReanCnt(questionno);
 		Questions qvo = new Questions();
 		qvo = qs.getView(questionno);
-		qs.updateReanCnt(questionno);
 		model.addAttribute("result", qvo);
+		if(user != null)
 		model.addAttribute("user", user);
-//		Optional<Questions> questions = qs.findById(questionNo);
-//		Questions vo;
-//		vo = questions.orElse(null);
-//		qs.updateByIdReadCnt(vo);
-//		model.addAttribute("result", questions.orElse(null));
 		return "/questions/view";
 	}
 
@@ -151,24 +168,27 @@ public class QuestionsController {
 	@RequestMapping("/edit/{questionno}")
 	public String edit(@PathVariable("questionno") int questionno, Model model,
 			@AuthenticationPrincipal SecurityMember user) throws Exception {
-		List<Tags> list = qs.tagList();
-		model.addAttribute("tag", list);
+		if (user == null) {
+			return "redirect:/login";
+		}
+		//List<Tags> list = qs.tagList();
+		List<Wiki> tagList = qs.findAllTag();
+		model.addAttribute("tagList", tagList);
 		Questions qvo = new Questions();
 		qvo = qs.getView(questionno);
 		model.addAttribute("result", qvo);
 		model.addAttribute("user", user);
-		// Optional<Questions> sample = qs.findById(questionno);
-		// model.addAttribute("result", sample.orElse(null));
 		return "/questions/save";
 	}
 
 
 	@RequestMapping(value = "/edit.proc")
-	public String editproc(HttpServletRequest request, Model model, Questions vo) throws Exception {
-		CmmnMap param = new CmmnMap();
+	public String editproc(HttpServletRequest request, Model model, Questions vo,@AuthenticationPrincipal SecurityMember user) throws Exception {
+		if (user == null) {
+			return "redirect:/login";
+		}
 		// 질문수정
-		qs.save(vo);
-		// model.addAttribute("sample", ss.findById(sample.getSeq()));
+		qs.updateById(vo);
 		return "redirect:/questions/list";
 	}
 
@@ -178,4 +198,43 @@ public class QuestionsController {
 //		return "redirect:/sample/list";
 //	}
 
+	// 내 답변 목록
+	@RequestMapping(value = "/myList")
+	public String getMyQList(@RequestParam Map<String, String> params, Model model, Questions questions,
+			@AuthenticationPrincipal SecurityMember user, @PageableDefault Pageable pageable) throws Exception {
+
+		CmmnMap param = new CmmnMap();
+		param.putAll(params);
+
+		logger.info("----------excel param-----------------------");
+		logger.debug("");
+		logger.debug(param.toString());
+		logger.debug("");
+		logger.debug("----------excel param-----------------------");
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(param.getInt("pageNo") > 0 ? param.getInt("pageNo") : 1); // 현재 페이지 번호
+		paginationInfo.setRecordCountPerPage(100); // 한 페이지에 게시되는 게시물 건수
+		paginationInfo.setPageSize(5); // 페이징 리스트의 사이즈
+
+		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
+		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
+		questions.setFirstRecordIndex(firstRecordIndex);
+		questions.setRecordCountPerPage(recordCountPerPage);
+
+		List<Questions> list = qs.getMyList(questions);
+		for(int i = 0; i < list.size();i++) {
+			System.out.println("list====="+list.get(i));
+		}
+		//List<Tags> tagList = qs.tagList();
+		List<Wiki> tagList = qs.findAllTag();
+
+//		int listCount = qs.getMyListCount(questions);
+		int listCount = list.size();
+		paginationInfo.setTotalRecordCount(listCount); // 전체 게시물 건 수
+		model.addAttribute("list", list);
+		model.addAttribute("tagList", tagList);
+		model.addAttribute("paginationInfo", paginationInfo);
+		model.addAttribute("vo", param);
+		return "/questions/list";
+	}
 }

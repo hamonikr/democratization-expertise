@@ -37,9 +37,9 @@ public class MailingUserList {
 	
 	/* 등록 일시 */
 	@CreationTimestamp
-	private Timestamp registerDate;
+	private Timestamp registerdate;
 	/* 수정 일시 */
 	@UpdateTimestamp
-	private Timestamp updateDate;
+	private Timestamp updateate;
 
 }

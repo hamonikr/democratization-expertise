@@ -38,6 +38,35 @@
 <!-- <script src="/dist/js/common.js"></script> -->
 <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
 <script type="text/javascript">
+$(function() {
+	$.ajax({ 
+		//type: "POST", 
+		//contentType: "application/json", 
+		url: "/cmmn/list", 
+		//dataType: 'json', 
+		success: function (data) { 
+			console.log(data);
+			if (data != null){
+				for(i=0;i<data.user.length;i++){
+						$("#bodyrightLayer").append("사용자");
+						$("#bodyrightLayer").append(data.user[i].username+"=");
+						$("#bodyrightLayer").append(data.user[i].score);
+						$("#bodyrightLayer").append("<br/>");
+				}
+				for(y=0;y<data.partner.length;y++){
+					$("#bodyrightLayer").append("파트너사");
+					$("#bodyrightLayer").append(data.partner[y].enterprisename+"=");
+					$("#bodyrightLayer").append(data.partner[y].score);
+					$("#bodyrightLayer").append("<br/>");
+				}
+		//$("#bodyrightLayer").html(data.contents);
+				}
+			}, 
+			error: function (e) { 
+				alert("fail"); 
+			} 
+			});
+});
   function numberWithCommas(x) {
     return x.toString().replace( /\B(?=(\d{3})+(?!\d))/g, "," );
   }
@@ -63,7 +92,7 @@
 				</div>
 				<div class="col-sm-4" id="bodyrightLayer">
 					<!-- style="background-color:black;" -->
-					<img src="/img/stackedViewR.jpg">
+					<!-- <img src="/img/stackedViewR.jpg"> -->
 				</div>
 			</div>
 		</div>

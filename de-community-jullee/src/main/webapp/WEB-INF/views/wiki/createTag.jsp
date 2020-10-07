@@ -1,25 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
-<!-- 
-<script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-<script src='/tui-editor/markdown-it/dist/markdown-it.js'></script>
-<script src="/tui-editor/to-mark/dist/to-mark.js"></script>
-<script src="/tui-editor/tui-code-snippet/dist/tui-code-snippet.js"></script>
-<script src="/tui-editor/codemirror/lib/codemirror.js"></script>
-<script src="/tui-editor/highlightjs/highlight.pack.js"></script>
-<script src="/tui-editor/squire-rte/build/squire-raw.js"></script>
-<script src="/tui-editor/tui-editor/dist/tui-editor-Editor.js"></script>
- -->
  
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
- 
  <!-- Select2 -->
 <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
 <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-
+ 
 <style>
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #007bff;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    cursor: default;
+    float: left;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 0 5px;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    height: 40px;
+}
 
 </style>
 <body>
@@ -56,8 +59,19 @@
 										<label for="subject">
 											[Tag] 이름<span class="important">*</span>
 										</label>
+										
 										<input type="text" class="form-control" id="title" name="title" placeholder="태그 이름을 입력해주세요." value="${result.title}" />
 									</div>
+									
+							<%-- 		<div class="form-group" style="color:black;">
+										<label for="Tag">태그</label>
+										<select class="select2" multiple="multiple" name="tagno" id="tagno" data-placeholder="" style="width: 100%; background-color: #8056d6;">
+											<c:forEach var="item" items="${tagList}" varStatus="status">
+												<option value="${item.wikino}">${item.title}</option>
+											</c:forEach>
+										</select>
+									</div>
+									 --%>
 									<div class="form-group">
 										<label for="contents">
 											설명<span class="important">*</span>
@@ -82,7 +96,7 @@
 							
 							<div class="card-footer cont_btn_div">
 								<c:choose>
-									<c:when test="${empty result.wikno}">
+									<c:when test="${empty result.wikino}">
 										<button type="submit" name="btnSubmit" class="btn btn-primary purple" value="c">등록</button>
 									</c:when>
 									<c:otherwise>
@@ -102,14 +116,7 @@
 
 	<script type="text/javascript">
     $( function() {
-      $( "input[data-bootstrap-switch]" ).each( function() {
-        $( this ).bootstrapSwitch( 'state', $( this ).prop( 'checked' ) );
-      } );
-      
-
-      $( "#btnDelete" ).on( "click", fnDelete );
-
-      $.validator.setDefaults( {
+       $.validator.setDefaults( {
         submitHandler : function() {
         		fnSave();
             }
@@ -154,15 +161,6 @@
       }
 
     
-    function fnDelete() {
-      document.frm.action = "/wiki/delete.proc";
-      document.frm.submit();
-    }
-
-    function fnUdate() {
-        document.frm.action = "/wiki/update.proc";
-        document.frm.submit();
-      }
   </script>
 </body>
 </html>

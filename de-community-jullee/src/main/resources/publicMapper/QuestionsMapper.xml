@@ -27,6 +27,7 @@
 	<result column="username" property="username"/>
 	<result column="useremail" property="useremail"/>
 	<result column="userstatus" property="userstatus"/>
+	<result column="userprofileimg" property="userprofileimg"/>
 </resultMap>
 
 <resultMap type="com.de.tag.Tags" id="Tags">
@@ -35,37 +36,61 @@
 	<result column="userno" property="userno"/>
 </resultMap>
 
+<resultMap type="com.de.wiki.Wiki" id="Wiki">
+	<result column="wikino" property="wikino"/>
+	<result column="title" property="title"/>
+	<result column="userno" property="userno"/>
+	<result column="contents" property="contents"/>
+</resultMap>
+
 <resultMap type="com.de.question.Questions" id="Questions">
 	<result column="questionno" property="questionno"/>
-	<result column="editauth" property="editauth"/>
 	<result column="editauth" property="editauth"/>
 	<result column="title" property="title"/>
 	<result column="contents" property="contents"/>
 	<result column="userno" property="userno"/>
+	<result column="firstuserno" property="firstuserno"/>
 	<result column="tagno" property="tagno"/>
 	<result column="readcnt" property="readcnt"/>
 	<result column="deleteat" property="deleteat"/>
 	<result column="registerdate" property="registerdate"/>
 	<result column="updatedate" property="updatedate"/>
+	<result column="commentcnt" property="commentcnt"/>
 	<result column="firstRecordIndex" property="firstRecordIndex"/>
 	<result column="recordCountPerPage" property="recordCountPerPage"/>
 	<collection property="users" resultMap="Users"/>
 	<collection property="vote" resultMap="Vote"/>
+	<collection property="wiki" resultMap="Wiki"/>
 </resultMap>
 
 	<select id="selectQNO" resultType="com.de.cmmn.CmmnMap">
       SELECT COALESCE(max(questionno),0)+1 AS questionno FROM tb_questions
 	</select>
-	
+	<sql id="listWhere">
+		(title like '%' || #{searchtext} || '%' 
+		or
+		contents like '%' || #{searchtext} || '%')
+	</sql>
 	<select id="getList" parameterType="com.de.question.Questions" resultMap="Questions">
-		select a.*,b.*,c.*
+		select 
+		a.questionno
+		,a.title
+		,a.contents
+		,a.section
+		,a.deleteat
+		,a.editauth
+		,a.readcnt
+		,a.registerdate
+		,a.tagno
+		,a.updatedate
+		,a.userno
+		,b.*,c.*
+		,(select count(d.answerno) from tb_answers d where a.questionno = d.questionno) as commentcnt
 		from tb_questions a left outer join tb_users b on a.userno = b.userno
 		left outer join tb_vote c on a.questionno = c.pno
 		<if test="searchtext != null and searchtext != ''">
 		<where>
-		(a.title like '%' || #{searchtext} || '%' 
-		or
-		a.contents like '%' || #{searchtext} || '%')
+		<include refid="listWhere" />
 		</where>
 		</if>
 		<if test="sort == null" >order by a.registerdate desc</if>
@@ -77,6 +102,11 @@
 	
 	<select id="getListCount" parameterType="com.de.question.Questions" resultType="java.lang.Integer">
 		select count(*) from tb_questions
+		<if test="searchtext != null and searchtext != ''">
+		<where>
+		<include refid="listWhere" />
+		</where>
+		</if>
 	</select>
 	
 	<select id="getView" parameterType="integer" resultMap="Questions">
@@ -95,7 +125,68 @@
 	</where>
 	
 	</update>
-
-</mapper>
- 
 	
+	<insert id="insertHistory" parameterType="com.de.cmmn.CmmnMap">
+	INSERT INTO TB_QUESTIONS_HISTORY (seq, pno, contents, section, title, deleteat, editauth, readcnt, registerdate, tagno, updatedate, userno)
+		VALUES
+				((SELECT COALESCE(max(seq),0)+1 FROM tb_questions_history),#{questionno},#{contents},#{section},#{title}
+				,#{deleteat},#{editauth},#{readcnt},#{registerdate},#{tagno},#{updatedate},#{userno})
+	</insert>
+
+
+	<select id="getMyList" parameterType="com.de.question.Questions" resultMap="Questions">
+		SELECT
+			a.questionno
+			,a.title
+			,a.contents
+			,a.section
+			,a.deleteat
+			,a.editauth
+			,a.readcnt
+			,a.registerdate
+			,a.tagno
+			,a.updatedate
+			,a.userno
+			,b.*,c.*
+			,(SELECT 
+					count(d.answerno) 
+				FROM 
+					tb_answers d 
+				WHERE 
+					a.questionno = d.questionno) AS commentcnt
+		FROM 
+			<if test='section == "Q"'>
+				tb_questions a LEFT OUTER JOIN tb_users b ON a.userno = b.userno
+				LEFT OUTER JOIN tb_vote c ON a.questionno = c.pno
+			</if>
+			<if test='section == "A"'>
+				(
+				    SELECT 
+			        	qstn.questionno
+			        	,qstn.title
+			        	,qstn.contents
+			        	,qstn.section
+			        	,qstn.deleteat
+			        	,qstn.editauth
+			        	,qstn.readcnt
+			        	,qstn.registerdate
+			        	,qstn.tagno
+			        	,qstn.updatedate
+			        	,qstn.userno
+			        FROM 
+			        	tb_answers ansr
+			        	LEFT JOIN tb_questions qstn
+			        	ON ansr.questionno = qstn.questionno
+			        WHERE
+			        	ansr.userno = #{userno}
+				) a LEFT OUTER JOIN tb_users b ON a.userno = b.userno
+				LEFT OUTER JOIN tb_vote c ON a.questionno = c.pno
+			</if>
+		WHERE
+			a.userno = #{userno}
+			AND c.section = #{section}
+		ORDER BY a.registerdate DESC
+		OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage}
+	</select>
+	
+</mapper>

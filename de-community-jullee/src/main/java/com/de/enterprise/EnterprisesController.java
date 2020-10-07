@@ -2,6 +2,7 @@ package com.de.enterprise;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -10,17 +11,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.de.answer.Answers;
 import com.de.cmmn.util.CodeMessage;
+import com.de.login.service.SecurityMember;
+import com.de.question.Questions;
 import com.de.user.Users;
 import com.de.user.UsersDetail;
+import com.de.wiki.Wiki;
 
 
 /**
@@ -61,17 +68,107 @@ public class EnterprisesController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/activity/{seq}", method=RequestMethod.GET)
-	public String dashboard(Model model, @PathVariable("seq") int seq) throws Exception {
+	public String dashboard(Model model, @PathVariable("seq") int seq, @AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
 		if(LOG_URL) logger.info(" -- url : /enterprises/activity - seq : " + seq);
 
 		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
 		// session 에서 seq 정보 추출
 		// 임시 - 사용자 seq
-		int userSeq = 4;
+//		int userSeq = 4;
 		
+		boolean isUserNo = false;
+		
+//		System.out.println("user enterprise no : " + loginUserData.getEnterpriseno() +" \n대표계정 여부 : "+ loginUserData.getRepresentat());
+		
+		if ( loginUserData == null ) {
+			isUserNo = false;
+		} else {
+			if( loginUserData.getEnterpriseno() == seq && loginUserData.getRepresentat()==1) {
+				isUserNo = true;
+			}else {
+				isUserNo = false;	
+			}
+		}
+//		System.out.println("loginUserData.getUserno()=========+++++"+loginUserData.getEnterpriseno() );
 		Optional<Enterprises> enterprises = service.findById(seq);
+		
+		UsersDetail vo = new UsersDetail();
+		
+		vo.setEnterpriseno(seq);
+		
+		// 평판점수
+		Integer score = service.getScore(seq);
+		if(score == null) score = 0;
+		
+		// 평판 그래프 데이터
+		
+		// 질문
+		int qCnt = service.cntQuestionsById(seq);
+		Page<Questions> qList = service.findQuestionsByUserno(seq);
+		
+		// 답변
+		int aCnt = service.cntAnswerById(seq);
+		Page<Answers> aList = service.findAnswerByUserno(seq);
+		
+		// 태그 n 위키
+		Wiki wVo = new Wiki();
+		wVo.setUserno(seq);
+		
+		// 태그
+		wVo.setSection("t");
+		int tCnt = service.cntTagAndWikiById(wVo);
+		List<Wiki> tList = service.findTagAndWikiByUserno(wVo);
+		
+		// 위키
+		wVo.setSection("h");
+		int wCnt = service.cntTagAndWikiById(wVo);
+		List<Wiki> wList = service.findTagAndWikiByUserno(wVo);
+		
+		if(LOG_URL) {
+			logger.info(" ------ score : " + score);
+			logger.info(" ------ qCnt : " + qCnt);
+			logger.info(" ------ qList Content : " + qList.getContent());
+			logger.info(" ------ aCnt : " + aCnt);
+			logger.info(" ------ aList Content : " + aList.getContent());
+			logger.info(" ------ tCnt : " + tCnt);
+			logger.info(" ------ tList Content : " + tList);
+			logger.info(" ------ wCnt : " + wCnt);
+			logger.info(" ------ wList Content : " + wList);
+		}
+		
+		vo.setUserat(0);	// 승인 대기
+		List<Users> users = service.getMembersList(vo);	// 승인 대기 회원 목록
+		model.addAttribute("users", users);
+		
+		vo.setUserat(1);	// 승인
+		users = service.getMembersList(vo);	// 승인 회원 목록
+		model.addAttribute("atusers", users);
+		
+		vo.setUserat(3);	// 비활성
+		users = service.getMembersList(vo);	// 비활성 회원 목록
+		model.addAttribute("unatusers", users);
+		
+//		model.addAttribute("enterpriseno", seq);	// 페이지 번호
+		
+		
 		model.addAttribute("enterprise", enterprises.orElse(null));	// 프로필 정보
-		model.addAttribute("isMypage", seq == userSeq);		// 내 정보 유무
+		model.addAttribute("isMypage", isUserNo);		// 내 정보 유무
+		
+		model.addAttribute("score", score);					// 평판점수
+		
+		model.addAttribute("qCnt", qCnt);					// 질문 전체 수
+		model.addAttribute("qList", qList.getContent());	// 질문 목록
+		
+		model.addAttribute("aCnt", aCnt);					// 답변 전체 수
+		model.addAttribute("aList", aList.getContent());	// 답변 목록
+		
+		model.addAttribute("tCnt", tCnt);		// 태그 전체 수
+		model.addAttribute("tList", tList);	// 태그 목록
+		
+		model.addAttribute("wCnt", wCnt);		// 위키 전체 수
+		model.addAttribute("wList", wList);	// 위키 목록
+
+		model.addAttribute("isMypage", isUserNo );	// 내 정보 유무
 
 		return "/enterprises/activity";
 	}
@@ -96,6 +193,8 @@ public class EnterprisesController {
 		model.addAttribute("data", list.getContent());
 		return "/enterprises/list";
 	}
+	
+
 	
 	/**
 	 * 기업회원 상세 정보
@@ -209,13 +308,29 @@ public class EnterprisesController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/members/{seq}", method=RequestMethod.GET)
-	public String members(Model model, @PathVariable("seq") int seq) throws Exception {
+	public String members(Model model, @PathVariable("seq") int seq,  @AuthenticationPrincipal SecurityMember loginUserData ) throws Exception {
 		if(LOG_URL) logger.info(" -- url : /enterprises/members - seq : " + seq);
 
 		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
 		// session 에서 seq 정보 추출
 		// 임시 - 기업회원 enterpriseno
-		int enterpriseno = 4;
+
+		//boolean isUserNo = false;
+		System.out.println("기업회원 상세");
+		System.out.println("userno ???"+ loginUserData.getEnterpriseno() + "대표계정 여부"+loginUserData.getRepresentat());
+		
+		boolean isUserNo = false;
+		
+		if ( loginUserData == null ) {
+			isUserNo = false;
+		} else {
+			if( loginUserData.getEnterpriseno() == seq ) {
+				isUserNo = true;
+			}else {
+				isUserNo = false;	
+			}
+		}
+		
 		UsersDetail vo = new UsersDetail();
 		
 		vo.setEnterpriseno(seq);
@@ -228,7 +343,11 @@ public class EnterprisesController {
 		users = service.getMembersList(vo);	// 승인 회원 목록
 		model.addAttribute("atusers", users);
 		
-		model.addAttribute("isMypage", seq == enterpriseno);	// 내 정보 유무
+		vo.setUserat(3);	// 비활성
+		users = service.getMembersList(vo);	// 비활성 회원 목록
+		model.addAttribute("unatusers", users);
+		
+		model.addAttribute("isMypage", isUserNo);	// 내 정보 유무
 		model.addAttribute("enterpriseno", seq);	// 페이지 번호
 
 		return "/enterprises/members";
@@ -251,10 +370,14 @@ public class EnterprisesController {
 		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
 		// session 에서 seq 정보 추출
 		// 임시 - 기업회원 enterpriseno
-		int enterpriseno = 4;
-		vo.setEnterpriseno(enterpriseno);
+		//int enterpriseno = 4;
+		//vo.setEnterpriseno(enterpriseno);
+		System.out.println("변경할려는 userno => "+vo.getUserno());
+		System.out.println("변경하려는 값? "+vo.getActiveat());
+		vo.setRepresentat(2);//회사의 하위 멤버 :2
 		
 		boolean updateVal = service.updateUserat(vo);
+		
 		
 		if(updateVal) map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
 		else map.put("message", CodeMessage.ERROR_000004_정보가_잘못_입력되었습니다__확인_후_다시_시도해_주세요_);

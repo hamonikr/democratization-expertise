@@ -2,17 +2,22 @@
 <%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
 
 <!-- tui-editor 사용 -->
-<script src='/tui-editor/markdown-it/dist/markdown-it.js'></script>
-<script src="/tui-editor/to-mark/dist/to-mark.js"></script>
-<script src="/tui-editor/tui-code-snippet/dist/tui-code-snippet.js"></script>
-<script src="/tui-editor/codemirror/lib/codemirror.js"></script>
-<script src="/tui-editor/highlightjs/highlight.pack.js"></script>
-<script src="/tui-editor/squire-rte/build/squire-raw.js"></script>
-<script src="/tui-editor/tui-editor/dist/tui-editor-Editor.js"></script>
-<link rel="stylesheet" href="/tui-editor/tui-editor/dist/tui-editor.css">
-<link rel="stylesheet" href="/tui-editor/tui-editor/dist/tui-editor-contents.css"> 
-<link rel="stylesheet" href="/tui-editor/codemirror/lib/codemirror.css">
-<link rel="stylesheet" href="/tui-editor/highlightjs/styles/github.css">
+<!-- <script src='/tui-editor/markdown-it/dist/markdown-it.js'></script> -->
+<!-- <script src="/tui-editor/to-mark/dist/to-mark.js"></script> -->
+<!-- <script src="/tui-editor/tui-code-snippet/dist/tui-code-snippet.js"></script> -->
+<!-- <script src="/tui-editor/codemirror/lib/codemirror.js"></script> -->
+<!-- <script src="/tui-editor/highlightjs/highlight.pack.js"></script> -->
+<!-- <script src="/tui-editor/squire-rte/build/squire-raw.js"></script> -->
+<!-- <script src="/tui-editor/tui-editor/dist/tui-editor-Editor.js"></script> -->
+<!-- <link rel="stylesheet" href="/tui-editor/tui-editor/dist/tui-editor.css"> -->
+<!-- <link rel="stylesheet" href="/tui-editor/tui-editor/dist/tui-editor-contents.css">  -->
+<!-- <link rel="stylesheet" href="/tui-editor/codemirror/lib/codemirror.css"> -->
+<!-- <link rel="stylesheet" href="/tui-editor/highlightjs/styles/github.css"> -->
+
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
 
 <!-- jquery-validation -->
 <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
@@ -67,7 +72,7 @@
 						<div class="card-body card-primary row" style="width: 100%;">
 							<div class="col-8 row">
 								<div class="col-12"><h2><b>${user.username}</b></h2><p>${user.aboutme}</p></div>
-								<div class="col-6"><h4>평판</h4><span>123,456</span></div>
+								<div class="col-6"><h4>평판</h4><span>${score}</span></div>
 								<div class="col-6"><div id="line-chart" style="height: 300px;"></div></div>
 							</div>
 	
@@ -78,7 +83,7 @@
 								<c:if test="${user.userprofileimg == null}">
 									<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
 								</c:if>
-								<span>배지 : </span>
+								<span>배지 : </span><br/>
 								<span>홈페이지 : </span><a href="${user.userurl}" target="_blank">${user.userurl}</a>
 							</div>
 						</div>
@@ -87,47 +92,41 @@
 						<div class="card-body card-primary row" style="width: 100%;">
 						
 							<div class="col-6">
-								<div>질문(101)</div>
+								<div>질문(${ qCnt })</div>
 								<hr/>
-								<div class="dash-list">
-									<span class="float-left badge bg-primary">like</span>
-									<a href="#">우분투 업그레이드 어떻게 해요?</a>
-								</div>
-								<div class="dash-list">
-									<span class="float-left badge bg-primary">like</span>
-									<a href="#">하모니카 설치 어떻게 하죠?</a>
-								</div>
-								<div class="dash-list">
-									<span class="float-left badge bg-primary">like</span>
-									<a href="#">우분투 업그레이드 어떻게 해요?</a>
-								</div>
-								<div class="dash-list">
-									<span class="float-left badge bg-primary">like</span>
-									<a href="#">하모니카 설치 어떻게 하죠?</a>
-								</div>
-								<button class="btn-primary btn-xs">더보기</button>
+								<c:forEach var="list" items="${ qList }" varStatus="status">
+									<div class="dash-list">
+										<a href="/questions/view/${ list.questionno }">${ list.title }</a>
+									</div>
+								</c:forEach>
+								
+								<c:if test="${ qCnt > 5 }">
+									<form action="/questions/myList">
+										<input type="hidden" name="userno" value="${ user.userno }">
+										<input type="hidden" name="section" value="Q">
+										<button type="submit" class="btn-primary btn-xs" >더보기</button>
+									</form>
+								</c:if>
 							</div>
 						
 							<div class="col-6">
-								<div>답변(521)</div>
+								<div>답변(${ aCnt })</div>
 								<hr/>
-								<div class="dash-list">
-									<span class="float-left badge bg-primary">like</span>
-									<a href="#">이렇게 하시면 됩니다.</a>
-								</div>
-								<div class="dash-list">
-									<span class="float-left badge bg-primary">like</span>
-									<a href="#">답변입니다</a>
-								</div>
-								<div class="dash-list">
-									<span class="float-left badge bg-primary">like</span>
-									<a href="#">답변입니다</a>
-								</div>
-								<div class="dash-list">
-									<span class="float-left badge bg-primary">like</span>
-									<a href="#">답변입니다~</a>
-								</div>
-								<button class="btn-primary btn-xs">더보기</button>
+								<c:forEach var="list" items="${ aList }" varStatus="status">
+									<div class="dash-list">
+										<a href="/questions/view/${ list.questionno }">
+											${fn:substring(list.contents.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""), 0, 150)}
+										</a>
+									</div>
+								</c:forEach>
+								
+								<c:if test="${ aCnt > 5 }">
+									<form action="/questions/myList">
+										<input type="hidden" name="userno" value="${ user.userno }">
+										<input type="hidden" name="section" value="A">
+										<button type="submit" class="btn-primary btn-xs" >더보기</button>
+									</form>
+								</c:if>
 							</div>
 						</div>
 					
@@ -135,32 +134,39 @@
 						<div class="card-body card-primary row" style="width: 100%;">
 						
 							<div class="col-6 row">
-								<div class="col-12">태그(5)</div>
+								<div class="col-12">태그(${ tCnt })</div>
 								<hr/>
 								<div class="dash-list col-12">
-									<span class="float-left badge bg-primary tagSpan">java</span>
-									<span class="float-left badge bg-primary tagSpan">linux</span>
-									<span class="float-left badge bg-primary tagSpan">ubuntu</span>
-									<span class="float-left badge bg-primary tagSpan">javascript</span>
-									<span class="float-left badge bg-primary tagSpan">ios</span>
-									<span class="float-left badge bg-primary tagSpan">css</span>
-									<span class="float-left badge bg-primary tagSpan">node</span>
-									<span class="float-left badge bg-primary tagSpan">android</span>
-									<span class="float-left badge bg-primary tagSpan">html</span>
-									<span class="float-left badge bg-primary tagSpan">shell</span>
-									<span class="float-left badge bg-primary tagSpan">hamonikr</span>
+									<c:forEach var="list" items="${ tList }" varStatus="status">
+										<a href="/wiki/view/${ list.wikino }" class="float-left badge bg-primary tagSpan">${ list.title }</a>
+									</c:forEach>
 								</div>
-								<button class="btn-primary btn-xs">더보기</button>
+								
+								<c:if test="${ tCnt > 5 }">
+									<form action="/questions/myList">
+										<input type="hidden" name="userno" value="${ user.userno }">
+										<input type="hidden" name="type" value="A">
+										<button type="submit" class="btn-primary btn-xs" >더보기</button>
+									</form>
+								</c:if>
 							</div>
 						
 							<div class="col-6">
-								<div>위키(51)</div>
+								<div>위키(${ wCnt })</div>
 								<hr/>
-								<div class="dash-list"><a href="#">이렇게 하시면 됩니다.</a></div>
-								<div class="dash-list"><a href="#">답변입니다</a></div>
-								<div class="dash-list"><a href="#">답변입니다</a></div>
-								<div class="dash-list"><a href="#">답변입니다~</a></div>
-								<button class="btn-primary btn-xs">더보기</button>
+								<c:forEach var="list" items="${ wList }" varStatus="status">
+									<div class="dash-list">
+										<a href="/wiki/view/${ list.wikino }">${ list.title }</a>
+									</div>
+								</c:forEach>
+								
+								<c:if test="${ wCnt > 5 }">
+									<form action="/questions/myList">
+										<input type="hidden" name="userno" value="${ user.userno }">
+										<input type="hidden" name="type" value="A">
+										<button type="submit" class="btn-primary btn-xs" >더보기</button>
+									</form>
+								</c:if>
 							</div>
 						</div>
 					</div>
@@ -227,12 +233,31 @@
 								<div class="form-group">
 									<label for="enterpriseName" class="col-form-label">회사명</label>
 									<c:if test="${ isMypage }">
-										<input type="hidden" name="enterpriseno" id="enterpriseNo" value="${enterprise.enterpriseno}" autocomplete="off">
+									<input type="hidden" name="enterpriseno" id="enterpriseNo" value="${enterprise.enterpriseno}" autocomplete="off">
+										<%-- <input type="hidden" name="enterpriseno" id="enterpriseNo" value="${enterprise.enterpriseno}" autocomplete="off">
 										<input type="text" class="form-control" id="enterpriseNameSearch" value="${enterprise.enterprisename}" autocomplete="off">
-										<div id="enterpriseListDiv"></div>
+										<div id="enterpriseListDiv"></div> --%>
+										<c:choose>
+											<c:when test="${enterprise.userat == 1}">
+												<input type="text" class="form-control" id="enterpriseNameSearch" value="${enterprise.enterprisename}" autocomplete="off">
+										
+											</c:when>		
+											<c:otherwise>
+												<input type="text" class="form-control" id="enterpriseNameSearch" value="" autocomplete="off">	
+													<div id="enterpriseListDiv"></div>									
+											</c:otherwise>
+										</c:choose>
+										
 									</c:if>
 									<c:if test="${ ! isMypage }">
-										<input class="form-control" value="${enterprise.enterprisename}" autocomplete="off" disabled="disabled">
+										<c:choose>
+											<c:when test="${enterprise.userat == 1}">
+												<input class="form-control" value="${enterprise.enterprisename}" autocomplete="off" disabled="disabled">
+											</c:when>
+											<c:otherwise>
+												<input class="form-control" value="" autocomplete="off" disabled="disabled">	
+											</c:otherwise>
+										</c:choose>
 									</c:if>
 								</div>
 								<c:if test="${ isMypage }">
@@ -262,7 +287,7 @@
 											<div id="editSection">${user.aboutme}</div> 
 										</div>
 										<script class="code-js">
-											var editor = new tui.Editor({
+											var editor = new toastui.Editor( { //new tui.Editor({
 												el: document.querySelector('#editSection'),
 												initialEditType: 'wysiwyg',
 												previewStyle: 'vertical',
@@ -326,7 +351,6 @@
 </div>
 
 
-
 <!-- FLOT CHARTS -->
 <script type="text/javascript">
 $(function() {
@@ -364,11 +388,10 @@ function fn_searchEnterpriseName() {
 	}
 
 	oldEnterName = enterpriseNameSearch;
-
 	$('#enterpriseListDiv').html('');
 	$.ajax({
 		url		: '/users/getEnterList',
-		data	: { 'entername' : enterpriseNameSearch },
+		data	: { 'enterName' : enterpriseNameSearch },
 		type	: 'post',
 		async	: false,
 		beforeSend : function(xhr) {

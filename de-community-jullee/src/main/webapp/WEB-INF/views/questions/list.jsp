@@ -16,8 +16,9 @@
 	</section>
 
 	<section class="content" style="padding: 2px 12px 6px 19px;">
-		<form id="frm" name="frm" method="post">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> <input type="hidden" name="pageNo" value="${paginationInfo.currentPageNo }" />
+		<form id="frm" name="frm" action="list" method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+			<input type="hidden" name="pageNo" value="${paginationInfo.currentPageNo }" />
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12">
@@ -72,7 +73,12 @@
 										<div class="info-box">
 											<div class="">
 <!-- 												<span class="info-box-icon bg-info elevation-1" style="height: 80px;"><i class="fas fa-cog"></i></span> -->
-												<img src="/img/noprofile.png">
+												<c:if test="${list.users.userprofileimg != null}">
+													<img src="/upload/users/${list.users.userprofileimg}">
+												</c:if>
+												<c:if test="${list.users.userprofileimg == null}">
+													<img src="/img/noprofile.png">
+												</c:if>
 												${list.users.username}
 											</div>
 											<div class="row col-11">
@@ -81,11 +87,11 @@
 														<span class="info-box-text"><a href="view/${list.questionno }">${list.title }</a></span>
 														<span class="info-box-number"> ${fn:substring(list.contents, 0, 50)}
 														<c:if test="${fn:length(list.contents) > 49}"> ... </c:if>
-														<!--  <small>%</small> --></span> 
+														</span> 
 														<span class="info-box-text">
-															<c:forEach var="tagName1" items="${tagList }" varStatus="status">
-																<c:forEach var="tagName2" items="${tag }" varStatus="status">
-																	<c:if test="${tagName1.tagno == tagName2}">${tagName1.title}</c:if>
+															<c:forEach var="tagName2" items="${tag }" varStatus="status">
+																<c:forEach var="tagName1" items="${tagList }" varStatus="status">
+																	<c:if test="${tagName1.wikino == tagName2}"><a href="/wiki/view/${tagName1.wikino }">${tagName1.title}</a></c:if>
 																</c:forEach>
 															</c:forEach>
 														</span>
@@ -108,7 +114,7 @@
 													<fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd" />
 												</div>
 												<div class="">
-													<span class="info-box-icon bg-info elevation-1" style="height: 80px;">답변</span>
+													<span class="info-box-icon bg-info elevation-1" style="height: 80px;">답변${list.commentcnt }</span>
 													
 													
 												</div>

@@ -3,21 +3,56 @@
  
 <mapper namespace="com.de.wiki.mapper.WikiMapper">
 
-
-<select id="getWikiHelp" resultType="com.de.wiki.Wiki">
+<!-- 불러오기 -->
+<select id="getWikiList" resultType="com.de.wiki.Wiki">
 select *
 from 
-	tb_wiki
+	tb_wiki 
 where
-	section='h'
+	section=#{section} and deleteat=0 
+order by registerdate asc
 </select>
 
-<select id="getWikiTag" resultType="com.de.wiki.Wiki">
+<select id="getView" parameterType="integer" resultType="com.de.wiki.Wiki">
+<!-- select *
+from
+	tb_wiki_history
+where
+	seq in (select max(seq) from tb_wiki_history where wikino = #{wikino} ) -->
 select *
-from 
+from
 	tb_wiki
 where
-	section='t'
+	wikino = #{wikino}
+
+</select>
+
+<select id="getHistoryView" parameterType="integer" resultType="com.de.wiki.WikiHistory">
+select *
+from 
+	tb_wiki_history
+where
+	 seq = #{seq}
+</select>
+
+<select id="getHistory" parameterType="integer" resultType="com.de.wiki.WikiHistory">
+	select
+		 a.*, b.username
+	from
+		 tb_wiki_history a left outer join tb_users b on a.userno = b.userno				
+	where
+		wikino = #{wikino}
+	
+order by updatedate desc
+
+</select>
+
+
+<!-- qustion 쿼리 바뀌면 tagno -> wikino로 조회하는결로 변경 예정  -->
+<select id="getWikiCount" parameterType="Integer" resultType="Integer">
+select  count(*)
+from public.tb_questions
+where tagno  like '%' || #{tagno} || '%'
 </select>
 
 
@@ -25,14 +60,13 @@ where
 <insert id="save" parameterType="com.de.wiki.Wiki">
 Insert
 	 into
-  	  tb_wiki(  	  	       
-  	  	
+  	  tb_wiki(  	  	        	  	
       title
       ,contents
       ,section
       ,userno
-      ,registerdate
       ,updatedate
+      ,registerdate
     )
   values
     (  #{title}
@@ -42,13 +76,13 @@ Insert
       ,now()
       ,now()
      )
-</insert>	
+</insert>
 
-<insert id="saveHistory" parameterType="com.de.wiki.Wiki">
+<insert id="saveHistory" parameterType="com.de.wiki.Wiki">	
 <selectKey keyProperty="wikino" resultType="Integer" order="BEFORE">
-    SELECT  max(wikino) FROM tb_wiki 
-</selectKey>	
-Insert
+    SELECT max(wikino) FROM tb_wiki 
+</selectKey>
+    Insert
 	 into
   	  tb_wiki_history(  	  	
       wikino
@@ -69,15 +103,49 @@ Insert
      )
 </insert>	
 
-<select id="getView" parameterType="integer" resultType="com.de.wiki.Wiki">
-	select
-		 a.*
-	from
-		 tb_wiki a left outer join tb_wiki_history b on a.wikino = b.wikino		
-	where
-		a.wikino = #{wikino}
-	
-</select>
+<!-- 수정  -->
+<update id="updateWiki" parameterType="com.de.wiki.Wiki">
+update 
+	tb_wiki 
+set
+	title = #{title},
+   contents = #{contents},
+   updatedate = now()
+where
+	wikino = #{wikino}
+</update>
+
+
+<update id="addWikiHistory" parameterType="com.de.wiki.Wiki">
+insert
+  into 
+   tb_wiki_history(  	  	
+      wikino
+      ,userno
+      ,title
+      ,contents
+      ,updatedate
+    )
+  values
+    (   
+    	#{wikino}      
+      ,#{userno}
+      ,#{title}
+      ,#{contents}
+      ,now()
+     )
+</update>
+
+<!-- 삭제 -->
+<update id="deleteWiki" parameterType="integer">
+update 
+	tb_wiki 
+set
+	deleteat = 1,
+	updatedate = now()	
+where
+	wikino = #{wikino}
+</update>
 
 </mapper>
  

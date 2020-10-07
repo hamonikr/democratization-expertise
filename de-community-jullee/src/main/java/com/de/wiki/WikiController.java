@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.de.login.service.SecurityMember;
+import com.de.question.QuestionsService;
 import com.de.wiki.service.WikiService;
 
 @Controller
@@ -22,7 +23,9 @@ public class WikiController {
 	@Autowired
 	WikiService service;
 	
-		
+	@Autowired
+	QuestionsService qs;
+
 	
 	@RequestMapping("/getStart")
 	 public String accountRecovery(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo,Model model) throws Exception { 		
@@ -32,23 +35,48 @@ public class WikiController {
 		}
 		
 		// fna list
-		List<Wiki> fna_list = service.getWikiHelp();
+		List<Wiki> fna_list = service.getWikiList("h");
 		model.addAttribute("result", fna_list);
-	
+		
+
+		// MENUAL list
+		List<Wiki> menual_list = service.getWikiList("m");
+		model.addAttribute("menual_result", menual_list);
+		
+		// tag list
+//		List<Wiki> tags_list = service.getWikiList("t");
+//		model.addAttribute("tags", tags_list);
+
+		
+		List<Wiki> get_list = service.getWikiList("t");
+		//List <Integer> tagno_cnt= new ArrayList<>();
+		int [] tagno_cnt = new int[get_list.size()];
+		for(int i=0;i<get_list.size();i++) {
+			System.out.println(get_list.get(i).getWikino()+" : "+get_list.get(i).getTitle()+"\n : "+ get_list.get(i).getContents());			
+			tagno_cnt[i] = service.getWikiCount(get_list.get(i).getWikino());
+			System.out.println(get_list.get(i).getWikino()+" 번 태그가 포함된 질문 갯수-->" +tagno_cnt[i]);
+			System.out.println("-------------------------------------------------------------");
+			get_list.get(i).setRelatedcnt(tagno_cnt[i]);
+		}
+		
+		
+		model.addAttribute("tagsResult", get_list);
+		
 		return "/wiki/start";
 	 }
 	
 
-	@RequestMapping("/Help")
-	 public String helplist(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo,Model model) throws Exception { 		
+	@RequestMapping("/Help/{gubun}")
+	 public String helplist(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo,Model model,@PathVariable("gubun") String gubun ) throws Exception { 		
 		System.out.println("---wiki view---");		
 		vo.setSection("h");
 		// fna list
-		List<Wiki> fna_list = service.getWikiHelp();
+		List<Wiki> fna_list = service.getWikiList(gubun);
 		model.addAttribute("result", fna_list);
-		for(int i =0;i<fna_list.size();i++){
-			System.out.println(fna_list.get(i).getTitle());
-		}
+		model.addAttribute("gubun", gubun);
+		
+		
+		
 		// etc list
 		
 		
@@ -57,37 +85,42 @@ public class WikiController {
 	
 	
 	@RequestMapping("/view/{wikino}")
-	 public String view(HttpServletRequest request, @PathVariable("wikino") int wikino, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model) throws Exception { 		
+	 public String view(HttpServletRequest request, @PathVariable("wikino") int wikino, @AuthenticationPrincipal SecurityMember user, Model model) throws Exception { 		
 		System.out.println("---wiki view---");		
 		if(user!=null) {
-			System.out.println("user type -->" +user.getUserid());
+			System.out.println("user id -->" +user.getUserid());
+			System.out.println("user role -->" +user.getRole());
+			System.out.println("wikino --->"  +wikino);
 		}
 		
 		Wiki wiki_view = service.getView(wikino);
-		model.addAttribute("result", wiki_view);	
-		System.out.println(wiki_view.getTitle());
+		System.out.println("section---?"+wiki_view.getSection());
+		model.addAttribute("result", wiki_view);		
+	
+		List<WikiHistory> history = service.getHistory(wikino);
+		model.addAttribute("history", history);
+		
+		return "/wiki/view";
+	 }
+
+	
+	@RequestMapping("/edit/{seq}")
+	 public String historyView(HttpServletRequest request, @PathVariable("seq") int seq, Model model) throws Exception { 		
+		System.out.println("---wiki view---");		
+		
+//		Wiki wiki_history_view = service.getView(wikino);
+		WikiHistory wiki_history_view = service.getHistoryView(seq);
+		model.addAttribute("history_view", wiki_history_view);	
+		System.out.println(wiki_history_view.getTitle());
+		
+	
 		
 		return "/wiki/view";
 	 }
 	
 
-	@RequestMapping("/edit/{wikino}")
-	 public String edit(HttpServletRequest request, @PathVariable("wikino") int wikino, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model) throws Exception { 		
-		System.out.println("---wiki view---");		
-		if(user!=null) {
-			System.out.println("user type -->" +user.getUserid());
-		}
-		
-		Wiki wiki_view = service.getView(wikino);
-		model.addAttribute("result", wiki_view);	
-		System.out.println(wiki_view.getTitle());
-		
-		return "/wiki/createHelp";
-	 }
-
-	
-	@RequestMapping("/saveHelp")
-	 public String createHelp(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model)throws Exception { 		
+	@RequestMapping("/saveHelp/{gubun}")
+	 public String createHelp(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model,@PathVariable("gubun") String gubun )throws Exception { 		
 		System.out.println("---wiki help create!---");
 		
 		if(user==null) {
@@ -101,13 +134,7 @@ public class WikiController {
 			System.out.println("user id ==>" + user.getUserid());
 			System.out.println("userno ==>"+ user.getUserno());		
 			
-			List<Wiki> help_list = service.getWikiHelp();
-			model.addAttribute("result", help_list);
-			
-			for(int i =0;i<help_list.size();i++){
-				System.out.println("질문-->"+help_list.get(i).getTitle());
-			}
-			
+			model.addAttribute("gubun", gubun);	
 			return "/wiki/createHelp";
 		}
 	 } 
@@ -126,7 +153,10 @@ public class WikiController {
 			System.out.println("section ==>" +vo.getSection());
 			System.out.println("user id ==>" + user.getUserid());
 			System.out.println("userno ==>"+ user.getUserno());
-			
+	
+			List<Wiki> tagList = qs.findAllTag();
+			model.addAttribute("tagList", tagList);
+
 			return "/wiki/createTag";
 		}
 		
@@ -135,27 +165,63 @@ public class WikiController {
 	
 
 	@RequestMapping("/save.proc")
-	 public String saveHelps(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model) throws Exception { 		
-		System.out.println("---wiki help create proc---");
-		int ret=0;
-		
+	 public String save(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model) throws Exception { 		
+		System.out.println("---wiki create proc---");
 		vo.setUserno(user.getUserno());
 		System.out.println("section==?" + vo.getSection());
 		
-//		vo.setWikino((int)seq.getAndIncrement());
-//		System.out.println("wikino" + vo.getWikino());
+		String retunUrl = "";
+		String gubun = request.getParameter("gubun");
 		
-		ret=service.save(vo);			
+		if(vo.getSection().equals("h")) {
+			retunUrl = "/wiki/Help/h";
+		}else if(vo.getSection().equals("m")) {
+			retunUrl = "/wiki/Help/m";
+		}else {
+			retunUrl ="/wiki/getStart";
+		}
+		//wiki 문서 생성	
+		//service.save(vo);	
+		service.saveHistory(vo);
+		return "redirect:" + retunUrl;
+//		return "redirect:/wiki/getStart";
+
+	} 
+
+	@RequestMapping("/edit.proc")
+	 public String edit(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model) throws Exception { 		
+		System.out.println("---wiki edit proc---");
+		System.out.println("수정할 wikino?-->"+ vo.getWikino());
+		if(user!=null) {
+			vo.setUserno(user.getUserno());
+			service.updateWiki(vo);
+			
+		} else {
+			return "redirect:/login";
+		}
+		
+		return "redirect:/wiki/getStart";
+	 }
+
+	
+	@RequestMapping("/delete.proc")
+	 public String delete(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model) throws Exception { 		
+		System.out.println("---wiki delete proc---");
+		System.out.println("---삭제할 wikino---" + vo.getWikino());
+		int ret=0; 
+		vo.setUserno(user.getUserno());
+		ret= service.deleteWiki(vo.getWikino());
+
 		
 		if(ret==0) {
-			System.out.println("도움말 문서 저장 실패");
+			System.out.println("위키 문서 삭제 실패");
 		} else {			
 			service.saveHistory(vo);
-			System.out.println("도움말 문서 정상적으로 저장");			
+			System.out.println("위키 문서 정상적으로 삭제");			
 		
 		}
 	
-		return "redirect:/wiki/view";
+		return "redirect:/wiki/getStart";
 
 	} 
 

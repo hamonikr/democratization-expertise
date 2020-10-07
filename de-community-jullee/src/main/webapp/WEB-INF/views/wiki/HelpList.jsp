@@ -27,6 +27,77 @@ display: block;
 
 </style>
 <body>
+
+
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1></h1>
+				</div>
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+	
+
+	<section class="content" style="padding: 2px 12px 6px 19px;">
+		<form id="frm" name="frm" action="list" method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+			<input type="hidden" name="pageNo" value="${paginationInfo.currentPageNo }" />
+			<div class="container-fluid">
+					<div class="col-12">
+						<div class="callout callout-info">
+
+							<div class="card-header" style="border-bottom: 0px;">
+								<div class="card-tools float-left col-8">
+									<div class="input-group input-group col-8">
+										<!--  style="width: 650px;" -->
+										<c:if test="${gubun eq 'h'}">
+											자주하는 질문들...
+										</c:if>
+										<c:if test="${gubun == 'm'}">
+											How to DE-Community...
+										</c:if>
+										
+									</div>
+								</div>
+								<div class="float-right">
+									<button type="button" class="btn btn-outline-primary float-right" id="btnSave" onclick="location.href='/wiki/saveHelp/${gubun}'">[작성하기]</button>
+									<button type="button" class="btn btn-outline-primary float-right" id="btnSave" onclick="location.href='/wiki/getStart'">[목록으로]</button>
+								</div>
+							</div>
+						</div>
+
+						<div class="invoice p-3 mb-3" style="border-left: 5px solid #117a8b;">
+
+							<!-- Table row -->
+							<div class="row">
+								<div class=" table-responsive">
+									<c:forEach var="list" items="${result}" varStatus="status">
+									<div class="info-box">
+											<div class="info-box-content">
+										<ul>
+										 	<li>
+											  <svg aria-hidden="true" class="svg-icon iconTack" width="18" height="18" viewBox="0 0 18 18">
+											  <path d="M6.79 12.67l3.53 3.53a6 6 0 001.18-6.83l2.03-2.03A4 4 0 0018 5.5L12.53.03A4 4 0 0010.7 4.5L8.67 6.54a6 6 0 00-6.83 1.18l3.53 3.53-3.18 3.18-1.77 3.19 3.18-1.77 3.19-3.18z"></path></svg>     
+											  <a href="/wiki/view/${list.wikino}">${list.title}</a>
+											</li>
+										</ul></div>
+										</div>
+									</c:forEach>		 
+								</div>
+								<!-- /.col -->
+							</div>
+						</div>
+					</div>
+
+			</div>
+			<!-- page number -->
+			<jsp:include page="/WEB-INF/views/include/paging.jsp" />
+		</form>
+	</section>
+		
   <div id="content" class="" role="main">
   		<div class="row">
  			<div class="col-md-10" data-placeholder="WikiPlaceholder-HelpCenterIntro">
@@ -49,20 +120,7 @@ display: block;
 					</ul>
 				</c:forEach>		 
 
-					 <%--  <li>
-					  <svg aria-hidden="true" class="svg-icon iconTack" width="18" height="18" viewBox="0 0 18 18"><path d="M6.79 12.67l3.53 3.53a6 6 0 001.18-6.83l2.03-2.03A4 4 0 0018 5.5L12.53.03A4 4 0 0010.7 4.5L8.67 6.54a6 6 0 00-6.83 1.18l3.53 3.53-3.18 3.18-1.77 3.19 3.18-1.77 3.19-3.18z"></path></svg>     
-					  <a href="/wiki/view/${list.wikino}">{result.title}</a></li>
-					  <li>
-					    <svg aria-hidden="true" class="svg-icon iconTack" width="18" height="18" viewBox="0 0 18 18"><path d="M6.79 12.67l3.53 3.53a6 6 0 001.18-6.83l2.03-2.03A4 4 0 0018 5.5L12.53.03A4 4 0 0010.7 4.5L8.67 6.54a6 6 0 00-6.83 1.18l3.53 3.53-3.18 3.18-1.77 3.19 3.18-1.77 3.19-3.18z"></path></svg>     
-					  	<a href="">왜 내 평판이 올랐는가/떨어졌는가?</a></li>
-					  <li>
-					   <svg aria-hidden="true" class="svg-icon iconTack" width="18" height="18" viewBox="0 0 18 18"><path d="M6.79 12.67l3.53 3.53a6 6 0 001.18-6.83l2.03-2.03A4 4 0 0018 5.5L12.53.03A4 4 0 0010.7 4.5L8.67 6.54a6 6 0 00-6.83 1.18l3.53 3.53-3.18 3.18-1.77 3.19 3.18-1.77 3.19-3.18z"></path></svg>     
-					  	<a href="">내 질문이 중복이 아니라고 생각될 때 나는 어떻게 할 수 있을까?</a></li>
-					  <li>
-					    <svg aria-hidden="true" class="svg-icon iconTack" width="18" height="18" viewBox="0 0 18 18"><path d="M6.79 12.67l3.53 3.53a6 6 0 001.18-6.83l2.03-2.03A4 4 0 0018 5.5L12.53.03A4 4 0 0010.7 4.5L8.67 6.54a6 6 0 00-6.83 1.18l3.53 3.53-3.18 3.18-1.77 3.19 3.18-1.77 3.19-3.18z"></path></svg>     
-					  	<a href="">"우리는 더 이상 이 계정에서 질문/대답을 받지 않는다"를 받을 때 어떻게 해야 하는가?</a></li> --%>
-			
-					<p><br>
+		<!-- 			<p><br>
 						<a href="">※기타 질문들※ </a> <br>
 					</p>
 					<ul>
@@ -71,11 +129,9 @@ display: block;
 					  <li>
 					    <a href="">기술지원은 무엇인가?</a></li>					  	
 					</ul>
-					<div>
+		 -->			<div>
 						<sec:authorize access="hasRole('ROLE_ADMIN')">
 						   	<a href="/wiki/saveHelp">[작성하기]</a>
-						   	<a href="/wiki/saveHelp">[수정하기]</a>						   	
-						   	
 						</sec:authorize>
 					</div>
 				<hr>

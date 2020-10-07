@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,19 +16,21 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.de.cmmn.CmmnMap;
+import com.de.answer.Answers;
 import com.de.cmmn.util.CodeMessage;
 import com.de.enterprise.Enterprises;
 import com.de.login.service.SecurityMember;
-
-import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+import com.de.question.Questions;
+import com.de.wiki.Wiki;
 
 
 @Controller
@@ -52,11 +56,6 @@ public class UsersController {
 	public String dashboard(Model model, @PathVariable("seq") int seq, @AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
 		if(LOG_URL) logger.info(" -- url : /users/activity - seq : " + seq);
 
-		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
-		// session 에서 seq 정보 추출
-		// 임시 - 사용자 seq
-//		int userSeq = 4;
-		
 		boolean isUserNo = false;
 		
 		if ( loginUserData == null ) {
@@ -68,17 +67,84 @@ public class UsersController {
 		}
 		
 		Optional<Users> users = usersService.findById(seq);
-		Optional<Enterprises> enterprise = usersService.findEnterpriseNo(seq);
+		//Optional<Enterprises> enterprise = usersService.findEnterpriseno(seq);
+		Enterprises enterprise = usersService.findEnterpriseno(seq);
+	
+		try{
+
+			System.out.println("enterprise?" + enterprise.getEnterpriseno());
+			System.out.println("enterprise?" + enterprise.getEnterprisename());
+			System.out.println("enterprise?" + enterprise.getUserat());
+
+		}catch (Exception e){
+		    //에러시 수행
+			System.out.println("enterprise 없는 일반 유저");
+		     e.printStackTrace(); //오류 출력(방법은 여러가지)
+		}
 		
+		// 평판점수
+		Integer score = usersService.getScore(seq);
+		logger.info(" ---- score : " + score);
+		if(score == null) score = 0;
+		
+		// 평판 그래프 데이터
+		
+		
+		// 질문
+		int qCnt = usersService.cntQuestionsById(seq);
+		Page<Questions> qList = usersService.findQuestionsByUserno(seq);
+		
+		// 답변
+		int aCnt = usersService.cntAnswerById(seq);
+		Page<Answers> aList = usersService.findAnswerByUserno(seq);
+		
+		// 태그 n 위키
+		Wiki vo = new Wiki();
+		vo.setUserno(seq);
+		
+		// 태그
+		vo.setSection("t");
+		int tCnt = usersService.cntTagAndWikiById(vo);
+		List<Wiki> tList = usersService.findTagAndWikiByUserno(vo);
+		
+		// 위키
+		vo.setSection("h");
+		int wCnt = usersService.cntTagAndWikiById(vo);
+		List<Wiki> wList = usersService.findTagAndWikiByUserno(vo);
+		
+		if(LOG_URL) {
+			logger.info(" ------ qCnt : " + qCnt);
+			logger.info(" ------ qList Content : " + qList.getContent());
+			logger.info(" ------ aCnt : " + aCnt);
+			logger.info(" ------ aList Content : " + aList.getContent());
+			logger.info(" ------ tCnt : " + tCnt);
+			logger.info(" ------ tList Content : " + tList);
+			logger.info(" ------ wCnt : " + wCnt);
+			logger.info(" ------ wList Content : " + wList);
+		}
 		
 		System.out.println("1==========++"+ users.get().getUserprofileimg());
 		model.addAttribute("user", users.orElse(null));	// 프로필 정보
 		model.addAttribute("isMypage", isUserNo);		// 내 정보 유무
-		model.addAttribute("enterprise", enterprise.orElse(null));	// 회사명 정보
+		model.addAttribute("enterprise", enterprise);	// 회사명 정보
+		
+		model.addAttribute("score", score);					// 평판점수
+		
+		model.addAttribute("qCnt", qCnt);					// 질문 전체 수
+		model.addAttribute("qList", qList.getContent());	// 질문 목록
+		
+		model.addAttribute("aCnt", aCnt);					// 답변 전체 수
+		model.addAttribute("aList", aList.getContent());	// 답변 목록
+		
+		model.addAttribute("tCnt", tCnt);		// 태그 전체 수
+		model.addAttribute("tList", tList);	// 태그 목록
+		
+		model.addAttribute("wCnt", wCnt);		// 위키 전체 수
+		model.addAttribute("wList", wList);	// 위키 목록
 //		model.addAttribute("tab", tab);
 
 		return "/users/activity";
-	}	
+	}
 	
 	/**
 	 * 사용자 목록
@@ -109,15 +175,13 @@ public class UsersController {
 	public String modify(Model model, @PathVariable("seq") int seq, @AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
 		if(LOG_URL) logger.info(" -- url : /users/profile - seq : " + seq);
 		
-		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
-		// session 에서 seq 정보 추출
-		// 임시 - 사용자 seq
-//		int userSeq = 4;
-		
 		boolean isUserNo = false;
 		
 		Optional<Users> user = usersService.findById(seq);
-		Optional<Enterprises> enterprise = usersService.findEnterpriseNo(seq);
+		//Optional<Enterprises> enterprise = usersService.findEnterpriseno(seq);
+		Enterprises enterprise = usersService.findEnterpriseno(seq);
+		System.out.println("profile -- > enterprise name > " +enterprise.getEnterprisename());
+		System.out.println("userat? "+enterprise.getUserat());
 		
 		logger.info(" ------ user : " + user);
 		logger.info(" ------ enterprise : " + enterprise);
@@ -133,7 +197,7 @@ public class UsersController {
 		
 		model.addAttribute("user", user.orElse(null));	// 프로필 정보
 		model.addAttribute("isMypage", isUserNo );	// 내 정보 유무
-		model.addAttribute("enterprise", enterprise.orElse(null));	// 회사명 정보
+		model.addAttribute("enterprise", enterprise);	// 회사명 정보
 		
 		return "/users/profile";
 	}
@@ -149,6 +213,8 @@ public class UsersController {
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public String modify(Model model, Users vo, UsersDetail userDetail) throws Exception {
 		if(LOG_URL) logger.info(" -- url : /users/modify - user : " + vo + " // detail : " + userDetail);
+		
+		System.out.println("userDetail? " + userDetail.getEnterpriseno());
 		usersService.updateUser(vo, userDetail);
 		return "redirect:/users/activity/" + vo.getUserno();
 	}
@@ -167,10 +233,6 @@ public class UsersController {
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
-		// session 에서 seq 정보 추출
-		// 임시 - 사용자 seq
-//		int userSeq = 4;
 		vo.setUserno(loginUserData.getUserno());
 		
 		boolean updateVal = usersService.updateUserPw(vo);
@@ -195,11 +257,6 @@ public class UsersController {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
-		// session 에서 seq 정보 추출
-		// 임시 - 사용자 seq
-//		int userSeq = 4;
-		
 		Users vo = new Users();
 		vo.setUserno(loginUserData.getUserno());
 		
@@ -221,13 +278,16 @@ public class UsersController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/getEnterList", method=RequestMethod.POST)
-	public HashMap<String, Object> getEnterList(String enterName) throws Exception{
+	public HashMap<String, Object> getEnterList(String enterName,HttpServletRequest req) throws Exception{
 		if(LOG_URL) logger.info(" -- url : /users/getEnterList - enterName : " + enterName);
+		
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		 List<Enterprises> list= usersService.getEnterList(enterName);
-		
+		 List<Enterprises> list= usersService.getEnterList(req.getParameter("entername"));
+		 for(int i=0;i<list.size();i++) {
+			 System.out.println("enter===="+list.get(i));
+		 }
 //		if(updateVal) map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
 //		else map.put("message", CodeMessage.MSG_000024_변경_중_오류가_발생하였습니다_);
 		
