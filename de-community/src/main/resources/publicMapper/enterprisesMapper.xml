@@ -28,6 +28,20 @@
 </resultMap>
 
 
+<update id="updateEnterprises" parameterType="com.de.enterprise.Enterprises">
+UPDATE
+	tb_enterprises
+SET
+	enterprisename = #{enterprisename},
+	enterpriseemail = #{enterpriseemail},
+	enterpriseurl = #{enterpriseurl},
+	enterprisearea = #{enterprisearea},
+	enterpriseabout = #{enterpriseabout},
+	updatedate = now()
+WHERE
+	enterpriseno = #{enterpriseno}
+</update>
+
 <update id="updateEnterprisePw" parameterType="com.de.enterprise.EnterprisePwVO">
 UPDATE
 	tb_enterprises

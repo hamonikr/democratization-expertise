@@ -90,7 +90,7 @@ public class EnterprisesController {
 			}
 		}
 //		System.out.println("loginUserData.getUserno()=========+++++"+loginUserData.getEnterpriseno() );
-		Optional<Enterprises> enterprises = service.findById(seq);
+		Optional<Enterprises> enterprises = service.findByEnterpriseno(seq);
 		
 		UsersDetail vo = new UsersDetail();
 		
@@ -212,7 +212,7 @@ public class EnterprisesController {
 		// 임시 - 사용자 seq
 		int enterSeq = 4;
 		
-		Optional<Enterprises> enterprise = service.findById(seq);
+		Optional<Enterprises> enterprise = service.findByEnterpriseno(seq);
 		
 		logger.info(" ------ enterprise : " + enterprise);
 		
@@ -235,10 +235,16 @@ public class EnterprisesController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String modify(Model model, Enterprises vo) throws Exception {
+	public String modify(Model model, Enterprises vo, @AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
 		if(LOG_URL) logger.info(" -- url : /enterprises/modify - Enterprises : " + vo);
+		
+		System.out.println("loginuser enterpriseno ? "+ loginUserData.getEnterpriseno());	
+		System.out.println("area? " + vo.getEnterprisearea());
+		System.out.println("enterpriseabout" + vo.getEnterpriseabout());
+		System.out.println("vo--->" + vo.toString());
 		service.updateEnterprises(vo);
-		return "redirect:/enterprises/profile/" + vo.getEnterpriseno();
+	
+		return "redirect:/enterprises/activity/" + vo.getEnterpriseno();
 	}
 	
 	/**
