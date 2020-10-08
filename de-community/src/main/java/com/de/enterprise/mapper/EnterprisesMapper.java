@@ -9,6 +9,7 @@ import com.de.user.UsersDetail;
 import com.de.wiki.Wiki;
 
 public interface EnterprisesMapper {
+	public int updateEnterprises(Enterprises vo);
 	public int updateEnterprisePw(EnterprisePwVO vo);
 	public void updateEnterprisesimg(Enterprises vo);
 	public List<Users> getMembersList(UsersDetail vo);

@@ -41,8 +41,8 @@ public class EnterpriseService {
 	@Autowired
 	AnswersRepository ar;
 
-	public Optional<Enterprises> findById(int seq) throws Exception {
-		return er.findById(seq);
+	public Optional<Enterprises> findByEnterpriseno(int seq) throws Exception {
+		return er.findByEnterpriseno(seq);
 	}
 	
 	// 기업 목록
@@ -66,28 +66,12 @@ public class EnterpriseService {
 	}
 	
 	// 정보 업데이트
-	public void updateEnterprises(Enterprises vo) throws Exception {
-		Optional<Enterprises> enter = er.findById(vo.getEnterpriseno());
+	public int updateEnterprises(Enterprises vo) throws Exception {
 		
-		if (enter.isPresent()) {
-			// 수정
-			enter.get().setEnterprisebizno(vo.getEnterprisebizno());
-			enter.get().setEnterprisename(vo.getEnterprisename());
-			enter.get().setEnterpriseabout(vo.getEnterpriseabout());
-			enter.get().setEnterpriseemail(vo.getEnterpriseemail());
-			enter.get().setEnterpriseurl(vo.getEnterpriseurl());
-			enter.get().setEnterprisearea(vo.getEnterprisearea());
-			
-			// 유지
-			vo.setEnterpriseid(enter.get().getEnterpriseid());
-			vo.setEnterprisepassword(enter.get().getEnterprisepassword());
-			vo.setEnterpriseimg(enter.get().getEnterpriseimg());
-			vo.setEnterpriseat(enter.get().getEnterpriseat());
-			vo.setRegisterdate(enter.get().getRegisterdate());
-			
-			er.save(vo);
-		}
+		
+		return em.updateEnterprises(vo);
 	}
+
 	
 	// 비밀번호 변경
 	public boolean updateEnterprisePw(EnterprisePwVO vo) {

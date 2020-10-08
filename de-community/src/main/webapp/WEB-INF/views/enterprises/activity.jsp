@@ -60,7 +60,7 @@
                      
 						<div class="card-body card-primary row" style="width: 100%;">
 							<div class="col-8 row">
-								<div class="col-12"><h2><b>${enterprise.enterprisename}</b></h2><p>aboutme</p></div>
+								<div class="col-12"><h2><b>${enterprise.enterprisename}</b></h2><p>${enterprise.enterpriseabout}</p></div>
 								<div class="col-6"><h4>평판</h4><span>${ score }</span></div>
 								<div class="col-6"><div id="line-chart" style="height: 300px;"></div></div>
 							</div>
@@ -167,7 +167,7 @@
 						<form id="frm" name="frm" method="post">
 						<input type="hidden" name="_csrf" value="${_csrf.token}">
 						<input type="hidden" name="_csrf_header" value="${_csrf.headerName}"/>
-						<input type="hidden" name="userno" value="${user.userno}">
+						<input type="hidden" name="enterpriseno" value="${enterprise.enterpriseno}">
 						<div class="card-body card-primary card-outline row" style="width: 100%;">
 
 							<div class="col-3 profileLeftDiv">
@@ -192,33 +192,43 @@
 								<div class="form-group">
 									<label for="userName" class="col-form-label">상호명</label>
 									<c:if test="${ isMypage }">
-										<input class="form-control" id="userName" name="username" value="${enterprise.enterprisename}" autocomplete="off">
+										<input class="form-control" id="enterprisename" name="enterprisename" value="${enterprise.enterprisename}" autocomplete="off">
 									</c:if>
 									<c:if test="${ ! isMypage }">
-										<input class="form-control" id="userName" name="username" value="${enterprise.enterprisename}" autocomplete="off" disabled="disabled">
+										<input class="form-control" id="enterprisename" name="enterprisename" value="${enterprise.enterprisename}" autocomplete="off" disabled="disabled">
 									</c:if>
 								</div>
 
 								<div class="form-group">
 									<label for="userEmail" class="col-form-label">메일</label>
 									<c:if test="${ isMypage }">
-										<input class="form-control" id="userEmail" name="useremail" value="${enterprise.enterpriseemail}" autocomplete="off">
+										<input class="form-control" id="enterpriseemail" name="enterpriseemail" value="${enterprise.enterpriseemail}" autocomplete="off">
 									</c:if>
 									<c:if test="${ ! isMypage }">
-										<input class="form-control" id="userEmail" name="useremail" value="${enterprise.enterpriseemail}" autocomplete="off" disabled="disabled">
+										<input class="form-control" id="enterpriseemail" name="enterpriseemail" value="${enterprise.enterpriseemail}" autocomplete="off" disabled="disabled">
 									</c:if>
 								</div>
 								
 								<div class="form-group">
 									<label for="userUrl" class="col-form-label">홈페이지</label>
 									<c:if test="${ isMypage }">
-										<input class="form-control" id="userUrl" name="userurl" value="${enterprise.enterpriseurl}" autocomplete="off">
+										<input class="form-control" id="enterpriseurl" name="enterpriseurl" value="${enterprise.enterpriseurl}" autocomplete="off">
 									</c:if>
 									<c:if test="${ ! isMypage }">
-										<input class="form-control" id="userUrl" name="userurl" value="${enterprise.enterpriseurl}" autocomplete="off" disabled="disabled">
+										<input class="form-control" id="enterpriseurl" name="enterpriseurl" value="${enterprise.enterpriseurl}" autocomplete="off" disabled="disabled">
 									</c:if>
 								</div>
-						
+								
+								<div class="form-group">
+									<label for="enterprisearea" class="col-form-label">지역</label>
+									<c:if test="${ isMypage }">
+										<input class="form-control" id="enterprisearea" name="enterprisearea" value="${enterprise.enterprisearea}" autocomplete="off">
+									</c:if>
+									<c:if test="${ !isMypage }">
+										<input class="form-control" id="enterprisearea" name="enterprisearea" value="${enterprise.enterprisearea}" autocomplete="off" disabled="disabled">
+									</c:if>
+								</div>
+								
 								<div class="form-group">
 									<label for="enterpriseName" class="col-form-label">사업자번호</label>
 									<c:if test="${ isMypage }">
@@ -232,9 +242,9 @@
 						
 							<div class="col-12">
 								<div class="form-group">
-									<label for="aboutMe" class="col-form-label">자기소개</label>
+									<label for="aboutMe" class="col-form-label">기업홍보</label>
 									<c:if test="${ isMypage }">
-										<input type="hidden" class="form-control contents" id="aboutMe" name="aboutme" value="${enterprise.enterpriseabout}" autocomplete="off">
+										<input type="hidden" class="form-control contents" id="enterpriseabout" name="enterpriseabout" value="${enterprise.enterpriseabout}" autocomplete="off">
 										<div class="code-html">
 											<div id="editSection">${enterprise.enterpriseabout}</div> 
 										</div>
@@ -248,7 +258,7 @@
 							            </script>
 									</c:if>
 									<c:if test="${ ! isMypage }">
-										<input class="form-control contents" id="aboutMe" name="aboutme" value="${enterprise.enterpriseabout}" autocomplete="off" disabled="disabled">
+										<input class="form-control contents" id="enterpriseabout" name="enterpriseabout" value="${enterprise.enterpriseabout}" autocomplete="off" disabled="disabled">
 									</c:if>
 								</div>
 							</div>
@@ -442,6 +452,124 @@
 </script>
 
 <script type="text/javascript">
+$(function() {
+	// 수정 버튼
+	$("#btnUpdate").on("click", fnUpdate);
+
+	// 비밀번호 변경
+	$('#btnUpdatePw').on('click', fnUpdatePw);
+	
+	// 비밀번호 팝업 열기/닫기
+	$('#btnPw').on('click', fnPopupPw);
+	$('#btnUpdatePWCancle').on('click', fnPopupPw);
+});
+
+//비밀번호 팝업 열기/닫기
+function fnPopupPw(){
+	if('none' == $('#popupPw').css('display')) $('#popupPw').css('display', 'block');
+	else if('block' == $('#popupPw').css('display')) $('#popupPw').css('display', 'none');
+
+	$('input[name=enterprisepassword]').val('');
+	$('input[name=enterprisepasswordnew]').val('');
+	$('input[name=enterprisepasswordnew2]').val('');
+}
+
+// 사용자 정보 변경
+function fnUpdate() {
+	document.frm.enterpriseabout.value = editor.getHtml();
+	document.frm.action = "/enterprises/modify";
+	document.frm.submit();
+}
+
+// 사용자 비밀번호 변경
+function fnUpdatePw(){
+	var ePw = $('input[name=enterprisepassword]');
+	var ePwNew = $('input[name=enterprisepasswordnew]');
+	var ePwNew2 = $('input[name=enterprisepasswordnew2]');
+	var ePwVal = $.trim($(ePw).val());
+	var ePwNewVal = $.trim($(ePwNew).val());
+	var ePwNew2Val = $.trim($(ePwNew2).val());
+	
+	$('#popupPwAlter').text('');
+	
+	// 유효성 검사
+	if(ePwVal.length == 0){
+		$('#popupPwAlter').text('비밀번호를 입력해 주세요.');
+		$(ePw).focus();
+		return;
+	}else if(ePwNewVal.length == 0){
+		$('#popupPwAlter').text('새 비밀번호를 입력해 주세요.');
+		$(ePwNew).focus();
+		return;
+	}else if(ePwNew2Val.length == 0){
+		$('#popupPwAlter').text('새 비밀번호 확인을 입력해 주세요.');
+		$(ePwNew2).focus();
+		return;
+	}else if(ePwNewVal != ePwNew2Val){
+		$('#popupPwAlter').text('비밀번호가 일치하지 않습니다.');
+		$(ePwNew2).focus();
+		return;
+	}
+
+	$.ajax({
+		url			: '/enterprises/modifyPw',
+		data		: $("#frm1").serialize(),
+		type		: 'post',
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		},
+		success	: function(data){
+			alert(data.message);
+			if(data.updateVal) location.reload(true);
+		},
+		error		: function(xhr, status, error){
+			console.log(xhr, status, error);
+		}
+	});
+}
+
+// 기업회원 프로필 변경
+function fnProfileImg(){
+	var form = $('<form></form>');
+	var img = $('#iptProfileImg').clone();
+
+	form.attr('method', 'post');
+	form.attr('enctype', 'multipart/form-data');
+	form.append(img);
+
+	var fileData = new FormData($(form)[0]);
+	
+	$.ajax({
+		enctype	: 'multipart/form-data',
+		url			: '/enterprises/upload',
+		data		: fileData,
+		type		: 'post',
+		processData: false, 
+		contentType: false,
+		cache		: false,
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		},
+		success	: function(data){
+			alert(data.message);
+			if(data.result) location.reload(true);
+		},
+		error		: function(xhr, status, error){
+			console.log(xhr, status, error);
+		}
+	});
+}
+
+// popup resize
+function fnPopupResize(){
+	$('.pop-layer').css('left', $(window).width() / 2 - 190 + 'px');
+}
+
+fnPopupResize();
+$(window).resize(function(){
+	fnPopupResize();	// 팝업 위치 및 크기 조정
+});
+
 // 승인/거절
 function fnt_useratUser(type,uno){
 	if(type == 'not') type = 2;
