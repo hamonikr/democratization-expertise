@@ -14,10 +14,25 @@ WHERE
 </select>	
 
 <select id="getUserInfo" parameterType="com.de.login.vo.LoginVO" resultType="com.de.login.vo.LoginVO">
-select b.*
+select b.*, a.*
 from tb_users a join tb_users_detail b on a.userno = b.userno
 where a.userid  = #{userid} 
 </select>	
+
+
+ <update id="updateUserUUID" parameterType="com.de.login.vo.LoginVO">
+	UPDATE tb_users  SET uuiduser = #{uuiduser}
+	WHERE userid = #{userid}
+
+</update>
+
+
+<select id="getUserChk" parameterType="com.de.login.vo.LoginVO" resultType="com.de.login.vo.LoginVO">
+select  *
+from tb_users 
+where uuiduser  = #{uuiduser} 
+</select>	
+
 
 </mapper>
  

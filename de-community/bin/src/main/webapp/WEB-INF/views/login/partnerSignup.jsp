@@ -43,11 +43,12 @@ strong{
 <!-- contents -->
 <div class="hold-transition login-page">
   <!-- 회원가입 문구 -->
-<div class="row" style=" width: 1200px;">
-  <div class="col-5" style="margin-left:40px;right:80px;">
+<div class="row col-md-10" >
+  <div class="col-6" >
 	   <h3>
-	    <img src="/img/HamoniKR_logo600.png" style="height:60px;"> 회원가입<br>&nbsp&nbsp&nbspfor Partners
-	 	</h3><br>
+	    <img src="/img/HamoniKR_logo600.png" style="height:60px;"> 회원가입 for Partners
+	 	</h3>
+	 	<br>
 	   <h5>[DE] 커뮤니티에 가입하시면</h5><br>
 	   <br>
 	   <h6> 
@@ -60,61 +61,61 @@ strong{
    </div>
 	
 <!-- 입력 박스 -->
-<div class="col-6" style="width:450px;" >
-<div class="card" style="width:450px;">
+<div class="col-6" >
+<!-- <div class="card" style="width:450px;"> -->
  <div class="login-card-body" >
   <form id ="frm" name="frm" method="post">      
-   	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-     <!-- 아이디 입력 -->
-   <div class="row">
-     <div class="col-8">
-     	<p><strong>아이디 </strong><strong style="color:red;">*</strong>
-     </div>
-          	<div class="form-group col-12"> 	    
-		      	<input type="text" class="form-control englishOnly" id="userId" name="userId" style="margin-left: 10px" value="testCom" placeholder="아이디를 입력해주세요">             	
+   	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>     
+     <!-- 회사이름 입력 -->
+   		<div class="row">
+     		<div class=" col-12"><span>회사명 * </span></div>
+			<div class="form-group col-12"> 	    
+		   		<input type="text" class="form-control englishOnly" id="username" name="username" value="testCompany" placeholder="회사명을 입력해주세요">             	
 		   </div>
-        </div>
-       <br>
+		</div>
+     <!-- 아이디 입력 -->
+   		<div class="row">
+     		<div class=" col-12"><span>아이디 * </span></div>
+			<div class="form-group col-12"> 	    
+		   		<input type="text" class="form-control englishOnly" id="userid" name="userid" value="testCom" placeholder="아이디를 입력해주세요">             	
+		   </div>
+		</div>
+      
 	
 	<!-- 이메일 -->  
      <div class="row">
-     <div class="col-8">
-     	<p><strong>Email 주소</strong><strong style="color:red;">*</strong>
-     </div>
-          	<div class="form-group col-12"> 	    
-		      	<input type="email" class="form-control" id="userEmail" name="userEmail" value="test@test.com" style="margin-left: 10px" placeholder="이메일을 입력해주세요">             	
-		   </div>
-        </div>
-       <br>
+     	<div class="col-12"><span>Email 주소 * </span></div>
+		<div class="form-group col-12"> 	    
+			<input type="email" class="form-control" id="useremail" name="useremail" value="test@test.com"  placeholder="이메일을 입력해주세요">             	
+		</div>
+		</div>
+      
+      
      
-       <!-- 사업자 번호-->  
-     <div class="row">
-     <div class="col-12">
-    	 <p><strong>사업자 번호</strong><strong style="color:red;">*</strong>       	 
-      <div class="form-group">
-	      <input type="text" class="form-control numberOnly" maxlength=3 id="bizNo1" value="" name="bizNo1" style="margin-left:10px; width:25%">
-	 	   <span style="margin-left:10px; width:20%;"> - </span> 
-	 	   <input type="text" class="form-control numberOnly" maxlength=2 id="bizNo2" value="" name="bizNo2" style="margin-left:15px; width:20%">       
-	 	   <span style="margin-left:10px; width:20%;"> - </span> 
-		   <input type="text" class="form-control numberOnly" maxlength=5 id="bizNo3" value="" name="bizNo3" style="margin-left:15px; width:30%">
-	   </div>
-	  </div>    
-	 </div>
+       	<!-- 사업자 번호-->  
+     	<div class="row">
+     		<div class="col-12"><span>사업자 번호 * </span></div>
+	      <div class="form-group col-12">
+	      		<input type="text" class=" numberOnly" maxlength=3 id="bizNo1" value="" name="bizNo1" style=" width:25%">
+	 	   		<span style="margin-left:10px; width:20%;"> - </span> 
+	 	   		<input type="text" class=" numberOnly" maxlength=2 id="bizNo2" value="" name="bizNo2" style="width:20%">       
+	 	   		<span style="margin-left:10px; width:20%;"> - </span> 
+		   		<input type="text" class=" numberOnly" maxlength=5 id="bizNo3" value="" name="bizNo3" style="width:30%">
+	   		</div>
+	 	</div>
   
-     <!-- 비밀번호 -->
-     <div class="row">
-     <div class="col-8">
-     	<p><strong>비밀번호</strong><strong style="color:red;">*</strong>
-     </div>
-          	<div class="form-group col-12"> 	    
-		      	<input type="password" class="form-control" id="userPassword" name="userPassword" style="margin-left: 10px" value="test1234" placeholder="비밀번호를 입력해주세요">             	
+     	<!-- 비밀번호 -->
+     	<div class="row">
+			<div class="col-12"><span>비밀번호 * </span></div>
+			<div class="form-group col-12"> 	    
+		   		<input type="password" class="form-control" id="userpassword" name="userpassword" value="test1234" placeholder="비밀번호를 입력해주세요">             	
 		   </div>
-        </div>
-       <br>
+		</div>
+      
              
        <!-- g-recaptcha -->
        <div class="row">
-	      <div class="col-8">
+	      <div class="col-12">
 			   <div class="g-recaptcha" style="margin-left:25px;" data-sitekey="6LeS16wZAAAAADQYkYoSCaRt5wIb0YBSGGnnqVdH">
 			   </div>
 			</div>
@@ -130,7 +131,7 @@ strong{
         
       </form>
     </div>
-  </div>
+<!--   </div> -->
   </div>
  </div>
 </div>
@@ -160,23 +161,24 @@ strong{
 		//validation check	 
 		 $('#frm').validate({
 			 rules: {
-                 userId : { required: true, minlength: 3 },
-                 userEmail : { required: true, email: true },
-                 userPassword : { required: true, minlength:6, passwordCk : true },
+					username : { required: true },
+				 	userid : { required: true, minlength: 3 },
+                 useremail : { required: true, email: true },
+                 userpassword : { required: true, minlength:6, passwordCk : true },
                  bizNo1 : { required: true },
                  bizNo2 : { required: true },
                  bizNo3 : { required: true }
 			  }, 
 			  messages:{
-			 		userId:{
+			 		userid:{
 			 			required : "아이디를 입력해주세요",
 			 			minlength : "최소 {0}자 입력해주세요"
 			 			},							
-			 	   userEmail: {
+			 	   useremail: {
 			 			required : "이메일을 입력해주세요",
 			 			email : "이메일 형식을 확인해주세요"
 			 			},
-			 		userPassword: {
+			 		userpassword: {
 			 			required : "비밀번호를 입력해주세요",
 			 			minlength : "최소 {0}자 입력해주세요",
 			 			passwordCk : "비밀번호는 영문, 숫자 조합으로 입력해주세요"
@@ -203,22 +205,21 @@ strong{
 			 	   	     $(element).removeClass('is-invalid');
 			 	},
 			 	submitHandler: function (frm) {
-					 var userId = $("#userId").val();
+					 var userid = $("#userid").val();
 					 	
 			 	  		 $.ajax({
 			       			 url: '/signup/checkIdDuplication',
 			                  type: 'post',
-			                  data: {userId},
+			                  data: {userid},
 			                  success: function(retVal) {		 							
 			 						if(retVal == "사용가능한 아이디입니다"){
-			 							alert(retVal);
-			 						 	var enterpriseNo = ($("#bizNo1").val() + $("#bizNo2").val() + $("#bizNo3").val());
-			 							var chkbiz = checkBizNo(enterpriseNo);
+			 						 	var enterprisebizno = ($("#bizNo1").val() + $("#bizNo2").val() + $("#bizNo3").val());
+			 							var chkbiz = true; //checkBizNo(enterprisebizno);
 			 														
 			 							if(chkbiz == true){
-			 								alert("유효한 사업자 번호이다 --> "+chkbiz);
+			 								alert("유효한 사업자 번호이다 kkkk--> "+chkbiz);
 			 								$.ajax({
-			 					             data : {'enterpriseNo':enterpriseNo},
+			 					             data : {'enterprisebizno':enterprisebizno},
 			 					             url : "/signup/checkBizNoDuplication",
 			 					             dataType : "json",
 			 					             contentType: "application/json; charset=UTF-8",
@@ -248,7 +249,7 @@ strong{
 						 						         }); 
 			 					                       
 			 					                   } else {
-			 					                       	alert("중복된 사업자번호입니다. 확인하시거나 관리자에게 문의주세요."+chkBiz);
+			 					                       	alert("중복된 사업자번호입니다. 확인하시거나 관리자에게 문의주세요."+ chkBiz);
 			 											}
 			 									}
 			 								});
@@ -282,16 +283,16 @@ strong{
 	
 
 	function signUpProc(){
-		var enterpriseNo = ($("#bizNo1").val() + $("#bizNo2").val() + $("#bizNo3").val());
-		var userId = $("#userId").val();
-		var userEmail = $("#userEmail").val();
-		var userPassword = $("#userPassword").val();
+		var enterprisebizno = ($("#bizNo1").val() + $("#bizNo2").val() + $("#bizNo3").val());
+		var userid = $("#userid").val();
+		var useremail = $("#useremail").val();
+		var userpassword = $("#userpassword").val();
 
 		
 		if(confirm("가입하시겠습니까?")==true){
 		   $.ajax({
 	             url: '/signup/signupForPartner.proc',
-	             data: {'userId': userId, 'userEmail':userEmail, 'enterpriseNo':enterpriseNo, 'userPassword':userPassword},
+	             data: {'userid': userid, 'useremail':useremail, 'enterprisebizno':enterprisebizno, 'userpassword':userpassword,  'username':$("#username").val()},
 	             success: function(retVal) {
 						if(retVal == "S"){
 							location.href="/login";
