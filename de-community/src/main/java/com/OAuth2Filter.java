@@ -27,6 +27,8 @@ public class OAuth2Filter {
 	
 	@Autowired
 	OAuth2ClientContext oauth2ClientContext;
+	@Autowired
+	OAuth2SuccessHandler oAuth2SuccessHandler;
 
 	@Bean
 	@ConfigurationProperties("google.client")
@@ -37,6 +39,18 @@ public class OAuth2Filter {
 	@Bean
 	@ConfigurationProperties("google.resource")
 	ResourceServerProperties googleResource() {
+		return new ResourceServerProperties();
+	}
+	
+	@Bean
+	@ConfigurationProperties("github.client")
+	OAuth2ProtectedResourceDetails githubclient() {
+		return new AuthorizationCodeResourceDetails();
+	}
+
+	@Bean
+	@ConfigurationProperties("github.resource")
+	ResourceServerProperties githubResource() {
 		return new ResourceServerProperties();
 	}
 
@@ -58,10 +72,13 @@ public class OAuth2Filter {
 		
 		OAuth2ClientAuthenticationProcessingFilter googleFilter = new OAuth2ClientAuthenticationProcessingFilter(
 				"/login/google");
+		OAuth2ClientAuthenticationProcessingFilter githubFilter = new OAuth2ClientAuthenticationProcessingFilter(
+				"/login/github");
 		OAuth2ClientAuthenticationProcessingFilter facebookFilter = new OAuth2ClientAuthenticationProcessingFilter(
-				"/login/facebook");
+				"/login/g");
 
 		filters.add(ssoFilter("/login/google", googleFilter));
+		filters.add(ssoFilter("/login/github", githubFilter));
 		filters.add(ssoFilter("/login/facebook", facebookFilter));
 		filter.setFilters(filters);
 		return filter;
@@ -74,6 +91,9 @@ public class OAuth2Filter {
 		if(path.equals("/login/google")) {
 			resource = googleResource();
 			client = googleclient();
+		}else if(path.equals("/login/github")) {
+			resource = githubResource();
+			client = githubclient();
 		}
 		else {
 			resource = facebookResource();
@@ -84,7 +104,7 @@ public class OAuth2Filter {
 		Filter.setRestTemplate(Template);
 		Filter.setTokenServices(
 				new UserInfoTokenServices(resource.getUserInfoUri(), client.getClientId()));
-		Filter.setAuthenticationSuccessHandler(new OAuth2SuccessHandler(null, null));
+		Filter.setAuthenticationSuccessHandler(oAuth2SuccessHandler);
 		
 		return Filter;
 	}

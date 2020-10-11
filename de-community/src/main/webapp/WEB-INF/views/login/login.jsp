@@ -61,30 +61,30 @@
 						        
 						        <!-- 깃헙 -->
 						          <div class="col-2">
-							         <a href="javascript:;" class="btn_social" data-social="github">  
+							         <a href="/login/github" class="btn_social" data-social="github">  
 										<img src="/img/logo.png" style="height:30px;margin-left:0px;">
 								      </a>
 							       </div>
 							       
 							       <!-- 구글 -->
 								<div class="col-2" style="margin-left:20px;">     	           
-								 	<a href="javascript:;" class="g-signin2 btn_social" data-width="32" data-height="32" data-social="google"></a> 
-								 	<a href="/login/google"> Google</a>
+								 	<!-- <a href="javascript:;" class="g-signin2 btn_social" data-width="32" data-height="32" data-social="google"></a> --> 
+								 	<a href="/login/google" class="btn_social"> <img src="/img/google-plus.png" style="height:30px;"></a>
 						 	    </div>
 						
 							        <!-- 네이버 -->
-							        <div class="col-2" style="margin-left:20px;">	        	
+							        <!-- <div class="col-2" style="margin-left:20px;">	        	
 							       	<a href="javascript:;" class="btn_social" data-social="naver">
 											<img src="/img/naver_login.png" style="height:30px;">
 										</a>		
 							        </div>
 							        
-							        <!-- 카카오 -->
+							        카카오
 							        <div class="col-2" style="margin-left:20px;">
 								      <a href="javascript:;" class="btn_social" data-social="kakao">
 										<img src="/img/kakaolink_btn_medium_ov.png" style="height:30px;">	
 										</a>
-							        </div>
+							        </div> -->
 						      	</div>
 						    </div>
 						      <!-- /.social-auth-links -->
