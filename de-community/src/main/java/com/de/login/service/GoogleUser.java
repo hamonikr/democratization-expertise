@@ -20,5 +20,18 @@ public class GoogleUser implements Serializable{
     private String name;
     @JsonProperty("picture")
     private String picture;
+    
+    @JsonProperty("login")
+    private String login;
+    @JsonProperty("id")
+    private String id;
+    @JsonProperty("avatar_url")
+    private String avatar_url;
+    @JsonProperty("html_url")
+    private String html_url;
+    
+    private int userno;
+    private int role;
+    private String userid;
 
 }

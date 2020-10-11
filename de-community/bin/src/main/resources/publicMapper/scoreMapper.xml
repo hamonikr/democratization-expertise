@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+
+<mapper namespace="com.de.vote.mapper.ScoreMapper">
+
+<!-- 정보 저장 -->
+		<update id="saveScore" parameterType="com.de.cmmn.CmmnMap">
+		WITH upsert AS (UPDATE tb_score  SET
+			score = (score + #{score})
+				WHERE userno = #{userno}	 RETURNING *)
+				INSERT INTO tb_score (	
+				 userno						/* 유저번호 */
+				, score						/* 좋아요 */  
+				)
+				SELECT
+				#{userno},#{score}
+				 WHERE NOT EXISTS (SELECT * FROM upsert)
+		</update> 
+
+</mapper>
+ 
+	
