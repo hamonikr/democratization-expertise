@@ -15,5 +15,9 @@ public class LoginService {
 	public LoginVO getUserInfo(String username) throws Exception{
 		return mapper.getUserInfo(username);
 	}
+	
+	public GoogleUser getSocialUserInfo(String username) throws Exception{
+		return mapper.getSocialUserInfo(username);
+	}
 
 }
