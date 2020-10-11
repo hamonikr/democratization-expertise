@@ -71,13 +71,13 @@
 									<c:forEach var="list" items="${list}" varStatus="stat">
 										<c:set var="tag" value="${fn:split(list.tagno,',')}" />
 										<div class="info-box">
-											<div class="">
+											<div class="col-1">
 <!-- 												<span class="info-box-icon bg-info elevation-1" style="height: 80px;"><i class="fas fa-cog"></i></span> -->
 												<c:if test="${list.users.userprofileimg != null}">
-													<img src="/upload/users/${list.users.userprofileimg}">
+													<img src="/upload/users/${list.users.userprofileimg}" width="63px" height="63px">
 												</c:if>
-												<c:if test="${list.users.userprofileimg == null}">
-													<img src="/img/noprofile.png">
+												<c:if test="${list.users.userprofileimg == null}" >
+													<img src="/img/noprofile.png"  width="63px" height="63px">
 												</c:if>
 												${list.users.username}
 											</div>
