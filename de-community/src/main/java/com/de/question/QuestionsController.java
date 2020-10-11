@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,7 +85,7 @@ public class QuestionsController {
 		System.out.println("sort==========" + questions.getSort());
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(param.getInt("pageNo") > 0 ? param.getInt("pageNo") : 1); // 현재 페이지 번호
-		paginationInfo.setRecordCountPerPage(100); // 한 페이지에 게시되는 게시물 건수
+		paginationInfo.setRecordCountPerPage(5); // 한 페이지에 게시되는 게시물 건수
 		paginationInfo.setPageSize(5); // 페이징 리스트의 사이즈
 
 		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
@@ -93,10 +94,6 @@ public class QuestionsController {
 		questions.setRecordCountPerPage(recordCountPerPage);
 
 		List<Questions> list = qs.getList(questions);
-		for(int i = 0; i < list.size();i++) {
-			System.out.println("list====="+list.get(i));
-		}
-		//List<Tags> tagList = qs.tagList();
 		List<Wiki> tagList = qs.findAllTag();
 
 		int listCount = qs.getListCount(questions);
@@ -110,14 +107,13 @@ public class QuestionsController {
 
 
 	@RequestMapping(value = "/save")
-	public String save(Model model, Questions qvo, Tags tvo, @AuthenticationPrincipal SecurityMember user) throws Exception {
-		if (user == null) {
+	public String save(HttpServletRequest request,Model model, Questions qvo, Tags tvo, @AuthenticationPrincipal SecurityMember user, HttpSession httpSession) throws Exception {
+		if(httpSession.getAttribute("userSession") == null || !request.isRequestedSessionIdValid()) {
 			return "redirect:/login";
 		} else {
-			//List<Tags> tagList = qs.tagList();
 			List<Wiki> tagList = qs.findAllTag();
 			model.addAttribute("tagList", tagList);
-			model.addAttribute("user",user);
+			model.addAttribute("user",httpSession.getAttribute("userSession"));
 			return "/questions/save";
 		}
 	}
@@ -138,14 +134,13 @@ public class QuestionsController {
 		param.put("score", 5);
 		// 점수등록
 		cs.updateObject("saveScore", param);
-		// model.addAttribute("sample", ss.findById(sample.getSeq()));
 		return "redirect:/questions/list";
 	}
 
 
 	@RequestMapping("/view/{questionno}")
 	public String view(@PathVariable("questionno") int questionno, Model model,
-			@AuthenticationPrincipal SecurityMember user) throws Exception {
+			@AuthenticationPrincipal SecurityMember user,HttpSession httpSession) throws Exception {
 		//List<Tags> tagList = qs.tagList();
 		List<Wiki> tagList = qs.findAllTag();
 		List<Answers> answerList = as.findAllByquestionno(questionno);
@@ -159,16 +154,16 @@ public class QuestionsController {
 		Questions qvo = new Questions();
 		qvo = qs.getView(questionno);
 		model.addAttribute("result", qvo);
-		if(user != null)
-		model.addAttribute("user", user);
+		if(httpSession.getAttribute("userSession") != null)
+		model.addAttribute("user", httpSession.getAttribute("userSession"));
 		return "/questions/view";
 	}
 
 
 	@RequestMapping("/edit/{questionno}")
-	public String edit(@PathVariable("questionno") int questionno, Model model,
-			@AuthenticationPrincipal SecurityMember user) throws Exception {
-		if (user == null) {
+	public String edit(HttpServletRequest request,@PathVariable("questionno") int questionno, Model model,
+			@AuthenticationPrincipal SecurityMember user,HttpSession httpSession) throws Exception {
+		if(httpSession.getAttribute("userSession")==null || !request.isRequestedSessionIdValid()) {
 			return "redirect:/login";
 		}
 		//List<Tags> list = qs.tagList();
@@ -177,7 +172,7 @@ public class QuestionsController {
 		Questions qvo = new Questions();
 		qvo = qs.getView(questionno);
 		model.addAttribute("result", qvo);
-		model.addAttribute("user", user);
+		model.addAttribute("user", httpSession.getAttribute("userSession"));
 		return "/questions/save";
 	}
 
@@ -191,12 +186,6 @@ public class QuestionsController {
 		qs.updateById(vo);
 		return "redirect:/questions/list";
 	}
-
-//	@RequestMapping(value = "/edit.proc")
-//	public String editproc(HttpServletRequest request, Model model, Questions vo) {
-//		qs.updateById(vo);
-//		return "redirect:/sample/list";
-//	}
 
 	// 내 답변 목록
 	@RequestMapping(value = "/myList")

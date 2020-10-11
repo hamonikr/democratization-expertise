@@ -140,4 +140,13 @@ SELECT (
     )
 </select>
 
+
+<select id="socialUserCheck" parameterType="com.de.cmmn.CmmnMap" resultType="Integer">
+SELECT COUNT(*) FROM tb_users where userid=#{userid}
+</select>
+
+<insert id="socialUserSave" parameterType="com.de.cmmn.CmmnMap">
+INSERT INTO tb_users (userid,username,picture) values(#{userid},#{username},#{picture})
+</insert>
+
 </mapper>

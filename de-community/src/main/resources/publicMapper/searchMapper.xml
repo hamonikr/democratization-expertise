@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="com.de.login.mapper.LoginMapper">
+
+<!-- 정보 조회 -->
+<select id="totalSearch" parameterType="com.de.cmmn.CmmnMap" resultType="com.de.cmmn.CmmnMap">
+select a.* from (
+select questionno as seq,title , contents , 'Q' as status, COUNT(*)
+		OVER(PARTITION BY questionno) as cnt from tb_questions union all select wikino as seq,title , contents , 'T' as status, COUNT(*)
+		OVER(PARTITION BY wikino) as cnt from tb_wiki where section = 't'
+union all select wikino as seq,title , contents , 'H' as status, COUNT(*)
+		OVER(PARTITION BY wikino) as cnt from tb_wiki where section = 'h' ) a 
+		where title like '%' || #{searchtxt} || '%' or contents like '%' || #{searchtxt} || '%'
+</select>	
+
+
+
+</mapper>
+ 
+	

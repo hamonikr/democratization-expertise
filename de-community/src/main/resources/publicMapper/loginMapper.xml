@@ -17,7 +17,13 @@ WHERE
 select b.*, a.*
 from tb_users a join tb_users_detail b on a.userno = b.userno
 where a.userid  = #{userid} 
-</select>	
+</select>
+
+<select id="getSocialUserInfo" parameterType="com.de.login.service.GoogleUser" resultType="com.de.login.service.GoogleUser">
+select *
+from tb_users 
+where userid  = #{userid} 
+</select>		
 
 
  <update id="updateUserUUID" parameterType="com.de.login.vo.LoginVO">
