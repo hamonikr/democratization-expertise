@@ -3,8 +3,16 @@
  
 <mapper namespace="com.de.user.mapper.UsersMapper">
 
-<select id="findEnterpriseNo" parameterType="Integer" resultType="com.de.enterprise.Enterprises">
+<select id="findEnterpriseno" parameterType="Integer" resultType="com.de.enterprise.Enterprises">
 SELECT 
+	a.enterpriseno,
+	a.userat,
+	b.enterprisename
+FROM
+	tb_users_detail a left outer join tb_enterprises b on a.enterpriseno = b.enterpriseno
+WHERE a.userno = #{seq}
+</select>
+<!-- SELECT 
 	enterpriseno,
 	enterprisename
 FROM
@@ -18,9 +26,7 @@ WHERE
 				tb_user_detail 
 			WHERE 
 				userno = #{seq}
-		)
-</select>
-
+		) -->
 <update id="updateUserPw" parameterType="com.de.user.UserPwVO">
 UPDATE
 	tb_users
@@ -55,18 +61,83 @@ WHERE
 
 <update id="updateEnterpriseNo" parameterType="com.de.user.UsersDetail">
 UPDATE
-	tb_user_detail
+	tb_users_detail
 SET
 	<if test="enterpriseno != null">
 		enterpriseno = #{enterpriseno}
 	</if>
 	<if test="enterpriseno == null">
 		enterpriseno = 0,
-		userat = 0,
-		activeat = 0
+		userat = 0
 	</if>
 WHERE
 	userno = #{userno}
 </update>
+
+
+<select id="cntQuestionsById" parameterType="Integer" resultType="Integer">
+SELECT 
+	count(*) 
+FROM 
+	tb_questions
+WHERE
+	userno = #{seq}
+</select>
+
+<select id="cntAnswerById" parameterType="Integer" resultType="Integer">
+SELECT 
+	count(*) 
+FROM 
+	tb_answers
+WHERE
+	userno = #{seq}
+</select>
+
+<select id="cntTagAndWikiById" parameterType="com.de.wiki.Wiki" resultType="Integer">
+SELECT 
+	count(*) 
+FROM 
+	tb_wiki
+WHERE
+	userno = CAST(#{userno} AS TEXT)
+	AND section = #{section}
+</select>
+
+<select id="findTagAndWikiByUserno" parameterType="com.de.wiki.Wiki" resultType="com.de.wiki.Wiki">
+SELECT 
+	wikino,
+	title
+FROM 
+	tb_wiki
+WHERE
+	userno = CAST(#{userno} AS TEXT)
+	AND section = #{section}
+ORDER BY registerdate DESC
+LIMIT 5
+</select>
+
+<select id="getUserScore" resultType="com.de.cmmn.CmmnMap">
+select a.*,b.*,c.* from tb_users a 
+left outer join tb_score b on a.userno = b.userno
+left outer join tb_users_detail c on a.userno = c.userno
+where b.score is not null and c.representat = 0
+order by b.score desc
+</select>
+
+<select id="getPartnerScore" resultType="com.de.cmmn.CmmnMap">
+select a.*,b.*,c.*,d.* from tb_users a 
+left outer join tb_users_detail c on a.userno = c.userno
+left outer join tb_enterprises d on a.userno = d.enterpriseno
+left outer join tb_score b on d.enterpriseno = b.userno
+where b.score is not null
+order by b.score desc
+</select>
+
+<select id="getScore" parameterType="Integer" resultType="Integer">
+SELECT (
+    (SELECT score FROM tb_score WHERE userno=#{seq}) 
+    + (SELECT count(*) FROM tb_vote_users WHERE userno=#{seq})
+    )
+</select>
 
 </mapper>

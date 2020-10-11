@@ -1,5 +1,5 @@
 /*!
- *   AdminLTE v3.0.2
+ *   AdminLTE v3.0.5
  *     Only Pages
  *   Author: Colorlib
  *   Website: AdminLTE.io <http://adminlte.io>
@@ -221,14 +221,14 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 
 .login-box,
 .register-box {
-  width: 800px;
+  width: 360px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 576px) {
   .login-box,
   .register-box {
-    margin-top: 100px;
-    width: 100%;
+    margin-top: .5rem;
+    width: 90%;
   }
 }
 

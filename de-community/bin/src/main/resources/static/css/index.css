@@ -119,7 +119,7 @@ aside.main-sidebar { box-shadow: 0 14px 28px rgba(0,0,0,0.05),0 10px 10px rgba(0
 	box-shadow: none;
 	width:600;
 }
-.card-header { padding: 2em 3em 2em 0 }
+.card-header { padding: 1em 1em 0em 0 }
 .card-title { 
 	color: black; 
 	font-size: 1.3rem;

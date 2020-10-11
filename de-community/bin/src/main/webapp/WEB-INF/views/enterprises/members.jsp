@@ -38,7 +38,7 @@
 				<div class="card card-primary" style="width: 100%;">
 
 					<div class="card-body card-primary row" style="width: 100%;">
-						
+						<!-- 승인된 유저 -->
 						<div class="col-12">
 							<div>활동중인 사람들</div>
 							<hr/>
@@ -50,7 +50,7 @@
 								
 								<c:if test="${ atusers.size() != 0 }">
 									<c:forEach var="mem" items="${ atusers }" varStatus="status">
-										<c:if test="${ mem.usersDetail != null && mem.usersDetail.userat != 0 }">
+										<c:if test="${ mem.usersDetail != null && mem.usersDetail.userat !=0 }">
 											
 											<div class="enterprise-list-card col-6 row">
 												<div class="col-4">
@@ -75,16 +75,60 @@
 												<div class="col-4">
 													
 													<!-- 활성 -->
-													<c:if test="${ mem.usersDetail.activeat == 1 }">
-														<input type="button" class="btn btn-primary active" onclick="fnt_activeatUser('activeat','${mem.userno}');" value="활성"><br/>
+													<c:if test="${ mem.usersDetail.userat == 1 }">
+														<input disabled type="button" class="btn btn-primary active" onclick="fnt_activeatUser('userat','${mem.userno}');" value="활성"><br/>
 														<input type="button" class="btn btn-primary" onclick="fnt_activeatUser('not','${mem.userno}');" value="비활성">
 													</c:if>
 													
 													<!-- 비활성 -->
-													<c:if test="${ mem.usersDetail.activeat == 0 }">
-														<input type="button" class="btn btn-primary" onclick="fnt_activeatUser('activeat','${mem.userno}');" value="활성"><br/>
-														<input type="button" class="btn btn-primary active" onclick="fnt_activeatUser('not','${mem.userno}');" value="비활성">
+													<c:if test="${ mem.usersDetail.userat == 3 }">
+														<input type="button" class="btn btn-primary" onclick="fnt_activeatUser('userat','${mem.userno}');" value="활성"><br/>
+<%-- 														<input type="button" class="btn btn-primary active" onclick="fnt_activeatUser('not','${mem.userno}');" value="비활성">
+ --%>													</c:if>
+													
+												</div>
+											</div>
+											
+										</c:if>
+									</c:forEach>
+								</c:if>
+									<c:if test="${ unatusers.size() != 0 }">
+									<c:forEach var="mem" items="${ unatusers }" varStatus="status">
+										<c:if test="${ mem.usersDetail != null && mem.usersDetail.userat !=0 }">
+											
+											<div class="enterprise-list-card col-6 row">
+												<div class="col-4">
+													<a href="/users/activity/${mem.userno}">
+														<c:if test="${ mem.userprofileimg != null && mem.userprofileimg != ''}">
+															<img alt="profile" src="/upload/users/${mem.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
+														</c:if>
+														<c:if test="${ mem.userprofileimg == null || mem.userprofileimg == ''}">
+															<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
+														</c:if>
+													</a>
+												</div>
+												
+												<div class="col-4">
+													<p class="title">
+														<a href="/users/activity/${mem.userno}">${mem.username}</a>
+													</p>
+													<p class="position">CEO</p>
+													<p class="reputation">평판 300</p>
+												</div>
+												
+												<div class="col-4">
+													
+													<!-- 활성 -->
+													<c:if test="${ mem.usersDetail.userat == 1 }">
+													<input disabled type="button" class="btn btn-primary" onclick="fnt_activeatUser('userat','${mem.userno}');" value="활성"><br/>
+ 													<input disabled type="button" class="btn btn-primary active" onclick="fnt_activeatUser('not','${mem.userno}');" value="비활성">
 													</c:if>
+													
+													<!-- 비활성 -->
+													<c:if test="${ mem.usersDetail.userat == 3 }">
+														<input type="button" class="btn btn-primary" onclick="fnt_activeatUser('userat','${mem.userno}');" value="활성"><br/>
+ 														<input disabled type="button" class="btn btn-primary active" onclick="fnt_activeatUser('not','${mem.userno}');" value="비활성">
+												</c:if>
 													
 												</div>
 											</div>
@@ -95,6 +139,7 @@
 								
 							</div>
 						</div>
+
 						
 						<div class="col-12">
 							<div>요청한 사람들</div>
@@ -128,10 +173,12 @@
 												</div>
 												
 												<div class="col-4">
-													<c:if test="${ isMypage }">
+												<%-- 	<c:if test="${ isMypage }">
 														<input type="button" class="btn btn-primary" onclick="fnt_useratUser('userat','${mem.userno}');" value="승인"><br/>
 														<input type="button" class="btn btn-primary" onclick="fnt_useratUser('not','${mem.userno}');" value="거절">
-													</c:if>
+													</c:if> --%>
+													<input type="button" class="btn btn-primary" onclick="fnt_useratUser('userat','${mem.userno}');" value="승인"><br> 
+													<input type="button" class="btn btn-primary" onclick="fnt_useratUser('not','${mem.userno}');" value="거절">													
 												</div>
 											</div>
 											
@@ -141,6 +188,7 @@
 								
 							</div>
 						</div>
+						
 					</div>
 					
 				</div>
@@ -154,6 +202,29 @@
 // 승인/거절
 function fnt_useratUser(type,uno){
 	if(type == 'not') type = 2;
+	else if(type == 'userat') type = 1;
+	else return;
+	
+	$.ajax({
+		url			: '/enterprises/updateUserat',
+		data		: { 'userat' : type , 'userno' : uno},
+		type		: 'post',
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		},
+		success	: function(data){
+			alert(data.message);
+			if(data.updateVal) location.reload(true);
+		},
+		error		: function(xhr, status, error){
+			console.log(xhr, status, error);
+		}
+	});
+}
+
+//활성/비활성
+function fnt_activeatUser(type,uno){
+	if(type == 'not') type = 3;
 	else if(type == 'userat') type = 1;
 	else return;
 	

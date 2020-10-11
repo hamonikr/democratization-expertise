@@ -115,9 +115,33 @@
 							</div>
 						</div>
 						
+						<div class="col-6">
+							<div class="form-group">
+								<label for="enterpriseurl" class="col-form-label">홈페이지</label>
+								<c:if test="${ isMypage }">
+									<input class="form-control" id="enterpriseurl" name="enterpriseurl" value="${enter.enterpriseurl}" autocomplete="off">
+								</c:if>
+								<c:if test="${ ! isMypage }">
+									<input class="form-control" id="enterpriseurl" name="enterpriseurl" value="${enter.enterpriseurl}" autocomplete="off" disabled="disabled">
+								</c:if>
+							</div>
+						</div>
+				
+						<div class="col-6">
+							<div class="form-group">
+								<label for="enterprisearea" class="col-form-label">지역</label>
+								<c:if test="${ isMypage }">
+									<input class="form-control" id="enterprisearea" name="enterprisearea" value="${enter.enterprisearea}" autocomplete="off">
+								</c:if>
+								<c:if test="${ ! isMypage }">
+									<input class="form-control" id="enterprisearea" name="enterprisearea" value="${enter.enterprisearea}" autocomplete="off" disabled="disabled">
+								</c:if>
+							</div>
+						</div>
+						
 						<div class="col-12">
 							<div class="form-group">
-								<label for="enterpriseabout" class="col-form-label">자기소개</label>
+								<label for="enterpriseabout" class="col-form-label">기업홍보</label>
 								<c:if test="${ isMypage }">
 									<input type="hidden" class="form-control contents" id="enterpriseabout" name="enterpriseabout" value="${enter.enterpriseabout}" autocomplete="off">
 									<div class="code-html">
@@ -138,30 +162,8 @@
 							</div>
 						</div>
 						
-						<div class="col-6">
-							<div class="form-group">
-								<label for="enterpriseurl" class="col-form-label">홈페이지</label>
-								<c:if test="${ isMypage }">
-									<input class="form-control" id="enterpriseurl" name="enterpriseurl" value="${enter.enterpriseurl}" autocomplete="off">
-								</c:if>
-								<c:if test="${ ! isMypage }">
-									<input class="form-control" id="enterpriseurl" name="enterpriseurl" value="${enter.enterpriseurl}" autocomplete="off" disabled="disabled">
-								</c:if>
-							</div>
-						</div>
-						
-						<div class="col-6">
-							<div class="form-group">
-								<label for="enterprisearea" class="col-form-label">지역</label>
-								<c:if test="${ isMypage }">
-									<input class="form-control" id="enterprisearea" name="enterprisearea" value="${enter.enterprisearea}" autocomplete="off">
-								</c:if>
-								<c:if test="${ ! isMypage }">
-									<input class="form-control" id="enterprisearea" name="enterprisearea" value="${enter.enterprisearea}" autocomplete="off" disabled="disabled">
-								</c:if>
-							</div>
-						</div>
 					</div>
+					
 					
 					<c:if test="${ isMypage }">
 						<div class="card-footer cont_btn_div">
