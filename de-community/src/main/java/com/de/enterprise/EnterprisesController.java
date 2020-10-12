@@ -2,8 +2,9 @@ package com.de.enterprise;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -389,6 +389,30 @@ public class EnterprisesController {
 		else map.put("message", CodeMessage.ERROR_000004_정보가_잘못_입력되었습니다__확인_후_다시_시도해_주세요_);
 		
 		map.put("updateVal", updateVal);
+		return map;
+	}
+	
+	/**
+	 * 사용자 점수 그래프
+	 * @param model
+	 * @param req
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping(value="/getScoregraph", method=RequestMethod.POST)
+	public HashMap<String, Object> getScoregraph(Model model, HttpServletRequest req) throws Exception{
+		if(LOG_URL) logger.info(" -- url : /enterprises/getScoregraph");
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		Integer enterpriseno = Integer.valueOf(req.getParameter("enterpriseno"));
+		
+		if(enterpriseno != null) {
+			String list = service.getScoregraph(enterpriseno);
+			map.put("list", list);
+			logger.info("---------- list : " + list);
+		}
+		
 		return map;
 	}
 }
