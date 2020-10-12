@@ -16,9 +16,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -292,6 +290,29 @@ public class UsersController {
 //		else map.put("message", CodeMessage.MSG_000024_변경_중_오류가_발생하였습니다_);
 		
 		map.put("list", list);
+		return map;
+	}
+	
+	/**
+	 * 사용자 점수 그래프
+	 * @param model
+	 * @param req
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping(value="/getScoregraph", method=RequestMethod.POST)
+	public HashMap<String, Object> getScoregraph(Model model, HttpServletRequest req) throws Exception{
+		if(LOG_URL) logger.info(" -- url : /users/getScoregraph");
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		Integer userno = Integer.valueOf(req.getParameter("userno"));
+		
+		if(userno != null) {
+			String list = usersService.getScoregraph(userno);
+			map.put("list", list);
+		}
+		
 		return map;
 	}
 }
