@@ -46,8 +46,8 @@ public class UsersService {
 	@Autowired
 	AnswersRepository ar;
 	
-	public Optional<Users> findById(int seq) throws Exception {
-		return ur.findById(seq);
+	public Optional<Users> findByUserno(int seq) throws Exception {
+		return ur.findByUserno(seq);
 	}
 	
 //	public Optional<Enterprises> findEnterpriseno(int seq) throws Exception {

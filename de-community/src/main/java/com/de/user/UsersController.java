@@ -66,7 +66,7 @@ public class UsersController {
 			}
 		}
 		
-		Optional<Users> users = usersService.findById(seq);
+		Optional<Users> users = usersService.findByUserno(seq);
 		//Optional<Enterprises> enterprise = usersService.findEnterpriseno(seq);
 		Enterprises enterprise = usersService.findEnterpriseno(seq);
 	
@@ -177,7 +177,7 @@ public class UsersController {
 		
 		boolean isUserNo = false;
 		
-		Optional<Users> user = usersService.findById(seq);
+		Optional<Users> user = usersService.findByUserno(seq);
 		//Optional<Enterprises> enterprise = usersService.findEnterpriseno(seq);
 		Enterprises enterprise = usersService.findEnterpriseno(seq);
 		System.out.println("profile -- > enterprise name > " +enterprise.getEnterprisename());
