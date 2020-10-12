@@ -1,6 +1,7 @@
 package com.de.vote;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +50,7 @@ public class VoteController {
 
 	@ResponseBody
 	@RequestMapping(value = "/like")
-	public String like(HttpServletRequest request, Model model, Vote vo,@AuthenticationPrincipal SecurityMember user) throws Exception{
+	public String like(HttpServletRequest request, Model model, Vote vo,@AuthenticationPrincipal SecurityMember user, HttpSession httpSession) throws Exception{
 		if(user != null) {
 		int result = 0;
 			Vote vo2 = vs.getSeq(vo);

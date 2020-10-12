@@ -28,6 +28,20 @@
 </resultMap>
 
 
+<update id="updateEnterprises" parameterType="com.de.enterprise.Enterprises">
+UPDATE
+	tb_enterprises
+SET
+	enterprisename = #{enterprisename},
+	enterpriseemail = #{enterpriseemail},
+	enterpriseurl = #{enterpriseurl},
+	enterprisearea = #{enterprisearea},
+	enterpriseabout = #{enterpriseabout},
+	updatedate = now()
+WHERE
+	enterpriseno = #{enterpriseno}
+</update>
+
 <update id="updateEnterprisePw" parameterType="com.de.enterprise.EnterprisePwVO">
 UPDATE
 	tb_enterprises
@@ -59,7 +73,7 @@ SELECT
 FROM
     tb_users U
 LEFT JOIN 
-    tb_user_detail UD
+    tb_users_detail UD
 ON 
     U.userno = UD.userno
 WHERE
@@ -69,7 +83,7 @@ WHERE
 
 <update id="updateActivaet" parameterType="com.de.user.UsersDetail">
 UPDATE 
-	tb_user_detail 
+	tb_users_detail 
 SET 
 	activeat = #{activeat}
 WHERE 
@@ -78,13 +92,67 @@ WHERE
 </update>
 
 <update id="updateUserat" parameterType="com.de.user.UsersDetail">
-UPDATE 
-	tb_user_detail 
+<!-- UPDATE 
+	tb_users_detail 
 SET 
 	userat = #{userat}
 WHERE 
 	enterpriseno = #{enterpriseno}
-	AND userno = #{userno}
+	AND userno = #{userno} -->
+UPDATE 
+	tb_users_detail 
+SET 
+	userat = #{userat}
+WHERE 
+ userno = #{userno}
 </update>
 
+
+<select id="cntQuestionsById" parameterType="Integer" resultType="Integer">
+SELECT 
+	count(*) 
+FROM 
+	tb_questions
+WHERE
+	userno = #{seq}
+</select>
+
+<select id="cntAnswerById" parameterType="Integer" resultType="Integer">
+SELECT 
+	count(*) 
+FROM 
+	tb_answers
+WHERE
+	userno = #{seq}
+</select>
+
+<select id="cntTagAndWikiById" parameterType="com.de.wiki.Wiki" resultType="Integer">
+SELECT 
+	count(*) 
+FROM 
+	tb_wiki
+WHERE
+	userno = CAST(#{userno} AS TEXT)
+	AND section = #{section}
+</select>
+
+<select id="findTagAndWikiByUserno" parameterType="com.de.wiki.Wiki" resultType="com.de.wiki.Wiki">
+SELECT 
+	wikino,
+	title
+FROM 
+	tb_wiki
+WHERE
+	userno = CAST(#{userno} AS TEXT)
+	AND section = #{section}
+ORDER BY registerdate DESC
+LIMIT 5
+</select>
+
+<select id="getScore" parameterType="Integer" resultType="Integer">
+SELECT (
+    (SELECT score FROM tb_score WHERE userno=#{seq}) 
+    + (SELECT count(*) FROM tb_vote_users WHERE userno=#{seq})
+    )
+</select>
 </mapper>

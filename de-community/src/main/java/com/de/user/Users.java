@@ -42,6 +42,8 @@ public class Users implements Serializable{
 	private String userpassword;
 	/* 프로필 이미지 */
 	private String userprofileimg;
+	/* 프로필 이미지 */
+	private String picture;
 	/* 회원 소개 */
 	private String aboutme;
 	/* 회원 사이트 주소 */

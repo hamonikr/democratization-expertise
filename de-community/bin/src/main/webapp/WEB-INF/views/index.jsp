@@ -13,11 +13,10 @@
 </head> 
 -->
 
-<body>
-
+<div style="background-image: url(/img/signbg.jpg);background-size: cover; height: 100%; ">
   <!-- contents -->
-  <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
+  <div class="section no-pad-bot" id="index-banner" >
+    <div class="container" >
       <br><br>
       <h1 class="header center blue-text text-lighten-3">DE 커뮤니티를 시작하세요</h1>
       <div class="row center">
@@ -28,7 +27,8 @@
          당신의 능력을 향상시킬수 있도록 돕습니다</h5>
       </div>
       <div class="row center">
-        <a href="/sample/list" id="download-button" class="btn-large waves-effect waves-light blue lighten-3">시작하기</a>
+        <a href="/questions/list" id="download-button" class="btn-large waves-effect waves-light blue lighten-3" style="border-bottom:3px solid #b4e7f8; box-shadow:inset 0 -4px 0 #b4e7f8">
+        커뮤니티 시작하기.........</a>
       </div>
       <br><br>
 
@@ -95,12 +95,11 @@
     </div>
     
     <!-- footer -->
-    
   </footer>
+    </div>
 
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="/js/materialize.js"></script>
   <script src="/js/init.js"></script>
 
-  </body>

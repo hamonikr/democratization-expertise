@@ -6,13 +6,18 @@
 <!-- 정보 조회 -->
 <select id="getUser" parameterType="com.de.login.vo.LoginVO" resultType="com.de.login.vo.LoginVO">
 SELECT 
-	ta.*,tb.activeat
+	ta.*,tb.*
 FROM 
 	tb_users ta left outer join tb_users_detail tb on ta.userno = tb.userno
 WHERE
 	ta.userid = #{username} 
 </select>	
 
+<select id="getUserInfo" parameterType="com.de.login.vo.LoginVO" resultType="com.de.login.vo.LoginVO">
+select b.*
+from tb_users a join tb_users_detail b on a.userno = b.userno
+where a.userid  = #{userid} 
+</select>	
 
 </mapper>
  
