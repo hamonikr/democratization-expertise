@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
+<%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <html>
@@ -39,6 +41,7 @@
 <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
 <script type="text/javascript">
 $(function() {
+	 
 	$.ajax({ 
 		//type: "POST", 
 		//contentType: "application/json", 
@@ -53,13 +56,17 @@ $(function() {
 						$("#bodyrightLayer").append(data.user[i].score);
 						$("#bodyrightLayer").append("<br/>");
 				}
-				for(y=0;y<data.partner.length;y++){
-					$("#bodyrightLayer").append("파트너사");
-					$("#bodyrightLayer").append(data.partner[y].enterprisename+"=");
-					$("#bodyrightLayer").append(data.partner[y].score);
+				$("#bodyrightLayer").append("=======================");
+				$("#bodyrightLayer").append("<br/>");
+				for(y=0;y<data.partnerslist.length;y++){
+					
+					$("#bodyrightLayer").append(data.partnerslist[y].enterprisename + " : " +data.partnerslist[y].enterpriseabout);
+					$("#bodyrightLayer").append("-----------------------------");
 					$("#bodyrightLayer").append("<br/>");
+
 				}
-		//$("#bodyrightLayer").html(data.contents);
+
+			//$("#bodyrightLayer").html(data.contents);
 				}
 			}, 
 			error: function (e) { 
@@ -92,7 +99,7 @@ $(function() {
 				</div>
 				<div class="col-sm-4" id="bodyrightLayer">
 					<!-- style="background-color:black;" -->
-					<!-- <img src="/img/stackedViewR.jpg"> -->
+					<!-- <img src="/img/stackedViewR.jpg"> -->		
 				</div>
 			</div>
 		</div>

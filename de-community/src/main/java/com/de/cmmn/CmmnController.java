@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.de.cmmn.service.CmmnService;
+import com.de.enterprise.EnterpriseService;
+import com.de.enterprise.Enterprises;
 import com.de.login.service.SecurityMember;
 import com.de.question.QuestionsService;
 import com.de.user.Users;
@@ -42,6 +44,9 @@ public class CmmnController {
 	@Autowired
 	CmmnService cs;
 	
+	@Autowired
+	EnterpriseService es;
+	
 	@RequestMapping("/view")
 	@ResponseBody
 	 public Wiki view(HttpServletRequest request, Model model) throws Exception { 			
@@ -57,12 +62,21 @@ public class CmmnController {
 	public CmmnMap userList(@RequestParam Map<String, String> params,  Model model, @PageableDefault Pageable pageable) throws Exception {
 		Page<Users> list = usersService.findAll(pageable);
 		
+		List<Enterprises> plist = es.getPromteList();
+		
+		for(int i=0; i<plist.size() ;i++) {
+			System.out.println(plist.get(i).getEnterprisename()+" : "+plist.get(i).getEnterpriseabout());
+		}
+		
+		model.addAttribute("partners_list", plist);		
 		model.addAttribute("paging", list);
 		model.addAttribute("data", list.getContent());
 		CmmnMap param = new CmmnMap();
 		//cs.selectList("getUserScore", param)
 		param.put("user", cs.selectList("getUserScore", param));
 		param.put("partner", cs.selectList("getPartnerScore", param));
+		param.put("partnerslist", cs.selectList("getPromteList", param));
+
 		return param;
 	}
 

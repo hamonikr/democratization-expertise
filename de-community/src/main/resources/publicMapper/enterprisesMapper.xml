@@ -155,4 +155,12 @@ SELECT (
     + (SELECT count(*) FROM tb_vote_users WHERE userno=#{seq})
     )
 </select>
+
+<select id="getPromteList" resultType="com.de.enterprise.Enterprises">
+SELECT enterprisename, enterpriseno, enterpriseabout
+FROM public.tb_enterprises
+WHERE enterpriseabout is  not null 
+ORDER BY registerdate DESC
+LIMIT 5
+</select>
 </mapper>
