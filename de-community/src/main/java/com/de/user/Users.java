@@ -9,10 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -65,11 +63,14 @@ public class Users implements Serializable{
 	@UpdateTimestamp
 	private Timestamp updatedate;
 
-	@OneToOne
-	@JoinTable(name = "tb_users_detail", //조인테이블명
-		joinColumns = @JoinColumn(name="userno"),  //외래키
-		inverseJoinColumns = @JoinColumn(name="userno") //반대 엔티티의 외래키
-	)
+//	@JoinTable(name = "tb_users_detail", //조인테이블명
+//		joinColumns = @JoinColumn(name="userno")  //외래키
+//		//inverseJoinColumns = @JoinColumn(name="userno") //반대 엔티티의 외래키
+//	)
+	
+//	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//	@JoinColumn(name= "userno")
+	@Transient
 	private UsersDetail usersDetail;
 	
 //	@OneToOne
