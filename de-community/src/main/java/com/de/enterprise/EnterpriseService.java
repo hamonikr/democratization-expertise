@@ -177,4 +177,9 @@ public class EnterpriseService {
 	public Integer getScore(int seq) {
 		return em.getScore(seq);
 	}
+	
+	// 기업홍보문구를 작성한 회사 리스트 - 최든 5개
+	public List<Enterprises> getPromteList(){		
+		return em.getPromteList();
+	}
 }
