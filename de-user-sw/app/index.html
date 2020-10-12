@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hamonikr</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/font-awesome-4.7/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/css/w3.css" />
+	<!--link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/-->
+    <link rel="stylesheet" href="assets/css/chrome.custom.scrollbar.css" /> 
+    <link rel="stylesheet" href="assets/css/style.css" />
+	<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script> 
+	<link id="themecss" rel="stylesheet" href="assets/css/themes/theme-light.css" />
+	<link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css">
+	<style>
+	.dragLayer {
+		-ms-overflow-style: scrollbar;
+		-webkit-app-region:drag;
+	}
+	.noneDragLayer {
+		-webkit-app-region: no-drag;
+	}
+	body{
+		line-height: 1;
+		font-family: D2Coding, 'D2 coding', monosapce;
+		background: transparent;
+	}
+	.title-bar {
+		-webkit-app-region: drag;
+		height: 40px;
+		text-align: center;
+		line-height: 40px;
+		vertical-align: middle;
+		background-color: #03a9f4;
+		padding: none;
+		margin: 0px;
+	}
+	</style>
+  </head>
+  <body>
+
+    <!-- Navbar -->
+	<div class="" style="background-color: #49464e;">
+		<div class="w3-bar w3-border w3-light-grey dragLayer" >
+			<div class="w3-bar-item " style="padding: 0px 0px">London</div>
+			<div class="w3-bar-item " style="padding: 0px 0px">Paris</div>
+			<div class="w3-bar-item w3-right noneDragLayer" id="closeBtn" style="padding: 0px 0px">close</div>
+		</div>	
+      	<div id="mainNav" class="w3-bar w3-theme-d2 w3-left-align dragLayer">
+			<div class="w3-dropdown-hover w3-dropdown-app-hover noneDragLayer" style="background-color: #49464e;">
+				<div id="searchBlock" class="w3-bar-item w3-button w3-button-transparent w3-left" >
+				<input id="searchInput" class="w3-input w3-animate-input w3-round"  type="text" placeholder="Search" style="padding:0px;">
+				</div>
+				<a id="search" href="#" class="w3-bar-item w3-button w3-button-app w3-right" ><i class="fa fa-search"></i></a>
+			</div>
+
+			<div class="w3-dropdown-hover w3-dropdown-app-hover noneDragLayer">
+				<button onclick="myFunction();" class="w3-btn">설정</button>
+			</div>
+			<div class="w3-dropdown-hover w3-dropdown-app-hover noneDragLayer">
+				<a href="index.html" class="w3-bar-item w3-button w3-button-app">Re</a>
+		    </div>
+      </div>
+    </div>
+		
+	<div class="w3-row" id="esSearchResult" style="background-color: #49464e;">
+		<div id="esSearchResultTbody"></div>
+	</div>
+
+	<!-- Modals -->
+    
+<script>
+const electron = require('electron')
+const path = require('path')
+const remote = electron.remote
+const closeBtn = document.getElementById('closeBtn')
+
+closeBtn.addEventListener('click', function (event) {
+    var window = remote.getCurrentWindow();
+    window.close();
+})
+
+
+    let autosaveInterval = null;
+    let countUpIntervals = [];
+
+    function showModal(modalID, elementIDFocus) {
+        w3.addStyle('#' + modalID, 'display', 'block');
+        setTimeout( () => {
+          document.getElementById(elementIDFocus).focus();
+        }, 600)
+    }
+
+
+	changeTheme('ubuntu-glass');
+    function changeTheme(currAppTheme) {
+	   // document.getElementById('themecss').href= 'assets/css/themes/theme-' + currAppTheme + '.css';
+    }
+    /* search todos */
+	function showModal(modalID, elementIDFocus) {
+	    w3.addStyle('#' + modalID, 'display', 'block');
+    }
+	function myFunction() {
+      	const remote = require('electron').remote;
+        const BrowserWindow = remote.BrowserWindow;
+
+        var win = new BrowserWindow({ 
+					width: 400, 
+					height: 400
+				});
+        win.loadURL('file://' + __dirname + '/settings.html');
+				//win.setMenu(null);
+  			//win.setMenuBarVisibility(false);
+    }
+
+	const {ipcRenderer} = require('electron');
+	ipcRenderer.send('resize-me-please', "initLayer");
+
+	function resetLayer(){
+		ipcRenderer.send('resize-me-please', "initLayer");
+	}
+	$("#searchInput").keydown(function(key) {
+
+		if (key.keyCode == 13) {
+			console.log("aa---" + $("#searchInput").val());
+			ipcRenderer.send('resize-me-please', "viewLayer");
+
+			var unirest = require('unirest');
+
+			unirest.post('http://127.0.0.1:3001/api/es')
+				.header('Accept', 'application/json')
+				.send({ "id": $("#searchInput").val() })
+				.end(function (response) {
+					console.log(response.body);
+							
+					var innerData = "";
+					var esResultObj = response.body;
+					$("#esSearchResultTbody").empty();
+					if( typeof esResultObj == "undefined" ){ 
+						innerData += '<div class="w3-panel w3-border-left w3-pale-red w3-border-red" style="margin: 10px 0;">';
+		                innerData += '<span style="font-size: 18px;">검색결과가 없습니다.</span><br>';
+        		        innerData += '</div>';
+						$("#esSearchResultTbody").append(innerData);
+					}else {
+              			console.log(esResultObj.message);      
+              	
+						if( typeof esResultObj.message == "undefined" ){
+							innerData += '<div class="w3-panel w3-border-left w3-pale-red w3-border-red" style="margin: 10px 0;">';
+  	              			innerData += '<span style="font-size: 18px;">검색결과가 없습니다.</span><br>';
+	                		innerData += '</div>';
+						} else {
+							var jsontext = esResultObj.message;
+              				var contact = JSON.parse(jsontext);
+              				if( contact.length > 0 ){
+              		  			$("#esSearchResult").show();
+              		
+								for (var i = 0; i < contact.length; i++) {
+									console.log(contact[i].filename + " : " + contact[i].extension );
+									innerData += '<div class="w3-panel w3-border-left w3-pale-red w3-border-red" style="margin: 10px 0;">';
+									innerData += '<span style="font-size: 18px;">'+contact[i].filename+'</span><br>';
+									innerData += '<span class="openFileTag" data-value="'+contact[i].filepath+'">'+contact[i].filepath+'</span>';
+									innerData += '</div>';
+								}
+							}
+						}
+		              	$("#esSearchResultTbody").append(innerData);
+					}
+				});
+		}
+	});
+
+	</script>
+	<script src="assets/js/w3.js"></script>
+	<script>require('./renderer.js')</script>
+</body>
+</html>

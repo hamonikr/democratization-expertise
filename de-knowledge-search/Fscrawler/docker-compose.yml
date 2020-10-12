@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  fscrawler:
+    container_name: fscrawler
+    image: openjdk
+    working_dir: /fscrawler-es7-2.7
+    #    entrypoint: sh entrypoint.sh
+    volumes:
+      - ./fscrawler-es7-2.7-SNAPSHOT:/fscrawler-es7-2.7
+      - ./config:/fscrawler-es7-2.7/config
+      - /fscrawler-es7-2.7/data:/tmp/es
+        #- ./data:/fscrawler-es7-2.7/data
+        #- ./entrypoint.sh:/fscrawler-es7-2.7/entrypoint.sh
+    ports:
+      - 8081:8081
+    networks:
+      - esnet
+    command: /fscrawler-es7-2.7/bin/fscrawler --config_dir /fscrawler-es7-2.7/config  job_name
+
+networks:
+  esnet:
+

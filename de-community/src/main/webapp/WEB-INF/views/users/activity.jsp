@@ -80,8 +80,11 @@
 								<c:if test="${user.userprofileimg != null}">
 									<img alt="profile" src="/upload/users/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
 								</c:if>
-								<c:if test="${user.userprofileimg == null}">
+								<c:if test="${user.userprofileimg == null and user.picture == null}">
 									<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
+								</c:if>
+								<c:if test="${user.picture != null and user.userprofileimg == null}">
+									<img alt="profile" src="${user.picture}" id="profileImg" class="img" width="100%"><br/>
 								</c:if>
 								<span>배지 : </span><br/>
 								<span>홈페이지 : </span><a href="${user.userurl}" target="_blank">${user.userurl}</a>

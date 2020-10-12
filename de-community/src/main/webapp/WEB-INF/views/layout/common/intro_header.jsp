@@ -26,9 +26,9 @@
 	</div>
 
 	<!-- SEARCH FORM -->
-	<form class="form-inline ml-3 col-7">
+	<form class="form-inline ml-3 col-7" name="sfrm" action="/search/list" method="post">
 		<div class="input-group input-group-sm  col-9">
-			<input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+			<input class="form-control form-control-navbar" type="search" name="searchtxt" id="searchtxt" placeholder="Search" aria-label="Search">
 			<!--  style="width: 600px;"-->
 			<div class="input-group-append">
 				<button class="btn btn-navbar" type="submit">

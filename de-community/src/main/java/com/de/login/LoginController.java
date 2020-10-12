@@ -1,8 +1,5 @@
 package com.de.login;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,8 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.de.cmmn.service.CmmnService;
+import com.de.login.service.GoogleUser;
 import com.de.login.service.LoginService;
-import com.de.login.service.MemberService;
 import com.de.login.service.SecurityMember;
 import com.de.login.vo.LoginVO;
 
@@ -27,6 +25,9 @@ import com.de.login.vo.LoginVO;
 public class LoginController {
 	@Autowired
 	LoginService service;
+	
+	@Autowired
+	CmmnService cmmnService;
 	
 	@RequestMapping("")
 	 public String login() {
@@ -42,6 +43,7 @@ public class LoginController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null) {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
+			session.invalidate();
 		}
 		
 		return "redirect:/";
@@ -75,22 +77,26 @@ public class LoginController {
 		
 		//		return "/users/profile";
 	} 
+	
+	@RequestMapping("/socialLogin")
+	 public String socialLogin(Model model, HttpSession session ) throws Exception{
+		System.out.println("<<--- controller for normal loginSuccess-->> ");
+		
+		GoogleUser goo = (GoogleUser) session.getAttribute("userSession");
+		session.removeAttribute("userSession"); 
+		
+		goo = service.getSocialUserInfo(goo.getUserid());
+		session.setAttribute("userSession", goo);
+		System.out.println("userno======"+goo.getUserno());
+		model.addAttribute("loginUser", session.getAttribute("userSession"));
+		return "redirect:/users/activity/"+goo.getUserno();
+	} 
 
 	 @RequestMapping("/message")
 	 public String message( HttpServletRequest request ) throws Exception {
 		 return "/cmmn/message";
 		 
 	 }
-	 
-//	 private HttpSession httpSession;
-//	 @RequestMapping("/me")
-//	 public Map<String, Object> me( HttpServletRequest request ) throws Exception {
-//		 Map<String, Object> response = new LinkedHashMap<>();
-//	        response.put("profile", httpSession.getAttribute("user"));
-//	        System.out.println(response.get("profile"));
-//	        return response;
-//		 
-//	 }
 	 
 	
 	
