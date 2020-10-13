@@ -20,6 +20,7 @@ public interface EnterprisesMapper {
 	public int cntAnswerById(int seq);
 	public int cntTagAndWikiById(Wiki vo);
 	public List<Wiki> findTagAndWikiByUserno(Wiki vo);
-	public Integer getScore(int seq);
+	public Integer getScore(List<Users> memList);
 	public List<Enterprises> getPromteList();
+	public String getScoregraph(List<Users> memList);
 }

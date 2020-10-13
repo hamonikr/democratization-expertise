@@ -14,6 +14,9 @@
 <!-- <link rel="stylesheet" href="/tui-editor/codemirror/lib/codemirror.css"> -->
 <!-- <link rel="stylesheet" href="/tui-editor/highlightjs/styles/github.css"> -->
 
+<!-- tui chart -->
+<link rel="stylesheet" type="text/css" href="/tui-chart/tui-chart.css" />
+
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
@@ -72,8 +75,8 @@
 						<div class="card-body card-primary row" style="width: 100%;">
 							<div class="col-8 row">
 								<div class="col-12"><h2><b>${user.username}</b></h2><p>${user.aboutme}</p></div>
-								<div class="col-6"><h4>평판</h4><span>${score}</span></div>
-								<div class="col-6"><div id="line-chart" style="height: 300px;"></div></div>
+								<div class="col-3"><h4>평판</h4><span>${score}</span></div>
+								<div class="col-9"><div id="chart-area"></div></div>
 							</div>
 	
 							<div class="col-4 profileLeftDiv">
@@ -533,7 +536,87 @@ fnPopupResize();
 $(window).resize(function(){
 	fnPopupResize();	// 팝업 위치 및 크기 조정
 });
-
 </script>
+
+<!-- chart -->
+<script type='text/javascript' src='https://uicdn.toast.com/tui.chart/latest/raphael.js'></script>
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/core-js/2.5.7/core.js'></script>
+<script src='/tui-chart/tui-chart.js'></script>
+<script class='code-js' id='code-js'>
+var today = new Date();   
+var month = today.getMonth() + 1;
+var monthArr = [];
+
+for(var i=0; i<6 ;++i){
+	monthArr.push(month-i + ' 월');
+}
+
+var monthList = [''];
+var score = [];
+var list = '';
+var userno = $('form[name=frm] input[name=userno]').val();
+
+$.ajax({
+	url			: '/users/getScoregraph',
+	data		: {'userno' : userno},
+	type		: 'post',
+	async		: false,
+	success	: function(data){
+		list = data.list.split(',');
+		for (var i = 0; i < 6; ++i) {
+			score.push(list[5-i]); // [month, value]
+		}
+	},
+	error		: function(xhr, status, error){
+		console.log(xhr, status, error);
+	}
+});
+
+var container = document.getElementById('chart-area');
+var data = {
+    categories: monthArr.reverse(),
+    series: [
+        {
+            name: 'Score',
+            data: score
+        }
+    ]
+};
+var options = {
+    chart: {
+        width: 360,
+        height: 240,
+        format: '1,000'
+    },
+    yAxis: {
+        title: 'Score',
+        min: 0
+    },
+    xAxis: { title: 'Month' },
+	legend: { align: 'top' }
+};
+var theme = {
+    series: {
+        colors: [
+            '#83b14e', '#458a3f', '#295ba0', '#2a4175', '#289399',
+            '#289399', '#617178', '#8a9a9a', '#516f7d', '#dddddd'
+        ]
+    }
+};
+// For apply theme
+// tui.chart.registerTheme('myTheme', theme);
+// options.theme = 'myTheme';
+tui.chart.columnChart(container, data, options);
+</script>
+
+<!--For tutorial page-->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/codemirror.js'></script>
+<script src='//ajax.aspnetcdn.com/ajax/jshint/r07/jshint.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/addon/edit/matchbrackets.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/addon/selection/active-line.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/mode/javascript/javascript.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/addon/lint/lint.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/addon/lint/javascript-lint.js'></script>
+<script src='/tui-chart/example.js'></script>
 </body>
 </html>
