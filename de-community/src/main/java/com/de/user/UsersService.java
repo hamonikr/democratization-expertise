@@ -229,4 +229,8 @@ public class UsersService {
 	public Integer getScore(int seq) {
 		return um.getScore(seq);
 	}
+	
+	public String getScoregraph(int userno) {
+		return um.getScoregraph(userno);
+	}
 }
