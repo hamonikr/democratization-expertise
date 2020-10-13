@@ -67,7 +67,7 @@
       SELECT COALESCE(max(questionno),0)+1 AS questionno FROM tb_questions
 	</select>
 	<sql id="listWhere">
-		(title like '%' || #{searchtext} || '%' 
+	and	(title like '%' || #{searchtext} || '%' 
 		or
 		contents like '%' || #{searchtext} || '%')
 	</sql>
@@ -88,11 +88,12 @@
 		,(select count(d.answerno) from tb_answers d where a.questionno = d.questionno) as commentcnt
 		from tb_questions a left outer join tb_users b on a.userno = b.userno
 		left outer join tb_vote c on a.questionno = c.pno
-		<if test="searchtext != null and searchtext != ''">
 		<where>
+		 c.section = 'Q'
+		<if test="searchtext != null and searchtext != ''">
 		<include refid="listWhere" />
-		</where>
 		</if>
+		</where>
 		<if test="sort == null" >order by a.registerdate desc</if>
 		<if test="sort == 1" >order by a.registerdate desc</if>
 		<if test="sort == 2" >order by a.registerdate asc</if>

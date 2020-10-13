@@ -11,10 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.de.cmmn.CmmnMap;
 import com.de.cmmn.service.CmmnService;
 import com.de.login.service.SecurityMember;
+import com.de.login.vo.LoginVO;
+import com.de.user.Users;
 
 @Controller
 @RequestMapping(value = "/vote")
@@ -50,8 +53,11 @@ public class VoteController {
 
 	@ResponseBody
 	@RequestMapping(value = "/like")
-	public String like(HttpServletRequest request, Model model, Vote vo,@AuthenticationPrincipal SecurityMember user, HttpSession httpSession) throws Exception{
-		if(user != null) {
+	public String like(HttpServletRequest request, Model model, Vote vo,LoginVO user, HttpSession httpSession) throws Exception{
+		//httpSession = request.getSession(false);
+		user = (LoginVO) httpSession.getAttribute("userSession");
+		if ( user != null ) {
+			 //user = (LoginVO) httpSession.getAttribute("userSession");
 		int result = 0;
 			Vote vo2 = vs.getSeq(vo);
 			if(vo2 != null) {
@@ -77,8 +83,11 @@ public class VoteController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/dislike")
-	public String dislike(HttpServletRequest request, Model model, Vote vo,@AuthenticationPrincipal SecurityMember user) throws Exception{
-		if(user != null) {
+	public String dislike(HttpServletRequest request, Model model, Vote vo,LoginVO user,HttpSession httpSession) throws Exception{
+		//httpSession = request.getSession(false);
+		user = (LoginVO) httpSession.getAttribute("userSession");
+		if ( user != null ) {
+			//user = (LoginVO) httpSession.getAttribute("userSession");
 		int result = 0;
 		Vote vo2 = vs.getSeq(vo);
 		if(vo2 != null) {

@@ -52,7 +52,7 @@ public class LoginController {
 	
 	
 	@RequestMapping("/login")
-	 public String loginSuccess(Model model, @AuthenticationPrincipal SecurityMember user, LoginVO vo ) throws Exception{
+	 public String loginSuccess(Model model, @AuthenticationPrincipal SecurityMember user, LoginVO vo, HttpSession session ) throws Exception{
 		System.out.println("<<--- controller for normal loginSuccess-->> ");
 	
 		if(user!=null) {
@@ -60,14 +60,14 @@ public class LoginController {
 		System.out.println("user pw --->" + user.getUserpassword());
 		System.out.println("user no --- >" + user.getUserno());
 		}
-		model.addAttribute("loginUser", user);
+		
 		
 		// 유저가 회사계정이냐 일반 유저이냐에 따라 프로필 페이지 변경
 		vo = service.getUserInfo(user.getUserid());
-		
+		session.setAttribute("userSession", vo);
+		model.addAttribute("loginUser", user);
 		System.out.println("대표 유저 여부==?? "+vo.getRepresentat());
 		Integer val = null;
-		
 		if(vo.getRepresentat()==1) {
 			return "redirect:/enterprises/activity/"+vo.getEnterpriseno();
 
@@ -79,17 +79,17 @@ public class LoginController {
 	} 
 	
 	@RequestMapping("/socialLogin")
-	 public String socialLogin(Model model, HttpSession session ) throws Exception{
+	 public String socialLogin(Model model, HttpSession session , LoginVO vo,HttpServletRequest request) throws Exception{
 		System.out.println("<<--- controller for normal loginSuccess-->> ");
 		
-		GoogleUser goo = (GoogleUser) session.getAttribute("userSession");
-		session.removeAttribute("userSession"); 
-		
-		goo = service.getSocialUserInfo(goo.getUserid());
-		session.setAttribute("userSession", goo);
-		System.out.println("userno======"+goo.getUserno());
+		String goo = (String) session.getAttribute("googleId");
+		session.removeAttribute("googleId");
+		System.out.println("goo============"+goo);
+		vo = service.getSocialUserInfo(goo);
+		session.setAttribute("userSession", vo);
+		System.out.println("userno======"+vo.getUserno());
 		model.addAttribute("loginUser", session.getAttribute("userSession"));
-		return "redirect:/users/activity/"+goo.getUserno();
+		return "redirect:/users/activity/"+vo.getUserno();
 	} 
 
 	 @RequestMapping("/message")

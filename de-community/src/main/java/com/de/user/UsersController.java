@@ -123,7 +123,7 @@ public class UsersController {
 			logger.info(" ------ wList Content : " + wList);
 		}
 		
-		System.out.println("1==========++"+ users.get().getUserprofileimg());
+		//System.out.println("1==========++"+ users.get().getUserprofileimg());
 		model.addAttribute("user", users.orElse(null));	// 프로필 정보
 		model.addAttribute("isMypage", isUserNo);		// 내 정보 유무
 		model.addAttribute("enterprise", enterprise);	// 회사명 정보

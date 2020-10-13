@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -72,20 +73,16 @@ public class Questions {
 	private int firstRecordIndex;
 	private int recordCountPerPage;
 	
-	@ManyToOne
-	@JoinColumn(name= "pno", insertable = false, updatable = false)
+	@Transient
 	private Vote vote;
 	
-	@ManyToOne
-	@JoinColumn(name= "userno", insertable = false, updatable = false)
+	@Transient
 	private Users users;
 	
-	@ManyToOne
-	@JoinColumn(name= "wikino", insertable = false, updatable = false)
+	@Transient
 	private Wiki wiki;
 	
-	@OneToOne
-	@JoinColumn(name= "questionno", insertable = false, updatable = false)
+	@Transient
 	private Answers answers;
 
 }
