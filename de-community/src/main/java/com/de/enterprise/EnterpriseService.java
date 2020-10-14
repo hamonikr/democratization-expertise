@@ -175,11 +175,29 @@ public class EnterpriseService {
 	
 	// 평판점수
 	public Integer getScore(int seq) {
-		return em.getScore(seq);
+		UsersDetail vo = new UsersDetail();
+		vo.setEnterpriseno(seq);
+		vo.setUserat(1);	// 승인
+		
+		List<Users> memList = em.getMembersList(vo);
+		
+		if(0 == memList.size()) return 0;
+		else return em.getScore(memList);
 	}
 	
 	// 기업홍보문구를 작성한 회사 리스트 - 최든 5개
 	public List<Enterprises> getPromteList(){		
 		return em.getPromteList();
+	}
+	
+	public String getScoregraph(int seq) {
+		UsersDetail vo = new UsersDetail();
+		vo.setEnterpriseno(seq);
+		vo.setUserat(1);	// 승인
+		
+		List<Users> memList = em.getMembersList(vo);
+		
+		if(0 == memList.size()) return "0,0,0,0,0,0";
+		else return em.getScoregraph(memList);
 	}
 }

@@ -1,10 +1,14 @@
 package com.de.user;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -33,4 +37,8 @@ public class UsersDetail {
 	private Integer activeat;
 	/* 회사 대표 계정 여부 : 일반:0, 대표:1, 하위:2 */
 	private Integer representat;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userno" ,insertable = false, updatable = false)
+    private Users users;
 }

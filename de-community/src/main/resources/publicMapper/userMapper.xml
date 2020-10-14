@@ -117,11 +117,11 @@ LIMIT 5
 </select>
 
 <select id="getUserScore" resultType="com.de.cmmn.CmmnMap">
-select a.*,b.*,c.*
-from tb_users a left outer join tb_score b on a.userno = b.userno left outer join tb_users_detail c on a.userno = c.userno
-where b.score is not null and (c.representat = 0 or c.representat is null)
+select a.*,b.*,c.* from tb_users a 
+left outer join tb_score b on a.userno = b.userno
+left outer join tb_users_detail c on a.userno = c.userno
+where b.score is not null and c.representat = 0
 order by b.score desc
-
 </select>
 
 <select id="getPartnerScore" resultType="com.de.cmmn.CmmnMap">
@@ -135,11 +135,10 @@ order by b.score desc
 
 <select id="getScore" parameterType="Integer" resultType="Integer">
 SELECT (
-    (SELECT score FROM tb_score WHERE userno=#{seq}) 
-    + (SELECT count(*) FROM tb_vote_users WHERE userno=#{seq})
+    COALESCE((SELECT score FROM tb_score WHERE userno=#{seq}), 0)
+    + COALESCE((SELECT (sum(likes) - sum(dislikes)) as score FROM tb_vote WHERE userno=#{seq}), 0)
     )
 </select>
-
 
 <select id="socialUserCheck" parameterType="com.de.cmmn.CmmnMap" resultType="Integer">
 SELECT COUNT(*) FROM tb_users where userid=#{userid}
@@ -148,5 +147,79 @@ SELECT COUNT(*) FROM tb_users where userid=#{userid}
 <insert id="socialUserSave" parameterType="com.de.cmmn.CmmnMap">
 INSERT INTO tb_users (userid,username,picture) values(#{userid},#{username},#{picture})
 </insert>
+
+<sql id="where_getScoregraph1">
+userno = #{userno}
+and registerdate <![CDATA[ < ]]> to_date(to_char(now(), 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
+and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '1 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
+</sql>
+<sql id="where_getScoregraph2">
+userno = #{userno}
+and registerdate <![CDATA[ < ]]>  to_date(to_char(now() - '1 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
+and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '2 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
+</sql>
+<sql id="where_getScoregraph3">
+userno = #{userno}
+and registerdate <![CDATA[ < ]]>  to_date(to_char(now() - '2 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
+and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '3 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
+</sql>
+<sql id="where_getScoregraph4">
+userno = #{userno}
+and registerdate <![CDATA[ < ]]>  to_date(to_char(now() - '3 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
+and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '4 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
+</sql>
+<sql id="where_getScoregraph5">
+userno = #{userno}
+and registerdate <![CDATA[ < ]]>  to_date(to_char(now() - '4 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
+and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '5 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
+</sql>
+<sql id="where_getScoregraph6">
+userno = #{userno}
+and registerdate <![CDATA[ < ]]>  to_date(to_char(now() - '5 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
+and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '6 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
+</sql>
+
+<select id="getScoregraph" parameterType="Integer" resultType="String">
+SELECT 
+	CAST(
+		COALESCE(( SELECT count(*) FROM tb_questions WHERE <include refid="where_getScoregraph1"/> ), 0)
+		+ COALESCE(( SELECT count(*) FROM tb_answers WHERE <include refid="where_getScoregraph1"/> ), 0)
+	AS TEXT)
+	
+	|| ',' ||
+	
+	CAST(
+		COALESCE(( SELECT count(*) FROM tb_questions WHERE <include refid="where_getScoregraph2"/> ), 0)
+		+ COALESCE(( SELECT count(*) FROM tb_answers WHERE <include refid="where_getScoregraph2"/> ), 0)
+	AS TEXT)
+	
+	|| ',' ||
+	
+	CAST(
+		COALESCE(( SELECT count(*) FROM tb_questions WHERE <include refid="where_getScoregraph3"/> ), 0)
+		+ COALESCE(( SELECT count(*) FROM tb_answers WHERE <include refid="where_getScoregraph3"/> ), 0)
+	AS TEXT)
+	
+	|| ',' ||
+	
+	CAST(
+		COALESCE(( SELECT count(*) FROM tb_questions WHERE <include refid="where_getScoregraph4"/> ), 0)
+		+ COALESCE(( SELECT count(*) FROM tb_answers WHERE <include refid="where_getScoregraph4"/> ), 0)
+	AS TEXT)
+	
+	|| ',' ||
+	
+	CAST(
+		COALESCE(( SELECT count(*) FROM tb_questions WHERE <include refid="where_getScoregraph5"/> ), 0)
+		+ COALESCE(( SELECT count(*) FROM tb_answers WHERE <include refid="where_getScoregraph5"/> ), 0)
+	AS TEXT)
+	
+	|| ',' ||
+	
+	CAST(
+		COALESCE(( SELECT count(*) FROM tb_questions WHERE <include refid="where_getScoregraph6"/> ), 0)
+		+ COALESCE(( SELECT count(*) FROM tb_answers WHERE <include refid="where_getScoregraph6"/> ), 0)
+	AS TEXT)
+</select>
 
 </mapper>
