@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+ 
+<mapper namespace="com.hamonize.license.service.mapper.LicenseMngrMapper">
+
+
+	<!--  license View -->
+	<select id="getListLcns" parameterType="com.hamonize.license.service.vo.LicenseVO" resultType="com.hamonize.license.service.vo.LicenseVO">
+		<!-- select TA.license_cd, TA.license_title,  FNC_LICENSE_CNT( #{bizcd}, TA.license_cd) as fn_license_count 
+		from (
+		    SELECT
+		        distinct(license_cd), license_title, bizcd
+		    FROM ivsportal.tb_license
+		    where bizcd = #{bizcd}
+		) TA      -->
+		SELECT
+    seq
+    ,bizcd
+    ,license_cd
+    ,reg_date
+    ,updt_date
+    ,license_no
+    ,license_pd_st
+    ,license_pd_ed
+    ,upper_seq
+    ,(select reg_date from tb_license_used where n.seq = pseq)as used
+  FROM
+    tb_license n
+    where license_cd = #{business_code}
+    and bizcd = #{bizcd}
+    limit #{firstRecordIndex}, #{recordCountPerPage}
+	</select>
+	
+	<select id="getListLcnsCount" parameterType="com.hamonize.license.service.vo.LicenseVO" resultType="Integer">
+		<!-- select count(*) 
+		from (
+		    SELECT
+		        distinct(license_cd), license_title, bizcd
+		    FROM ivsportal.tb_license
+		    where bizcd = #{bizcd}
+		) TA   -->   
+		select count(*) 
+			FROM
+    	tb_license 
+    		where license_cd = #{business_code}
+    		and bizcd = #{bizcd}
+	</select>
+	
+
+	<!--  license List -->
+	<select id="getList" parameterType="com.hamonize.license.service.vo.LicenseBizVO" resultType="com.hamonize.license.service.vo.LicenseBizVO">
+		select
+			seq, bizcd, 
+			supply_name, 
+			demand_name, 
+			license_count, 
+			license_cd, 
+			register_id, 
+			license_period, 
+			contract, 
+			reg_date
+		 from tb_license_biz
+		 where license_cd = #{license_cd}
+		 and bizcd = #{bizcd}
+		order by reg_date desc
+		limit #{firstRecordIndex}, #{recordCountPerPage}
+	</select>
+	
+	<!--  license List count -->
+	<select id="getListCount" parameterType="com.hamonize.license.service.vo.LicenseBizVO" resultType="Integer">
+		select count(*) from tb_license_biz where license_cd = #{license_cd} and bizcd = #{bizcd}
+	</select>
+	
+	<select id="getView" parameterType="com.hamonize.license.service.vo.LicenseBizVO" resultType="com.hamonize.license.service.vo.LicenseBizVO">
+		select
+			*
+		 from tb_license_biz
+		where license_cd = #{business_code}
+	</select>
+</mapper>

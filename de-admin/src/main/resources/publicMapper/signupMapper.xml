@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+
+<mapper namespace="com.hamonize.signup.service.mapper.SignupMapper">
+
+<!-- 정보 저장 -->
+<!-- 회사 정보 저장 -->
+<insert id="bizInfoSave" parameterType="com.hamonize.signup.service.vo.CompanyVO">
+<selectKey keyProperty="seq" resultType="Integer" order="BEFORE">
+    SELECT nvl(max(seq),0)+1 FROM tb_company
+  </selectKey>
+	Insert
+	 into
+  	  tb_company(  	  	
+       seq
+      ,bizcd
+      ,biznm
+      ,biznm_en
+      ,biztype
+      ,bizkind
+      ,bizno
+      ,rprsnt_nm
+      ,addr1
+      ,addr2
+      ,tele
+      ,fax
+      ,biz_auth_role
+      ,reg_date
+    )
+  values
+    (   
+    	#{seq}
+      ,#{bizcd}
+      ,#{biznm}
+      ,#{biznm_en}
+      ,#{biztype}
+      ,#{bizkind}
+      ,#{bizno}
+      ,#{rprsnt_nm}
+      ,#{addr1}
+      ,#{addr2}
+      ,#{tele}
+      ,#{fax}
+      ,#{biz_auth_role}
+      ,now()
+     )
+	</insert>
+	
+
+<!-- 대표 유저 정보 저장 -->	
+<insert id="userInfoSave" parameterType="com.hamonize.signup.service.vo.CompanyVO">	
+<selectKey keyProperty="seq" resultType="Integer" order="BEFORE">
+    SELECT nvl(max(seq),0)+1 FROM tb_user_mngr
+  </selectKey>
+	INSERT INTO 
+		tb_user_mngr
+			(   seq
+			   ,bizcd  	
+		      ,user_id 
+		      ,user_passwd
+		      ,user_nm 
+		      ,user_email  
+		      ,user_hp 
+		      ,user_rank 
+		      ,user_dept
+		      ,user_role
+		      ,proc_stat
+		      ,reg_date
+		      
+		    ) VALUES
+			    (  #{seq}
+	    		   ,#{bizcd}
+			      ,#{user_id} 
+			      ,#{user_passwd1}
+			      ,#{user_nm} 
+			      ,#{user_email} 
+			      ,#{user_hp} 
+			      ,#{user_rank} 
+			      ,#{user_dept}
+			      ,#{user_role}
+			      ,#{proc_stat}
+			      ,now()
+			     )
+</insert>
+
+
+<!-- 중복 체크 -->
+<!-- 사업자번호 체크   -->
+<select id ="biznoCheck" parameterType="com.hamonize.signup.service.vo.CompanyVO" resultType="Integer" >
+	select COUNT(*) 
+	from tb_company 
+	where bizno= #{bizno};
+</select>
+
+<select id ="bizcdSeqCheck" parameterType="com.hamonize.signup.service.vo.CompanyVO" resultType="com.hamonize.signup.service.vo.CompanyVO" >
+   SELECT nvl(max(seq),0)+1
+    FROM tb_company
+</select>
+
+<!-- 대표 담당자 아이디 중복 체크 -->
+<select id ="userIDCheck" parameterType="com.hamonize.signup.service.vo.CompanyVO" resultType="Integer" >
+	select COUNT(*) 
+	from tb_user_mngr 
+	where user_id= #{user_id};
+</select>
+
+<!-- 추가 담당자 아이디 중복체크 --><!-- 삭제 예정 --> 
+<select id ="addUserIDCheck" parameterType="com.hamonize.signup.service.vo.CompanyVO" resultType="Integer" >
+	select COUNT(*) 
+	from tb_user_mngr 
+	where user_id= #{user_id};
+</select>
+
+
+<!-- 정보 불러오기 -->
+<!-- 회사정보 불러오기 -->
+<select id="getBizInfo" parameterType="com.hamonize.signup.service.vo.CompanyVO" resultType="com.hamonize.signup.service.vo.CompanyVO">
+	select *
+	from tb_company
+	where bizcd= #{bizcd};
+</select>
+
+<select id="getUserInfo" parameterType="com.hamonize.signup.service.vo.UserMngrVO" resultType="com.hamonize.signup.service.vo.UserMngrVO">
+	select user_nm, user_dept, user_rank, user_hp, user_email, user_id
+	from tb_user_mngr
+	where user_id= #{user_id};
+</select>
+
+<!-- 추가 담당자 정보 불러오기 -->
+<select id="getAddUserInfo" parameterType="com.hamonize.signup.service.vo.UserMngrVO" resultType="com.hamonize.signup.service.vo.UserMngrVO">
+	select seq, user_id, user_passwd, user_nm, user_dept, user_rank, user_email ,active_status
+	from tb_user_mngr
+	where user_role != 'r' and delete_at != 1 and bizcd = #{bizcd}
+	order by seq desc;
+</select>
+
+<!-- 권한정보 가져오기 -->
+<select id="getUserRole" parameterType="com.hamonize.signup.service.vo.CompanyVO" resultType="com.hamonize.signup.service.vo.CompanyVO">
+	select user_role 
+	from tb_user_mngr
+	where user_id = #{user_id}
+	order by seq desc;
+</select>
+
+
+
+<!-- 정보 수정  -->
+<!-- 회사정보 수정할때  -->
+<update id ="bizInfoUpdate" parameterType="com.hamonize.signup.service.vo.CompanyVO" >
+	update
+	 tb_company
+	set
+		biznm = #{biznm},
+		biznm_en = #{biznm_en},
+		biztype = #{biztype},
+		bizno = #{bizno},
+		bizkind = #{bizkind},
+		rprsnt_nm = #{rprsnt_nm},
+		addr1 = #{addr1},
+		addr2 = #{addr2},
+		tele = #{tele}, 
+		fax = #{fax}, 
+		updt_date = now()			
+	 where
+	 	bizcd = #{bizcd};			 
+</update>
+
+
+<!-- 대표 or 추가 담당자 정보를 수정할때   -->
+<update id ="userInfoUpdate" parameterType="com.hamonize.signup.service.vo.UserMngrVO" >
+update 
+	 tb_user_mngr
+    <set>
+      	  user_passwd=#{user_passwd},
+	      user_nm=#{user_nm},
+	      user_dept=#{user_dept},
+	      user_rank=#{user_rank},
+	      user_hp = #{user_hp},	      
+	      user_email=#{user_email},
+		  updt_date = now()	
+    </set>
+  where 
+  	 user_id = #{user_id};	
+</update>
+
+<update id ="userInfoUpdate_without_pw" parameterType="com.hamonize.signup.service.vo.UserMngrVO" >
+update 
+	 tb_user_mngr
+    <set>
+	      user_nm = #{user_nm},
+	      user_dept = #{user_dept},
+	      user_rank = #{user_rank},
+	      user_hp = #{user_hp},
+	      user_email = #{user_email},
+		  updt_date = now()	
+    </set>
+  where 
+  	 user_id = #{user_id};	
+</update>
+
+
+<update id ="updateUserActiveStatus" parameterType="com.hamonize.signup.service.vo.UserMngrVO" >
+update 
+	 tb_user_mngr
+    <set>
+    	active_status = #{active_status},
+    	proc_stat = #{proc_stat},
+	 	updt_date = now()	
+    </set>
+  where 
+  	 user_id = #{user_id};	
+</update>
+
+<!-- 정보 삭제 -->
+<!-- 추가 담당자 정보 삭제 -->
+<delete id="deleteAddUserInfo" parameterType="com.hamonize.signup.service.vo.UserMngrVO">
+		update
+			tb_user_mngr
+		set
+			delete_at = 1,
+			proc_stat = #{proc_stat}
+		where
+			user_id = #{user_id};	
+</delete>
+
+</mapper>
+ 
+	

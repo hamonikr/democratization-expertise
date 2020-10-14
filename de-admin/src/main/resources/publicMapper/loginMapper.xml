@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="com.hamonize.login.service.mapper.LoginMapper">
+
+<select id="getUser" parameterType="com.hamonize.user.service.UserVO" resultType="com.hamonize.user.service.UserVO">
+	select
+	    ta.seq, ta.bizcd, ta.biznm, ta.bizno, ta.biz_auth_role, tb.proc_stat, tb.user_role,tb.user_hp,
+	    tb.user_nm, tb.user_id, tb.user_passwd, tb.user_rank, tb.user_dept, tb.user_email
+	from tb_company ta left outer join tb_user_mngr tb
+	on ta.bizcd = tb.bizcd
+	<where>
+		user_id=#{username}
+	</where>
+</select>
+
+<insert id="signUp" parameterType="com.hamonize.user.service.UserVO">
+insert
+  into
+    tb_user(
+       seq
+      ,user_id
+      ,user_passwd
+      ,user_auth_role
+      ,user_nm
+      ,user_email
+      ,user_hp
+      ,user_company
+      ,reg_date
+      ,updt_date
+    )
+  values
+    ((
+          select
+              nvl(max(seq), 0) +1
+            from
+              tb_user ALIAS_FOR_SUBQUERY
+      ),
+      #{user_id},
+      #{user_passwd},
+      #{user_auth_role},
+      #{user_nm},
+      #{user_email},
+      #{user_hp},
+      #{user_company},
+      now(),
+      now()
+    )
+</insert>
+
+<insert id="login_history" parameterType="com.hamonize.cmmn.CmmnMap">
+insert
+  into
+    tb_user_login_history(
+       seq
+      ,user_id
+      ,login_date
+    )
+  values
+    ((
+          select
+              nvl(max(seq), 0) +1
+            from
+              tb_user_login_history ALIAS_FOR_SUBQUERY
+      ),
+      #{userId},
+      now()
+    )
+</insert>
+
+</mapper>
