@@ -49,6 +49,7 @@ $(function() {
 		//dataType: 'json', 
 		success: function (data) { 
 			console.log(data);
+			
 			if (data != null){
 				for(i=0;i<data.user.length;i++){
 						$("#bodyrightLayer").append("사용자");
@@ -59,8 +60,8 @@ $(function() {
 				$("#bodyrightLayer").append("=======================");
 				$("#bodyrightLayer").append("<br/>");
 				for(y=0;y<data.partnerslist.length;y++){
-					
-					$("#bodyrightLayer").append(data.partnerslist[y].enterprisename + " : " +data.partnerslist[y].enterpriseabout);
+					 var str = data.partnerslist[y].enterpriseabout;		
+					$("#bodyrightLayer").append(data.partnerslist[y].enterprisename + " : " +str.link("/enterprises/activity/"+data.partnerslist[y].enterpriseno));
 					$("#bodyrightLayer").append("-----------------------------");
 					$("#bodyrightLayer").append("<br/>");
 
