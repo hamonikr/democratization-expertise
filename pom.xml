@@ -214,6 +214,13 @@
            <artifactId>egovframework.rte.fdl.excel</artifactId>
            <version>3.5.0</version>
         </dependency>
+
+        <exclusions> 
+            <exclusion> 
+                <groupId>org.slf4j</groupId> 
+                <artifactId>slf4j-log4j12</artifactId> 
+            </exclusion> 
+        </exclusions>
 	</dependencies>
 
 	<build>
