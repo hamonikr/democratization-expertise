@@ -52,20 +52,55 @@ $(function() {
 			console.log(data);
 			
 			if (data != null){
+
 				for(i=0;i<data.user.length;i++){
-						$("#bodyrightLayer").append("사용자");
-						$("#bodyrightLayer").append(data.user[i].username+"=");
-						$("#bodyrightLayer").append(data.user[i].score);
-						$("#bodyrightLayer").append("<br/>");
+// 						$("#bodyrightLayer").append("사용자");
+// 						$("#bodyrightLayer").append(data.user[i].username+"=");
+// 						$("#bodyrightLayer").append(data.user[i].score);
+// 						$("#bodyrightLayer").append("<br/>");
+						
+						var userHtml = "";
+						
+						userHtml += '<div class="col-md-9 col-sm-6 col-12" style="padding:10 10 10 10;"><div class="user-block">';
+						userHtml += '<img class="img-circle img-bordered-sm" src="/img/noprofile.png" alt="User Image">';
+						userHtml += '<span class="username">';
+						userHtml += '<a href="#">'+data.user[i].username+'</a>';
+// 						userHtml += '<a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>';
+						userHtml += '</span>';
+						userHtml += '<span class="description">'+data.user[i].score+'</span>';
+						userHtml += '</div></div>';
+						userHtml += '</div>';
+						userHtml += '<div class="progress" style="height: 0.1rem;"><div class="progress-bar" style="width: 100%; background-color: #e9ecef;"></div></div>';
+						 
+						$("#userrightLayer").append(userHtml);
+						
 				}
-				$("#bodyrightLayer").append("=======================");
+				
 				$("#bodyrightLayer").append("<br/>");
+				
 				for(y=0;y<data.partnerslist.length;y++){
 					 var str = data.partnerslist[y].enterpriseabout;		
-					$("#bodyrightLayer").append(data.partnerslist[y].enterprisename + " : " +str.link("/enterprises/activity/"+data.partnerslist[y].enterpriseno));
-					$("#bodyrightLayer").append("-----------------------------");
-					$("#bodyrightLayer").append("<br/>");
+// 					$("#bodyrightLayer").append(data.partnerslist[y].enterprisename + " : " +str.link("/enterprises/activity/"+data.partnerslist[y].enterpriseno));
+// 					$("#bodyrightLayer").append("-----------------------------");
+// 					$("#bodyrightLayer").append("<br/>");
 
+					var entHtml = "";
+				
+
+					entHtml += '<div class="col-md-9 col-sm-6 col-12" >';
+					entHtml += '<div class="info-box ">'; /* bg-info */
+					entHtml += '<span class="info-box-icon col-1"><i class="far fa-bookmark"></i></span>';
+					entHtml += '<div class="info-box-content">';
+					entHtml += '<span class="info-box-text ">'+data.partnerslist[y].enterprisename+'</span>';
+					entHtml += '<div class="progress"><div class="progress-bar" style="width: 70%"></div></div>';
+					entHtml += '<span class="progress-description">';
+					entHtml += str.link("/enterprises/activity/"+data.partnerslist[y].enterpriseno);
+					entHtml += '</span>';
+					entHtml += '</div>';
+					entHtml += '</div>';
+					entHtml += '</div>';
+					$("#bodyrightLayer").append(entHtml);
+          		
 				}
 
 			//$("#bodyrightLayer").html(data.contents);
@@ -83,7 +118,15 @@ $(function() {
 
 <!-- css -->
 <link rel="stylesheet" type="text/css" href="/css/index.css" />
+<style>
+.info-box .progress .progress-bar {
+    background-color: #17a2b8;
+}
+.card-primary.card-outline {
+    border-top: 3px solid #007bff;
+}
 
+</style>
 </head>
 
 
@@ -100,8 +143,8 @@ $(function() {
 					<tiles:insertAttribute name="body" />
 				</div>
 				<div class="col-sm-4" id="bodyrightLayer">
-					<!-- style="background-color:black;" -->
-					<!-- <img src="/img/stackedViewR.jpg"> -->		
+				<br>
+				<div class="card card-primary card-outline col-md-9" id="userrightLayer"></div>
 				</div>
 			</div>
 		</div>
@@ -110,5 +153,10 @@ $(function() {
 		</footer>
 	</div>
 
+
 </body>
 </html>
+
+
+
+  

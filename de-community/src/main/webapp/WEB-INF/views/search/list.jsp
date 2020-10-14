@@ -44,17 +44,29 @@ button {
 }
 </style>
 <body>
+
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1></h1>
+				</div>
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+	
+	<section class="content" style="padding: 2px 12px 6px 19px;">
 	<form id="frm" name="frm" method="post">
 		<!-- 스프링 시큐리티 form에 추가 해줘야함. -->
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>				
 		<div class="col-12">       
           	
-            <div class="card-primary card-outline card-outline-tabs">             
+            <div class="card-primary card-outline card-outline-tabs" style="border-top: 0px solid #007bff;">             
               <div class="card-header p-0 border-bottom-0">
-              		<br>
-              		<div align="right">
-              			<a href="/wiki/getStart">[목록으로 되돌아가기]</a>
-              		</div>
+<!--               		<div align="right"> -->
+<!--               			<a href="/wiki/getStart">[목록으로 되돌아가기]</a> -->
+<!--               		</div> -->
                   <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
                   <li class="nav-item">
                     <a class="nav-link active" id="question" data-toggle="pill"
@@ -144,7 +156,7 @@ button {
 			</div>
 			
 	</form>
-
+</section>
 <script type="text/javascript">
 
 $(function() {

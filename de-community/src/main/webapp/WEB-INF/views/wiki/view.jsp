@@ -50,7 +50,7 @@ button {
 		<input type="hidden" name="wikino" id="wikino" value="${result.wikino}"/>					
 		<div class="col-12">       
           	
-            <div class="card-primary card-outline card-outline-tabs">             
+            <div class="card-primary card-outline card-outline-tabs" style="border-top: 0px solid #007bff;">             
               <div class="card-header p-0 border-bottom-0">
               		<br>
               		<div align="right">

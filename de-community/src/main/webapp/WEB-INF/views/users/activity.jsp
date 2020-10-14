@@ -56,7 +56,7 @@
 		
 	
 	<div class="col-12">
-		<div class=" card-primary card-outline card-outline-tabs">
+		<div class=" card-primary card-outline card-outline-tabs" style="border-top: 0px solid #007bff;">
 			<div class="card-header p-0 border-bottom-0">
 				<ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
 					<li class="nav-item">
