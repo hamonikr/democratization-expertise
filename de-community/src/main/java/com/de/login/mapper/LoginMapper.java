@@ -18,6 +18,6 @@ public interface LoginMapper {
 
 	public int updateUserUUID(LoginVO vo) throws Exception;
 
-	public GoogleUser getSocialUserInfo(String username) throws Exception;
+	public LoginVO getSocialUserInfo(String username) throws Exception;
 
 }

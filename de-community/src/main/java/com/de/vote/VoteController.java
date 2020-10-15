@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.de.cmmn.CmmnMap;
 import com.de.cmmn.service.CmmnService;
 import com.de.login.service.SecurityMember;
+import com.de.login.vo.LoginVO;
 
 @Controller
 @RequestMapping(value = "/vote")
@@ -50,7 +51,8 @@ public class VoteController {
 
 	@ResponseBody
 	@RequestMapping(value = "/like")
-	public String like(HttpServletRequest request, Model model, Vote vo,@AuthenticationPrincipal SecurityMember user, HttpSession httpSession) throws Exception{
+	public String like(HttpServletRequest request, Model model, Vote vo,LoginVO  user, HttpSession httpSession) throws Exception{
+		user = (LoginVO) httpSession.getAttribute("userSession");
 		if(user != null) {
 		int result = 0;
 			Vote vo2 = vs.getSeq(vo);
@@ -77,7 +79,8 @@ public class VoteController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/dislike")
-	public String dislike(HttpServletRequest request, Model model, Vote vo,@AuthenticationPrincipal SecurityMember user) throws Exception{
+	public String dislike(HttpServletRequest request, Model model, Vote vo,LoginVO user, HttpSession httpSession) throws Exception{
+		user = (LoginVO) httpSession.getAttribute("userSession");
 		if(user != null) {
 		int result = 0;
 		Vote vo2 = vs.getSeq(vo);
