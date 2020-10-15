@@ -288,7 +288,7 @@
 								<div class="form-group">
 									<label for="aboutMe" class="col-form-label">자기소개</label>
 									<c:if test="${ isMypage }">
-										<input type="hidden" class="form-control contents" id="aboutMe" name="aboutme" value="${user.aboutme}" autocomplete="off">
+										<input type="hidden" class="form-control contents" id="aboutMe" name="aboutme" value="" autocomplete="off">
 										<div class="code-html">
 											<div id="editSection">${user.aboutme}</div> 
 										</div>
