@@ -20,8 +20,6 @@
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-
-
 <!-- jquery-validation -->
 <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="/plugins/jquery-validation/additional-methods.min.js"></script>
@@ -288,7 +286,7 @@
 								<div class="form-group">
 									<label for="aboutMe" class="col-form-label">자기소개</label>
 									<c:if test="${ isMypage }">
-										<input type="hidden" class="form-control contents" id="aboutMe" name="aboutme" value="${user.aboutme}" autocomplete="off">
+										<input type="hidden" class="form-control contents" id="aboutMe" name="aboutme" value="" autocomplete="off">
 										<div class="code-html">
 											<div id="editSection">${user.aboutme}</div> 
 										</div>
