@@ -170,5 +170,7 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 [기여자 가이드라인 바로가기](CONTRIBUTING.md)
 
 ## 라이선스
-[라이선스 문서](LICENSE)
+* [de-community 라이선스 문서](https://github.com/hamonikr/democratization-expertise/blob/master/de-community/LICENSE)
+* [de-business-sw 라이선스 문서](https://github.com/hamonikr/democratization-expertise/blob/master/de-business-sw/LICENSE)
+* [de-user-sw 라이선스 문서](https://github.com/hamonikr/democratization-expertise/blob/master/de-user-sw/LICENSE)
 
