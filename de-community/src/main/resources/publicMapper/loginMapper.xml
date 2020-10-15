@@ -15,18 +15,18 @@ WHERE
 
 <select id="getUserInfo" parameterType="com.de.login.vo.LoginVO" resultType="com.de.login.vo.LoginVO">
 select b.*, a.*
+, ( select enterprisearea from tb_enterprises where enterpriseno = b.enterpriseno) as comylocation
 from tb_users a join tb_users_detail b on a.userno = b.userno
 where a.userid  = #{userid} 
 </select>
 
 <select id="getSocialUserInfo" parameterType="java.lang.String" resultType="com.de.login.vo.LoginVO">
-select *
-from tb_users 
-where userid  = #{userid} 
+	select *
+	from tb_users 
+	where userid  = #{userid} 
 </select>		
 
-
- <update id="updateUserUUID" parameterType="com.de.login.vo.LoginVO">
+<update id="updateUserUUID" parameterType="com.de.login.vo.LoginVO">
 	UPDATE tb_users  SET uuiduser = #{uuiduser}
 	WHERE userid = #{userid}
 

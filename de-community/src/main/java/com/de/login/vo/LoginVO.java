@@ -11,6 +11,7 @@ import lombok.ToString;
 @ToString
 public class LoginVO {
 
+	private int seq;
 	private int userno;
 	private String userid; // 멤버 아이디
 	private String userpassword; // 멤버 비밀번호
@@ -23,5 +24,6 @@ public class LoginVO {
 	private int enterpriseno;
 	private int representat; // 회사 대표여부 1:대표, 2:일반직원 ,0 (default): 일반유저
 	private int userat; // 회사등록 요청 여부
+	private String comylocation;
 
 }

@@ -1,6 +1,7 @@
 package com.de.restapi;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,6 +62,15 @@ public class RestApiController {
 		System.out.println("jsd=======================");
 		return "/jsd/feedback";
 
+	}
+
+
+	@ResponseBody
+	@RequestMapping(value = "/connt")
+	public Map<String, Object> connt(Model model, @RequestParam Map<String, Object> params) {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("gugun", "Y");
+		return dataMap;
 	}
 
 
@@ -241,6 +252,8 @@ public class RestApiController {
 				jsonObject.put("output", "Y");
 				jsonObject.put("userid", vo.getUserid());
 				jsonObject.put("usernm", vo.getUsername());
+				jsonObject.put("comylocation", vo.getComylocation());
+				jsonObject.put("seq", vo.getSeq());
 			}
 
 		} catch (Exception e) {
