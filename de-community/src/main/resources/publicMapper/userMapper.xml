@@ -120,7 +120,7 @@ LIMIT 5
 select a.*,b.*,c.* from tb_users a 
 left outer join tb_score b on a.userno = b.userno
 left outer join tb_users_detail c on a.userno = c.userno
-where b.score is not null and c.representat = 0
+where b.score is not null and (c.representat = 0 or c.representat is null)
 order by b.score desc
 </select>
 
@@ -139,6 +139,14 @@ SELECT (
     + COALESCE((SELECT (sum(likes) - sum(dislikes)) as score FROM tb_vote WHERE userno=#{seq}), 0)
     )
 </select>
+
+<select id="socialUserCheck" parameterType="com.de.cmmn.CmmnMap" resultType="Integer">
+SELECT COUNT(*) FROM tb_users where userid=#{userid}
+</select>
+
+<insert id="socialUserSave" parameterType="com.de.cmmn.CmmnMap">
+INSERT INTO tb_users (userid,username,picture) values(#{userid},#{username},#{picture})
+</insert>
 
 <sql id="where_getScoregraph1">
 userno = #{userno}
