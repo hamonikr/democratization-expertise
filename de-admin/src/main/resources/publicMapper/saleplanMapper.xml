@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="com.hamonize.saleplan.service.mapper.SalePlanMapper">
+
+<select id="getList" parameterType="com.hamonize.saleplan.service.SalePlanVO" resultType="com.hamonize.saleplan.service.SalePlanVO">
+select
+seq, 
+business_code, 
+bizcd, 
+subject, 
+instt_section, 
+product_section, 
+price, 
+discount, 
+sale_qy, 
+content, 
+writer_id, 
+writer_name, 
+consent, 
+consent_date, 
+request,
+delete_at, 
+register_date, 
+update_date, 
+instt_name,
+(select biznm from tb_company c where c.bizcd = e.bizcd) as biznm
+ from tb_saleplan e
+where delete_at = 0
+and bizcd = #{bizcd}
+order by register_date desc
+limit #{firstRecordIndex}, #{recordCountPerPage}
+</select>
+
+<select id="getListCount" parameterType="com.hamonize.saleplan.service.SalePlanVO" resultType="java.lang.Integer">
+select count(*) from tb_saleplan
+where delete_at = 0
+and bizcd = #{bizcd}
+</select>
+
+<select id="price_chk" parameterType="com.hamonize.cmmn.CmmnMap" resultType="com.hamonize.cmmn.CmmnMap">
+select * from tb_estimate where seq = #{pSeq}
+</select>
+
+<select id="selectSEQ" resultType="java.lang.Integer">
+		select nvl(max(seq), 0) +1 as seq
+            from
+              tb_saleplan ALIAS_FOR_SUBQUERY
+	</select>
+	
+<insert id="save" parameterType="com.hamonize.saleplan.service.SalePlanVO">
+insert
+  into
+    tb_saleplan(
+       seq, 
+       business_code, 
+       bizcd, 
+       subject, 
+       instt_name, 
+       instt_section, 
+       product_section, 
+       price, 
+       discount, 
+       sale_qy, 
+       content, 
+       writer_id, 
+       writer_name, 
+       consent, 
+       request,
+       delete_at, 
+       register_date
+    )
+  values
+    (  #{seq}
+      ,#{business_code}
+      ,#{bizcd}
+      ,#{subject}
+      ,#{instt_name}
+      ,#{instt_section}
+      ,#{product_section}
+      ,#{price}
+      ,#{discount}
+      ,#{sale_qy}
+      ,#{content}
+      ,#{writer_id}
+      ,#{writer_name}
+      	,0
+      	,0
+      	,0
+      ,now()
+    )
+</insert>
+
+<update id="update" parameterType="com.hamonize.saleplan.service.SalePlanVO">
+update tb_saleplan 
+set
+subject = #{subject}
+,instt_section = #{instt_section}
+,product_section = #{product_section}
+,instt_name = #{instt_name}
+,sale_qy = #{sale_qy}
+,content = #{content}
+,update_date = now() 
+where seq=#{seq}
+</update>
+
+<select id="getView" parameterType="com.hamonize.saleplan.service.SalePlanVO" resultType="com.hamonize.saleplan.service.SalePlanVO">
+select * from tb_saleplan
+where seq = #{seq}
+</select>
+
+<update id="delete" parameterType="com.hamonize.saleplan.service.SalePlanVO">
+update tb_saleplan 
+set 
+delete_at = 1
+where seq = #{seq}
+</update>
+
+<update id="updateReqeust" parameterType="com.hamonize.saleplan.service.SalePlanVO">
+update tb_saleplan 
+set 
+request = #{request}
+where seq=#{seq}
+</update>
+
+</mapper>

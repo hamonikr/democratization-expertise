@@ -40,7 +40,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         SecurityMember user = (SecurityMember) authentication.getPrincipal();
         
         if(user.getActiveat() == 0) {        	
-	       httpSession.setAttribute("userSession", user);   
+	       //httpSession.setAttribute("userSession", user);   
 	      	 response.setStatus(HttpServletResponse.SC_OK);		 
 	      	 System.out.println("로그인 성공 프로필페이지로");    	 
 	      	 response.sendRedirect("/login/login");

@@ -68,7 +68,7 @@ height: 3.6em;
 				 		
 				 			<c:forEach var="list" items="${result}" varStatus="status">
 								<div class="col-md-3">
-									<div class="card card-outline card-primary col-12">
+									<div class="card card-outline card-primary col-12" >
 										<div class="card-header col-12">
 											<h3 class="card-title">
 												<a href="/wiki/view/${list.wikino}">${list.title}</a>

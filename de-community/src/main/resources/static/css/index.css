@@ -114,11 +114,11 @@ aside.main-sidebar { box-shadow: 0 14px 28px rgba(0,0,0,0.05),0 10px 10px rgba(0
 .content-wrapper { background: #F0F5FB }
 .content-wrapper form { margin: 0 }
 
-.card { 
-	background: #F0F5FB; 
-	box-shadow: none;
-	width:600;
-}
+/* .card {  */
+/* 	background: #F0F5FB;  */
+/* 	box-shadow: none; */
+/* 	width:600; */
+/* } */
 .card-header { padding: 1em 1em 0em 0 }
 .card-title { 
 	color: black; 

@@ -62,8 +62,10 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler{
 			if(result <= 0) {
 				cmmnService.insertObject("socialUserSave", param);
 			}
-			httpSession.setAttribute("userSession", googleUser);   
-	     	 response.setStatus(HttpServletResponse.SC_OK);	
+			System.out.println("googlsuser====="+googleUser.getUserid());
+			httpSession.setAttribute("googleId", googleUser.getUserid());   
+	     	 response.setStatus(HttpServletResponse.SC_OK);
+	     	 //request.setAttribute("googleUser", googleUser);
 			response.sendRedirect("/login/socialLogin");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

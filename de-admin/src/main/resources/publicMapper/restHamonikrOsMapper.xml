@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+ 
+<mapper namespace="com.hamonize.restApi.hamonikros.service.mapper.RestHamonikrOsMapper">
+
+
+
+
+	<!--  license View
+	<select id="getView" parameterType="com.hamonize.restApi.service.vo.RestLicenseChkVO" resultType="com.hamonize.restApi.service.vo.RestLicenseChkVO">
+		SELECT 
+			seq, bizcd, license_cd, reg_date, updt_date, license_no, license_title, license_pd_st as lcns_st, license_pd_ed as lcns_dt, license_count 
+		FROM tb_license
+		<where>
+			license_no = #{license_no}
+     	</where>
+	</select> -->
+	
+	<insert id="setSave" parameterType="com.hamonize.restApi.hamonikros.service.vo.RestHamonikrOsVO">
+		INSERT INTO
+			tb_hamonikros_dpkg_list_base (
+				name, 
+				version, 
+				status, 
+				reg_date, 
+				updt_date 
+			) value(
+				#{name},
+				#{version}, 
+				#{status}, 
+				now(),
+				now()
+			) 
+	</insert>
+	
+	
+	<delete id="delUpgradable">
+		DELETE FROM ivsportal.tb_hamonikros_upgradable_list 
+	</delete>
+	<insert id="insertUpgradableDpkg" parameterType="java.util.Map">
+        INSERT 
+        	INTO tb_hamonikros_upgradable_list
+        	(
+				name, 
+				gubun, 
+				reg_date, 
+				updt_date 
+        	) 
+        	VALUES
+			<foreach collection="list" item="item" separator=" , ">
+            (
+            	#{item.name}, 
+            	#{item.gubun}, 
+            	now(),
+             	now()
+             )
+        	</foreach>
+
+	</insert>
+	
+</mapper>
