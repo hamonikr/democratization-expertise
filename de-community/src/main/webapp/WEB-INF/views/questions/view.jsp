@@ -96,11 +96,14 @@
 												<c:if test="${result.users.userprofileimg != null}">
 													<img src="/upload/users/${result.users.userprofileimg}">
 												</c:if>
-												<c:if test="${result.users.userprofileimg == null}">
+												<c:if test="${result.users.userprofileimg == null and result.users.picture == null}">
 													<img src="/img/noprofile.png">
 												</c:if>
+												<c:if test="${result.users.picture != null and result.users.userprofileimg == null}">
+													<img alt="profile" src="${result.users.picture}" id="profileImg" class="img" width="63px" height="63px"><br/>
+												</c:if>
 												</a>
-												<a href="/users/activity/${result.userno}" class="link-black text-sm"> ${result.users.userid}</a>
+												<a href="/users/activity/${result.userno}" class="link-black text-sm"> ${result.users.username}</a>
 											</span>
 										</p>
 									</div>
@@ -121,7 +124,7 @@
 								<c:forEach var="list" items="${answerList}" varStatus="stat">
 								<div class="col-10">
 								답변내용:${list.contents } <br/>
-								등록자:${list.users.userid } <br/>
+								등록자:${list.users.username } <br/>
 								등록일:<fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd" /><br/>
 								<c:if test="${(list.users.userno eq user.userno)}">
 									<a href="#" class="btn btn-primary purple">수정</a>

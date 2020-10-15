@@ -24,6 +24,7 @@ import com.de.answer.AnswersService;
 import com.de.cmmn.CmmnMap;
 import com.de.cmmn.service.CmmnService;
 import com.de.login.service.SecurityMember;
+import com.de.login.vo.LoginVO;
 import com.de.tag.Tags;
 import com.de.vote.Vote;
 import com.de.vote.VoteService;
@@ -94,6 +95,9 @@ public class QuestionsController {
 		questions.setRecordCountPerPage(recordCountPerPage);
 
 		List<Questions> list = qs.getList(questions);
+		for(int i = 0; i < list.size();i++) {
+			System.out.println("list====="+list.get(i));
+		}
 		List<Wiki> tagList = qs.findAllTag();
 
 		int listCount = qs.getListCount(questions);
@@ -107,13 +111,14 @@ public class QuestionsController {
 
 
 	@RequestMapping(value = "/save")
-	public String save(HttpServletRequest request,Model model, Questions qvo, Tags tvo, @AuthenticationPrincipal SecurityMember user, HttpSession httpSession) throws Exception {
-		if(httpSession.getAttribute("userSession") == null || !request.isRequestedSessionIdValid()) {
+	public String save(HttpServletRequest request,Model model, Questions qvo, Tags tvo, LoginVO user, HttpSession httpSession) throws Exception {
+		user = (LoginVO) httpSession.getAttribute("userSession");
+		if(user == null) {
 			return "redirect:/login";
 		} else {
 			List<Wiki> tagList = qs.findAllTag();
 			model.addAttribute("tagList", tagList);
-			model.addAttribute("user",httpSession.getAttribute("userSession"));
+			model.addAttribute("user",user);
 			return "/questions/save";
 		}
 	}
@@ -162,8 +167,9 @@ public class QuestionsController {
 
 	@RequestMapping("/edit/{questionno}")
 	public String edit(HttpServletRequest request,@PathVariable("questionno") int questionno, Model model,
-			@AuthenticationPrincipal SecurityMember user,HttpSession httpSession) throws Exception {
-		if(httpSession.getAttribute("userSession")==null || !request.isRequestedSessionIdValid()) {
+			 LoginVO user,HttpSession httpSession) throws Exception {
+		user = (LoginVO) httpSession.getAttribute("userSession");
+		if(user == null) {
 			return "redirect:/login";
 		}
 		//List<Tags> list = qs.tagList();
@@ -172,13 +178,14 @@ public class QuestionsController {
 		Questions qvo = new Questions();
 		qvo = qs.getView(questionno);
 		model.addAttribute("result", qvo);
-		model.addAttribute("user", httpSession.getAttribute("userSession"));
+		model.addAttribute("user", user);
 		return "/questions/save";
 	}
 
 
 	@RequestMapping(value = "/edit.proc")
-	public String editproc(HttpServletRequest request, Model model, Questions vo,@AuthenticationPrincipal SecurityMember user) throws Exception {
+	public String editproc(HttpServletRequest request, Model model, Questions vo, LoginVO user,HttpSession httpSession) throws Exception {
+		user = (LoginVO) httpSession.getAttribute("userSession");
 		if (user == null) {
 			return "redirect:/login";
 		}

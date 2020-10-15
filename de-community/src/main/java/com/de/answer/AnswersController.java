@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.de.cmmn.CmmnMap;
 import com.de.cmmn.service.CmmnService;
 import com.de.login.service.SecurityMember;
+import com.de.login.vo.LoginVO;
 import com.de.tag.Tags;
 import com.de.vote.Vote;
 import com.de.vote.VoteService;
@@ -105,7 +107,8 @@ public class AnswersController {
 
 	@RequestMapping(value = "/save/{questionno}")
 	public String save(Model model, Answers qvo,@PathVariable("questionno") int questionno,Answers vo, Vote vvo
-			,@AuthenticationPrincipal SecurityMember user) throws Exception {
+			,LoginVO user, HttpSession httpSession) throws Exception {
+		user = (LoginVO) httpSession.getAttribute("userSession");
 		if (user == null) {
 			return "redirect:/login";
 		} else {
@@ -126,7 +129,8 @@ public class AnswersController {
 
 	@RequestMapping(value = "/save.proc")
 	public String saveproc(HttpServletRequest request, Model model, Answers vo, Vote vvo
-			,@AuthenticationPrincipal SecurityMember user) throws Exception {
+			,LoginVO user, HttpSession httpSession) throws Exception {
+		user = (LoginVO) httpSession.getAttribute("userSession");
 		if (user == null) {
 			return "redirect:/login";
 		} else {

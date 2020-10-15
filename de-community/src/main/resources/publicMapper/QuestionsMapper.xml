@@ -28,6 +28,7 @@
 	<result column="useremail" property="useremail"/>
 	<result column="userstatus" property="userstatus"/>
 	<result column="userprofileimg" property="userprofileimg"/>
+	<result column="picture" property="picture"/>
 </resultMap>
 
 <resultMap type="com.de.tag.Tags" id="Tags">

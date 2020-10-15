@@ -76,10 +76,13 @@
 												<c:if test="${list.users.userprofileimg != null}">
 													<img src="/upload/users/${list.users.userprofileimg}" width="63px" height="63px">
 												</c:if>
-												<c:if test="${list.users.userprofileimg == null}" >
+												<c:if test="${list.users.userprofileimg == null and list.users.picture == null}" >
 													<img src="/img/noprofile.png"  width="63px" height="63px">
 												</c:if>
-												${list.users.username}
+												<c:if test="${list.users.picture != null and list.users.userprofileimg == null}">
+													<img alt="profile" src="${list.users.picture}" id="profileImg" class="img" width="63px" height="63px"><br/>
+												</c:if>
+												<a href="/users/activity/${list.users.userno}">${list.users.username}</a>
 											</div>
 											<div class="row col-11">
 												<div class="col-9">
