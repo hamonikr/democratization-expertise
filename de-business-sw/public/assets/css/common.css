@@ -1,0 +1,79 @@
+@charset "utf-8";
+
+@font-face {
+   font-family: 'Noto Sans KR';
+   font-style: normal;
+   font-weight: 400;
+   src: url('fonts/NotoSansKR-Regular.woff2') format('woff2'),
+        url('fonts/NotoSansKR-Regular.woff') format('woff'),
+        url('fonts/NotoSansKR-Regular.otf') format('opentype');
+ }
+
+
+
+html,body{height:100%;  margin:0;padding:0; border:0; word-break:keep-all ; font-family:'Noto Sans KR', '맑은 고딕', sans-serif;font-weight: 400;}
+* {margin: 0;}
+
+
+
+/*--------------------
+기술지원
+----------------------*/
+.left {float:left}
+.text_center {text-align: center}
+.bottom_bg { background: url('../images/con_bg1.png') right  bottom no-repeat; width: 250px; height:360px; position: fixed; bottom:0; right:0; z-index: 99; background-size:  200px}
+
+.support {width: 100%; height: 100%;  color:#555; font-size: 14px; line-height: 22px; background-color: #fff;}
+.support h1 {background: #333 url('../images/ha_logo.png') right 30px center no-repeat; background-size: 100px; padding:30px; font-size:24px;  color:#fff; font-weight: 400}
+
+.support .license {background: #e6e6e6; padding:20px 30px;}
+.support .licenseok {background-image: linear-gradient(to right, #4fd6d8 0%, #8455d7 100%); padding:20px 30px 10px 30px; color:#fff}
+.support .licenseok span {font-size: 25px; line-height: 40px}
+.supp_con {padding:40px 30px; line-height: 26px; font-size: 13px; letter-spacing: -0.5px}
+.intext {margin: 30px}
+
+
+input::placeholder{color: #999}
+input::-webkit-input-placeholder {color:#999; }
+input::-moz-placeholder          {color:#999;}
+input:-moz-placeholder           {color:#999;}
+input:-ms-input-placeholder      {color:#999;}
+
+textarea::placeholder{color: #999}
+textarea::-webkit-input-placeholder {color:#999;}
+textarea::-moz-placeholder          {color:#999;}
+textarea:-moz-placeholder           {color:#999;}
+textarea:-ms-input-placeholder      {color:#999;}
+
+input[type=text], textarea, button {font-family:'Noto Sans KR', '맑은 고딕', sans-serif;  box-sizing: border-box; margin-top:10px; vertical-align: top; color:#555;}
+input[type=text], textarea, button:focus {outline: none;}  
+.labelzero { display: none}
+
+.input_type1   {width: 400px;height:38px;font-size:14px; border-image: linear-gradient(to right, #4fd6d8 0%, #8455d7 100%);border-image-slice: 1;padding-left:10px; color:#555; background: #fff; float:left; }
+.input_type2   {width: 100%;height:35px;font-size:14px; color:#555; background: #f2f2f2; display: block; border:1px solid #ddd; border-radius: 5px; padding:0 20px}
+
+.btn_check     {cursor: pointer;display: inline-block; text-align: center; width: 40px; border:2px solid #b6bfcd; height: 38px; background: #b6bfcd url('../images/icon_checked.png') center no-repeat;  font-size: 0}
+.btn_checked   {cursor: pointer;display: inline-block; text-align: center; width: 40px; border:2px solid #8455d7; height: 38px; background: #8455d7 url('../images/icon_checked.png') center no-repeat;  font-size: 0}
+
+.supp_btn {margin:0 30px;}
+.btn_comm {cursor: pointer;display: inline-block; height: 40px; padding:0 20px 0 60px;  background: url('../images/icon_comm.png') left 20px center no-repeat; border:2px solid #43c2d5; border-radius: 5px; font-size: 14px; line-height: 35px}
+.btn_contact {cursor: pointer;display: inline-block; height: 40px; padding:0 20px 0 60px;  background: url('../images/icon_contact.png') left 20px center no-repeat; border:2px solid #8157d7; border-radius: 5px; font-size: 14px; line-height: 35px}
+
+.btn_ok {cursor: pointer;display: inline-block; height: 40px; width:150px; text-align: center;border:2px solid #43c2d5; border-radius: 5px; font-size: 14px; line-height: 35px}
+.btn_cancel {cursor: pointer;display: inline-block; height: 40px; width:150px; text-align: center;border:2px solid #a1a9ad; border-radius: 5px; font-size: 14px; line-height: 35px}
+
+.btn_comm:hover, .btn_ok:hover  {color:#43c2d5}
+.btn_contact:hover {color:#8157d7} 
+.btn_cancel:hover {opacity: 0.7}
+
+
+textarea {overflow: auto; border:1px solid #ccc; border-radius: 5px; padding:10px; width:100%; height: 150px; padding:20px; font-size: 14px;background: #f2f2f2;} 
+input[type=file] {width:500px;  display: block; height: 35px; vertical-align: middle; font-size: 14px; margin-top: 15px}
+input[type=file]:focus {outline: none;}  
+
+
+
+
+
+.checks {position: relative;} .checks input[type="checkbox"] { /* 실제 체크박스는 화면에서 숨김 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0 } .checks input[type="checkbox"] + label { display: inline-block; position: relative; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; } .checks input[type="checkbox"] + label:before { /* 가짜 체크박스 */ content: ' '; display: inline-block; width: 21px; /* 체크박스의 너비를 지정 */ height: 21px; /* 체크박스의 높이를 지정 */ line-height: 21px; /* 세로정렬을 위해 높이값과 일치 */ margin: -2px 8px 0 0; text-align: center; vertical-align: middle; background: #fafafa; border: 1px solid #cacece; border-radius : 3px; box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05); } .checks input[type="checkbox"] + label:active:before, .checks input[type="checkbox"]:checked + label:active:before { box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1); } .checks input[type="checkbox"]:checked + label:before { /* 체크박스를 체크했을때 */ content: '\2714'; /* 체크표시 유니코드 사용 */ color: #99a1a7; text-shadow: 1px 1px #fff; background: #e9ecee; border-color: #adb8c0; box-shadow: 0px 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1); }
+

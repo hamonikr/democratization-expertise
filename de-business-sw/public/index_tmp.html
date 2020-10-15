@@ -1,0 +1,106 @@
+<!--
+<link rel="stylesheet" href="assets/css/main.css" />
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+-->
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <title>Hamonikr OS 기술지원</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="assets/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="assets/css2/bootstrap.css">
+    <link rel="stylesheet" href="assets/css2/style.css">
+    <link rel="stylesheet" href="assets/css2/animate.css" />
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+    
+</head>
+<body>
+
+<header class="support">
+        <h1 id="initPage" style="cursor: pointer;">Hamonikr OS 기술지원</h1>
+</header>
+
+
+<div>
+
+<div class="contents"></div>
+
+    <div class="banner-text">
+        <div id="infoDes" style="display:block" >
+            <!-- <div style="width: 100%; font-size: 24px;"> -->
+            <div class="supp_con">
+                하모니카를 사용하면서 불편한 점이 있으신가요??<br>
+                그렇다면 하모니카 커뮤니티에 질문하기를 통해 원하는 <br>문제의 답을 찾을 수 있습니다.<br>
+                그래도 해결이 되지 않으신다면, <br>하모니카 기술 지원 앱을 통해 기술지원을 받을 수 있습니다. <br>
+                기술 지원을 받기 위해서는 라이선스 등록이 필요합니다. <br><br>
+                <!-- <a href="#!" class="btn btn-banner" id="openCmmrlct" name="openCmmrlct">하모니카 커뮤니티</a>
+                <a href="#!" class="btn btn-banner" id="feedBack" name="feedBack">기술지원 요청하기</a> -->
+            
+
+            </div>
+        </div>
+        <div id="feedBackLayer" style="display:none" class="container">
+            <webview id="jsdFeedBack"  style="width:985px; height:630px;" nodeintegration ></webview>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="row aft-banner" style="margin-top: -45px;">
+        <div class="bottom_bg"></div> 
+        
+        <div class="col-sm-11" id="licenseInfoCss"> 
+            <div class="supp_btn col-sm-8">
+                <button type="button" class="btn_comm" id="footeropenCmmrlct" name="openCmmrlct">하모니카 커뮤니티</button>
+                <button type="button" class="btn_contact" id="feedBack" name="feedBack">기술지원 요청하기</button>
+            </div>
+            <div class="col-sm-1"></div>
+            <div id="licenseInfoLayerDescription" class="col-sm-5" style="float:right;">.</div>
+        </div>
+
+        <!-- 기술지원을 받기 위해서는  라이선스 등록이 필요합니다 -->
+        
+        <!-- <div class="col-sm-7" id="licenseAddLayer">
+            <div class="input-group">
+                <input type="text" class="form-control dark-bg" id="licenseVal" name="licenseVal"  placeholder="라이선스 키 입력" value="">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary btn-org" type="button" id="licenseSubmit">Go</button>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
+
+<div id="nolicense" style="display:none">
+    <div class="row aft-banner">
+        <div id="licenseInfoLayer" class="col-sm-6 " style="text-align: center;" ><br>기술지원을 받기 위해서는 라이선스 등록이 필요합니다.</div>
+        <div class="col-sm-5" id="licenseAddLayer">
+            <div class="input-group">
+                <input type="text" class="form-control input_type1" id="licenseVal" name="licenseVal"  placeholder="라이선스 키 입력" value="573F1F5B-287AFF-1AA9EE-B0E7D2-3F184A">
+                <div class="input-group-append">
+                    <button type="button" class="btn_checked" id="licenseSubmit">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden"  id="hiddenLIcenChkVal" name="hiddenLIcenChkVal" value="">
+
+
+
+<script src="assets/js/modernizr-3.5.0.min.js"></script>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/fontawesome.js"></script>
+<script type="text/javascript" src="assets/js/index.js"></script>
+<!-- 
+<script src="./js/jquery.waypoints.min.js"></script>
+<script src="./js/animate.js"></script>
+-->
+</body>
+</html>
