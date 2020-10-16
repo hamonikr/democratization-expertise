@@ -72,7 +72,7 @@
                      
 						<div class="card-body card-primary row" style="width: 100%;">
 							<div class="col-8 row">
-								<div class="col-12"><h2><b>${user.username}</b></h2><p>${user.aboutme}</p></div>
+								<div class="col-12"><h2><b>${user.username}</b></h2><%-- <p>${user.aboutme}</p> --%></div>
 								<div class="col-3"><h4>평판</h4><span>${score}</span></div>
 								<div class="col-9"><div id="chart-area"></div></div>
 							</div>
@@ -300,7 +300,15 @@
 							            </script>
 									</c:if>
 									<c:if test="${ ! isMypage }">
-										<input class="form-control contents" id="aboutMe" name="aboutme" value="${user.aboutme}" autocomplete="off" disabled="disabled">
+										<div id="viewer">${user.aboutme}</div> 
+										<script>
+											var viewer = new toastui.Editor.factory( { //new tui.Editor({
+												el: document.querySelector('#viewer'),
+												viewer: true
+											});
+							            </script>
+										
+										<%-- <input class="form-control contents" id="aboutMe" name="aboutme" value="${user.aboutme}" autocomplete="off" disabled="disabled"> --%>
 									</c:if>
 								</div>
 							</div>
