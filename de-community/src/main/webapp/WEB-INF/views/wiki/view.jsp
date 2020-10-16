@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
 <!-- Editor's Style -->
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
 <style>
 .tab-body{
 	background-color: #fff;
@@ -53,9 +54,38 @@ button {
             <div class="card-primary card-outline card-outline-tabs" style="border-top: 0px solid #007bff;">             
               <div class="card-header p-0 border-bottom-0">
               		<br>
+              	<c:choose>
+              	 <c:when test="${empty history_view.title}">
+                   	<c:choose>
+              		 <c:when test="${result.section eq 't'}">
+              		    <div align="right">
+              		 		<a href="/tags/list">[목록으로 되돌아가기]</a>         		 		
+              		 	 </div>
+              		 </c:when>
+              		 <c:when test="${result.section eq 'h'}">
+              		    <div align="right">
+              		 		<a href="/wiki/Help/h">[목록으로 되돌아가기]</a>         		 		
+              		 	 </div>
+              		 </c:when>              		 
+              		 <c:when test="${result.section eq 'm'}">
+              		    <div align="right">
+              		 		<a href="/wiki/Help/m">[목록으로 되돌아가기]</a>         		 		
+              		 	 </div>
+              		 </c:when>
+              	 	<c:otherwise>
+	              	 	<div align="right">
+	              			<a href="/wiki/getStart">[위키 목록으로 되돌아가기]</a>
+	              		</div>
+              		</c:otherwise>
+              		</c:choose> 
+              	 	</c:when>
+              	
+              	<c:otherwise>
               		<div align="right">
-              			<a href="/wiki/getStart">[목록으로 되돌아가기]</a>
+              			<a href="/wiki/view/${history_view.wikino}">[되돌아가기]</a>
               		</div>
+              	</c:otherwise>
+              	</c:choose>
                   <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
                   <li class="nav-item">
                     <a class="nav-link active" id="" data-toggle="pill"
@@ -81,6 +111,7 @@ button {
                 <div class="tab-content" id="custom-tabs-four-tabContent">
                 <c:choose>
                 	<c:when test="${empty history_view.title}" >
+                  
                   <!-- 읽기 tab -->
                   <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
 						<div class="card-header">
@@ -88,10 +119,12 @@ button {
 							</h3>
 						</div>
 					  <div class="form-group">
-								<label for="contents" class="col-form-label"></label> <span>${result.contents}</span> 
-						</div>
+								<label for="contents" class="col-form-label"></label>
+								 <div id="viewer">${result.contents }</div> 
+					</div>
 				     </div>
 				     </c:when>
+				     
 				     <c:otherwise>
 				     <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
 						<div class="card-header">
@@ -99,17 +132,19 @@ button {
 							</h3>
 						</div>
 					  <div class="form-group">
-								<label for="contents" class="col-form-label"></label> <span>${history_view.contents}</span> 
+								<label for="contents" class="col-form-label"></label>
+								 <div id="viewer">${history_view.contents}</div> 
 						</div>
 				     </div>	
 				     </c:otherwise>
 				     </c:choose>
+				     
+				     
 			      	<!-- 편집 tab -->               
                   <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
           				<div align="right">
           					<a class="" id="btnUpdate">[수정하기]</a>
           					<a class="" id="btnDelete">[삭제하기]</a>
-          					
           				</div>
           				<div class="card-header">
 						<c:choose>
@@ -124,24 +159,11 @@ button {
 						</div>	
 						<br>
           				<input type="hidden" name="contents" id="contents" value="">
-							<div class="code-html">
-								<div id="editSection">
-									${result.contents}
-								</div>
-							</div>
-							<script class="code-js">
-			                      var editor = new toastui.Editor( {
-			                      el : document.querySelector( '#editSection' ),
-			                      initialEditType : 'wysiwyg',
-			                      //	initialEditType: 'markdown',
-			                      previewStyle : 'vertical',
-			                      height : '700px'
-			                      } );
-		                  </script>	
+								<div id="editor">${result.contents }</div>	
                   	</div>
 
                  	<!-- 히스토리 tab -->
-                  <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
+                  <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">	
           			    <div class="card-header">
 							<h3 class="card-title"><span class="">[${result.title}] 의 히스토리</span>
 							</h3>
@@ -185,6 +207,23 @@ function fnDelete() {
 }
 
 
+
+</script>
+
+<script>
+const { Editor } = toastui;
+
+const editor = new Editor({
+	 el: document.querySelector('#editor'),
+	 initialEditType : 'wysiwyg',
+	 previewStyle : 'vertical',
+	 height : '700px'
+});
+
+var viewer = Editor.factory({
+     el: document.querySelector('#viewer'),
+     viewer : true
+});
 
 </script>
 </body>

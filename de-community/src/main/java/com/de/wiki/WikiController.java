@@ -108,8 +108,9 @@ public class WikiController {
 	 public String historyView(HttpServletRequest request, @PathVariable("seq") int seq, Model model) throws Exception { 		
 		System.out.println("---wiki view---");		
 		
-//		Wiki wiki_history_view = service.getView(wikino);
 		WikiHistory wiki_history_view = service.getHistoryView(seq);
+
+		System.out.println("wiki_history_view wikino--> " + wiki_history_view.getWikino());
 		model.addAttribute("history_view", wiki_history_view);	
 		System.out.println(wiki_history_view.getTitle());
 		
