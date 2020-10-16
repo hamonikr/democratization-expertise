@@ -6,8 +6,8 @@ const {ipcMain} = require('electron')
 const { exec } = require('child_process');
 const timestamp = require('time-stamp');
 const path = require('path');
-const watch = require('node-watch');
-const lineReader = require('line-reader');
+// const watch = require('node-watch');
+// const lineReader = require('line-reader');
 const fs = require('fs');
 const windowStateKeeper = require('electron-window-state');
 const request = require('request');
@@ -15,6 +15,13 @@ const open = require('open');
 const unirest = require('unirest');
 const CHILD_PADDING = 100;
 var log = require('./logger');
+
+const { promisify } = require('util');
+const mkdirp = require('mkdirp-promise')
+const mkDirpAsync = promisify(mkdirp);
+
+const Poller = require('./Poller');
+
 //var nodeConsole = require('console');
 //var log = new nodeConsole.Console(process.stdout, process.stderr);
 
@@ -22,10 +29,12 @@ var log = require('./logger');
 const osType = require('os');
 const dirPath = osType.homedir() + '/.config/support/feedback';
 
+//const Notification = require('electron-native-notification');
+
+
 // server url 
 let restUrl = "http://192.168.0.2:8090";
 
-// const db = require("./database/db");
 let mainWindow, settingWindow;
 
 function createWindow () {
@@ -43,7 +52,7 @@ function createWindow () {
 		// 'height': 620,
 		'width': 620, 
 		'height': 540,
-		 frame:true,
+		 frame:false,
 		 alwaysOnTop: false,
 		 resizable: true,
 		 transparent: true,
@@ -52,7 +61,7 @@ function createWindow () {
 			defaultEncoding: 'utf8',
 			defaultFontFamily: 'cursive',
 			focusable: true,
-			webviewTag: true,
+			// webviewTag: true,
 			nodeIntegration: true,
 			nodeIntegrationInWorker: true,
 			nodeIntegrationInSubFrames: true,
@@ -67,10 +76,9 @@ function createWindow () {
 	  
   	// mainWindow.loadURL('file://' + __dirname + '/public/index_tmp.html');
 
-	//let display = electron.screen.getPrimaryDisplay();
-	//let widthPosition = display.bounds.width-500;
-	//mainWindow.setPosition(widthPosition,0);
-	
+	let display = electron.screen.getPrimaryDisplay();
+	// let widthPosition = display.bounds.width-500;
+	// mainWindow.setPosition(widthPosition,0);
   	mainWindow.setMenu(null);
 	mainWindow.setMenuBarVisibility(false);	
 	// Open the DevTools.
@@ -142,9 +150,13 @@ const createTray = () => {
 }
 let trayIcon  = null;
 
+
+
 app.on('ready', () => {
 	// createTray();
-	setTimeout(createWindow, 500)
+	notiAction();
+	setTimeout(createWindow, 500);
+	
 });
 
 app.on('window-all-closed', function () {
@@ -191,7 +203,7 @@ ipcMain.on('shutdown', (event,path) => {
 ipcMain.on('openBrowser', (event) => {
 	// opn('https://hamonikr.org/');
 	(async () => {
-		await open('https://hamonikr.org/');
+		await open('http://192.168.0.116:8080/');
 	})();
 });
 
@@ -210,6 +222,44 @@ function removeSystemLogFile(){
 	rimraf(dirPath, function () { console.log("done"); });	
 }
 
+
+//========================================================================
+//== upgradabel chk  =============================================================
+//========================================================================
+ipcMain.on('getUpgradable', (event) => {
+	const exec = require('child_process').exec;
+	exec('sudo apt list --upgradable | grep -i htop | wc -l ', (error, stdout, stderr) => {
+	// exec('sudo apt list --upgradable | grep -i hamonikr-support | wc -l ', (error, stdout, stderr) => {
+
+		if (error) {
+			console.log("N=="+error);
+		}else{
+			console.log("Y===stdout=="+stdout);
+		}
+
+		event.sender.send('getUpgradableProc', stdout );
+
+	 });
+});
+//========================================================================
+//== notice data  =============================================================
+//========================================================================
+ipcMain.on('getNoticeTitle', (event) => {
+	// server connection chk
+	unirest.post('http://192.168.0.2:8090/restapi/tsNotice')
+	  	.header('Accept', 'application/json')
+	  	// .send({ "id": "connect" })
+	  	.end(function (response) {
+			var noticeResultObj = response.body;
+			if( typeof noticeResultObj == "undefined" ){
+				// event.sender.send('noticeProc', 'isNet', '','' );
+			}else {
+				var jsontext = JSON.stringify(noticeResultObj);
+				var accountObj = JSON.parse(jsontext);
+				event.sender.send('getNoticeTitleProc', accountObj );
+			}
+	 	});
+});
 
 //========================================================================
 //== notice data  =============================================================
@@ -269,9 +319,11 @@ ipcMain.on('tchnlgyDataCall', (event) => {
 //== License chk =============================================================
 //========================================================================
 ipcMain.on('licenseChkProc', (event) => {
-	
+	console.log("2222222222222");
+	notiAction();
+	console.log("1111111111111");
 	// server connection chk
-	unirest.post('http://192.168.0.2:8090/restapi/connt')
+	unirest.post('http://127.0.0.1:8080/api/connt')
 	  	.header('Accept', 'application/json')
 	  	.send({ "id": "connect" })
 	  	.end(function (response) {
@@ -310,10 +362,8 @@ const chkLIcenseFileAsync = async(event) => {
 }
 function readUuidFile(arg){
 	return new Promise(function(resolve, reject){
-
 		var osType = require('os');
-		// var fileDir = "/usr/share/applications/.support/.hkrmesysinfo";
-		var fileDir = osType.homedir() + '/.config/support/.hkrmesysinfo'
+		var fileDir  = osType.homedir() + '/.config/support_compy/.hamonikr_compy';
 		fs.readFile(fileDir, 'utf-8', (err, data) => { 
 			if(err){ 
 				return resolve("N");
@@ -327,29 +377,31 @@ function readUuidFile(arg){
 // 라이선스 체크 (리턴값: 사용기간 유무)
 function uuid_db_chk(arg, gubun){
 	return new Promise((resolve, reject) => {
-		const formData = {
-			usedUserLicenseUUID:  arg.trim()
-	  };
+		const formData = { 'uuiduser':  arg.trim()  };
 	  if( gubun == "licenseChk" ){
-		request.post({url: "http://192.168.0.2:8090/restapi/licenseChk", formData: formData}, async (err, response, body) => {
+		request.post({url: "http://127.0.0.1:8080/api/getUserCheck", formData: formData}, async (err, response, body) => {
 	    	if (err) return reject(err);
 				const result = body.trim(); // JSON.parse(body);
+				console.log("result=======+++"+ result);
 				resolve(result);
 		});
-	  }else if( gubun == "tchnlgy" ){
-		request.post({url: "http://192.168.0.2:8090/restapi/tsChk", formData: formData}, async (err, response, body) => {
-	    	if (err) return reject(err);
-				const result = body.trim(); // JSON.parse(body);
-				resolve(result);
-		});	
-	  }
+	}
+	//   }else if( gubun == "tchnlgy" ){
+	// 	request.post({url: "http://192.168.0.2:8090/restapi/tsChk", formData: formData}, async (err, response, body) => {
+	//     	if (err) return reject(err);
+	// 			const result = body.trim(); // JSON.parse(body);
+	// 			resolve(result);
+	// 	});	
+	//   }
 	  	
 	});
 }
 
 
+
+
 //========================================================================
-//==  create MachineId before License add ===========================================
+//==  기업 사용자 로그인 프로세스 ===========================================
 //========================================================================
 ipcMain.on('osMachineIdProc', (event) => {
 	machineIdAsync(event);
@@ -395,7 +447,6 @@ const machineIdAsync = async(event) => {
 }
 function getOsMachineId(){
 	return new Promise(function(resolve, reject){
-		// var fileDir = "/usr/share/applications/.support/.hmMachineId";
 		var osType = require('os');
 		var fileDir = osType.homedir() + '/.config/support/.hmMachineId'
 		fs.readFile(fileDir, 'utf-8', (err, data) => { 
@@ -409,6 +460,51 @@ function getOsMachineId(){
 	
 	});
 }
+
+
+
+//로그인 성공 후 고유값 생성 (자동로그인을 위해) ===============================
+ipcMain.on('userLoginSuccess', (event, userid) => {
+	
+
+	const dir  = osType.homedir() + '/.config/support_compy/';
+	userInfoFileAsync(dir, userid);
+})
+
+
+const userInfoFileAsync = async(dir, userid) => {
+
+	var isCreateFolder = await createDirectory(dir);
+	console.log("isCreateFolder==="+isCreateFolder);
+
+	var retUUIDVal = await userLcnsInfoWriteFile(userid);
+	console.log("=====retUUIDVal===============" + retUUIDVal);
+
+	var headersOpt = {
+			"content-type": "application/json",
+	};
+	console.log("aa==="+ userid+"==="+ retUUIDVal);
+	request({
+			method:'POST',
+			url:'http://127.0.0.1:8080/api/userUUID?${_csrf.parameterName}=${_csrf.token}',
+			form: {'uuiduser':  retUUIDVal, 'userid' : userid},
+
+			headers: headersOpt,
+			json: true,
+			}, async function (error, response, body) {
+					console.log("client ready --------------err==="+ error);
+					if(!error){
+							console.log("client ready --------------ret body==="+ body);
+					}else{
+							console.log("client ready --------------err="+ error);
+					}
+			}
+	);
+}
+
+// app 실행시 자동로그인 처리 =======================
+
+
 
 //========================================================================
 //== License add =============================================================
@@ -431,58 +527,60 @@ const makeRecursiveFileAsync = async(event, licenseNo) => {
  }
 
 
-function userLcnsInfoWriteFile(licenseNo){
+function userLcnsInfoWriteFile(str){
 	return new Promise(function(resolve, reject){
 
-		// var fileDir = "/usr/share/applications/.support/.hkrmesysinfo";
 		var osType = require('os');
-		// var fileDir = "/usr/share/applications/.support/.hkrmesysinfo";
-		var fileDir = osType.homedir() + '/.config/support/.hkrmesysinfo'
+		var fileDir = osType.homedir() + '/.config/support_compy/.hamonikr_compy'
 
-		var licenseNoObj = JSON.parse(licenseNo);
+		// createFile(fileDir, 'my content\n', function (err) {
+		//   // file either already exists or is now created (including non existing directories)
+		// });
+
+		var uniqid = require('uniqid');
+	  	var osType = require('os');
+	  	var arg = uniqid()+(new Date()).getTime().toString(36);
+		
 
 		if (!fs.existsSync(fileDir)) {
-			fs.writeFile(fileDir, licenseNoObj.lcnsno, (err) => {
+			fs.writeFile(fileDir, arg, (err) => {
 		  		if(err){
 					reject("error");
 					console.log("//== save-dir-path() error  "+ err.message);
 				  }
-				   resolve("Y");
+				   resolve(arg);
 			});
-			
 	  	}else{
-			fs.writeFile(fileDir, licenseNoObj.lcnsno, (err) => {
+			fs.writeFile(fileDir, arg, (err) => {
 				if(err){
 				  reject("error");
 				  console.log("//== save-dir-path() error  "+ err.message);
 				}
-				resolve("Y");
-
+				resolve(arg);
 		  });
-		  
 	  	}
 
 
-		const fsPromises = require("fs").promises;
-		const fd = fs.openSync(fileDir, 'r'); 
+		// const fsPromises = require("fs").promises;
+		// const fd = fs.openSync(fileDir, 'r'); 
   
-		// Allowing only read permission 
-		fs.fchmod(fd, fs.constants.S_IRUSR, (err) => { 
-		if (err) throw err; 
+		// // Allowing only read permission 
+		// fs.fchmod(fd, fs.constants.S_IRUSR, (err) => { 
+		// if (err) throw err; 
 		
-		// Check the file mode 
-		// console.log("Current File Mode:",         fs.statSync(fileDir).mode); 
+		// // Check the file mode 
+		// // console.log("Current File Mode:",         fs.statSync(fileDir).mode); 
 		
-		fs.fchmod(fd, fs.constants.S_IRUSR |  
-				fs.constants.S_IWUSR, (err) => { 
-					if (err) throw err; 
+		// fs.fchmod(fd, fs.constants.S_IRUSR |  
+		// 		fs.constants.S_IWUSR, (err) => { 
+		// 			if (err) throw err; 
 				
-					// Check the file mode 
-					// console.log("Current File Mode:",          fs.statSync(fileDir).mode); 
-					// console.log("Trying to write to file"); 
-					// console.log("File Contents:",          fs.readFileSync(fileDir, 'utf8')); 
-				}); 
-		}); 
+		// 			// Check the file mode 
+		// 			// console.log("Current File Mode:",          fs.statSync(fileDir).mode); 
+		// 			// console.log("Trying to write to file"); 
+		// 			// console.log("File Contents:",          fs.readFileSync(fileDir, 'utf8')); 
+		// 		}); 
+		// }); 
 				
 	
 	});
@@ -548,7 +646,9 @@ const logFileTarAsync = async(event) => {
 
 // crate folder =============================
 function createDirectory(directoryPath) {
+	console.log("1========="+ directoryPath);
 	const directory = path.normalize(directoryPath);
+	console.log("directory==========+"+ directory);
 	return new Promise((resolve, reject) => {
 		fs.stat(directory, (error) => {
 			if (error) {
@@ -662,3 +762,159 @@ ipcMain.on('tchnlgyIngryProc', (event, sub, cont, tsUser, isChkBox) => {
 
 	
 });
+
+
+// ===================== de =========================
+function FnChk_settingsFile(){
+	var osType = require('os');
+	var dirpath = osType.homedir() + '/.config/support_compy/.hamonikr_compy';
+
+	try{
+	// var retVal =  fs.lstatSync(dirpath).isDirectory();
+		var retVal = fs.existsSync(dirpath);
+				console.log("FnChk_settingsFile====="+ retVal);
+				return retVal;
+	}catch(e){
+		// Handle error
+		if(e.code == 'ENOENT'){
+		console.log("//==mkdir directory");
+							return "false";
+		}
+	}
+}
+
+function userInfoWriteFile(){
+	return new Promise(function(resolve, reject){
+	  var uniqid = require('uniqid');
+	  var osType = require('os');
+	  var fileDir  = osType.homedir() + '/.config/support_compy/.hamonikr_compy';
+	  var arg = uniqid()+(new Date()).getTime().toString(36);
+	  // if (!fs.existsSync(fileDir)) {
+	  fs.unlink(fileDir, (err) => err ?  console.log(err) : console.log(`${fileDir} 를 정상적으로 삭제했습니다!!!`));
+	  fs.writeFile(fileDir, arg, (err) => {
+			  if(err){
+					reject("error");
+					console.log("//== save-dir-path() error  "+ err.message);
+			  }
+			   resolve(arg);
+			});
+	  // }else{
+	  //    console.log("bbbbbbbbb");
+	  //    resolve(arg);
+	  // }
+	});
+}
+
+
+
+
+function notiAction(){
+	// var eNotify = require('electron-notify');
+	
+	
+	// eNotify.notify({
+	// 	title: 'Notification title',
+	// 	text: 'Some text', 
+	// 	// url: 'http://wikipedia.org',
+	// 	image: path.join(__dirname, '/public/assets/img/bg02.png'),
+	// 	sound: true,
+	// 	appName: "com.myapp.id",
+	// 	onClickFunc: function() { console.log('onCLick') },
+	// });
+
+	// notification 옵션 정보 참조
+	// Send notification that uses the new options
+	// eNotify.notify({
+	//     title: '22222222222222',
+	//     text: 'Some text22222222222',
+	//     // image: path.join(__dirname, '/public/assets/img/bg01.png'),
+	//     url: 'http://google.de',
+	//     sound: true, //path.join(__dirname, 'notification.wav'),
+	//     onClickFunc: function() {console.log('onCLick') },
+	//     onShowFunc: function() { console.log('onShow') },
+	//     onCloseFunc: function() { console.log('onClose')}
+	// });
+
+	// Change config options between notify calls
+	// eNotify.setConfig({
+	// 	appIcon: path.join(__dirname, '/public/assets/img/bg02.png'),
+	// 	defaultStyleText: {
+	// 		color: '#FF0000',
+	// 		fontWeight: 'bold'
+	// 	}
+	// });
+
+ 
+ 
+}
+
+let poller = new Poller(6000);
+poller.onPoll(() => {
+		pollingData();
+        poller.poll(); // Go for the next poll
+});
+
+// Initial start
+poller.poll();
+
+
+const getQuestionData = async(event) => {
+	try{
+		var getCompyUUID = await readUuidFileOnlyData("licenseChk");
+		console.log("getCompyUUID==="+getCompyUUID);
+		getQuestionDataCall(getCompyUUID);
+	}
+	catch(err){
+		console.log("nofile---" + err);
+	}
+}
+function readUuidFileOnlyData(arg){
+	return new Promise(function(resolve, reject){
+		var osType = require('os');
+		var fileDir  = osType.homedir() + '/.config/support_compy/.hamonikr_compy';
+		fs.readFile(fileDir, 'utf-8', (err, data) => { 
+			if(err){ 
+				return resolve("N");
+			}else{
+				console.log("data==="+ data);
+				resolve(data);
+				// resolve();
+			}
+		});
+	});
+}
+
+
+function getQuestionDataCall(retUUIDVal){
+
+	var headersOpt = {
+		"content-type": "application/json",
+	};
+	console.log("aa==="+ retUUIDVal);
+	request({
+			method:'POST',
+			url:'http://127.0.0.1:8080/api/getCompQuestion?${_csrf.parameterName}=${_csrf.token}',
+			form: {'uuiduser':  retUUIDVal},
+
+			headers: headersOpt,
+			json: true,
+			}, async function (error, response, body) {
+					console.log("getQuestionDataCall-----------err==="+ error);
+					if(!error){
+							console.log("getQuestionDataCall---------ret body==="+ JSON.stringify(body));
+
+							console.log(body.newQuestion);
+							// sender.send('actionNotfyi', body.newQuestion );
+							
+					}else{
+							console.log("getQuestionDataCall---------err="+ error);
+					}
+			}
+	);
+}
+
+var routines = require("./public/assets/js/notiCommon.js");
+function pollingData(){
+	getQuestionData();
+	
+}

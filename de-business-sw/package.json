@@ -28,6 +28,7 @@
     "app-root-path": "^3.0.0",
     "chokidar": "^3.3.1",
     "compass": "^0.1.1",
+    "create-file": "^1.0.1",
     "date-utils": "^1.2.21",
     "dialogs": "^2.0.1",
     "easytimer.js": "^4.1.1",
@@ -35,10 +36,14 @@
     "electron-ipc-promise": "^0.1.7",
     "electron-log": "^3.0.5",
     "electron-modal": "^1.0.0",
+    "electron-native-notification": "^1.2.1",
+    "electron-notification": "^1.0.0",
+    "electron-notify": "^0.1.0",
     "electron-packager": "^14.2.0",
     "electron-sudo": "^4.0.12",
     "electron-window-manager": "^1.0.6",
     "electron-window-state": "^5.0.3",
+    "electron-windows-notifications": "^3.0.6",
     "es6-promise": "^4.2.8",
     "es6-promise-polyfill": "^1.2.0",
     "es6-promise-pool": "^2.5.0",
@@ -54,6 +59,7 @@
     "line-reader": "^0.4.0",
     "minimist": "^1.2.0",
     "mkdirp": "^1.0.4",
+    "mkdirp-promise": "^5.0.1",
     "moment": "^2.24.0",
     "mysql": "^2.18.1",
     "node-notifier": "^6.0.0",
@@ -68,6 +74,7 @@
     "time-counter": "^1.0.0",
     "time-stamp": "^2.2.0",
     "tiny-timer": "^1.4.0",
+    "uniqid": "^5.2.0",
     "unirest": "^0.6.0",
     "url": "^0.11.0",
     "winston": "^3.2.1",
@@ -108,7 +115,7 @@
         "AppImage",
         "deb"
       ],
-      "icon": "resources/icons/icon.ico",
+      "icon": "res/bin/iconshm/",
       "desktop": {
         "Encoding": "UTF-8"
       }

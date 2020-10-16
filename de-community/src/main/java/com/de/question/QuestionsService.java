@@ -1,5 +1,6 @@
 package com.de.question;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -25,89 +26,104 @@ import com.de.wiki.WikiRepository;
 @Service
 @Transactional
 public class QuestionsService {
-	
+
 	@Autowired
 	QuestionsRepository qr;
-	
+
 	@Autowired
 	QuestionsMapper qm;
-	
+
 	@Autowired
 	TagsRepository tr;
-	
+
 	@Autowired
 	WikiRepository wr;
-	
+
 	@Autowired
 	VoteRepository vr;
-	
-	public Page<Questions> findAll(Pageable pageable){
+
+	public Page<Questions> findAll(Pageable pageable) {
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
-        pageable = PageRequest.of(page, 5,new Sort(Sort.Direction.DESC,"registerdate"));
-		Page<Questions> list = qr.findAllByDeleteat(0,pageable);
+		pageable = PageRequest.of(page, 5, new Sort(Sort.Direction.DESC, "registerdate"));
+		Page<Questions> list = qr.findAllByDeleteat(0, pageable);
 
 		return list;
 	}
-	
+
+
 	// 게시물 목록
 	public List<Questions> getList(Questions vo) throws Exception {
 		return qm.getList(vo);
 	}
+
+
 	// 게시물 카운트
 	public int getListCount(Questions vo) throws Exception {
 		return qm.getListCount(vo);
 	}
+
+
 	// 게시물 상세
 	public Questions getView(int questionno) throws Exception {
 		return qm.getView(questionno);
 	}
-	//조회수 증가
+
+
+	// 조회수 증가
 	public int updateReanCnt(int questionno) throws Exception {
 		return qm.updateReanCnt(questionno);
 	}
-	
+
+
 	public Optional<Questions> findById(int questionNo) {
 		return qr.findById(questionNo);
 	}
-	
+
+
 	public Questions save(Questions vo) throws Exception {
-		
+
 		return qr.save(vo);
 	}
-	//tag 목록
-	public List<Wiki> findAllTag(){
-		//int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
-        //pageable = PageRequest.of(page, 5,new Sort(Sort.Direction.DESC,"registerdate"));
+
+
+	// tag 목록
+	public List<Wiki> findAllTag() {
+		// int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
+		// pageable = PageRequest.of(page, 5,new Sort(Sort.Direction.DESC,"registerdate"));
 		List<Wiki> list = wr.findAllBySection("t");
 
 		return list;
 	}
+
+
 	public List<Tags> tagList() throws Exception {
-		
+
 		return tr.findAll();
-		
+
 	}
-	
+
+
 	public List<Vote> voteList() throws Exception {
-		
+
 		return vr.findAll();
-		
+
 	}
-	
+
+
 	public void updateById(Questions vo) throws Exception {
 		Optional<Questions> e = qr.findById(vo.getQuestionno());
 		CmmnMap param = new CmmnMap();
-		param.put("questionno",e.get().getQuestionno());
-		param.put("contents",e.get().getContents());
-		param.put("section",e.get().getSection());
-		param.put("title",e.get().getTitle());
-		param.put("deleteat",e.get().getDeleteat());
-		param.put("editauth",e.get().getEditauth());
-		param.put("readcnt",e.get().getReadcnt());
-		param.put("registerdate",e.get().getRegisterdate());
-		param.put("tagno",e.get().getTagno());
-		param.put("updatedate",e.get().getUpdatedate());
-		param.put("userno",e.get().getUserno());
+		param.put("questionno", e.get().getQuestionno());
+		param.put("contents", e.get().getContents());
+		param.put("section", e.get().getSection());
+		param.put("title", e.get().getTitle());
+		param.put("deleteat", e.get().getDeleteat());
+		param.put("editauth", e.get().getEditauth());
+		param.put("readcnt", e.get().getReadcnt());
+		param.put("registerdate", e.get().getRegisterdate());
+		param.put("tagno", e.get().getTagno());
+		param.put("updatedate", e.get().getUpdatedate());
+		param.put("userno", e.get().getUserno());
 		qm.insertHistory(param);
 
 		if (e.isPresent()) {
@@ -120,23 +136,40 @@ public class QuestionsService {
 			qr.save(vo);
 		}
 
-  }
+	}
+
+
 	public Questions updateHistory(Questions vo) throws Exception {
-		
+
 		return qr.save(vo);
 	}
-	
+
+
 	public void updateByIdReadCnt(Questions vo) throws Exception {
 		Optional<Questions> e = qr.findById(vo.getQuestionno());
 		if (e.isPresent()) {
-			e.get().setReadcnt(vo.getReadcnt() +1);
+			e.get().setReadcnt(vo.getReadcnt() + 1);
 			qr.save(vo);
 		}
-	
+
 	}
+
 
 	// 내 질문/답변 목록
 	public List<Questions> getMyList(Questions vo) throws Exception {
 		return qm.getMyList(vo);
 	}
+
+
+	// 게시물 목록
+	public List<Questions> getCompQuestionList(String useruuid) throws Exception {
+		return qm.getCompQuestionList(useruuid);
+	}
+
+
+	// 게시물 카운트
+	public int getCompQuestionListCount(String useruuid) throws Exception {
+		return qm.getCompQuestionListCount(useruuid);
+	}
+
 }

@@ -7,6 +7,117 @@ const unirest = require('unirest');
 // server url 
 let restUrl = "http://192.168.0.2:8090/";
 
+const calc = require('./notiCommon.js');
+
+
+// app 실행시 자동로그인 처리를 위해....==============
+// ipcRenderer.send('openUserUUID', () => {
+// 	console.log("Event sent.");
+// })
+// ipcRenderer.on('userUUidData', (event, data) => {
+// 	$("#userIpAddress").val(data);
+// });
+
+// 로그인버튼클릭시 =====================================
+const licenseSubmitBtn = document.getElementById('licenseSubmit');
+const enterIdVal = document.getElementById('enterId');
+const enterPwVal = document.getElementById('enterPw');
+
+licenseSubmitBtn.addEventListener('click', function (event) {
+	if( enterIdVal.value.length == 0 ){
+		fn_alert('아이디를 입력해주세요.');
+		return false;
+	}
+	if( enterPwVal.value.length == 0 ){
+		fn_alert('비밀번호를 입력해주세요.');
+		return false;
+	}
+	
+	ipcRenderer.send('osMachineIdProc');
+});
+
+ipcRenderer.on('isOsMachineId', (event, machineIdVal) => {
+	unirest.post('http://127.0.0.1:8080/api/signproc')
+	
+		.header('Accept', 'application/json')
+		.send({ "userid": enterIdVal.value, "userpassword": enterPwVal.value })
+		.end(function (response) { 
+			console.log(response.body);
+			var retval = response.body;
+			
+			if( retval.output == "Y" ){
+				const {ipcRenderer} = require('electron');
+				console.log("response.body.trim()===========+"+ JSON.stringify(response.body));
+				ipcRenderer.send('userLoginSuccess', retval.userid);
+			}else{
+				fn_alert("로그인 정보가 틀립니다.");
+			}
+
+		});
+})
+
+
+// 로그인  체크
+ipcRenderer.send('licenseChkProc');
+ipcRenderer.on('isChkLicense', (event, usedYN, stDate, dtDate, tcIng, tcDone, tcWait, tcTot) => {
+
+	var licenseInfoLayer = document.getElementById("licenseInfoLayerDescription");
+	console.log("usedYN==="+ usedYN);
+	hiddenLIcenChkVal.value = usedYN;
+
+	if( usedYN == 'Y' ){
+		licenseInfoLayer.innerHTML="님 접속하셨습니다." + stDate +"~" + dtDate;
+		
+		document.getElementById("tcIng").innerText=tcIng;
+		document.getElementById("tcDone").innerText=tcDone;
+		document.getElementById("tcTot").innerText=tcTot;
+
+		$("#license_base").hide();
+		$("#qnaLayer").show();
+		$("#licenseok").show();
+	}else if( usedYN == 'isNet' ){
+
+		$("#slideshow").hide();
+		document.getElementById("tcIng").innerText=0;
+		document.getElementById("tcDone").innerText=0;
+		document.getElementById("tcTot").innerText=0;
+		fn_alert("기술지원 서비스접속이 원활하지않습니다. 네트워크를 확인해주시기바랍니다.");
+	}else{
+		$("#license_base").show();
+		$("#licenseok").hide();
+		$("#qnaLayer").hide();
+	}
+  })
+
+// =======alert===================================
+// createBrowserWindow();
+function createBrowserWindow() {
+	const remote = require('electron').remote;
+	const BrowserWindow = remote.BrowserWindow;
+
+	const modalPath = path.join('file://', __dirname, 'alert.html')
+	let win = new BrowserWindow({ width: 680, height: 100, skipTaskbar: false, alwaysOnTop:true, frame:false  })
+	win.on('close', function () { win = null })
+	win.loadURL(modalPath)
+	win.show()
+
+//      let modal = window.open('./alert.html', 'modal',"resizable,scrollbars,status")
+}
+
+// ==========================================
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var hiddenLIcenChkVal = document.getElementById("hiddenLIcenChkVal");
 
@@ -15,16 +126,11 @@ const footeropenCmmrlctBtn = document.getElementById('footeropenCmmrlct');
 footeropenCmmrlctBtn.addEventListener('click', function (event) {
 	ipcRenderer.send('openBrowser');
 });
-// const openCmmrlctBtn = document.getElementById('openCmmrlct');
-// openCmmrlctBtn.addEventListener('click', function (event) {
-// 	ipcRenderer.send('openBrowser');
-// });
 
 
 // 공지사항
-ipcRenderer.send('getNoticeTitle');
+// ipcRenderer.send('getNoticeTitle');
 ipcRenderer.on('getNoticeTitleProc', (event, jsonData) => {
-	console.log("jsonData==="+ JSON.stringify(jsonData));
 	var list = $.parseJSON(jsonData);
 	var listLen = list.length;
 	var slideshowHTML = "";
@@ -98,37 +204,6 @@ ipcRenderer.on('getNoticeListProc', (event, jsonData, clickSeq) => {
   	noticeListLayerList.innerHTML = noticeListHTML;
 });
 
-// 라이선스 등록여부 체크
-ipcRenderer.send('licenseChkProc');
-ipcRenderer.on('isChkLicense', (event, usedYN, stDate, dtDate, tcIng, tcDone, tcWait, tcTot) => {
-
-	var licenseInfoLayer = document.getElementById("licenseInfoLayerDescription");
-	console.log("usedYN==="+ usedYN);
-	hiddenLIcenChkVal.value = usedYN;
-
-	if( usedYN == 'Y' ){
-		licenseInfoLayer.innerHTML="라이선스 상태 : 라이선스 인증 완료.  사용기간 : " + stDate +"~" + dtDate;
-		
-		document.getElementById("tcIng").innerText=tcIng;
-		document.getElementById("tcDone").innerText=tcDone;
-		document.getElementById("tcTot").innerText=tcTot;
-
-		$("#license_base").hide();
-		$("#qnaLayer").show();
-		$("#licenseok").show();
-	}else if( usedYN == 'isNet' ){
-
-		$("#slideshow").hide();
-		document.getElementById("tcIng").innerText=0;
-		document.getElementById("tcDone").innerText=0;
-		document.getElementById("tcTot").innerText=0;
-		fn_alert("기술지원 서비스접속이 원활하지않습니다. 네트워크를 확인해주시기바랍니다.");
-	}else{
-		$("#license_base").show();
-		$("#licenseok").hide();
-		$("#qnaLayer").hide();
-	}
-  })
   
   ipcRenderer.on('isBoolLicense', (event) => {
 	fn_alert("라이선스 등록이 정상처리 되었습니다.");
@@ -277,41 +352,7 @@ function layer_popup(el){
 
 }
 
-// 라이선스 등록 버튼 클릭시
-const licenseSubmitBtn = document.getElementById('licenseSubmit');
-const licenseVal = document.getElementById('licenseVal');
 
-licenseSubmitBtn.addEventListener('click', function (event) {
-	if( licenseVal.value.length == 0 ){
-		fn_alert('라이선스 번호를 입력해주세요.');
-		return false;
-	}
-	ipcRenderer.send('osMachineIdProc');
-});
-
-ipcRenderer.on('isOsMachineId', (event, machineIdVal) => {
-	unirest.post('http://192.168.0.2:8090/restapi/licenseAddProc')
-		.header('Accept', 'application/json')
-		.send({ "license_no": licenseVal.value , "machineId_val": machineIdVal})
-		.end(function (response) {
-			var jsonData = JSON.parse(response.body.trim());
-			if( jsonData.output == 'N' ){
-				fn_alert("잘못된 라이선스 번호입니다.");
-				licenseVal.value = "";
-				return false;
-			}else if( jsonData.output == 'DN' ){
-				fn_alert("라이선스 기간이 완료된 라이선스입니다.");
-				licenseVal.value = "";
-				return false;
-			}else if( jsonData.output == 'DUN' ){
-				fn_alert("사용중인 라이선스입니다.");
-				licenseVal.value = "";
-				return false;
-			}else{
-				ipcRenderer.send('licenseSubmitProc', response.body.trim());
-			}
-		});
-})
 
 // 기술지원 요청하기 proc
 const feedBackBtn = document.getElementById('feedBack');
@@ -481,3 +522,6 @@ ipcRenderer.on('isTchnlgyIngryProc', (event, isProcYN, ) => {
 	}
 	
   })
+
+
+ 

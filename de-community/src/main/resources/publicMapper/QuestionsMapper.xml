@@ -191,4 +191,35 @@
 		OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage}
 	</select>
 	
+	
+	<select id="getCompQuestionList" parameterType="String" resultMap="Questions">
+		select 
+		    a.questionno
+		    ,a.title
+		    ,a.contents
+		    ,a.section
+		    ,a.deleteat
+		    ,a.editauth
+		    ,a.readcnt
+		    ,a.registerdate
+		    ,a.tagno
+		    ,a.updatedate
+		    ,a.userno
+		    ,b.*,c.*
+		    ,(select count(d.answerno) from tb_answers d where a.questionno = d.questionno) as commentcnt
+	    
+		from tb_questions a left outer join tb_users b on a.userno = b.userno left outer join tb_vote c on a.questionno = c.pno
+		where b.location = ( select enterprisearea from tb_enterprises where userno = (select userno from tb_users where uuiduser = #{useruuid}) )
+	</select>
+	
+	<select id="getCompQuestionListCount" parameterType="String" resultType="java.lang.Integer">
+		select 
+		    count(*)
+		from tb_questions a left outer join tb_users b on a.userno = b.userno left outer join tb_vote c on a.questionno = c.pno
+		where b.location = ( select enterprisearea from tb_enterprises where userno = (select userno from tb_users where uuiduser = #{useruuid}) )
+			and (select count(d.answerno) from tb_answers d where a.questionno = d.questionno)  = '0'
+			and to_char(a.registerdate, 'YYYY-MM-DD') >= '2020-10-15
+	</select>
+	
+	
 </mapper>

@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -18,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -270,55 +267,49 @@ public class RestApiController {
 	}
 
 
-	@RequestMapping("/signproct")
+	@RequestMapping("/getCompQuestion")
 	@ResponseBody
-	public ResponseEntity chtttk(HttpServletRequest request, ModelMap model, LoginVO vo) throws Exception {
+	public ResponseEntity getCompQuestion(LoginVO vo) {
+//		 RestapiVO apivo = new RestapiVO();
+//		 apivo.setMessage("ok");
 
 		String output = "";
+		int val = 0;
+		System.out.println("userUUIDvo===" + vo.toString());
+		try {
+			List<Questions> listData = qs.getCompQuestionList(vo.getUuiduser());
+			val = qs.getCompQuestionListCount(vo.getUuiduser());
+			if (val > 0) {
 
-		JSONObject jsonObject = new JSONObject();
-		System.out.println("vo --- " + vo.toString());
-		System.out.println("d----user.getUserid()" + vo.getUserid());
+				JSONObject jsonObject = new JSONObject();
 
-//		vo = service.getUserInfo(vo.getUserid());
-//		System.out.println("sign val -- " + vo.toString());
-
-//		loginMapper.updateUserUUID(vo);
-
-//		if (retVo != null) {
-//			System.out.println("retVo==" + retVo.toString());
+//				listData.forEach(System.out::println);
+				JSONArray dataArray = new JSONArray();
+//				if (listData != null) {
+//					for (int i = 0; i < listData.size(); i++) {
+//						JSONObject inData = new JSONObject();
+//						inData.put("questionno", listData.get(i).getQuestionno());
+//						inData.put("title", listData.get(i).getTitle());
+//						inData.put("contents", listData.get(i).getContents());
+//						inData.put("userno", listData.get(i).getUsers().getUsername());
+//						inData.put("regdt", listData.get(i).getRegisterdate().toString());
 //
-//			String strToday = dateFormat.format(c1.getTime());
-//			toDate = dateFormat.parse(strToday);
-//			edDate = dateFormat.parse(retVo.getLcns_dt());
-//
-//			System.out.println("Today=" + strToday);
-//			System.out.println("2======+" + edDate);
-//
-//			int compare = toDate.compareTo(edDate);
-//
-//			if (compare > 0) {
-//				// 사용기간 N
-//				System.out.println("사용기간 N ::day1 > day2");
-//				jsonObject.put("output", "N");
-//			} else if (compare < 0) {
-//				// 사용기간 Y
-//				System.out.println("사용기간 Y === day1 < day2");
-//				jsonObject.put("output", "Y");
-//				jsonObject.put("stDate", retVo.getLcns_st());
-//				jsonObject.put("dtDate", retVo.getLcns_dt());
-//			}
-//		} else {
-//			System.out.println("null ");
-//			jsonObject.put("output", "N");
-//		}
+//						dataArray.add(inData);
+//					}
+//				}
+//				jsonObject.put("list", dataArray);
+//				output = jsonObject.toJSONString();
+//				System.out.println("output===+" + jsonObject.toJSONString());
 
-		jsonObject.put("output", "Y");
-		output = jsonObject.toJSONString();
-
-		model.addAttribute("enVal", output);
-
-//		return output;
+				jsonObject.put("newQuestion", "Y");
+				output = Integer.toString(val);
+				return ResponseEntity.ok(output);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ResponseEntity.ok("N");
+		}
 		return ResponseEntity.ok(output);
 	}
 

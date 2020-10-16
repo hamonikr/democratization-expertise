@@ -13,12 +13,13 @@ chmod 4755 '/opt/hamonikr-support/chrome-sandbox' || true
 update-mime-database /usr/share/mime || true
 update-desktop-database /usr/share/applications || true
 
-chmod +x /usr/share/applications/hamonize-support.desktop
+chmod +x /usr/share/applications/hamonikr-support.desktop
 
 #cp /usr/share/applications/${executable}.desktop /etc/skel/.config/autostart
 
+
 for u in $(ls /home)
 do
-cp /usr/share/applications/hamonize-support.desktop /home/$u/Desktop/
-chown $u:$u /home/$u/Desktop/hamonize-support.desktop
+cp /usr/share/applications/hamonikr-support.desktop /home/$u/Desktop/
+chown $u:$u /home/$u/Desktop/hamonikr-support.desktop
 done
