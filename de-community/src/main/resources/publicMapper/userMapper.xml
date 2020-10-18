@@ -182,43 +182,43 @@ and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '6 month'::interval, 
 <select id="getScoregraph" parameterType="Integer" resultType="String">
 SELECT 
 	CAST(
-		COALESCE(( SELECT count(*) FROM tb_questions WHERE <include refid="where_getScoregraph1"/> ), 0)
-		+ COALESCE(( SELECT count(*) FROM tb_answers WHERE <include refid="where_getScoregraph1"/> ), 0)
+		COALESCE(( SELECT count(*) * 5 FROM tb_questions WHERE <include refid="where_getScoregraph1"/> ), 0)
+		+ COALESCE(( SELECT count(*) * 8 FROM tb_answers WHERE <include refid="where_getScoregraph1"/> ), 0)
 	AS TEXT)
 	
 	|| ',' ||
 	
 	CAST(
-		COALESCE(( SELECT count(*) FROM tb_questions WHERE <include refid="where_getScoregraph2"/> ), 0)
-		+ COALESCE(( SELECT count(*) FROM tb_answers WHERE <include refid="where_getScoregraph2"/> ), 0)
+		COALESCE(( SELECT count(*) * 5 FROM tb_questions WHERE <include refid="where_getScoregraph2"/> ), 0)
+		+ COALESCE(( SELECT count(*) * 8 FROM tb_answers WHERE <include refid="where_getScoregraph2"/> ), 0)
 	AS TEXT)
 	
 	|| ',' ||
 	
 	CAST(
-		COALESCE(( SELECT count(*) FROM tb_questions WHERE <include refid="where_getScoregraph3"/> ), 0)
-		+ COALESCE(( SELECT count(*) FROM tb_answers WHERE <include refid="where_getScoregraph3"/> ), 0)
+		COALESCE(( SELECT count(*) * 5 FROM tb_questions WHERE <include refid="where_getScoregraph3"/> ), 0)
+		+ COALESCE(( SELECT count(*) * 8 FROM tb_answers WHERE <include refid="where_getScoregraph3"/> ), 0)
 	AS TEXT)
 	
 	|| ',' ||
 	
 	CAST(
-		COALESCE(( SELECT count(*) FROM tb_questions WHERE <include refid="where_getScoregraph4"/> ), 0)
-		+ COALESCE(( SELECT count(*) FROM tb_answers WHERE <include refid="where_getScoregraph4"/> ), 0)
+		COALESCE(( SELECT count(*) * 5 FROM tb_questions WHERE <include refid="where_getScoregraph4"/> ), 0)
+		+ COALESCE(( SELECT count(*) * 8 FROM tb_answers WHERE <include refid="where_getScoregraph4"/> ), 0)
 	AS TEXT)
 	
 	|| ',' ||
 	
 	CAST(
-		COALESCE(( SELECT count(*) FROM tb_questions WHERE <include refid="where_getScoregraph5"/> ), 0)
-		+ COALESCE(( SELECT count(*) FROM tb_answers WHERE <include refid="where_getScoregraph5"/> ), 0)
+		COALESCE(( SELECT count(*) * 5 FROM tb_questions WHERE <include refid="where_getScoregraph5"/> ), 0)
+		+ COALESCE(( SELECT count(*) * 8 FROM tb_answers WHERE <include refid="where_getScoregraph5"/> ), 0)
 	AS TEXT)
 	
 	|| ',' ||
 	
 	CAST(
-		COALESCE(( SELECT count(*) FROM tb_questions WHERE <include refid="where_getScoregraph6"/> ), 0)
-		+ COALESCE(( SELECT count(*) FROM tb_answers WHERE <include refid="where_getScoregraph6"/> ), 0)
+		COALESCE(( SELECT count(*) * 5 FROM tb_questions WHERE <include refid="where_getScoregraph6"/> ), 0)
+		+ COALESCE(( SELECT count(*) * 8 FROM tb_answers WHERE <include refid="where_getScoregraph6"/> ), 0)
 	AS TEXT)
 </select>
 

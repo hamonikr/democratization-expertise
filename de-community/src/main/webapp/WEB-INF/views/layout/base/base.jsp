@@ -49,7 +49,6 @@ $(function() {
 		url: "/cmmn/list", 
 		//dataType: 'json', 
 		success: function (data) { 
-			console.log(data);
 			
 			if (data != null){
 
@@ -62,9 +61,14 @@ $(function() {
 						var userHtml = "";
 						
 						userHtml += '<div class="col-md-9 col-sm-6 col-12" style="padding:10 10 10 10;"><div class="user-block">';
-						userHtml += '<img class="img-circle img-bordered-sm" src="/img/noprofile.png" alt="User Image">';
+						if(data.user[i].userprofileimg != null && data.user[i].picture == null)
+							userHtml += '<img class="img-circle img-bordered-sm" src="/upload/users/'+data.user[i].userprofileimg+'" alt="User Image">';
+						else if(data.user[i].userprofileimg == null && data.user[i].picture != null)
+							userHtml += '<img class="img-circle img-bordered-sm" src="'+data.user[i].picture+'" alt="User Image">';
+						else
+							userHtml += '<img class="img-circle img-bordered-sm" src="/img/noprofile.png" alt="User Image">';
 						userHtml += '<span class="username">';
-						userHtml += '<a href="#">'+data.user[i].username+'</a>';
+						userHtml += '<a href="/users/activity/'+data.user[i].userno+'">'+data.user[i].username+'</a>';
 // 						userHtml += '<a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>';
 						userHtml += '</span>';
 						userHtml += '<span class="description">'+data.user[i].score+'</span>';

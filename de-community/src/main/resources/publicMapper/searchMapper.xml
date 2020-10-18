@@ -6,11 +6,17 @@
 <!-- 정보 조회 -->
 <select id="totalSearch" parameterType="com.de.cmmn.CmmnMap" resultType="com.de.cmmn.CmmnMap">
 select a.* from (
-select questionno as seq,title , contents , 'Q' as status, COUNT(*)
-		OVER(PARTITION BY questionno) as cnt from tb_questions union all select wikino as seq,title , contents , 'T' as status, COUNT(*)
-		OVER(PARTITION BY wikino) as cnt from tb_wiki where section = 't'
-union all select wikino as seq,title , contents , 'H' as status, COUNT(*)
-		OVER(PARTITION BY wikino) as cnt from tb_wiki where section = 'h' ) a 
+	select questionno as seq,title , contents , 'Q' as status, COUNT(*)
+		OVER(PARTITION BY questionno) as cnt from tb_questions 
+			union all 
+				select wikino as seq,title , contents , 'T' as status, COUNT(*)
+			OVER(PARTITION BY wikino) as cnt from tb_wiki where section = 't'
+			union all 
+				select wikino as seq,title , contents , 'H' as status, COUNT(*)
+			OVER(PARTITION BY wikino) as cnt from tb_wiki where section = 'h'
+			union all 
+				select seq as seq,title , body as contents , 'Q' as status, COUNT(*)
+			OVER(PARTITION BY question_id) as cnt from tbl_stack_question_ko ) a 
 		where title like '%' || #{searchtxt} || '%' or contents like '%' || #{searchtxt} || '%'
 </select>	
 

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.de.login.service.SecurityMember;
+import com.de.login.vo.LoginVO;
 import com.de.question.QuestionsService;
 import com.de.wiki.service.WikiService;
 
@@ -28,8 +30,9 @@ public class WikiController {
 
 	
 	@RequestMapping("/getStart")
-	 public String accountRecovery(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo,Model model) throws Exception { 		
+	 public String accountRecovery(HttpServletRequest request, LoginVO user, Wiki vo,Model model, HttpSession httpSession) throws Exception { 		
 		System.out.println("---wiki start---");		
+		user = (LoginVO) httpSession.getAttribute("userSession");
 		if(user!=null) {
 			System.out.println("user type -->" +user.getRole());
 		}
@@ -67,8 +70,9 @@ public class WikiController {
 	
 
 	@RequestMapping("/Help/{gubun}")
-	 public String helplist(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo,Model model,@PathVariable("gubun") String gubun ) throws Exception { 		
+	 public String helplist(HttpServletRequest request, LoginVO user, Wiki vo,Model model,@PathVariable("gubun") String gubun , HttpSession httpSession) throws Exception { 		
 		System.out.println("---wiki view---");		
+		user = (LoginVO) httpSession.getAttribute("userSession");
 		vo.setSection("h");
 		// fna list
 		List<Wiki> fna_list = service.getWikiList(gubun);
@@ -85,8 +89,9 @@ public class WikiController {
 	
 	
 	@RequestMapping("/view/{wikino}")
-	 public String view(HttpServletRequest request, @PathVariable("wikino") int wikino, @AuthenticationPrincipal SecurityMember user, Model model) throws Exception { 		
-		System.out.println("---wiki view---");		
+	 public String view(HttpServletRequest request, @PathVariable("wikino") int wikino, LoginVO user, Model model, HttpSession httpSession) throws Exception { 		
+		System.out.println("---wiki view---");	
+		user = (LoginVO) httpSession.getAttribute("userSession");
 		if(user!=null) {
 			System.out.println("user id -->" +user.getUserid());
 			System.out.println("user role -->" +user.getRole());
@@ -105,9 +110,9 @@ public class WikiController {
 
 	
 	@RequestMapping("/edit/{seq}")
-	 public String historyView(HttpServletRequest request, @PathVariable("seq") int seq, Model model) throws Exception { 		
+	 public String historyView(HttpServletRequest request, @PathVariable("seq") int seq,LoginVO user, Model model, HttpSession httpSession) throws Exception { 		
 		System.out.println("---wiki view---");		
-		
+		user = (LoginVO) httpSession.getAttribute("userSession");
 		WikiHistory wiki_history_view = service.getHistoryView(seq);
 
 		System.out.println("wiki_history_view wikino--> " + wiki_history_view.getWikino());
@@ -121,9 +126,9 @@ public class WikiController {
 	
 
 	@RequestMapping("/saveHelp/{gubun}")
-	 public String createHelp(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model,@PathVariable("gubun") String gubun )throws Exception { 		
+	 public String createHelp(HttpServletRequest request, LoginVO user, Wiki vo, Model model,@PathVariable("gubun") String gubun , HttpSession httpSession)throws Exception { 		
 		System.out.println("---wiki help create!---");
-		
+		user = (LoginVO) httpSession.getAttribute("userSession");
 		if(user==null) {
 			System.out.println("wiki 문서 작성/수정은 로그인시에만 가능합니다!");
 			model.addAttribute("ret", "wiki 문서 작성/수정은 로그인시에만 가능합니다!");
@@ -141,9 +146,9 @@ public class WikiController {
 	 } 
 	
 	@RequestMapping("/saveTag")
-	 public String createTag(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model)throws Exception  { 		
+	 public String createTag(HttpServletRequest request, LoginVO user, Wiki vo, Model model, HttpSession httpSession)throws Exception  { 		
 		System.out.println("---wiki tag create!---");		
-		
+		user = (LoginVO) httpSession.getAttribute("userSession");
 		if(user==null) {
 			System.out.println("wiki 문서 작성/수정은 로그인시에만 가능합니다!");
 			model.addAttribute("ret", "wiki 문서 작성/수정은 로그인시에만 가능합니다!");
@@ -166,8 +171,9 @@ public class WikiController {
 	
 
 	@RequestMapping("/save.proc")
-	 public String save(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model) throws Exception { 		
+	 public String save(HttpServletRequest request, LoginVO user, Wiki vo, Model model, HttpSession httpSession) throws Exception { 		
 		System.out.println("---wiki create proc---");
+		user = (LoginVO) httpSession.getAttribute("userSession");
 		vo.setUserno(user.getUserno());
 		System.out.println("section==?" + vo.getSection());
 		
@@ -190,8 +196,9 @@ public class WikiController {
 	} 
 
 	@RequestMapping("/edit.proc")
-	 public String edit(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model) throws Exception { 		
+	 public String edit(HttpServletRequest request, LoginVO user, Wiki vo, Model model, HttpSession httpSession) throws Exception { 		
 		System.out.println("---wiki edit proc---");
+		user = (LoginVO) httpSession.getAttribute("userSession");
 		System.out.println("수정할 wikino?-->"+ vo.getWikino());
 		if(user!=null) {
 			vo.setUserno(user.getUserno());
@@ -206,9 +213,10 @@ public class WikiController {
 
 	
 	@RequestMapping("/delete.proc")
-	 public String delete(HttpServletRequest request, @AuthenticationPrincipal SecurityMember user, Wiki vo, Model model) throws Exception { 		
+	 public String delete(HttpServletRequest request, LoginVO user, Wiki vo, Model model, HttpSession httpSession) throws Exception { 		
 		System.out.println("---wiki delete proc---");
 		System.out.println("---삭제할 wikino---" + vo.getWikino());
+		user = (LoginVO) httpSession.getAttribute("userSession");
 		int ret=0; 
 		vo.setUserno(user.getUserno());
 		ret= service.deleteWiki(vo.getWikino());

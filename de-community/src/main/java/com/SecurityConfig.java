@@ -81,18 +81,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(service).passwordEncoder(passwordEncoder());
 	}
 
-//	@Bean
-//	@ConfigurationProperties("security.oauth2.client")
-//	OAuth2ProtectedResourceDetails googleclient() {
-//		return new AuthorizationCodeResourceDetails();
-//	}
-//
-//	@Bean
-//	@ConfigurationProperties("security.oauth2.resource")
-//	ResourceServerProperties googleResource() {
-//		return new ResourceServerProperties();
-//	}
-
 
 	@Bean
 	public Filter ssoFilter() {
@@ -102,14 +90,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //	@Bean
 //	public JwtAuthenticationFilter jwtFilter() {
 //		return new JwtAuthenticationFilter();
-//	}
-
-//	private Filter ssoFilter() {
-//		OAuth2ClientAuthenticationProcessingFilter googleFilter = new OAuth2ClientAuthenticationProcessingFilter("/social_Login"); //해당 경
-//		OAuth2RestTemplate googleTemplate = new OAuth2RestTemplate(googleclient(), oauth2ClientContext);
-//		googleFilter.setRestTemplate(googleTemplate);
-//		googleFilter.setTokenServices(new UserInfoTokenServices(googleResource().getUserInfoUri(), googleclient().getClientId()));
-//		googleFilter.setAuthenticationSuccessHandler(new OAuth2SuccessHandler());
-//		return googleFilter;
 //	}
 }
