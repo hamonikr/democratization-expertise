@@ -20,7 +20,7 @@ const { promisify } = require('util');
 const mkdirp = require('mkdirp-promise')
 const mkDirpAsync = promisify(mkdirp);
 
-const Poller = require('./Poller');
+// const Poller = require('./Poller');
 
 //var nodeConsole = require('console');
 //var log = new nodeConsole.Console(process.stdout, process.stderr);
@@ -29,7 +29,7 @@ const Poller = require('./Poller');
 const osType = require('os');
 const dirPath = osType.homedir() + '/.config/support/feedback';
 
-//const Notification = require('electron-native-notification');
+
 
 
 // server url 
@@ -154,7 +154,6 @@ let trayIcon  = null;
 
 app.on('ready', () => {
 	// createTray();
-	notiAction();
 	setTimeout(createWindow, 500);
 	
 });
@@ -204,6 +203,14 @@ ipcMain.on('openBrowser', (event) => {
 	// opn('https://hamonikr.org/');
 	(async () => {
 		await open('http://192.168.0.116:8080/');
+	})();
+});
+
+ipcMain.on('openbrowserCommunity', (event) => {
+	// opn('https://hamonikr.org/');
+	(async () => {
+		await open('http://127.0.0.1:8080/openbrowser/');
+		// await open('https://sindresorhus.com', {app: ['google chrome', '--incognito']});
 	})();
 });
 
@@ -319,9 +326,6 @@ ipcMain.on('tchnlgyDataCall', (event) => {
 //== License chk =============================================================
 //========================================================================
 ipcMain.on('licenseChkProc', (event) => {
-	console.log("2222222222222");
-	notiAction();
-	console.log("1111111111111");
 	// server connection chk
 	unirest.post('http://127.0.0.1:8080/api/connt')
 	  	.header('Accept', 'application/json')
@@ -848,24 +852,33 @@ function notiAction(){
  
 }
 
-let poller = new Poller(6000);
-poller.onPoll(() => {
-		pollingData();
-        poller.poll(); // Go for the next poll
-});
+// let poller = new Poller(6000);
+// poller.onPoll(() => {
+// 		pollingData();
+//         poller.poll(); // Go for the next poll
+// });
 
-// Initial start
-poller.poll();
+// // Initial start
+// poller.poll();
+
+
+ipcMain.on('callQuestionData', (event) => {
+	console.log("callQuestionData=== START");
+	 getQuestionData(event);
+});
 
 
 const getQuestionData = async(event) => {
 	try{
 		var getCompyUUID = await readUuidFileOnlyData("licenseChk");
-		console.log("getCompyUUID==="+getCompyUUID);
-		getQuestionDataCall(getCompyUUID);
+		console.log("getQuestionData getCompyUUID==="+getCompyUUID);
+		var retVal = await getQuestionDataCall(getCompyUUID);
+		console.log("retVal==="+JSON.stringify(retVal));
+		event.sender.send('callNotify','');
+
 	}
 	catch(err){
-		console.log("nofile---" + err);
+		console.log("getQuestionData nofile---" + err);
 	}
 }
 function readUuidFileOnlyData(arg){
@@ -874,47 +887,40 @@ function readUuidFileOnlyData(arg){
 		var fileDir  = osType.homedir() + '/.config/support_compy/.hamonikr_compy';
 		fs.readFile(fileDir, 'utf-8', (err, data) => { 
 			if(err){ 
-				return resolve("N");
+				return reject("N");
 			}else{
-				console.log("data==="+ data);
+				console.log("getQuestionData data==="+ data);
 				resolve(data);
 				// resolve();
 			}
 		});
 	});
 }
-
-
 function getQuestionDataCall(retUUIDVal){
-
-	var headersOpt = {
-		"content-type": "application/json",
-	};
-	console.log("aa==="+ retUUIDVal);
-	request({
-			method:'POST',
-			url:'http://127.0.0.1:8080/api/getCompQuestion?${_csrf.parameterName}=${_csrf.token}',
-			form: {'uuiduser':  retUUIDVal},
-
-			headers: headersOpt,
-			json: true,
-			}, async function (error, response, body) {
-					console.log("getQuestionDataCall-----------err==="+ error);
-					if(!error){
-							console.log("getQuestionDataCall---------ret body==="+ JSON.stringify(body));
-
-							console.log(body.newQuestion);
-							// sender.send('actionNotfyi', body.newQuestion );
-							
-					}else{
-							console.log("getQuestionDataCall---------err="+ error);
-					}
-			}
-	);
-}
-
-var routines = require("./public/assets/js/notiCommon.js");
-function pollingData(){
-	getQuestionData();
+	return new Promise(function(resolve, reject){
+		var headersOpt = {
+			"content-type": "application/json",
+		};
+		request({
+				method:'POST',
+				url:'http://127.0.0.1:8080/api/getCompQuestion?${_csrf.parameterName}=${_csrf.token}',
+				form: {'uuiduser':  retUUIDVal},
 	
+				headers: headersOpt,
+				json: true,
+				}, async function (error, response, body) {
+						console.log("getQuestionDataCall-----------err==="+ error);
+						if(!error){
+								console.log("getQuestionDataCall---------ret body==="+ JSON.stringify(body));
+								resolve( "1" );
+						}else{
+								console.log("getQuestionDataCall---------err="+ error);
+								return reject("N");
+						}
+				}
+		);
+	});
 }
+
+
+

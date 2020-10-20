@@ -25,17 +25,18 @@ const open = require("open");
 // })();
 
 
-// ipcRenderer.on('actionNotfyi', (event, data) => {
-// 	handleNotification;
-// })
-
+// // ipcRenderer.on('actionNotfyi', (event, data) => {
+// // 	handleNotification;
+// // })
+// // handleNotification;
 
 
 // const add = createNotification("aa","bb");
-function add(){
-    console.log("afadfasdfasdf");
-}
+function add(a) {
+    console.log("aaaa==="+ a);
+    handleNotification;
+  }
  
-module.exports = {
- 	add
- };
+module.exports =  add;
+
+ 

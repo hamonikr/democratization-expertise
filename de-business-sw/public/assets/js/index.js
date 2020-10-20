@@ -7,8 +7,6 @@ const unirest = require('unirest');
 // server url 
 let restUrl = "http://192.168.0.2:8090/";
 
-const calc = require('./notiCommon.js');
-
 
 // app 실행시 자동로그인 처리를 위해....==============
 // ipcRenderer.send('openUserUUID', () => {
@@ -524,4 +522,65 @@ ipcRenderer.on('isTchnlgyIngryProc', (event, isProcYN, ) => {
   })
 
 
+  const open = require('open');
+  var notifier = require('node-notifier');
+//   (function() {
+	  function createNotification(title, message) {
+		  console.log("createNotification===========");
+		  let myNotification = new Notification('Title', {
+			  body: 'Lorem Ipsum Dolor Sit Amet'
+		 })
+		 
+		 myNotification.onclick = () => {
+			  console.log('Notification clicked');
+			//   open('http://google.com');
+			ipcRenderer.send('openbrowserCommunity');
+		 }
+	  };
+	  var handleNotification = function(event) {
+		  var title ="aa",
+			  message = "aaa";
+		  createNotification(title, message)
+	  };
+	//   var notifyButton = document.getElementById("abcdddd");
+	//   notifyButton.addEventListener("click", handleNotification);
+//   })();
+  
  
+
+// const Poller = require('../../../Poller');
+const EventEmitter = require('events');
+class Poller extends EventEmitter {
+    constructor(timeout = 100) {
+        super();
+        this.timeout = timeout;
+    }
+    poll() {
+        setTimeout(() => this.emit('poll'), this.timeout);
+    }
+    onPoll(cb) {
+        this.on('poll', cb);
+    }
+}
+
+let poller = new Poller(6000);
+poller.onPoll(() => {
+		testA();
+        poller.poll(); // Go for the next poll
+});
+
+// Initial start
+poller.poll();
+
+
+function testA(){
+	ipcRenderer.send('callQuestionData');
+}
+ipcRenderer.on('callNotify', (event, data) => {
+	// createNotification("커뮤니티", "커뮤니티에 미등록된 답변이 있습니다.");
+	handleNotification();
+});
+// handleNotification();
+
+// var notifyButton = document.getElementById("abcdddd");
+// 	  notifyButton.addEventListener("click", handleNotification);

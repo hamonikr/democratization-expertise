@@ -1,9 +1,13 @@
 package com.de.restapi;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -13,14 +17,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.de.answer.Answers;
 import com.de.answer.AnswersService;
@@ -36,7 +47,7 @@ import com.de.wiki.Wiki;
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 
-@RestController
+@Controller
 @RequestMapping("/api")
 public class RestApiController {
 
@@ -59,6 +70,31 @@ public class RestApiController {
 		System.out.println("jsd=======================");
 		return "/jsd/feedback";
 
+	}
+
+
+	@RequestMapping(value = "/openbrowser/{uuid}")
+	public String openbrowser(Model model, @RequestParam Map<String, Object> params) {
+		return "redirect:/";
+	}
+
+
+	@RequestMapping("/loginWithoutForm/{username}")
+	public String loginWithoutForm(@PathVariable(value = "username") String username, HttpSession session,
+			HttpServletResponse response) {
+		List<GrantedAuthority> roles = new ArrayList<>(1);
+		String roleStr = "ROLE_USER";
+		roles.add(new SimpleGrantedAuthority(roleStr));
+
+		LoginVO vo = new LoginVO();
+		vo.setUserid("testA");
+
+		User user = new User("aa", "", roles);
+		session.setAttribute("userSession", vo);
+
+		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, roles);
+		SecurityContextHolder.getContext().setAuthentication(auth);
+		return "redirect:/enterprises/activity/18"; // +vo.getEnterpriseno();
 	}
 
 
@@ -279,6 +315,7 @@ public class RestApiController {
 		try {
 			List<Questions> listData = qs.getCompQuestionList(vo.getUuiduser());
 			val = qs.getCompQuestionListCount(vo.getUuiduser());
+			System.out.println("val==========" + val);
 			if (val > 0) {
 
 				JSONObject jsonObject = new JSONObject();
