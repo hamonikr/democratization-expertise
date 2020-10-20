@@ -134,6 +134,14 @@
 				((SELECT COALESCE(max(seq),0)+1 FROM tb_questions_history),#{questionno},#{contents},#{section},#{title}
 				,#{deleteat},#{editauth},#{readcnt},#{registerdate},#{tagno},#{updatedate},#{userno})
 	</insert>
+	
+	<select id="selectHistoryCnt" parameterType="com.de.cmmn.CmmnMap" resultType="integer">
+	select count(*) from tb_questions_history where pno = #{questionno}
+	</select>
+	
+	<select id="selectHistory" parameterType="com.de.cmmn.CmmnMap" resultType="com.de.cmmn.CmmnMap">
+	select * from tb_questions_history where pno = #{questionno}
+	</select>
 
 
 	<select id="getMyList" parameterType="com.de.question.Questions" resultMap="Questions">

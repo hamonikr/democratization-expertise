@@ -83,7 +83,6 @@ public class QuestionsController {
 		logger.debug(param.toString());
 		logger.debug("");
 		logger.debug("----------excel param-----------------------");
-		System.out.println("sort==========" + questions.getSort());
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(param.getInt("pageNo") > 0 ? param.getInt("pageNo") : 1); // 현재 페이지 번호
 		paginationInfo.setRecordCountPerPage(5); // 한 페이지에 게시되는 게시물 건수
@@ -95,9 +94,6 @@ public class QuestionsController {
 		questions.setRecordCountPerPage(recordCountPerPage);
 
 		List<Questions> list = qs.getList(questions);
-		for(int i = 0; i < list.size();i++) {
-			System.out.println("list====="+list.get(i));
-		}
 		List<Wiki> tagList = qs.findAllTag();
 
 		int listCount = qs.getListCount(questions);
@@ -147,18 +143,19 @@ public class QuestionsController {
 	public String view(@PathVariable("questionno") int questionno, Model model,
 			@AuthenticationPrincipal SecurityMember user,HttpSession httpSession) throws Exception {
 		//List<Tags> tagList = qs.tagList();
+		CmmnMap param = new CmmnMap();
 		List<Wiki> tagList = qs.findAllTag();
 		List<Answers> answerList = as.findAllByquestionno(questionno);
 		model.addAttribute("tagList", tagList);
 		model.addAttribute("answerList", answerList);
-		for(int i =0;i<answerList.size();i++) {
-			System.out.println("answerList====="+answerList.get(i));
-		}
 		//조회수 증가
 		qs.updateReanCnt(questionno);
 		Questions qvo = new Questions();
 		qvo = qs.getView(questionno);
 		model.addAttribute("result", qvo);
+		param.put("questionno",questionno );
+		model.addAttribute("history",cs.selectList("selectHistory", param));
+		model.addAttribute("historyCnt",cs.selectCount("selectHistoryCnt", param));
 		if(httpSession.getAttribute("userSession") != null)
 		model.addAttribute("user", httpSession.getAttribute("userSession"));
 		return "/questions/view";
@@ -218,9 +215,6 @@ public class QuestionsController {
 		questions.setRecordCountPerPage(recordCountPerPage);
 
 		List<Questions> list = qs.getMyList(questions);
-		for(int i = 0; i < list.size();i++) {
-			System.out.println("list====="+list.get(i));
-		}
 		//List<Tags> tagList = qs.tagList();
 		List<Wiki> tagList = qs.findAllTag();
 
