@@ -70,7 +70,6 @@ public class QuestionsController {
 //		}
 //		return "/questions/list";
 //	}
-
 	@RequestMapping(value = "/list")
 	public String getList(@RequestParam Map<String, String> params, Model model, Questions questions,
 			@AuthenticationPrincipal SecurityMember user, @PageableDefault Pageable pageable) throws Exception {
