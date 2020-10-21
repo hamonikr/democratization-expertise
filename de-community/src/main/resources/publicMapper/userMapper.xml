@@ -145,7 +145,7 @@ SELECT COUNT(*) FROM tb_users where userid=#{userid}
 </select>
 
 <insert id="socialUserSave" parameterType="com.de.cmmn.CmmnMap">
-INSERT INTO tb_users (userid,username,picture) values(#{userid},#{username},#{picture})
+INSERT INTO tb_users (userid,username,picture,role) values(#{userid},#{username},#{picture},#{role})
 </insert>
 
 <sql id="where_getScoregraph1">

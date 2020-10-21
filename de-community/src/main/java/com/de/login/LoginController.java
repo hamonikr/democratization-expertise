@@ -86,7 +86,7 @@ public class LoginController {
 		
 		String goo = (String) session.getAttribute("googleId");
 		session.removeAttribute("googleId");
-		System.out.println("goo============"+goo);
+		System.out.println("google============"+goo);
 		vo = service.getSocialUserInfo(goo);
 		session.setAttribute("userSession", vo);
 		System.out.println("userno======"+vo.getUserno());
