@@ -96,6 +96,11 @@ public class QuestionsController {
 		List<Questions> list = qs.getList(questions);
 		List<Wiki> tagList = qs.findAllTag();
 
+		for (int i=0;i<list.size();i++) {
+			System.out.println("users?" + list.get(i).getUsers().getUserno()+" : " + list.get(i).getUsers().getUsername());
+			System.out.println("Questions?" + list.get(i).getFirstuserno()+" : "+list.get(i));
+		}
+		
 		int listCount = qs.getListCount(questions);
 		paginationInfo.setTotalRecordCount(listCount); // 전체 게시물 건 수
 		model.addAttribute("list", list);
