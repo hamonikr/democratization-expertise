@@ -172,4 +172,11 @@ public class QuestionsService {
 		return qm.getCompQuestionListCount(useruuid);
 	}
 
+
+	public Questions getAnswerComplete() throws Exception {
+		// TODO Auto-generated method stub
+		return qm.getAnswerComplete();
+
+	}
+
 }

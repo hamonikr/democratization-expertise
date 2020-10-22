@@ -25,4 +25,6 @@ public interface QuestionsMapper {
 
 	public int getCompQuestionListCount(String useruuid) throws Exception;
 
+	public Questions getAnswerComplete() throws Exception;
+
 }

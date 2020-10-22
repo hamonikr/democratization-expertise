@@ -17,13 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -73,28 +69,26 @@ public class RestApiController {
 	}
 
 
-	@RequestMapping(value = "/openbrowser/{uuid}")
-	public String openbrowser(Model model, @RequestParam Map<String, Object> params) {
-		return "redirect:/";
-	}
-
-
-	@RequestMapping("/loginWithoutForm/{username}")
-	public String loginWithoutForm(@PathVariable(value = "username") String username, HttpSession session,
+	@RequestMapping("/loginWithoutForm/{uuid}")
+	public String loginWithoutForm(@PathVariable(value = "uuid") String uuid, HttpSession session,
 			HttpServletResponse response) {
+		System.out.println("===========++" + uuid);
 		List<GrantedAuthority> roles = new ArrayList<>(1);
 		String roleStr = "ROLE_USER";
 		roles.add(new SimpleGrantedAuthority(roleStr));
 
-		LoginVO vo = new LoginVO();
-		vo.setUserid("testA");
-
-		User user = new User("aa", "", roles);
-		session.setAttribute("userSession", vo);
-
-		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, roles);
-		SecurityContextHolder.getContext().setAuthentication(auth);
-		return "redirect:/enterprises/activity/18"; // +vo.getEnterpriseno();
+		String userNo = "";
+		LoginVO retVO = new LoginVO();
+		try {
+			retVO.setUuiduser(uuid);
+			retVO = loginMapper.getUserChk(retVO);
+			session.setAttribute("userSession", retVO);
+			userNo = Integer.toString(retVO.getUserno());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "redirect:/enterprises/activity/" + userNo;
 	}
 
 
@@ -230,6 +224,14 @@ public class RestApiController {
 				jsonObject.put("output", "Y");
 				jsonObject.put("userid", retVO.getUserid());
 				jsonObject.put("usernm", retVO.getUsername());
+				System.out.println("111111111======++" + retVO.getRepresentat());
+				if (retVO.getRepresentat() == 1) {
+//					Questions questions = new Questions();
+//					int listCount = qs.getListCount(questions);
+					Questions ansComplete = qs.getAnswerComplete();
+					jsonObject.put("totalCnt", ansComplete.getQuestiontotalcnt());
+					jsonObject.put("ansComplete", ansComplete.getAnswercompletecnt());
+				}
 			} else {
 				jsonObject.put("output", "N");
 			}

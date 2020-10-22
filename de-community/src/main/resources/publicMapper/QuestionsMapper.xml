@@ -59,6 +59,8 @@
 	<result column="commentcnt" property="commentcnt"/>
 	<result column="firstRecordIndex" property="firstRecordIndex"/>
 	<result column="recordCountPerPage" property="recordCountPerPage"/>
+	<result column="questiontotalcnt" property="questiontotalcnt"/>
+	<result column="answercompletecnt" property="answercompletecnt"/>
 	<collection property="users" resultMap="Users"/>
 	<collection property="vote" resultMap="Vote"/>
 	<collection property="wiki" resultMap="Wiki"/>
@@ -230,5 +232,19 @@
 			and to_char(a.registerdate, 'YYYY-MM-DD') >= '2020-10-15'
 	</select>
 <!-- 	and to_char(a.registerdate, 'YYYY-MM-DD') >= to_char(now(), 'YYYY-MM-DD') -->
+	
+	
+	<select id="getAnswerComplete" parameterType="String" resultMap="Questions">
+		select 
+			count(*) as questiontotalcnt, 
+			sum(TA.questionChk) as answercompletecnt
+		from (
+			select  
+			    distinct(TA.questionno)
+			    , CASE WHEN TB.questionno > 0 THEN 1  ELSE 0 END  questionChk 
+			    , TB.questionno
+			from tb_questions TA  left outer join tb_answers TB on TA.questionno = TB.questionno
+		)TA 
+	</select>	
 	
 </mapper>

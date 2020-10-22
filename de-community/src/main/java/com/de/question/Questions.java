@@ -1,13 +1,11 @@
 package com.de.question;
 
+
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -23,6 +21,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+
 @Getter
 @Setter
 @ToString
@@ -30,7 +29,7 @@ import lombok.ToString;
 @Table(name = "tb_questions")
 @org.hibernate.annotations.DynamicUpdate
 public class Questions {
-	
+
 	/* 질문 고유 번호 */
 	@Id
 	@Column
@@ -51,8 +50,11 @@ public class Questions {
 	private String tagno;
 	/* 질문 조회수 */
 	private Integer readcnt = 0;
-	/* 삭제여부 1-삭제 0-활성*/
+	/* 삭제여부 1-삭제 0-활성 */
 	private Integer deleteat = 0;
+
+	private String questiontotalcnt;
+	private String answercompletecnt;
 	/* 등록 일시 */
 	@CreationTimestamp
 	@Column(name = "registerdate", updatable = false)
@@ -61,27 +63,27 @@ public class Questions {
 	@UpdateTimestamp
 	@Column(name = "updatedate")
 	private Timestamp updatedate;
-	//추후 테이블에서 삭제할 컬럼
+	// 추후 테이블에서 삭제할 컬럼
 	/* 정렬 */
 	private Integer sort;
 	/* 검색 */
 	private String searchtext;
 	/* 댓글수 */
 	private Integer commentcnt;
-	
+
 	/* 페이징 */
 	private int firstRecordIndex;
 	private int recordCountPerPage;
-	
+
 	@Transient
 	private Vote vote;
-	
+
 	@Transient
 	private Users users;
-	
+
 	@Transient
 	private Wiki wiki;
-	
+
 	@Transient
 	private Answers answers;
 

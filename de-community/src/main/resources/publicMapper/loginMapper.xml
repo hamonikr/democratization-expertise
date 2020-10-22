@@ -34,9 +34,11 @@ where a.userid  = #{userid}
 
 
 <select id="getUserChk" parameterType="com.de.login.vo.LoginVO" resultType="com.de.login.vo.LoginVO">
-select  *
-from tb_users 
-where uuiduser  = #{uuiduser} 
+
+	select * 
+	from tb_users ta, tb_enterprises tb
+	where ta.userno = tb.userno
+	and ta.uuiduser  = #{uuiduser} 
 </select>	
 
 
