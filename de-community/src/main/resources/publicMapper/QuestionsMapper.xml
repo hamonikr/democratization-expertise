@@ -159,6 +159,7 @@
 			,a.registerdate
 			,a.tagno
 			,a.updatedate
+			,a.firstuserno
 			,a.userno
 			,b.*,c.*
 			,(SELECT 
@@ -169,7 +170,7 @@
 					a.questionno = d.questionno) AS commentcnt
 		FROM 
 			<if test='section == "Q"'>
-				tb_questions a LEFT OUTER JOIN tb_users b ON a.userno = b.userno
+				tb_questions a LEFT OUTER JOIN tb_users b ON a.firstuserno = b.userno
 				LEFT OUTER JOIN tb_vote c ON a.questionno = c.pno
 			</if>
 			<if test='section == "A"'>

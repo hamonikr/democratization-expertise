@@ -90,7 +90,7 @@ public class QuestionsService {
 	public List<Wiki> findAllTag() {
 		// int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
 		// pageable = PageRequest.of(page, 5,new Sort(Sort.Direction.DESC,"registerdate"));
-		List<Wiki> list = wr.findAllBySection("t");
+		List<Wiki> list = wr.findAllBySectionAndDeleteat("t",0);
 
 		return list;
 	}
@@ -125,15 +125,21 @@ public class QuestionsService {
 		param.put("updatedate", e.get().getUpdatedate());
 		param.put("userno", e.get().getUserno());
 		qm.insertHistory(param);
-
+		
+		
 		if (e.isPresent()) {
 			e.get().setContents(vo.getContents());
 			e.get().setTitle(vo.getTitle());
 			e.get().setUserno(vo.getUserno());
 			e.get().setTagno(vo.getTagno());
 			e.get().setReadcnt(e.get().getReadcnt());
-			e.get().setEditauth(vo.getEditauth());
-			qr.save(vo);
+			
+			if(e.get().getFirstuserno() == vo.getUserno()) {
+				e.get().setEditauth(vo.getEditauth());
+				
+			}
+			
+			qr.save(e.get());
 		}
 
 	}

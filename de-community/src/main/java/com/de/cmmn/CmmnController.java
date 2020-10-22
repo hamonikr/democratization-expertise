@@ -64,9 +64,9 @@ public class CmmnController {
 		
 		List<Enterprises> plist = es.getPromteList();
 		
-		for(int i=0; i<plist.size() ;i++) {
-			System.out.println(plist.get(i).getEnterprisename()+" : "+plist.get(i).getEnterpriseabout());
-		}
+//		for(int i=0; i<plist.size() ;i++) {
+//			System.out.println(plist.get(i).getEnterprisename()+" : "+plist.get(i).getEnterpriseabout());
+//		}
 		
 		model.addAttribute("partners_list", plist);		
 		model.addAttribute("paging", list);
