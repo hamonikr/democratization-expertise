@@ -38,30 +38,30 @@ let restUrl = "http://192.168.0.2:8090";
 let mainWindow, settingWindow;
 
 function createWindow () {
-	//let mainWindowState = windowStateKeeper({
-	//	defaultWidth: 100,
-	//	defaultHeight: 100
-	//});
+	let mainWindowState = windowStateKeeper({
+		defaultWidth: 100,
+		defaultHeight: 100
+	});
 
 	mainWindow = new BrowserWindow({
 		icon:'icons/icon16.png',
 		skipTaskbar: false,
-		//'x': mainWindowState.x,
-		//'y': mainWindowState.y,
-		// 'width': 540, 
-		// 'height': 620,
-		'width': 620, 
-		'height': 540,
+		'x': mainWindowState.x,
+		'y': mainWindowState.y,
+		'width': 427, 
+		'height': 531, 
+		// 'width': 427, 
+		// 'height': 531,
 		 frame:false,
 		 alwaysOnTop: false,
-		 resizable: true,
+		//  resizable: false,
 		 transparent: true,
 		 show: true,
 		 webPreferences: {
 			defaultEncoding: 'utf8',
 			defaultFontFamily: 'cursive',
 			focusable: true,
-			// webviewTag: true,
+			webviewTag: true,
 			nodeIntegration: true,
 			nodeIntegrationInWorker: true,
 			nodeIntegrationInSubFrames: true,
@@ -69,12 +69,10 @@ function createWindow () {
 //			webgl: true
 		}
 	});
+	mainWindowState.manage(mainWindow);
 
-
-  	// mainWindow.loadURL('file://' + __dirname + '/public/jsd.html');
-	  mainWindow.loadURL('file://' + __dirname + '/public/index.html');
+	   mainWindow.loadURL('file://' + __dirname + '/public/index.html');
 	  
-  	// mainWindow.loadURL('file://' + __dirname + '/public/index_tmp.html');
 
 	let display = electron.screen.getPrimaryDisplay();
 	// let widthPosition = display.bounds.width-500;
@@ -153,7 +151,7 @@ let trayIcon  = null;
 
 
 app.on('ready', () => {
-	// createTray();
+	createTray();
 	setTimeout(createWindow, 500);
 	
 });
@@ -207,9 +205,9 @@ ipcMain.on('openBrowser', (event) => {
 });
 
 ipcMain.on('openbrowserCommunity', (event) => {
-	// opn('https://hamonikr.org/');
 	(async () => {
-		await open('http://127.0.0.1:8080/openbrowser/');
+		var getCompyUUID = await readUuidFileOnlyData("licenseChk");
+		await open('http://127.0.0.1:8080/api/loginWithoutForm/'+ getCompyUUID);
 		// await open('https://sindresorhus.com', {app: ['google chrome', '--incognito']});
 	})();
 });
@@ -348,16 +346,13 @@ const chkLIcenseFileAsync = async(event) => {
 	try{
 		var chkLicFileVal = await readUuidFile("licenseChk");
 		var jsonData = JSON.parse(chkLicFileVal);
-		console.log("jsonData===" + JSON.stringify(jsonData));
+		
 		var usedYN = jsonData.output;
-		var stDate = jsonData.stDate;
-		var dtDate = jsonData.dtDate; 
-		var tcIng = jsonData.tcIng;
-		var tcDone = jsonData.tcDone;
-		var tcWait = jsonData.tcWait;
-		var tcTot = jsonData.tcTot;
+		var usernm = jsonData.usernm;
+		var questionTotalCnt = jsonData.totalCnt;
+		var answerCnt = jsonData.ansComplete;
 
-		event.sender.send('isChkLicense', usedYN, stDate, dtDate, tcIng, tcDone, tcWait, tcTot );
+		event.sender.send('isChkLicense', usedYN, usernm, questionTotalCnt, answerCnt );
 	}
 	catch(err){
 		console.log("nofile---" + err);

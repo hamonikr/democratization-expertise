@@ -5,26 +5,29 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- <link rel="stylesheet" href="assets/css/bootstrap.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/animate.css" /> -->
+
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="assets/css/common.css">    
+    <link rel="stylesheet" type="text/css" href="assets/fontawesome-free/css/all.min.css">     
     <link rel="stylesheet" type="text/css" href="assets/css/adminlte.min.css">    
-    <link rel="stylesheet" type="text/css" href="assets/fontawesome-free/css/all.min.css">    
-    <link rel="stylesheet" type="text/css" href="assets/css/starrr.css">    
-    
-    
-    <!-- <link rel="stylesheet" type="text/css" href="assets/js/fontawesome.js">     -->
+                   
+    <style>
+      .dragLayer {
+        -webkit-app-region:drag;
+      }
+      .noneDragLayer {-webkit-app-region: no-drag;}
+
+    </style>
+
 </head>
 <body>
 
-<div class="support">
+<div class="support  dragLayer">
 
     <h1>Hamonikr Stacked</h1>
 
-    <div class="license" id="license_base" style="margin-top: -10px;">
+    <div class="license" id="license_base" style="margin-top: -10px;" class="">
             <div id="licenseInfoLayer" class="text-center orange">커뮤니티 기업 활동을 위해서는 기업 로그인이 필요합니다. </div>
             <div id="licenseAddLayer">
             <input type="text" id="enterId" name="enterId"  placeholder="아이디를  입력해주세요." value="testComy1" class="input_type1" style="margin-top: 0px;"/>
@@ -42,34 +45,27 @@
     <!-- 기술지원 메인  -->
     <div id="mainLayer">
         <div class="supp_con">
-            HamoniKR를 사용하면서 불편한 점이 있으신가요?<br />
-            그렇다면 HamoniKR 커뮤니티에 질문하기를 통해 원하는 문제의 답을 찾을 수 있습니다. <br />
-            그래도 해결이 되지 않으신다면, HamoniKR 기술 지원 앱을 통해 기술지원을 받을 수 있습니다.<br />
-            기술 지원을 받기 위해서는 라이선스 등록이 필요합니다.
+          우리는 코드를 가진 모든 사람을 위한 열린 커뮤니티입니다<br>
+          당신이 겪는 코딩에 대한 어려움을 질문을 통해 답을 얻고,<br>
+          다른 사람들과 그 지식을 공유하고,<br>
+          당신의 능력을 향상시킬수 있도록 돕습니다<br>
         </div>
 
-        <div class="supp_btn">
+        <div class="supp_btn noneDragLayer">
             <button type="button" class="btn_comm" id="footeropenCmmrlct" name="openCmmrlct">하모니카 커뮤니티</button>
-            <button type="button" class="btn_contact" id="feedBack" name="feedBack">기술지원 요청하기</button>
-            
-
-            <button id="abcdddd"> 
-              Trigger Custom Notification 
-             </button> 
-
-            
+            <!-- <button type="button" class="btn_contact" id="feedBack" name="feedBack">기술지원 요청하기</button> -->
         </div>
 
         <section class="content" >
             <div class="container-fluid">
                 <h5 class="mt-4 mb-2"></h5>
                 <div class="row" style="cursor: pointer">
-                    <div class="col-md-3 col-sm-6 col-12" style="margin-left: 31px; padding-left: 0;" id="qnaLayer" style="display:none;">
+                    <div class="col-md-3 col-sm-6 col-9" style="margin-left: 31px; padding-left: 0;" id="qnaLayer" style="display:none;">
                         <div class="info-box">
                             <span class="info-box-icon "><img src="assets/images/iconsfaq.png"></span>
                             <div class="info-box-content">
-                                <span class="info-box-number" >총 요청 수 : <p id="tcTot" style="display: inline;"></p>건</span>
-                                <span class="info-box-text" >처리중 <p id="tcIng" style="display: inline;"></p>건 / 완료 <p id="tcDone" style="display: inline;"></p>건</span>
+                                <span class="info-box-number" >총 질문 수 : <p id="tcTot" style="display: inline;"></p>건</span>
+                                <span class="info-box-text" >미답변 질문 : <p id="tcIng" style="display: inline;"></p>건 <br> 답변 완료 :  <p id="tcDone" style="display: inline;"></p>건</span>
                             </div>
                         </div>
                     </div>
@@ -184,17 +180,17 @@
 <input type="hidden"  id="hiddenLIcenChkVal" name="hiddenLIcenChkVal" value="">
 
 
-
+<script type="text/javascript" src="assets/js/index.js"></script>
+<!-- 
 <script src="assets/js/modernizr-3.5.0.min.js"></script>
 <script src="../node_modules/jquery/dist/jquery.min.js"></script>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/fontawesome.js"></script>
 
-<script type="text/javascript" src="assets/js/index.js"></script>
 
 
 <script src="assets/js/adminlte.js"> </script>
-<script src="assets/js/starrr.js"> </script>
+<script src="assets/js/starrr.js"> </script> -->
 <style>
 .tts {
     position: absolute;

@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html>
+<title>Hamonikr</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/css/w3.css" />
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<link href="http://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css" rel="stylesheet" type="text/css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+.table {display: table; width: 100%; font-size: 21px;}
+.row {display: table-row;}
+.cell {display: table-cell; padding: 3px; border-bottom: 1px solid #DDD;}
+.col1 { width: 50%;}
+.col2 {width: 20%;}
+.col3 {width: 40%;}
+.col4 {width: 100%;}
+
+.dragLayer {
+  -ms-overflow-style: scrollbar;
+  -webkit-app-region:drag;
+}
+.noneDragLayer {-webkit-app-region: no-drag;}		
+
+body {/background: linear-gradient(to right, #3FB6A8, #7ED386);}
+.container {
+  background: #FFFFFF;
+  width: 500px;
+  height: 60px;
+  position: relative;
+  box-shadow: 2px 5px 20px rgba(119, 119, 119, 0.5);
+}
+.logo {
+  float: right;
+  margin-right: 12px;
+  margin-top: 12px;
+  color: #3DBB3D;
+  font-weight: 900;
+  font-size: 1.5em;
+  letter-spacing: 1px;
+}
+.CTA {
+  width: 80px;
+  height: 40px;
+  right: -20px;
+  bottom: 0;
+  margin-bottom: 90px;
+  position: absolute;
+  z-index: 1;
+  background: #7ED386;
+  font-size: 1em;
+  transform: rotate(-90deg);
+  transition: all .5s ease-in-out;
+  cursor: pointer;
+}
+.CTA h1 {
+  color: #FFFFFF;
+  margin-top: 10px;
+  margin-left: 9px;
+}
+.CTA:hover {
+  background: #3FB6A8;
+  transform: scale(1.1);
+}
+.leftbox {
+  float: left;
+  top: -5%;
+  left: 2.5%;
+  position: absolute;
+  height: 110%;
+  background: #333333;
+  /* box-shadow: 3px 3px 10px rgba(119, 119, 119, 0.5); */
+}
+nav a {
+  list-style: none;
+  padding: 20px;
+  color: #ffffff;
+  font-size: 1.1em;
+  display: block;
+  transition: all .3s ease-in-out;
+}
+nav a:hover {
+  /* color: #415584; */
+  transform: scale(1.2);
+  cursor: pointer;
+}
+/* nav a:first-child {margin-top: 7px;} */
+.rightbox {
+	margin-left: 25%;
+  width: 60%;
+}
+.profile, .payment, .subscription, .privacy, .settings {
+  transition: opacity .5s ease-in;
+  position: absolute;
+  width: 70%;
+}
+h1 {
+  color: #7ED386;
+  font-size: 1em;
+  margin-top: 40px;
+}
+h2 {
+  color: #777777;
+  width: 80%;
+  text-transform: uppercase;
+  font-size: 15px;
+  letter-spacing: 1px;
+  /* margin-left: 2px; */
+}
+p {
+  border-width: 1px;
+  border-style: solid;
+  border-image: linear-gradient(to right, #3FB6A8, rgba(126, 211, 134, 0.5)) 1 0%;
+  border-top: 0;
+  width: 100%;
+  font-size: .7em;
+  /* padding: 10px 0px;  */
+  color: #070707;
+}
+span {
+  font-size: .8em;
+  color: #777777;
+}
+.btn {
+  /*text-transform: uppercase;*/
+  border: none;
+  color: #3FB6A8;
+	padding: 5px;
+}
+.btn:hover {
+  text-decoration: underline;
+  font-weight: 900;
+}
+input:focus, textarea:focus, select:focus{
+  outline: none;
+}
+input {
+  border: 0px solid #dddddd;
+  padding: 5px;
+  margin: 0;
+	font-size: 1rem;
+}
+.privacy h2 {margin-top: 25px;}
+.settings h2 {margin-top: 25px;}
+.noshow {opacity: 0;}
+</style>
+<body>
+
+  
+  <div class="container dragLayer">
+<!-- left layer -->
+<!-- <div class="w3-bar w3-border w3-light-grey dragLayer" >
+  <div class="w3-bar-item " style="padding: 0px 0px"></div>
+  <div class="w3-bar-item " style="padding: 0px 0px"></div>
+  <div class="w3-bar-item w3-right noneDragLayer" id="closeBtn" style="padding: 0px 0px">close</div>
+</div> -->
+  <div class="leftbox" style="">
+    <nav id='navLayer'>
+      <a href="javascript:;" id="search" class="active noneDragLayer" style="background: #8059D7;"><i class="fa fa-search">&nbsp;검색&nbsp;</i></a>
+      <a href="javascript:;" id="profile" class="noshow noneDragLayer" style="display:none;"><i class="fa fa-user">정보설정</i></a>
+      <!-- <a href="javascript:;" id="payment" class="noshow noneDragLayer" style="display:none;"><i class="fa fa-folder-open">폴더설정</i></a> -->
+    </nav>
+  </div>
+<!-- right layer -->
+  <div class="rightbox">
+		<div id="BodyId" class="" style="width: 370px;">
+		</div>
+		<div id="searchBodyId" class="search" style="width: 370px;">
+			<p style="padding: 10px 0px;">
+				<span style="font-size: 18px;"> Search : </span><input type="text" id="searchInput" placeholder="Enter Search Keyword" class="noneDragLayer"></input>
+        <a id="settings" class="active search w3-right noneDragLayer" style="color:#3FB6A8;"><i class="fa fa-gear fa-spin" style="font-size:24px"></i></a>
+			</p>
+			<div id="esSearchResultTbody" style="display:none; overflow-x:hidden; overflow-y:scroll; width:400; height:430px;" class="noneDragLayer"></div>
+    </div>
+    <div class="profile noshow" style="display:none;">
+      
+      <div id="signBefore" style="display:none;">
+        <h1 style="background:#e6e6e6; height: 50px; margin-left: -6%; margin-top: 0%; padding: 15px 12px;color:black;" >정보설정</h1>
+        
+        <h2>사용자명 </h2>
+        <p><input type="text" id="userId" name="userId"  value="ryan" placeholder="Enter user name or user id" class="noneDragLayer"></input></p>
+        <br>
+        <h2>그룹명 </h2>
+        <p><input type="text" id="userPw" name="userPw" value="exitem0*" placeholder="Enter Group Name" class="noneDragLayer"></input></p>
+        <input type="hidden" id="userIpAddress"></input>
+        <span><button class="w3-btn noneDragLayer" onClick="setProfile();">확인</button></span>
+      </div>
+
+      <div id="signAfter" style="display:none;">
+        <h1 style="background:#e6e6e6; height: 50px; margin-left: -6%; margin-top: 0%; padding: 15px 12px;color:black;" >정보설정</h1>
+        <h2><span id="singAfterInfo"></span> </h2>
+      </div> 
+    </div>
+
+
+
+    <div class="payment noshow" style="display:none;">
+      <h1 style="background:#e6e6e6; height: 50px; margin-left: -6%; margin-top: 0%; padding: 15px 12px; color:black;">폴더설정</h1>
+      <h2>-개인 폴더 지정.</h2>
+			<div class="w3-container noneDragLayer">
+			  <div id="pre_set" style="display:none;font-size: 13px;" last-id="0">
+			    <div>
+			      <div class="delete_box w3-right">
+			        <button class="btn" onclick="delete_info(this)" ><i class="fa fa-trash-o" style="font-size:16px"></i></button>
+			      </div>
+			      <div class="selection_content" style="overflow: auto;font-size: 16px;"></div>
+			    </div>
+			  </div>
+			  <div id="field" style="max-height:770px; overflow:auto; width: 300px;"></div>
+			</div>
+			<p>
+      <!-- <button id="browse-directory" class="cls_browse-directory btn noneDragLayer">+ Add Folder</button> -->
+      <button id="browse-directory" class="cls_browse-directory  w3-btn noneDragLayer">+ Add Folder</button>
+      <button id="browse-directory-save" class=" w3-btn noneDragLayer" onclick="dirSettingsSave();">∴ Save  </button>
+      </p>
+      <br>
+			<h2>-공유 폴더 지정.</h2>
+      <div class="w3-container noneDragLayer">
+        <div id="public_pre_set" style="display:none;font-size: 16px;" last-id="0">
+          <div>
+            <div class="public_delete_box w3-right">
+              <button class="btn" onclick="public_delete_info(this)" ><i class="fa fa-trash-o" style="font-size:16px"></i></button>
+            </div>
+            <div class="public_selection_content" style="overflow: auto;font-size: 13px;"></div>
+          </div>
+        </div>
+        <div id="public_field" style="max-height:770px; overflow:auto; width: 300px;"></div>
+      </div>
+			<p>
+			<button id="public_browse-directory" class="cls_browse-directory w3-btn noneDragLayer">+ Add Folder</button>
+			<button id="browse-directory-save" class="w3-btn noneDragLayer" onclick="public_dirSettingsSave();">∴ Save  </button>
+			</p>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+const {ipcRenderer} = require('electron');
+	
+
+ipcRenderer.send('openUserUUID', () => {
+	console.log("Event sent.");
+})
+ipcRenderer.on('userUUidData', (event, data) => {
+	$("#userIpAddress").val(data);
+});
+
+// fn_load_profile();
+
+
+$('nav a').click(function(e) {
+  e.preventDefault();
+  $('nav a').removeClass('active');
+  $(this).addClass('active');
+
+  if(this.id === !'payment'){
+    $('.payment').addClass('noshow');
+  }else if(this.id === 'payment') {
+    $('#profile').css('background','#333333');
+    $('#payment').css('background','#8059D7');
+    $('#search').css('background','#333333');
+    $('.payment').removeClass('noshow');
+    $('.rightbox').children().not('.payment').addClass('noshow');
+    $('.profile').hide();
+    $('#signBefore').hide();
+    $('#signAfter').hide();
+
+    
+		$('.payment').show();
+		$('#searchBodyId').height("1px");
+    $('#BodyId').removeClass('noshow');
+    
+    
+    // fn_file_index_load();
+    // fn_file_index_loadPr();
+  }else if (this.id === 'profile') {
+    $('#profile').css('background','#8059D7');
+    $('#payment').css('background','#333333');
+    $('#search').css('background','#333333');
+
+    $('.profile').removeClass('noshow');
+    $('.rightbox').children().not('.profile').addClass('noshow');
+		$('.payment').hide();
+		$('.profile').show();
+    $('#signBefore').show();
+    $('#signAfter').hide();
+		$('#searchBodyId').height("1px");
+		$('#BodyId').removeClass('noshow');
+    // fn_load_profile();
+    fn_appInit();
+  }else if(this.id === 'search') {
+		ipcRenderer.send('resize-me-please', "initLayer");
+
+    // overflow-x:hidden; overflow-y:scroll; width:400; height:500px;
+    
+    $('#search').css('overflow-x', 'hidden');
+    $('#search').css('overflow-y', 'hidden');
+    // $('#search').css();
+
+    $('#profile').css('background','#333333');
+    $('#payment').css('background','#333333');
+    $('#search').css('background','#8059D7');
+		$('#search').css('margin-top','0px');
+    $('.search').removeClass('noshow');
+    $('#payment').addClass('noshow');
+    $('#profile').addClass('noshow');
+  	$('.container').height('50px');
+  	$('.container').width('505px');
+		$('.rightbox').css('margin-left','25%');
+    $('.rightbox').children().not('.search').addClass('noshow');
+		$('#profile').hide();
+	  $('.profile').hide();
+    $('#signBefore').hide();
+    $('#signAfter').hide();
+	  $('#payment').hide();
+	  $('.payment').hide();
+		$('#searchBodyId').css('height', '');
+		$('#searchBodyId').css('width', '370px');
+		$('#esSearchResultTbody').addClass('noshow');
+	  $('#esSearchResultTbody').hide();
+    $('#BodyId').removeClass('noshow');
+    $('#navLayer').css('margin-top','0px');
+  }
+});
+
+$('#settings').click(function(e) {
+	layerChange();
+		
+  $('#profile').css('background','#8059D7');
+  $('#payment').css('background','#333333');
+  $('#search').css('background','#333333');
+  $('#search').removeClass('noshow active');
+	$('#profile').addClass('active');
+  $('.rightbox').children().not('.profile').addClass('noshow');
+  $('.profile').show();
+  $('#signBefore').show();
+  $('#signAfter').hide();
+	$('#searchBodyId').height("1px");
+	$('#esSearchResultTbody').addClass('noshow');
+  $('#esSearchResultTbody').hide();
+  $('#BodyId').removeClass('noshow');
+  $('#navLayer').css('margin-top','20px');
+	// fn_load_profile();
+    fn_appInit();
+});
+
+
+
+
+function layerChange(){
+	ipcRenderer.send('resize-me-please', "viewLayer");
+  $('.container').height('500px');
+  $('.container').width('550px');
+  $('.rightbox').css('margin-left','30%');
+  $('#payment').removeClass('noshow');
+  $('#profile').removeClass('noshow');
+	$('#searchBodyId').css('height', '');
+  $('#profile').show();
+  $('#payment').show();
+  $('.profile').removeClass('noshow');
+}
+
+$("#searchInput").keydown(function(key) {
+  console.log("a==========+"+key.keyCode); 
+    if (key.keyCode == 13) {
+			ipcRenderer.send('resize-me-please', "viewLayer");
+			$('.container').fadeOut(300);
+      $('.container').fadeIn(300);
+			$('.container').height('500px');
+      $('.container').width('550px');
+      $('#searchBodyId').width('400px');
+			$('#esSearchResultTbody').removeClass('noshow');
+			$('#esSearchResultTbody').show();
+			$('#search').css('margin-top','7px');
+			var fs = require("fs");
+			var osType = require('os');
+			var dirpath = osType.homedir() + '/.config/hamonikr_finder/userinfo_config';
+			var uuidData = fs.readFileSync(dirpath, 'utf8');
+      var unirest = require('unirest');
+      var st = getDateTime();
+      console.log("[검색 시간 측정]");
+	    console.log("startTime is : " + getDateTime() );
+      unirest.post('http://127.0.0.1:8080/api/list')
+        .header('Accept', 'application/json')
+        .send({ "searchtext": $("#searchInput").val() })
+        // .send({ "id": $("#searchInput").val(), "userUuid":uuidData, "groupNm": $("#groupNm").val(), "userNm": $("#userId").val() })
+        .end(function (response) {
+          var innerData = "";
+          var esResultObj = response.body;
+          console.log("esResultObj=========+++"+esResultObj);
+          console.log("esResultObj=========+++"+esResultObj.vo);
+          console.log("esResultObj=========+++"+esResultObj.listCount);
+          console.log("esResultObj=========+++"+esResultObj.paginationInfo);
+          console.log("esResultObj=========+++"+esResultObj.list);
+          
+
+          
+
+          $("#esSearchResultTbody").empty();
+        
+          if( typeof esResultObj == "undefined" ){
+            innerData += '<div class="w3-panel w3-border-left w3-pale-red w3-border-red" style="margin: 10px 0;">';
+            innerData += '<span style="font-size: 14px;">검색결과www가 없습니다.</span><br>';
+            innerData += '</div>';
+            $("#esSearchResultTbody").append(innerData);
+          }
+          else {
+            if( esResultObj.listCount <= 0 ){
+              innerData += '<div class="w3-panel w3-border-left w3-pale-red w3-border-red" style="margin: 10px 0;">';
+              innerData += '<span style="font-size: 14px;">검색결aaa과가 없습니다.</span><br>';
+              innerData += '</div>';
+            } 
+            else {
+
+
+              var cusorVal = "";
+              var jsontext = esResultObj.list;
+              var contact = jsontext; //JSON.parse(jsontext);
+              innerData += '<div class="table">';
+              if( contact.length > 0 ){
+              	$("#esSearchResult").show();
+								var fileSharing = "";
+                for (var i = 0; i < contact.length; i++) {
+                  
+                  console.log("contact[i].questionno==========++"+contact[i].questionno);
+                  
+                  // innerData += '<div   class="w3-panel w3-border-bottom w3-padding-16" style="margin: 10px 0;">';
+                    // innerData += '<span class="openFileTag" onclick="folderOpen(this);" data-value="'+contact[i].questionno+'">'+contact[i].title;
+
+                    innerData += '<div class="row">';
+                  innerData += '<span class="cell col1" onclick="rowView(this);" data-value="'+contact[i].questionno+'">'+contact[i].title +'</span>';
+                  innerData += '<span class="cell col2" >'+contact[i].userno +'</span>';
+                  innerData += '<span class="cell col3">'+contact[i].regdt +'</span>';
+            		  innerData += '<input type="hidden" name="owner_uuid" id="owner_uuid" value="'+contact[i].questionno+'"></input>';
+                  innerData += '</div>';
+                }
+              }
+            }
+            innerData += '</div>';
+            $("#esSearchResultTbody").append(innerData);
+            console.log("end time is : " + getDateTime());
+          }
+        });
+    }
+  });
+
+$("#Elasticsearch-----searchInput").keydown(function(key) {
+    if (key.keyCode == 13) {
+			ipcRenderer.send('resize-me-please', "viewLayer");
+			$('.container').fadeOut(300);
+      $('.container').fadeIn(300);
+			$('.container').height('500px');
+      $('.container').width('550px');
+      $('#searchBodyId').width('400px');
+			$('#esSearchResultTbody').removeClass('noshow');
+			$('#esSearchResultTbody').show();
+			$('#search').css('margin-top','7px');
+			var fs = require("fs");
+			var osType = require('os');
+			var dirpath = osType.homedir() + '/.config/hamonikr_finder/userinfo_config';
+			var uuidData = fs.readFileSync(dirpath, 'utf8');
+      var unirest = require('unirest');
+      var st = getDateTime();
+      console.log("[검색 시간 측정]");
+	    console.log("startTime is : " + getDateTime() );
+      unirest.post('http://127.0.0.1:3001/api/es')
+        .header('Accept', 'application/json')
+        .send({ "id": $("#searchInput").val(), "userUuid":uuidData, "groupNm": $("#groupNm").val(), "userNm": $("#userId").val() })
+        .end(function (response) {
+          var innerData = "";
+          var esResultObj = response.body;
+          $("#esSearchResultTbody").empty();
+          if( typeof esResultObj == "undefined" ){
+            innerData += '<div class="w3-panel w3-border-left w3-pale-red w3-border-red" style="margin: 10px 0;">';
+            innerData += '<span style="font-size: 14px;">검색결과가 없습니다.</span><br>';
+            innerData += '</div>';
+            $("#esSearchResultTbody").append(innerData);
+          }else {
+            if( typeof esResultObj.message == "undefined" ){
+              innerData += '<div class="w3-panel w3-border-left w3-pale-red w3-border-red" style="margin: 10px 0;">';
+              innerData += '<span style="font-size: 14px;">검색결과가 없습니다.</span><br>';
+              innerData += '</div>';
+            } else {
+              var cusorVal = "";
+              var jsontext = esResultObj.message;
+              var contact = JSON.parse(jsontext);
+              if( contact.length > 0 ){
+              	$("#esSearchResult").show();
+								var fileSharing = "";
+                for (var i = 0; i < contact.length; i++) {
+
+                  innerData += '<div class="w3-panel w3-border-bottom w3-padding-16" style="margin: 10px 0;">';
+                  
+                  if( contact[i].fileSharing == "PR"){
+                    fileSharing = "공유-"+contact[i].owner_nm;
+                    innerData += '<span style="font-size: 14px;">'+'['+fileSharing+'] </span>';
+                    innerData += '<a href="javascript:;" class="btn" onclick="fileDown(this);" data-value="'+contact[i].filepath+'" data-ownerid="'+contact[i].owner_uuid+'">';
+                    innerData += '<i class="fa fa-download" aria-hidden="true" style="color:#8059D7; padding: 5px 0px;"></i></a>';
+                    innerData += '<a href="javascript:;" class="btn" onclick="userCalling(this);" data-value="'+contact[i].owner_uuid+'" data-ownerid="'+contact[i].owner_uuid+'">';
+                    innerData += '<i class="fa fa-phone" aria-hidden="true" style="color:#8059D7; padding: 5px 0px;"></i></a>';
+                    innerData += '<br>';
+                    cusorVal = "cursor: default";
+									}else{
+                    fileSharing = "개인";
+                    innerData += '<span style="font-size: 14px;">'+'['+fileSharing+'] </span>';
+                    cusorVal = "cursor: pointer";
+                  }
+                  innerData += '<span class="openFileTag" onclick="folderOpen(this);" style="'+cusorVal+'" data-gubun="'+contact[i].fileSharing+'" data-value="'+contact[i].filepath+'">'+contact[i].filepath;
+            		  innerData += '</span>';
+            		  innerData += '<input type="hidden" name="owner_uuid" id="owner_uuid" value="'+contact[i].owner_uuid+'"></input>';
+                  innerData += '</div>';
+                }
+              }
+            }
+            $("#esSearchResultTbody").append(innerData);
+            console.log("end time is : " + getDateTime());
+          }
+        });
+    }
+  });
+
+function addconfige_info(x) {
+    var pre_set = document.getElementById('pre_set');
+    var fieldid = pre_set.getAttribute('last-id');
+    pre_set.setAttribute('last-id',Number(fieldid) + 1 );
+    var div = document.createElement('div');
+    div.innerHTML = pre_set.innerHTML;
+    div.id = 'field-data-' + fieldid;
+    var temp = div.getElementsByClassName('selection_content')[0];
+    temp.innerText = x ;
+    var deleteBox = div.getElementsByClassName('delete_box')[0];
+    deleteBox.setAttribute('target',div.id);
+    document.getElementById('field').appendChild(div);
+}
+
+function delete_info(obj) {
+  var target = obj.parentNode.getAttribute('target');
+  var field = document.getElementById(target);
+  document.getElementById('field').removeChild(field);
+  if( $("#field").children().length == 0){
+    document.getElementById('pre_set').setAttribute('last-id', 0);
+  }
+}
+
+function dirSettingsSave(){
+  var tempDirAddress = "";
+  if ( $("#field").children().length != 0 ){
+    for( var i=0; i<$("#field").children().length; i++){
+      console.log(i +"==="+ $("#field-data-"+i).find(".selection_content").text() );
+      tempDirAddress += $("#field-data-"+i).find(".selection_content").text() +"\n";
+    }
+		const {ipcRenderer} = require('electron');
+	  ipcRenderer.send('save-dir-path', tempDirAddress, "true", "PV", "" , $("#userId").val());
+  }else{
+		ipcRenderer.send('save-dir-path', tempDirAddress, "false", "PV", "", $("#userId").val());
+  }
+  fn_alert("설정이 저장되었습니다.");
+}
+
+// public 
+function public_addconfige_info(x) {
+  // console.log('x==================' + x);addconfige_info
+  var pre_set = document.getElementById('public_pre_set');
+  var fieldid = pre_set.getAttribute('last-id');
+  pre_set.setAttribute('last-id',Number(fieldid) + 1 );
+  var div = document.createElement('div');
+  div.innerHTML = pre_set.innerHTML;
+  div.id = 'public_field-data-' + fieldid;
+  var temp = div.getElementsByClassName('public_selection_content')[0];
+  temp.innerText = x ;
+  var deleteBox = div.getElementsByClassName('public_delete_box')[0];
+  deleteBox.setAttribute('target',div.id);
+  document.getElementById('public_field').appendChild(div);
+}
+
+function public_delete_info(obj) {
+  var target = obj.parentNode.getAttribute('target');
+  var field = document.getElementById(target);
+  document.getElementById('public_field').removeChild(field);
+  if( $("#public_field").children().length == 0){
+    document.getElementById('public_pre_set').setAttribute('last-id', 0);
+  }
+}
+
+function public_dirSettingsSave(){
+	if( $("#groupNm").val().length == 0){
+		fn_alert("정보설정 매뉴에서 그룹을 등록해주세요.");
+		return false;
+	}
+	if( $("#public_field").children().length == 0){
+    fn_alert("공유할 폴더를 등록해주세요.");
+    return false;
+  }
+
+  var tempDirAddress = "";
+  if ( $("#public_field").children().length != 0 ){
+    for( var i=0; i<$("#public_field").children().length; i++){
+      tempDirAddress += $("#public_field-data-"+i).find(".public_selection_content").text() +"\n";
+    }
+    const {ipcRenderer} = require('electron');
+    ipcRenderer.send('save-dir-path', tempDirAddress, "true", "PR", $("#groupNm").val(), $("#userId").val());
+  }else{
+    ipcRenderer.send('save-dir-path', tempDirAddress, "false", "PR", $("#groupNm").val(), $("#userId").val());
+  }
+
+  fn_alert("설정이 저장되었습니다.");
+}
+
+// 개인정보 설정 버튼 클릭  =====================================================
+function setProfile(){
+        var unirest = require('unirest');
+        var fs = require("fs");
+  var osType = require('os');
+  // var dirpath = osType.homedir() + '/.config/hamonikr_finder/userinfo_config';
+  // var uuidData = fs.readFileSync(dirpath, 'utf8');
+  unirest.post('http://127.0.0.1:8080/api/signproc')
+    .header('Accept', 'application/json')
+    
+    
+    .send({ "userid": $("#userId").val(), "userpassword": $("#userPw").val(), "userIp": $("#userIpAddress").val() })
+    // .send({ "userid": "ryan", "userpassword": "exitem0*",  "userIp": $("#userIpAddress").val() })
+    .end(function (response) { 
+      console.log(response.body);
+      var retval = response.body;
+      
+      if( retval.output == "Y" ){
+        const {ipcRenderer} = require('electron');
+        ipcRenderer.send('saveUserInfo',  $("#userId").val(), $("#userPw").val());
+        
+        $('#signBefore').hide();
+        $('#signAfter').show();
+        $('#singAfterInfo').text(retval.usernm+"님 접속을 환영합니다.");
+      }else{
+        fn_alert("로그인 정보가 틀립니다.");
+      }
+
+    });
+}
+
+  
+ // =======================================================
+
+function fn_file_index_load(){
+	const {ipcRenderer} = require('electron');
+	ipcRenderer.send('openConfigFile', () => {
+	  console.log("Event sent.");
+	})
+	ipcRenderer.on('settingData_arr', (event, data) => {
+	  var settingData_arr = data.split('\n');
+	  if( settingData_arr.length != 0 ){
+
+      // if( $("#field").children().length == 0){
+//     document.getElementById('pre_set').setAttribute('last-id', 0);
+//   }
+      $('#field').children().remove();
+
+	    for(var i=0; i<settingData_arr.length -1 ;++i){
+	      addconfige_info(settingData_arr[i]);
+	    }
+	  }
+	})
+}
+
+function fn_file_index_loadPr(){
+	const {ipcRenderer} = require('electron');
+	ipcRenderer.send('prOpenConfigFile', () => {
+	  console.log("Event sent.");
+	})
+	ipcRenderer.on('prSettingData_arr', (event, data) => {
+	  var settingData_arr = data.split('\n');
+	  if( settingData_arr.length != 0 ){
+      $('#public_field').children().remove();
+	    for(var i=0; i<settingData_arr.length -1 ;++i){
+        // console.log("=================+++" + settingData_arr[i]);
+        // addconfige_info(settingData_arr[i]);
+        public_addconfige_info(settingData_arr[i]);
+	    }
+	  }
+	})
+}
+
+function fn_load_profile(){
+	var unirest = require('unirest');
+  var fs = require("fs");
+  var osType = require('os');
+  var dirpath = osType.homedir() + '/.config/hamonikr_finder/userinfo_config';
+  console.log("dirpath===="+dirpath);
+  var isFileExists = fs.existsSync(dirpath);
+  if(isFileExists){
+    var uuidData = fs.readFileSync(dirpath, 'utf8');
+    unirest.post('http://127.0.0.1:3001/select')
+      .header('Accept', 'application/json')
+      .send({ "userUuid": uuidData })
+      .end(function (response) {
+        $("#groupNm").val(response.body.group_nm);
+        $("#userId").val(response.body.user_nm);
+   });
+  }
+}
+
+function fn_alert(arg){
+	const Dialogs = require('dialogs')
+  const dialogs = Dialogs()
+  dialogs.alert(arg, ok => {
+    console.log('alert', ok)
+    //dialogs.confirm('ok?', ok => {
+    //  console.log('confirm', ok)
+    //  dialogs.prompt('username', 'joe.smith@gmail.com', ok => {
+    //    console.log('prompt with default', ok)
+    //    dialogs.prompt('username', ok => {
+    //      console.log('prompt', ok)
+    //    })
+    //  })
+    //})
+  });
+  $('.dialog-widget').addClass('noneDragLayer');
+}
+
+function getDateTime() {
+  var date = new Date();
+  var hour = date.getHours();
+  hour = (hour < 10 ? "0" : "") + hour;
+  var min  = date.getMinutes();
+  min = (min < 10 ? "0" : "") + min;
+  var sec  = date.getSeconds();
+  sec = (sec < 10 ? "0" : "") + sec;
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  month = (month < 10 ? "0" : "") + month;
+  var day  = date.getDate();
+  day = (day < 10 ? "0" : "") + day;
+  return year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec +"." + date.getMilliseconds();
+}
+
+function fileDown( val ){
+
+	var ownerDir = val.getAttribute("data-value");
+	var ownerId = val.getAttribute("data-ownerid");									
+	console.log("aaa====" + ownerDir +"=="+ ownerId);
+
+	var unirest = require('unirest');
+	unirest.post('http://127.0.0.1:3001/ownerIp')
+    .header('Accept', 'application/json')
+    .send({ "owner_uuid": ownerId })
+    .end(function (response) {
+      var innerData = "";
+      var ownerInfoObj = response.body;
+      // window.location.href = "http://"+ownerInfoObj+":3001/fileapi/bbb?file="+ownerDir;
+      console.log("====> "+ "http://"+ownerInfoObj+":3001/fileapi/bbb?file="+ownerDir);
+      document.getElementById("myiframe").src = "http://"+ownerInfoObj+":3001/fileapi/bbb?file="+ownerDir;
+	});		  
+}
+
+const open = require('open');
+function userCalling(val){
+
+  const Dialogs = require('dialogs')
+  const dialogs = Dialogs()
+  dialogs.confirm('화상통화 요청을 하시겠습니까?', ok => {
+
+    if( ok ){
+      var ownerId = val.getAttribute("data-value"); 
+      var ownerDir = val.getAttribute("data-value");
+      var ownerId = val.getAttribute("data-ownerid");									
+
+      var ownerInfoObj = "";
+      var unirest = require('unirest');
+      unirest.post('http://127.0.0.1:3001/ownerIp')
+        .header('Accept', 'application/json')
+        .send({ "owner_uuid": ownerId })
+        .end(function (response) {
+          var innerData = "";
+          ownerInfoObj = response.body;
+          document.getElementById("myiframe").src = "http://"+ownerInfoObj+":8081/notify";
+      });		  
+      (async () => {
+          await open('https://hamonia.kr/1234', {app: 'firefox'});
+      })();
+    }
+  });
+  $('.dialog-widget').addClass('noneDragLayer');
+}
+
+function rowView(val){
+  var rowno = val.getAttribute("data-value");
+  console.log(rowno);
+  var unirest = require('unirest');
+  unirest.post('http://127.0.0.1:8080/api/view')
+        .header('Accept', 'application/json')
+        .send({ "questionno": rowno})
+        .end(function (response) {
+          var innerData = "";
+          var esResultObj = response.body;
+          console.log("esResultObj=========+++"+JSON.stringify(esResultObj));
+          console.log("esResultObj=========+++"+JSON.stringify(esResultObj.title));
+
+          $("#esSearchResultTbody").empty();
+
+          var cusorVal = "";
+              var contact = esResultObj;
+              console.log("contact=="+JSON.stringify(contact));
+              
+              	$("#esSearchResult").show();
+                  innerData += '<div class="table">';    
+                  innerData += '<div class="row">';
+                  innerData += '<span class="cell col1" >'+contact.title +'</span>';
+                  innerData += '<span class="cell col2" >'+contact.userno +'</span>';
+                  innerData += '<span class="cell col3">'+contact.regdt +'</span>';
+                  innerData += '</div>';
+                  innerData += '<div class="row">';
+                  innerData += '<span class="cell col1" >'+contact.contents +'</span>';
+                  innerData += '</div>';
+                  innerData += '<div class="row">';
+                    innerData += '<div><button class="w3-btn noneDragLayer" onClick="golist();">목록</button></div>';
+                    innerData += '</div>';  
+                  innerData += '</div>';
+
+            $("#esSearchResultTbody").append(innerData);
+            console.log("end time is : " + getDateTime());
+        });
+
+}
+
+// $("#searchInput").keydo
+function golist(){
+  var e = jQuery.Event("keydown");
+e.which = 50; // # Some key code value
+e.keyCode = 13
+$("#searchInput").trigger(e);
+}
+
+
+function folderOpen(val){
+  var fileDir = val.getAttribute("data-value");
+  var gubun = val.getAttribute("data-gubun");
+  
+  if( gubun == 'PV' || gubun == 'pv'){
+    const {ipcRenderer} = require('electron');
+    ipcRenderer.send('openFileDir', fileDir);
+  }
+}
+
+function fn_appInit(){
+
+console.log("aaaaaaaaaaaa");
+  ipcRenderer.send('initApp', () => {
+      console.log("Event sent.");
+    })
+
+  ipcRenderer.on('initAppProc', (event, data) => {
+    console.log("aaaaaaaaaaaadata=========++"+ data.usernm);
+      if( data.output == "Y" ){
+        $('#signBefore').hide();
+        $('#signAfter').show();
+        $('#singAfterInfo').text(data.usernm+"님 접속을 환영합니다.");
+      }
+    })
+  }
+  
+</script>
+<script>require('./renderer.js')</script>
+<iframe id="myiframe" style="display:none;"></iframe>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.16.0/moment-with-locales.min.js"></script>
+</body>
+</html> 
+
+
+
+

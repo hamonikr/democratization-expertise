@@ -57,18 +57,18 @@ ipcRenderer.on('isOsMachineId', (event, machineIdVal) => {
 
 // 로그인  체크
 ipcRenderer.send('licenseChkProc');
-ipcRenderer.on('isChkLicense', (event, usedYN, stDate, dtDate, tcIng, tcDone, tcWait, tcTot) => {
+ipcRenderer.on('isChkLicense', (event, usedYN, usernm, totalCnt, answerCnt) => {
 
 	var licenseInfoLayer = document.getElementById("licenseInfoLayerDescription");
 	console.log("usedYN==="+ usedYN);
 	hiddenLIcenChkVal.value = usedYN;
 
 	if( usedYN == 'Y' ){
-		licenseInfoLayer.innerHTML="님 접속하셨습니다." + stDate +"~" + dtDate;
+		licenseInfoLayer.innerHTML= usernm + "님 접속하셨습니다." ;
 		
-		document.getElementById("tcIng").innerText=tcIng;
-		document.getElementById("tcDone").innerText=tcDone;
-		document.getElementById("tcTot").innerText=tcTot;
+		document.getElementById("tcIng").innerText= (totalCnt-answerCnt);
+		document.getElementById("tcDone").innerText=answerCnt;
+		document.getElementById("tcTot").innerText=totalCnt;
 
 		$("#license_base").hide();
 		$("#qnaLayer").show();
@@ -428,13 +428,6 @@ btn_noticeBtn.addEventListener('click',function(event){
 
 
 
-// const initPageLayer = document.getElementById('initPage');
-// initPageLayer.addEventListener('click',function(event){
-// 	location.reload();
-// });
-
-
-
 function fn_alert(arg){
 	const Dialogs = require('dialogs');
 	  const dialogs = Dialogs()
@@ -527,19 +520,18 @@ ipcRenderer.on('isTchnlgyIngryProc', (event, isProcYN, ) => {
 //   (function() {
 	  function createNotification(title, message) {
 		  console.log("createNotification===========");
-		  let myNotification = new Notification('Title', {
-			  body: 'Lorem Ipsum Dolor Sit Amet'
+		  let myNotification = new Notification(title, {
+			  body: message // '미등록된 답변이 있습니다.'
 		 })
 		 
 		 myNotification.onclick = () => {
 			  console.log('Notification clicked');
-			//   open('http://google.com');
 			ipcRenderer.send('openbrowserCommunity');
 		 }
 	  };
 	  var handleNotification = function(event) {
-		  var title ="aa",
-			  message = "aaa";
+		  var title ="DE-Community",
+			  message = "미등록된 답변이 있습니다.";
 		  createNotification(title, message)
 	  };
 	//   var notifyButton = document.getElementById("abcdddd");
@@ -563,7 +555,7 @@ class Poller extends EventEmitter {
     }
 }
 
-let poller = new Poller(6000);
+let poller = new Poller(60000);
 poller.onPoll(() => {
 		testA();
         poller.poll(); // Go for the next poll
