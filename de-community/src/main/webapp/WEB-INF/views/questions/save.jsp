@@ -77,7 +77,7 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="callout callout-info">
-							<h5>질문등</h5>
+							<h5>질문등록</h5>
 						</div>
 
 						<div class="invoice p-3 mb-3" style="border-left: 5px solid #117a8b;">
@@ -89,8 +89,16 @@
 										<label for="subject">
 											제목 <span class="important">*</span>
 										</label>
-										<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="${result.title}" />
-										<span>${result.title}</span>
+										<c:choose>
+											<c:when test="${result.title ne null}">
+												<span>
+													${result.title }
+												</span>
+											</c:when>  
+											<c:otherwise>
+												<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="" />
+											</c:otherwise>											
+										</c:choose>
 									</div>
 									<div class="form-group">
 										<label for="contents">
@@ -119,10 +127,10 @@
 											</c:forEach>
 										</select>
 									</div>
-									<c:if test="${result.users.userno eq user.userno or result.users.userno eq null}">
+								 <c:if test="${(result.firstuserno eq user.userno) or (result.users.userno eq null)}"> 
 									<div class=" row form-group">
 										<div class="col-1">
-											수정권한
+											수정권한 ${result.editauth}
 										</div>
 										<div class="col-2">
 										<input type="checkbox" class="custom-control-input" name="editcheck" checked="" data-bootstrap-switch="" data-off-color="danger" data-on-color="success">

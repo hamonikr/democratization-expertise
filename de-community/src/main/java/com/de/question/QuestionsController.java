@@ -95,10 +95,10 @@ public class QuestionsController {
 		List<Questions> list = qs.getList(questions);
 		List<Wiki> tagList = qs.findAllTag();
 
-		for (int i=0;i<list.size();i++) {
-			System.out.println("users?" + list.get(i).getUsers().getUserno()+" : " + list.get(i).getUsers().getUsername());
-			System.out.println("Questions?" + list.get(i).getFirstuserno()+" : "+list.get(i));
-		}
+//		for (int i=0;i<list.size();i++) {
+//			System.out.println("users?" + list.get(i).getUsers().getUserno()+" : " + list.get(i).getUsers().getUsername());
+//			System.out.println("Questions?" + list.get(i).getFirstuserno()+" : "+list.get(i));
+//		}
 		
 		int listCount = qs.getListCount(questions);
 		paginationInfo.setTotalRecordCount(listCount); // 전체 게시물 건 수
@@ -157,11 +157,7 @@ public class QuestionsController {
 		qs.updateReanCnt(questionno);
 		Questions qvo = new Questions();
 		qvo = qs.getView(questionno);
-		
-		System.out.println("userno? "+qvo.getUserno());
-		System.out.println("firstuserno? "+qvo.getFirstuserno());
-		System.out.println("editauth --? " +qvo.getEditauth());
-		
+				
 		model.addAttribute("result", qvo);
 		param.put("questionno",questionno );
 		model.addAttribute("history",cs.selectList("selectHistory", param));
@@ -185,8 +181,6 @@ public class QuestionsController {
 		Questions qvo = new Questions();
 		qvo = qs.getView(questionno);
 
-		System.out.println("userno? "+qvo.getUserno());
-		System.out.println("firstuserno? "+qvo.getFirstuserno());
 		model.addAttribute("result", qvo);
 		model.addAttribute("user", user);
 		return "/questions/save";
@@ -199,6 +193,7 @@ public class QuestionsController {
 		if (user == null) {
 			return "redirect:/login";
 		}
+		System.out.println("1에서? editauth 0으로 넘어온다>>> "+vo.getEditauth());
 		// 질문수정
 		qs.updateById(vo);
 		return "redirect:/questions/list";
