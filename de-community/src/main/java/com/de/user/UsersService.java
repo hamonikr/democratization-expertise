@@ -197,9 +197,15 @@ public class UsersService {
 	}
 	
 	// 내 질문 목록 - 최근 5개
+//	public Page<Questions> findQuestionsByUserno(int seq) {
+//		Pageable pageable = PageRequest.of(0, 5, new Sort(Sort.Direction.DESC, "registerdate"));
+//		Page<Questions> list = qr.findAllByUserno(seq, pageable);
+//		return list;
+//	}
+//	
 	public Page<Questions> findQuestionsByUserno(int seq) {
 		Pageable pageable = PageRequest.of(0, 5, new Sort(Sort.Direction.DESC, "registerdate"));
-		Page<Questions> list = qr.findAllByUserno(seq, pageable);
+		Page<Questions> list = qr.findAllByFirstuserno(seq, pageable);
 		return list;
 	}
 

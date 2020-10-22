@@ -90,7 +90,7 @@ public class QuestionsService {
 	public List<Wiki> findAllTag() {
 		// int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
 		// pageable = PageRequest.of(page, 5,new Sort(Sort.Direction.DESC,"registerdate"));
-		List<Wiki> list = wr.findAllBySection("t");
+		List<Wiki> list = wr.findAllBySectionAndDeleteat("t",0);
 
 		return list;
 	}

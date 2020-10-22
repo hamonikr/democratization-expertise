@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WikiRepository extends JpaRepository<Wiki, Integer>{
-	List<Wiki> findAllBySection(String section);
+	List<Wiki> findAllBySectionAndDeleteat(String section, int deleteat);
 
 }
