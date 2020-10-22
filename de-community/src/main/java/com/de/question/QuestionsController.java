@@ -131,6 +131,7 @@ public class QuestionsController {
 		vvo.setPno(vo.getQuestionno());
 		vvo.setSection(vo.getSection());
 		vvo.setUserno(vo.getUserno());
+		System.out.println("editauth--?" +vo.getEditauth());
 		// 질문등록
 		qs.save(vo);
 		// 투표등록
@@ -156,6 +157,11 @@ public class QuestionsController {
 		qs.updateReanCnt(questionno);
 		Questions qvo = new Questions();
 		qvo = qs.getView(questionno);
+		
+		System.out.println("userno? "+qvo.getUserno());
+		System.out.println("firstuserno? "+qvo.getFirstuserno());
+		System.out.println("editauth --? " +qvo.getEditauth());
+		
 		model.addAttribute("result", qvo);
 		param.put("questionno",questionno );
 		model.addAttribute("history",cs.selectList("selectHistory", param));
@@ -178,6 +184,9 @@ public class QuestionsController {
 		model.addAttribute("tagList", tagList);
 		Questions qvo = new Questions();
 		qvo = qs.getView(questionno);
+
+		System.out.println("userno? "+qvo.getUserno());
+		System.out.println("firstuserno? "+qvo.getFirstuserno());
 		model.addAttribute("result", qvo);
 		model.addAttribute("user", user);
 		return "/questions/save";

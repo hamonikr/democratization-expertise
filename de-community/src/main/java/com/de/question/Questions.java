@@ -35,7 +35,7 @@ public class Questions {
 	@Id
 	@Column
 	private Integer questionno;
-	/* 질문 수정 권한 */
+	/* 질문 수정 권한 1이면 수정가능 0이면 수정불가*/
 	private Integer editauth;
 	/* 질문 구분 */
 	private String section;

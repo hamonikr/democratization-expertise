@@ -90,6 +90,7 @@
 											제목 <span class="important">*</span>
 										</label>
 										<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="${result.title}" />
+										<span>${result.title}</span>
 									</div>
 									<div class="form-group">
 										<label for="contents">
