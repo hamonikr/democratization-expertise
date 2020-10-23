@@ -93,6 +93,7 @@
 											<c:when test="${result.title ne null}">
 												<span>
 													${result.title }
+													<input type="hidden" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="${result.title }" />
 												</span>
 											</c:when>  
 											<c:otherwise>
