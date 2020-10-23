@@ -62,7 +62,7 @@ ipcRenderer.on('isChkLicense', (event, usedYN, usernm, totalCnt, answerCnt) => {
 	var licenseInfoLayer = document.getElementById("licenseInfoLayerDescription");
 	console.log("usedYN==="+ usedYN);
 	hiddenLIcenChkVal.value = usedYN;
-
+console.log("usedYN==="+usedYN);
 	if( usedYN == 'Y' ){
 		licenseInfoLayer.innerHTML= usernm + "님 접속하셨습니다." ;
 		

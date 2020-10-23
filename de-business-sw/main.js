@@ -49,7 +49,7 @@ function createWindow () {
 		'x': mainWindowState.x,
 		'y': mainWindowState.y,
 		'width': 427, 
-		'height': 531, 
+		'height': 544, 
 		// 'width': 427, 
 		// 'height': 531,
 		 frame:false,
@@ -65,7 +65,7 @@ function createWindow () {
 			nodeIntegration: true,
 			nodeIntegrationInWorker: true,
 			nodeIntegrationInSubFrames: true,
-			 sandbox: false
+			 sandbox: true
 //			webgl: true
 		}
 	});
@@ -80,7 +80,7 @@ function createWindow () {
   	mainWindow.setMenu(null);
 	mainWindow.setMenuBarVisibility(false);	
 	// Open the DevTools.
-  	mainWindow.webContents.openDevTools(); 
+  	// mainWindow.webContents.openDevTools(); 
 
 	mainWindow.on('closed', function () {
 		mainWindow = null;

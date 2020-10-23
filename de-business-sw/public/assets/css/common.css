@@ -49,7 +49,7 @@ input[type=text], textarea, button {font-family:'Noto Sans KR', '맑은 고딕',
 input[type=text], textarea, button:focus {outline: none;}  
 .labelzero { display: none}
 
-.input_type1   {width: 255px;height:38px;font-size:14px; border-image: linear-gradient(to right, #4fd6d8 0%, #8455d7 100%);border-image-slice: 1;padding-left:10px; color:#555; background: #fff; float:left; }
+.input_type1   {width: 150px;height:38px;font-size:14px; border-image: linear-gradient(to right, #4fd6d8 0%, #8455d7 100%);border-image-slice: 1;padding-left:10px; color:#555; background: #fff; float:left; }
 .input_type2   {width: 100%;height:35px;font-size:14px; color:#555; background: #f2f2f2; display: block; border:1px solid #ddd; border-radius: 5px; padding:0 20px}
 
 .btn_check     {cursor: pointer;display: inline-block; text-align: center; width: 40px; border:2px solid #b6bfcd; height: 38px; background: #b6bfcd url('../images/icon_checked.png') center no-repeat;  font-size: 0}
