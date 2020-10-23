@@ -3,6 +3,13 @@
 
 <link rel="stylesheet" href="/dist/css/adminlte.min.css">
 
+<!-- tui editor-->
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<!-- Editor's Dependecy Style -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+<!-- Editor's Style -->
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
 <style>
 .ellipsis {
 /* height: 200px; 
@@ -13,12 +20,20 @@ overflow: hidden;
 text-overflow: ellipsis; 
 word-wrap: break-word; 
 display: -webkit-box;
--webkit-line-clamp: 10;
+-webkit-line-clamp: 12;
 -webkit-box-orient: vertical;
 
 line-height: 1.2; 
-height: 3.6em; 
+height: 3.6em;
 
+}
+
+.ellipsis_in{
+text-transform: uppercase;
+pointer-events: none;
+cursor: default;
+text-decoration:none ;
+font-size: small;
 }
 </style>
 <script>
@@ -78,7 +93,9 @@ height: 3.6em;
 											 	<p style="font-size:9px;"><a href="/questions/list">${list.relatedcnt}</a> 개의 질문들</p>
 											 </div>
 										</div>
-										<div class="card-body col-12 ellipsis" style="height: 208px;">${list.contents}</div>
+										<div class="card-body col-12 ellipsis" style="height: 208px;">
+											<div class="ellipsis_in" style="color:red">${list.contents}</div>
+										</div>
 									</div>
 								</div>
 							</c:forEach>
@@ -175,4 +192,6 @@ height: 3.6em;
     } );
 
   }
+
+
 </script>

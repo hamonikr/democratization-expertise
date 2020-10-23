@@ -19,9 +19,13 @@
     background: #fff;
     border-top: 0;
     color: #666;
-    padding: 20px
+    padding: 10px;
 }
 
+.login-page{
+	max-width: 100%;
+	width: auto !important;
+}
 
 .algin-center{
 	margin : 10% 10% 10% 10%;
@@ -38,7 +42,7 @@ strong{
 <!-- contents -->
 <div class="hold-transition login-page">
 <!-- 입력 박스 -->
-<div class="col-3">
+<div class="col-6">
 <div class="card">
  <div class="login-card-body" >
   <form id ="frm" name="frm" method="post">      
@@ -59,7 +63,7 @@ strong{
      	<h6><strong>Email 주소</strong></h6>
      </div>
      	<div class="form-group col-12"> 	    
-		      	<input type="email" class="form-control englishOnly" id="email" name="email" value="bono6315@gmail.com" style="margin-left: 10px" placeholder="이메일을 입력해주세요">             	
+		      	<input type="email" class="form-control englishOnly" id="email" name="email" value="" style="margin-left: 10px" placeholder="이메일을 입력해주세요">             	
 		   </div>
         </div>
        <br>
@@ -70,7 +74,7 @@ strong{
      	<h6><strong>이름</strong></h6>
      </div>
      	<div class="form-group col-12"> 	    
-		      	<input type="text" class="form-control" id="name" name="name" value="이영은" style="margin-left: 10px" placeholder="이름을 입력해주세요">             	
+		      	<input type="text" class="form-control" id="name" name="name" value="" style="margin-left: 10px" placeholder="이름을 입력해주세요">             	
 		   </div>
         </div>
 		<br><br>

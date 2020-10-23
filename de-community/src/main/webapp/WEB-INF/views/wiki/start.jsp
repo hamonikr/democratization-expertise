@@ -20,12 +20,22 @@ overflow: hidden;
 text-overflow: ellipsis; 
 word-wrap: break-word; 
 display: -webkit-box;
--webkit-line-clamp: 10;
+-webkit-line-clamp: 8;
 -webkit-box-orient: vertical;
 
 line-height: 1.2; 
 height: 3.6em; 
+font-size: small;
 
+}
+
+.ellipsis_in{
+width: 500px; 
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+text-transform: uppercase;
+font-size: medium;
 }
 </style>
  <body >
@@ -77,7 +87,9 @@ height: 3.6em;
 								<div class="card-body col-12 ellipsis" style="height: 208px;">
 		 							<c:forEach var="list" items="${result}" varStatus="status">
 										<ul>
-					 						<li><a href="/wiki/view/${list.wikino}">${list.title}</a></li>
+					 						<li>
+					 							<p class="ellipsis_in"><a href="/wiki/view/${list.wikino}">${list.title}</a></p>
+					 						</li>
 					 					</ul>
 									</c:forEach>
 								</div>
@@ -93,7 +105,9 @@ height: 3.6em;
 								<div class="card-body col-12 ellipsis" style="height: 208px;">
 		 							<c:forEach var="list" items="${menual_result}" varStatus="status">
 										<ul>
-					 						<li><a href="/wiki/view/${list.wikino}">${list.title}</a></li>
+					 						<li>
+					 							<p class="ellipsis_in"><a href="/wiki/view/${list.wikino}">${list.title}</a></p>
+					 						</li>
 					 					</ul>
 									</c:forEach>
 								</div>
@@ -137,7 +151,9 @@ height: 3.6em;
 											 	<p style="font-size:9px;"><a href="/questions/list">${list.relatedcnt}</a> 개의 질문들</p>
 											 </div>
 										</div>
-										<div class="card-body col-12 ellipsis" style="height: 116px;">${list.contents}</div>
+										<div class="card-body col-12 ellipsis" style="height: 100px;">
+											${list.contents}
+										</div>
 									</div>
 								</div>
 							</c:forEach>
