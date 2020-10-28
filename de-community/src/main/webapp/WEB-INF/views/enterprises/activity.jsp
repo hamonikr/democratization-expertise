@@ -572,19 +572,19 @@ $(window).resize(function(){
 	fnPopupResize();	// 팝업 위치 및 크기 조정
 });
 
-// 승인/거절
+// 승인1/거절2
 function fnt_useratUser(type,uno){
 	if(type == 'not') type = 2;
 	else if(type == 'userat') type = 1;
 	else return;
-	
+	alert(type);
 	$.ajax({
 		url			: '/enterprises/updateUserat',
 		data		: { 'userat' : type , 'userno' : uno},
 		type		: 'post',
-		beforeSend : function(xhr) {
+		/* beforeSend : function(xhr) {
 			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-		},
+		}, */
 		success	: function(data){
 			alert(data.message);
 			if(data.updateVal) location.reload(true);
@@ -595,7 +595,7 @@ function fnt_useratUser(type,uno){
 	});
 }
 
-//활성/비활성
+//활성1/비활성3
 function fnt_activeatUser(type,uno){
 	if(type == 'not') type = 3;
 	else if(type == 'userat') type = 1;
