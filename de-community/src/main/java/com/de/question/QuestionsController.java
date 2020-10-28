@@ -150,7 +150,8 @@ public class QuestionsController {
 		//List<Tags> tagList = qs.tagList();
 		CmmnMap param = new CmmnMap();
 		List<Wiki> tagList = qs.findAllTag();
-		List<Answers> answerList = as.findAllByquestionno(questionno);
+		//List<Answers> answerList = as.findAllByquestionno(questionno);
+		List<Answers> answerList = as.getList(questionno);
 		model.addAttribute("tagList", tagList);
 		model.addAttribute("answerList", answerList);
 		//조회수 증가

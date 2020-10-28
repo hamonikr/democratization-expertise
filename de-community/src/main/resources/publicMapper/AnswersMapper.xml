@@ -43,24 +43,15 @@
 	<result column="contents" property="contents"/>
 </resultMap>
 
-<resultMap type="com.de.question.Questions" id="Questions">
+<resultMap type="com.de.answer.Answers" id="Answers">
 	<result column="questionno" property="questionno"/>
 	<result column="editauth" property="editauth"/>
-	<result column="editauth" property="editauth"/>
-	<result column="title" property="title"/>
+	<result column="selected;" property="selected;"/>
 	<result column="contents" property="contents"/>
 	<result column="userno" property="userno"/>
-	<result column="firstuserno" property="firstuserno"/>
-	<result column="tagno" property="tagno"/>
-	<result column="readcnt" property="readcnt"/>
-	<result column="deleteat" property="deleteat"/>
-	<result column="registerdate" property="registerdate"/>
-	<result column="updatedate" property="updatedate"/>
-	<result column="firstRecordIndex" property="firstRecordIndex"/>
-	<result column="recordCountPerPage" property="recordCountPerPage"/>
-	<collection property="users" resultMap="Users"/>
+	<result column="answerno" property="answerno"/>
 	<collection property="vote" resultMap="Vote"/>
-	<collection property="wiki" resultMap="Wiki"/>
+	<collection property="users" resultMap="Users"/>
 </resultMap>
 
 	<select id="selectANO" resultType="com.de.cmmn.CmmnMap">
@@ -71,20 +62,13 @@
 		or
 		contents like '%' || #{searchtext} || '%')
 	</sql>
-	<select id="getList" parameterType="com.de.question.Questions" resultMap="Questions">
-		select a.*,b.*,c.*
-		from tb_questions a left outer join tb_users b on a.userno = b.userno
-		left outer join tb_vote c on a.questionno = c.pno
-		<if test="searchtext != null and searchtext != ''">
-		<where>
-		<include refid="listWhere" />
-		</where>
-		</if>
-		<if test="sort == null" >order by a.registerdate desc</if>
-		<if test="sort == 1" >order by a.registerdate desc</if>
-		<if test="sort == 2" >order by a.registerdate asc</if>
-		<if test="sort == 3" >order by c.likes desc</if>
-		OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage}
+	<select id="getList" parameterType="java.lang.Integer" resultMap="Answers">
+		select a.* , b.* , c.*
+			from 
+		tb_answers a left outer join tb_vote b 
+			on a.answerno = b.pno 
+		left outer join tb_users c on a.userno = c.userno
+		where a.questionno=#{questionno} and b.section='A';
 	</select>
 	
 	<select id="getListCount" parameterType="com.de.question.Questions" resultType="java.lang.Integer">
@@ -96,14 +80,14 @@
 		</if>
 	</select>
 	
-	<select id="getView" parameterType="integer" resultMap="Questions">
+	<!-- <select id="getView" parameterType="integer" resultMap="Questions">
 		select a.*,b.*,c.*
 		from tb_questions a left outer join tb_users b on a.userno = b.userno
 		left outer join tb_vote c on a.questionno = c.pno
 		<where>
 		a.questionno = #{questionno}
 		</where>
-	</select>
+	</select> -->
 	
 	<update id="updateReanCnt" parameterType="integer">
 	update tb_questions set readcnt = readcnt + 1

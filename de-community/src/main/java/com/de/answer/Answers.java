@@ -2,15 +2,20 @@ package com.de.answer;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 
 import com.de.user.Users;
 import com.de.vote.Vote;
@@ -49,12 +54,12 @@ public class Answers {
 	@UpdateTimestamp
 	private Timestamp updatedate;
 	
-	@ManyToOne
-	@JoinColumn(name= "userno", insertable = false, updatable = false)
+//	@OneToOne
+//	@JoinColumn(name= "userno", insertable = false, updatable = false)
+	@Transient
 	private Users users;
 	
-	@ManyToOne
-	@JoinColumn(name= "pno", insertable = false, updatable = false)
+	@Transient
 	private Vote vote;
 
 }
