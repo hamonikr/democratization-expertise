@@ -228,9 +228,12 @@
 								<div class="form-group">
 									<label for="userUrl" class="col-form-label">홈페이지</label>
 									<c:if test="${ isMypage }">
+									${ isMypage }
+									aa
 										<input class="form-control" id="userUrl" name="userurl" value="${user.userurl}" autocomplete="off">
 									</c:if>
 									<c:if test="${ ! isMypage }">
+									${ isMypage }	bb
 										<input class="form-control" id="userUrl" name="userurl" value="${user.userurl}" autocomplete="off" disabled="disabled">
 									</c:if>
 								</div>

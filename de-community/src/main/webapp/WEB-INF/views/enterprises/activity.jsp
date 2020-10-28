@@ -605,9 +605,9 @@ function fnt_activeatUser(type,uno){
 		url			: '/enterprises/updateUserat',
 		data		: { 'userat' : type , 'userno' : uno},
 		type		: 'post',
-		beforeSend : function(xhr) {
+		/* beforeSend : function(xhr) {
 			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-		},
+		}, */
 		success	: function(data){
 			alert(data.message);
 			if(data.updateVal) location.reload(true);
