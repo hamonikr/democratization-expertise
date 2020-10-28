@@ -78,7 +78,8 @@
 							</div>
 	
 							<div class="col-4 profileLeftDiv">
-								<c:if test="${user.userprofileimg != null}">
+								<c:if test="${ user.userprofileimg.length() != 0 }">
+<%-- 								<c:if test="${user.userprofileimg != null || user.userprofileimg.length() eq 0 }"> --%>
 									<img alt="profile" src="/upload/users/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
 								</c:if>
 								<c:if test="${user.userprofileimg == null and user.picture == null}">
@@ -227,9 +228,12 @@
 								<div class="form-group">
 									<label for="userUrl" class="col-form-label">홈페이지</label>
 									<c:if test="${ isMypage }">
+									${ isMypage }
+									aa
 										<input class="form-control" id="userUrl" name="userurl" value="${user.userurl}" autocomplete="off">
 									</c:if>
 									<c:if test="${ ! isMypage }">
+									${ isMypage }	bb
 										<input class="form-control" id="userUrl" name="userurl" value="${user.userurl}" autocomplete="off" disabled="disabled">
 									</c:if>
 								</div>
@@ -237,16 +241,17 @@
 								<div class="form-group">
 									<label for="enterpriseName" class="col-form-label">회사명</label>
 									<c:if test="${ isMypage }">
-									<input type="hidden" name="enterpriseno" id="enterpriseNo" value="${enterprise.enterpriseno}" autocomplete="off">
 										<%-- <input type="hidden" name="enterpriseno" id="enterpriseNo" value="${enterprise.enterpriseno}" autocomplete="off">
 										<input type="text" class="form-control" id="enterpriseNameSearch" value="${enterprise.enterprisename}" autocomplete="off">
 										<div id="enterpriseListDiv"></div> --%>
 										<c:choose>
 											<c:when test="${enterprise.userat == 1}">
+												<input type="hidden" name="enterpriseno" id="enterpriseNo" value="${enterprise.enterpriseno}" autocomplete="off">
 												<input type="text" class="form-control" id="enterpriseNameSearch" value="${enterprise.enterprisename}" autocomplete="off">
-										
+													<div id="enterpriseListDiv"></div>			
 											</c:when>		
 											<c:otherwise>
+											<input type="hidden" name="enterpriseno" id="enterpriseNo" value="${enterprise.enterpriseno}" autocomplete="off">
 												<input type="text" class="form-control" id="enterpriseNameSearch" value="" autocomplete="off">	
 													<div id="enterpriseListDiv"></div>									
 											</c:otherwise>
@@ -381,10 +386,13 @@ $(function() {
 
 //회사명 입력창
 var oldEnterName = $('#enterpriseNameSearch').val();
-$('#enterpriseNameSearch').on("propertychange change keyup paste input", fn_searchEnterpriseName);
+//$('#enterpriseNameSearch').on("propertychange change keyup paste input", fn_searchEnterpriseName);
 
+
+$('#enterpriseNameSearch').on("propertychange change keyup paste input", function(){
+ //alert(oldEnterName);
 //회사명 실시간 검색 기능
-function fn_searchEnterpriseName() {
+//function fn_searchEnterpriseName() {
 	var enterpriseNameSearch = $('#enterpriseNameSearch').val();
 	if(enterpriseNameSearch == null) enterpriseNameSearch ='';
 	enterpriseNameSearch = $.trim(enterpriseNameSearch);
@@ -400,15 +408,17 @@ function fn_searchEnterpriseName() {
 	}
 
 	oldEnterName = enterpriseNameSearch;
+
 	$('#enterpriseListDiv').html('');
+	
 	$.ajax({
 		url		: '/users/getEnterList',
 		data	: { 'enterName' : enterpriseNameSearch },
 		type	: 'post',
 		async	: false,
-		beforeSend : function(xhr) {
-			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-		},
+// 		beforeSend : function(xhr) {
+// 			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+// 		},
 		success: function(data){
 			for(var i=0; i < data.list.length ; ++i){
 				$('#enterpriseListDiv').append('<p class="entElement" data-value="' + data.list[i].enterpriseno + '">' + data.list[i].enterprisename + '</p>');
@@ -421,7 +431,7 @@ function fn_searchEnterpriseName() {
 			console.log(xhr, status, error);
 		}
 	});
-}
+});
 
 //회사명 선택시
 $('#enterpriseListDiv').on('click', '.entElement', function(){

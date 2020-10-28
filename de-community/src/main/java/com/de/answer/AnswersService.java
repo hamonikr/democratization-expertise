@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.de.answer.mapper.AnswersMapper;
 import com.de.question.mapper.QuestionsMapper;
 import com.de.tag.Tags;
 import com.de.tag.TagsRepository;
@@ -23,6 +24,9 @@ public class AnswersService {
 	
 	@Autowired
 	AnswersRepository ar;
+	
+	@Autowired
+	AnswersMapper am;
 	
 	@Autowired
 	QuestionsMapper qm;
@@ -61,12 +65,16 @@ public class AnswersService {
 		return qm.updateReanCnt(questionno);
 	}
 	
-	public Optional<Answers> findById(int questionno) {
+	public Optional<Answers> findById(int questionno) throws Exception{
 		return ar.findById(questionno);
 	}
 	
-	public List<Answers> findAllByquestionno(int questionno) {
+	public List<Answers> findAllByquestionno(int questionno) throws Exception{
 		return ar.findAllByquestionno(questionno);
+	}
+	
+	public List<Answers> getList(int questionno) throws Exception{
+		return am.getList(questionno);
 	}
 	
 	public Answers save(Answers vo) throws Exception {

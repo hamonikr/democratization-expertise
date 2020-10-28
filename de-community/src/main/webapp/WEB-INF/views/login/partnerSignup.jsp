@@ -212,12 +212,14 @@ strong{
 			                  type: 'post',
 			                  data: {userid},
 			                  success: function(retVal) {		 							
-			 						if(retVal == "사용가능한 아이디입니다"){
+			 						if(retVal == "S"){
+				 						alert("사용가능한 아이디입니다.");
 			 						 	var enterprisebizno = ($("#bizNo1").val() + $("#bizNo2").val() + $("#bizNo3").val());
-			 							var chkbiz = true; //checkBizNo(enterprisebizno);
+			 							var chkbiz = true; 
+			 							checkBizNo(enterprisebizno);
 			 														
 			 							if(chkbiz == true){
-			 								alert("유효한 사업자 번호이다 kkkk--> "+chkbiz);
+			 								alert("유효한 사업자 번호입니다.  "+chkbiz);
 			 								$.ajax({
 			 					             data : {'enterprisebizno':enterprisebizno},
 			 					             url : "/signup/checkBizNoDuplication",
@@ -225,7 +227,7 @@ strong{
 			 					             contentType: "application/json; charset=UTF-8",
 			 					             success : function(chkBiz) {
 			 					            	 if (chkBiz == 1) {                       
-			 					                       alert(chkBiz);
+			 					                       //alert(chkBiz);
 			 					                      $.ajax({
 						 						             url: '/signup/VerifyRecaptcha',
 						 						             type: 'post',

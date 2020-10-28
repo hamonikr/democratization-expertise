@@ -10,7 +10,7 @@ SELECT
 	b.enterprisename
 FROM
 	tb_users_detail a left outer join tb_enterprises b on a.enterpriseno = b.enterpriseno
-WHERE a.userno = #{seq}
+WHERE a.userno = #{seq} and a.userat = 1
 </select>
 <!-- SELECT 
 	enterpriseno,
@@ -45,8 +45,8 @@ SELECT
 FROM 
 	tb_enterprises
 WHERE
-	 enterpriseat = #{enterpriseat} and
-	 enterprisename like '%${enterprisename}%'
+	 enterprisename like '%' || #{enterprisename} || '%'
+ORDER BY enterpriseno DESC
 </select>
 
 <update id="updateUserProfileImg" parameterType="com.de.user.Users">

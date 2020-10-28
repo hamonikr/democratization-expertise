@@ -129,6 +129,22 @@
 							
 							<div class="row">
 								<c:forEach var="list" items="${answerList}" varStatus="stat">
+									<div class="col-2">
+										<span class="font-weight-bold"> 
+										<a href="#" onclick="fnLike('${list.answerno}','${list.userno}','A','${list.vote.likes }','${stat.count }')">
+											<i class="ion ion-android-arrow-up text-success"></i> 
+										</a>
+										<font id="like${stat.count }" >${list.vote.likes }</font></span> 
+										<br> 
+										<span class="font-weight-bold">
+										<a href="#" onclick="fnDisLike('${list.answerno}','${list.userno}','A','${list.vote.dislikes }','${stat.count }')">
+											<i class="ion ion-android-arrow-down text-success"></i>
+										</a> 
+										<font id="dislike${stat.count }">${list.vote.dislikes }</font>
+										</span>
+										<br>
+										<fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd" />
+									</div>
 								<div class="col-10">
 								답변내용:${list.contents } <br/>
 								등록자:${list.users.username } <br/>
@@ -176,9 +192,8 @@
       document.frm.submit();
     }
 
-    function fnLike(p, su, s, l) {
+    function fnLike(p, su, s, l, i) {
       var like = l;
-      console.log( "like===" + like );
       $.ajax( {
       //type: "POST", 
       contentType : "application/json",
@@ -191,7 +206,6 @@
       },
       //dataType: 'json', 
       success : function(data) {
-        console.log( data );
         if (data == "FAIL") {
           alert( "이미 투표하셨습니다." );
           /* $(".like").each(function(index, item){ 
@@ -203,7 +217,11 @@
         } else {
           alert( "투표하였습니다." );
           ++l;
-          $( "#like" ).html( l );
+          if(s == 'Q'){
+          	$( "#like" ).html( l );
+          } else{
+        	$( "#like"+i ).text( l );
+          }
         }
       },
       error : function(e) {
@@ -212,7 +230,7 @@
       } );
 
     }
-    function fnDisLike(p, su, s, l) {
+    function fnDisLike(p, su, s, l , i) {
 
       $.ajax( {
       //type: "POST", 
@@ -235,7 +253,11 @@
         } else {
           alert( "투표하였습니다." );
           ++l;
-          $( "#dislike" ).html( l );
+          if(s == 'Q'){
+          	$( "#dislike" ).html( l );
+          }else{
+        	  $( "#dislike"+i ).text( l );
+          }
         }
       },
       error : function(e) {

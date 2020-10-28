@@ -212,6 +212,7 @@ function fnDelete() {
 
 <script>
 const { Editor } = toastui;
+//const { color-syntax } = Editor.plugin;
 
 const editor = new Editor({
 	 el: document.querySelector('#editor'),
@@ -223,6 +224,7 @@ const editor = new Editor({
 var viewer = Editor.factory({
      el: document.querySelector('#viewer'),
      viewer : true
+    // color: black
 });
 
 </script>

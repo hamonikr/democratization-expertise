@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ import com.de.answer.Answers;
 import com.de.cmmn.util.CodeMessage;
 import com.de.enterprise.Enterprises;
 import com.de.login.service.SecurityMember;
+import com.de.login.vo.LoginVO;
 import com.de.question.Questions;
 import com.de.wiki.Wiki;
 
@@ -50,35 +52,42 @@ public class UsersController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/activity/{seq}", method=RequestMethod.GET)
-	public String dashboard(Model model, @PathVariable("seq") int seq, @AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
+	@RequestMapping(value="/activity/{seq}")
+	public String dashboard(Model model, @PathVariable("seq") int seq, @AuthenticationPrincipal SecurityMember loginUserData, HttpSession sessionloginUser) throws Exception {
 		if(LOG_URL) logger.info(" -- url : /users/activity - seq : " + seq);
 
 		boolean isUserNo = false;
+
+		Optional<Users> users = usersService.findByUserno(seq);
+		System.out.println("seq users--->" + users.get().getUserno());
+
+		//System.out.println("loginUserData.getUserno()==?" + loginUserData.getUserno());
+//		System.out.println("loginUserData>>>>> " +loginUserData.getUserno());
 		
+		System.out.println("sessionloginUser--> "+sessionloginUser.getAttribute("userSession"));
+		
+		LoginVO lvo = (LoginVO) sessionloginUser.getAttribute("userSession");
+		
+	
 		if ( loginUserData == null ) {
 			isUserNo = false;
+			
+			if(sessionloginUser != null) {
+				isUserNo= true;	
+			}else {
+				isUserNo = false;
+			}
 		} else {
-			if( loginUserData.getUserno() == seq ) {
+			if( loginUserData.getUserno() ==  users.get().getUserno() ) {
 				isUserNo = true;
 			}
 		}
 		
-		Optional<Users> users = usersService.findByUserno(seq);
+		System.out.println("isUserNo : " +isUserNo);
+
 		//Optional<Enterprises> enterprise = usersService.findEnterpriseno(seq);
 		Enterprises enterprise = usersService.findEnterpriseno(seq);
-	
-		try{
 
-			System.out.println("enterprise?" + enterprise.getEnterpriseno());
-			System.out.println("enterprise?" + enterprise.getEnterprisename());
-			System.out.println("enterprise?" + enterprise.getUserat());
-
-		}catch (Exception e){
-		    //에러시 수행
-			System.out.println("enterprise 없는 일반 유저");
-		     e.printStackTrace(); //오류 출력(방법은 여러가지)
-		}
 		
 		// 평판점수
 		Integer score = usersService.getScore(seq);
@@ -278,13 +287,16 @@ public class UsersController {
 	@RequestMapping(value="/getEnterList", method=RequestMethod.POST)
 	public HashMap<String, Object> getEnterList(String enterName,HttpServletRequest req) throws Exception{
 		if(LOG_URL) logger.info(" -- url : /users/getEnterList - enterName : " + enterName);
-		
+		System.out.println("getEnterList?? --");
+
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		 List<Enterprises> list= usersService.getEnterList(req.getParameter("entername"));
+		 List<Enterprises> list= usersService.getEnterList(enterName);
+		System.out.println("getEnterList?? --");
+		
 		 for(int i=0;i<list.size();i++) {
-			 System.out.println("enter===="+list.get(i));
+			 System.out.println("enter===="+list.get(i).getEnterprisename());
 		 }
 //		if(updateVal) map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
 //		else map.put("message", CodeMessage.MSG_000024_변경_중_오류가_발생하였습니다_);

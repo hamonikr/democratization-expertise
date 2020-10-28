@@ -36,11 +36,16 @@ strong{
 	font-weight:20px;
 	font-weight:bold;
 }
+
+.login-page{
+ background-color: transparent !important;
+}
+
 </style>
 
 <body>
 <!-- contents -->
-<div class="hold-transition login-page">
+<div class="login-page">
 <!-- 입력 박스 -->
 <div class="col-6">
 <div class="card">
