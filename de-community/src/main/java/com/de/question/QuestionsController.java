@@ -44,7 +44,7 @@ public class QuestionsController {
 
 	@Autowired
 	VoteService vs;
-	
+
 	@Autowired
 	AnswersService as;
 
@@ -99,7 +99,7 @@ public class QuestionsController {
 //			System.out.println("users?" + list.get(i).getUsers().getUserno()+" : " + list.get(i).getUsers().getUsername());
 //			System.out.println("Questions?" + list.get(i).getFirstuserno()+" : "+list.get(i));
 //		}
-		
+
 		int listCount = qs.getListCount(questions);
 		paginationInfo.setTotalRecordCount(listCount); // 전체 게시물 건 수
 		model.addAttribute("list", list);
@@ -111,14 +111,15 @@ public class QuestionsController {
 
 
 	@RequestMapping(value = "/save")
-	public String save(HttpServletRequest request,Model model, Questions qvo, Tags tvo, LoginVO user, HttpSession httpSession) throws Exception {
+	public String save(HttpServletRequest request, Model model, Questions qvo, Tags tvo, LoginVO user,
+			HttpSession httpSession) throws Exception {
 		user = (LoginVO) httpSession.getAttribute("userSession");
-		if(user == null) {
+		if (user == null) {
 			return "redirect:/login";
 		} else {
 			List<Wiki> tagList = qs.findAllTag();
 			model.addAttribute("tagList", tagList);
-			model.addAttribute("user",user);
+			model.addAttribute("user", user);
 			return "/questions/save";
 		}
 	}
@@ -126,12 +127,14 @@ public class QuestionsController {
 
 	@RequestMapping(value = "/save.proc")
 	public String saveproc(HttpServletRequest request, Model model, Questions vo, Vote vvo) throws Exception {
+
+		System.out.println("aaaaaaaa=q vo === " + vo.toString());
 		CmmnMap param = new CmmnMap();
 		vo.setQuestionno(Integer.parseInt(cs.selectObject("selectQNO", param).getString("questionno")));
 		vvo.setPno(vo.getQuestionno());
 		vvo.setSection(vo.getSection());
 		vvo.setUserno(vo.getUserno());
-		System.out.println("editauth--?" +vo.getEditauth());
+		System.out.println("editauth--?" + vo.getEditauth());
 		// 질문등록
 		qs.save(vo);
 		// 투표등록
@@ -146,36 +149,36 @@ public class QuestionsController {
 
 	@RequestMapping("/view/{questionno}")
 	public String view(@PathVariable("questionno") int questionno, Model model,
-			@AuthenticationPrincipal SecurityMember user,HttpSession httpSession) throws Exception {
-		//List<Tags> tagList = qs.tagList();
+			@AuthenticationPrincipal SecurityMember user, HttpSession httpSession) throws Exception {
+		// List<Tags> tagList = qs.tagList();
 		CmmnMap param = new CmmnMap();
 		List<Wiki> tagList = qs.findAllTag();
 		List<Answers> answerList = as.findAllByquestionno(questionno);
 		model.addAttribute("tagList", tagList);
 		model.addAttribute("answerList", answerList);
-		//조회수 증가
+		// 조회수 증가
 		qs.updateReanCnt(questionno);
 		Questions qvo = new Questions();
 		qvo = qs.getView(questionno);
-				
+
 		model.addAttribute("result", qvo);
-		param.put("questionno",questionno );
-		model.addAttribute("history",cs.selectList("selectHistory", param));
-		model.addAttribute("historyCnt",cs.selectCount("selectHistoryCnt", param));
-		if(httpSession.getAttribute("userSession") != null)
-		model.addAttribute("user", httpSession.getAttribute("userSession"));
+		param.put("questionno", questionno);
+		model.addAttribute("history", cs.selectList("selectHistory", param));
+		model.addAttribute("historyCnt", cs.selectCount("selectHistoryCnt", param));
+		if (httpSession.getAttribute("userSession") != null)
+			model.addAttribute("user", httpSession.getAttribute("userSession"));
 		return "/questions/view";
 	}
 
 
 	@RequestMapping("/edit/{questionno}")
-	public String edit(HttpServletRequest request,@PathVariable("questionno") int questionno, Model model,
-			 LoginVO user,HttpSession httpSession) throws Exception {
+	public String edit(HttpServletRequest request, @PathVariable("questionno") int questionno, Model model,
+			LoginVO user, HttpSession httpSession) throws Exception {
 		user = (LoginVO) httpSession.getAttribute("userSession");
-		if(user == null) {
+		if (user == null) {
 			return "redirect:/login";
 		}
-		//List<Tags> list = qs.tagList();
+		// List<Tags> list = qs.tagList();
 		List<Wiki> tagList = qs.findAllTag();
 		model.addAttribute("tagList", tagList);
 		Questions qvo = new Questions();
@@ -188,17 +191,19 @@ public class QuestionsController {
 
 
 	@RequestMapping(value = "/edit.proc")
-	public String editproc(HttpServletRequest request, Model model, Questions vo, LoginVO user,HttpSession httpSession) throws Exception {
+	public String editproc(HttpServletRequest request, Model model, Questions vo, LoginVO user, HttpSession httpSession)
+			throws Exception {
 		user = (LoginVO) httpSession.getAttribute("userSession");
 		if (user == null) {
 			return "redirect:/login";
 		}
-		System.out.println("title? " +vo.getTitle());
-		System.out.println("1에서? editauth 0으로 넘어온다>>> "+vo.getEditauth());
+		System.out.println("title? " + vo.getTitle());
+		System.out.println("1에서? editauth 0으로 넘어온다>>> " + vo.getEditauth());
 		// 질문수정
 		qs.updateById(vo);
 		return "redirect:/questions/list";
 	}
+
 
 	// 내 답변 목록
 	@RequestMapping(value = "/myList")
@@ -224,7 +229,7 @@ public class QuestionsController {
 		questions.setRecordCountPerPage(recordCountPerPage);
 
 		List<Questions> list = qs.getMyList(questions);
-		//List<Tags> tagList = qs.tagList();
+		// List<Tags> tagList = qs.tagList();
 		List<Wiki> tagList = qs.findAllTag();
 
 //		int listCount = qs.getMyListCount(questions);
@@ -236,4 +241,5 @@ public class QuestionsController {
 		model.addAttribute("vo", param);
 		return "/questions/list";
 	}
+
 }

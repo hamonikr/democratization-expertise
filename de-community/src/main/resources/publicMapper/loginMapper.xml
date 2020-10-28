@@ -42,6 +42,13 @@ where a.userid  = #{userid}
 </select>	
 
 
+<select id="getUserUUIDInfo" parameterType="com.de.login.vo.LoginVO" resultType="com.de.login.vo.LoginVO">
+	select * 
+	from tb_users ta
+	where ta.uuiduser  = #{uuiduser} 
+</select>	
+
+
 </mapper>
  
 	
