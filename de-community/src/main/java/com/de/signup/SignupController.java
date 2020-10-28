@@ -70,9 +70,9 @@ public class SignupController {
 	boolean idchk = service.idCheck(vo);
 	
 	if(idchk==false) {
-		chk="사용가능한 아이디입니다";
+		chk="S";
 	}else{
-		chk="중복된 아이디입니다";
+		chk="D";
 	}
 	
 	System.out.println(chk);		

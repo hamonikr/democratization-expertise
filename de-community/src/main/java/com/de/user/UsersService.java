@@ -187,6 +187,7 @@ public class UsersService {
 		Enterprises vo = new Enterprises();
 		vo.setEnterpriseat(1);
 		vo.setEnterprisename(enterName);
+		System.out.println("enterName----:" + enterName);
 		List<Enterprises> list = um.getEnterList(vo);
 		return list;
 	}

@@ -45,8 +45,8 @@ SELECT
 FROM 
 	tb_enterprises
 WHERE
-	 enterpriseat = #{enterpriseat} and
-	 enterprisename like '%${enterprisename}%'
+	 enterprisename like '%' || #{enterprisename} || '%'
+ORDER BY enterpriseno DESC
 </select>
 
 <update id="updateUserProfileImg" parameterType="com.de.user.Users">

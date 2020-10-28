@@ -70,9 +70,9 @@ public class UsersController {
 	
 		try{
 
-			System.out.println("enterprise?" + enterprise.getEnterpriseno());
-			System.out.println("enterprise?" + enterprise.getEnterprisename());
-			System.out.println("enterprise?" + enterprise.getUserat());
+			System.out.println("enterprise no?" + enterprise.getEnterpriseno());
+			System.out.println("enterprise name?" + enterprise.getEnterprisename());
+			System.out.println("enterprise userat?" + enterprise.getUserat());
 
 		}catch (Exception e){
 		    //에러시 수행
@@ -278,13 +278,16 @@ public class UsersController {
 	@RequestMapping(value="/getEnterList", method=RequestMethod.POST)
 	public HashMap<String, Object> getEnterList(String enterName,HttpServletRequest req) throws Exception{
 		if(LOG_URL) logger.info(" -- url : /users/getEnterList - enterName : " + enterName);
-		
+		System.out.println("getEnterList?? --");
+
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		 List<Enterprises> list= usersService.getEnterList(req.getParameter("entername"));
+		 List<Enterprises> list= usersService.getEnterList(enterName);
+		System.out.println("getEnterList?? --");
+		
 		 for(int i=0;i<list.size();i++) {
-			 System.out.println("enter===="+list.get(i));
+			 System.out.println("enter===="+list.get(i).getEnterprisename());
 		 }
 //		if(updateVal) map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
 //		else map.put("message", CodeMessage.MSG_000024_변경_중_오류가_발생하였습니다_);
