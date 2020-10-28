@@ -18,6 +18,11 @@
 <!-- Select2 -->
 <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
 <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
 
 <!-- jquery-validation -->
 <!-- <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
@@ -110,7 +115,7 @@
 											<div id="editSection">${result.contents }</div>
 										</div>
 										<script class="code-js">
-					                      var editor = new tui.Editor( {
+										var editor = new toastui.Editor( {
 					                      el : document.querySelector( '#editSection' ),
 					                      initialEditType : 'wysiwyg',
 					                      //			                    initialEditType: 'markdown',

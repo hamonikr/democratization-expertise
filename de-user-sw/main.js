@@ -14,17 +14,24 @@ const mkDirpAsync = promisify(mkdirp);
 const url = require('url');
 const request = require('request');
 const CHILD_PADDING = 100;
-// const notifier = require("node-notifier");
 const Notification = require('electron-native-notification');
 const open = require('open');
+const {ipcMain} = require('electron')
+const uniqid = require('uniqid');
+const osType = require('os');
+const dir  = osType.homedir() + '/.config/hamonikr_finder'
+
+// let dirpath = osType.homedir() + '/.config/hamonikr_finder/userinfo_config';
+let  fileDir  = osType.homedir() + '/.config/hamonikr_finder/userinfo_config';
+
 
 let mainWindow, settingWindow;
 
 function createWindow () {
 
 	let mainWindowState = windowStateKeeper({
-		defaultWidth: 500,
-		defaultHeight: 80
+		defaultWidth: 520,
+		defaultHeight: 70
 	});
 
 	mainWindow = new BrowserWindow({
@@ -32,21 +39,20 @@ function createWindow () {
 	//	resizable: false,
 		'x': mainWindowState.x,
 		'y': mainWindowState.y,
-		'width': 500, 
-		'height': 80,
+		'width': 520, 
+		'height': 320,
 		//'height': mainWindowState.height,
 		 frame:false,
 		 alwaysOnTop: true,
 //		 resizable: false,
 		  transparent: true
 		//  titleBarStyle: 'hidden'
-		// titleBarStyle: 'hiddenInset' 
+		// ,titleBarStyle: 'hiddenInset' 
 	});
 
   	mainWindowState.manage(mainWindow);
 
   	mainWindow.loadURL('file://' + __dirname + '/app/settings.html');
-  	//mainWindow.loadURL('file://' + __dirname + '/app/index.html');
 
   	mainWindow.setMenu(null);
 		mainWindow.setMenuBarVisibility(false);	
@@ -58,10 +64,7 @@ function createWindow () {
 		mainWindow = null;
 
 	});
-
 }
-
-
 
 const toggleWindow = () => {
     mainWindow.isVisible() ? mainWindow.hide() : showWindow();
@@ -114,89 +117,15 @@ const createTray = () => {
 }
 let trayIcon  = null;
 
-function notiAction(){
-	const opt = {
-		title: 'Hamonikr-Office-Toolchain  Alert',
-		body: 'Hamonikr-Office-Toolchain사용자로부터 \n화상통화 연결 요청이 왔습니다.!!! ',
-		icon: path.join(__dirname, "/build/icons/48.png"),
-		sound:true,
-		wait: true
-	};
-	const notification = new Notification(opt.title, opt);
-	notification.on('show', () => {
-		console.log('notification show');
-	});
-	notification.onclick = () => {
-		console.log('notification click');
-		// var Request = unirest.get('http://mockbin.com/request');
-		open('https://hamonia.kr/1234', {app: 'firefox'});
-	};
-	notification.addEventListener('close', () => {
-		console.log('notification close');
-	});
-	notification.addListener('error', (err) => {
-		console.error(err);
-	});
-	setTimeout(() => notification.close(), 10000);
-}
-
-var http = require('http');
-var port = "8081";
-
-// var server = http.createServer();
-// server.addListener('request', function (req, res) {  
-// 	console.log('requested...');
-// 	res.writeHead(200);
-// 	res.end();
-// 	notiAction();
-// });
-// server.addListener('connection', function(socket){  
-//     console.log('connected...');
-// });
-// server.listen({ port: port }, () => {
-// console.log('####################################################');
-// console.log(`\n IP Address: ${require('ip').address()}:${port}\n`);
-// console.log('####################################################');
-// });
-
-http.createServer((req, res) => {
-	let query = url.parse(decodeURI(req.url), true).query;
-	let lookup = url.parse(decodeURI(req.url)).pathname;
-	lookup = path.normalize(lookup);
-	console.log("lookup==="+ lookup);
-
-	if (lookup == '/notify') {
-	  	console.log('requested...notify');
-		res.writeHead(200);
-		res.end();
-		notiAction();
-	} else {
-		console.log('requested...');
-		res.writeHead(200);
-		res.end();
-	}
-  }).listen({ port: port }, () => {
-	console.log('####################################################');
-	console.log(` IP Address: ${require('ip').address()}:${port}\n`);
-	console.log('####################################################');
-  });
-  
-
 app.on('ready', () => {
-
 	createTray();
 	setTimeout(createWindow, 500)
-	
-	globalShortcut.register('f5', function() {
-		console.log('f5 is pressed')
-		mainWindow.reload();
-		mainWindow.setSize(570,80);
-	})
-
-	
+	// globalShortcut.register('f5', function() {
+	// 	console.log('f5 is pressed')
+	// 	mainWindow.reload();
+	// 	mainWindow.setSize(570,80);
+	// })
 });
-
-
 
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
@@ -214,42 +143,156 @@ app.on('activate', function () {
 });
 
 
+//##################################################################
+//로그인 성공 후 고유값 생성 후 파일로 저장 (자동로그인을 위해)
+ipcMain.on('saveUserInfo', (event, usernm, userpw) => {
+	userInfoFileAsync(dir, usernm);
+})
 
-const {ipcMain} = require('electron')
-ipcMain.on('openUserUUID', (event, path) => {
+const userInfoFileAsync = async(dir, usernm) => {
+	var chkFile = FnChk_settingsFile();
+	console.log("chkFile==="+ chkFile);
 
-	var osType = require('os');
-    var dirpath = osType.homedir() + '/.config/hamonikr_finder/userinfo_config';
+	var makeDirpAsync = await mkDirpAsync(dir);
+	var userUUIDVal = await userInfoWriteFile();
+
+	console.log("userUUIDVal==="+userUUIDVal);
+
+	var headersOpt = {
+		"content-type": "application/json",
+	};
+	console.log("aa==="+ usernm+"==="+ userUUIDVal);
+	request({
+		method:'POST',
+		url:'http://127.0.0.1:8080/api/userUUID?${_csrf.parameterName}=${_csrf.token}',
+		form: {'uuiduser':  userUUIDVal, 'userid' : usernm},
+		
+		headers: headersOpt,
+		json: true,
+		}, async function (error, response, body) {
+			if(!error){
+				console.log("client ready --------------ret body==="+ body);
+			}else{
+				console.log("client ready --------------err="+ error);
+			}
+		}
+	);
+}
+
+
+function FnChk_settingsFile(){
+	try{
+		var retVal = fs.existsSync(fileDir);
+		return retVal;
+  	}catch(e){
+		if(e.code == 'ENOENT'){
+			return "false";
+    	}
+  	}
+}
+
+
+function userInfoWriteFile(){
+	return new Promise(function(resolve, reject){
+	  var arg = uniqid()+(new Date()).getTime().toString(36);
+	  fs.unlink(fileDir, (err) => err ?  console.log(err) : console.log(`${fileDir} 를 정상적으로 삭제했습니다!!!`));
+	  fs.writeFile(fileDir, arg, (err) => {
+		  if(err){
+			reject("error");
+		  }
+		   resolve(arg);
+		});
+	});
+  }
+
+// ##################################################################
+//	앱 실행시 저장된 사용자 정보 확인 
+
+ipcMain.on('initApp', (event, path) => { 
+	console.log("bbbbbbbbb");
+	
 	var userUuidStr = "";
 	try{
-		var retVal = fs.existsSync(dirpath);
-		console.log("FnChk_settingsFile====="+ retVal);
+		var retVal = fs.existsSync(fileDir);
 		if( retVal ){
-			userUuidStr = fs.readFileSync(dirpath, 'utf8');
+			userUuidStr = fs.readFileSync(fileDir, 'utf8');
+			console.log("userUuidStr=========" + userUuidStr.trim()+"===");
+
+			var headersOpt = {
+				"content-type": "application/json",
+			};
+			request({
+				method:'post',
+				url:'http://127.0.0.1:8080/api/getUserInfo',
+				form: {'uuiduser':  userUuidStr.trim()},
+				headers: headersOpt,
+				json: true,
+				}, async function (error, response, body) {
+					console.log("getUserInfo --------------err==="+ error);
+					if(!error){
+						console.log("getUserInfo--------------ret body==="+ JSON.stringify(body));
+						if( body.output == "Y" ){
+							event.sender.send('initAppProc', body, userUuidStr.trim());
+						}else{
+							event.sender.send('initAppProc', body, userUuidStr.trim());
+						}
+					}else{
+						console.log("getUserInfo --------------err="+ error);
+					}
+				}
+			);
 		}
+		//else{
+			// initFileAsync(dir);
+		// }
 	}catch(e){
 		if(e.code == 'ENOENT'){
 			console.log("//==mkdir directory");
 			userUuidStr = "none";
 		}
 	}
- 	event.sender.send('userUUidData', userUuidStr);
 });
 
 
+// ##################################################################
+//	질문 등록 
+ipcMain.on('questWriteProc', (event, sub, cont, tsUser, tsUserUuidId) => {
+
+	const  questionURL = 'http://127.0.0.1:8080/api/questWrite?_csrf=${_csrf.token}';
+	var req = request.post(questionURL, function (err, resp, body) {
+			if (err) {
+					console.log("request tech error is :"+ err);
+			} else {
+				console.log("============+"+body);
+				event.sender.send('isQuestWriteProc', body );
+			}
+	});
+
+	var form = req.form();
+	form.append('title', sub);
+	form.append('contents', '<p>' + cont+'</p>');
+	form.append('username', tsUser);
+	form.append('uuiduser', tsUserUuidId);
+	form.append('section', 'Q');
+
+});
+
+
+
+// ##################################################################
+//	앱 레이어 
 ipcMain.on('resize-me-please', (event, arg) => {
 	console.log("==========================++>"+ arg);
 	if(arg == "initLayer"){
 		mainWindow.setResizable(true);
-		mainWindow.setSize(550,80);
+		mainWindow.setSize(520,320);
 		console.log("init layer size 550:80");
 	}else if( arg == "viewLayer"){
-		  mainWindow.setSize(570, 580);
-		  console.log("viewLayer size : 570:580");
+		  mainWindow.setSize(520, 700);
 		 // esRequest();
 	}else{
 		createWindow();
-		mainWindow.setSize(550,80);
+		mainWindow.setSize(520,320);
 	}		
 })
 
@@ -294,74 +337,10 @@ ipcMain.on('prOpenConfigFile', (event, path) => {
 });
 
 
-const osType = require('os');
-const dir  = osType.homedir() + '/.config/hamonikr_finder'
-
-//##################################################################
-//로그인 성공 후 고유값 생성 (자동로그인을 위해)
-ipcMain.on('saveUserInfo', (event, usernm, userpw) => {
-	console.log("dddddddddddddddddddd");
-	userInfoFileAsync(dir, usernm);
-})
-
-const userInfoFileAsync = async(dir, usernm) => {
-	var chkFile = FnChk_settingsFile();
-	console.log("chkFile==="+ chkFile);
 
 
-	// if( chkFile == false ){
-		var makeDirpAsync = await mkDirpAsync(dir);
-		var userUUIDVal = await userInfoWriteFile();
-	
-		console.log("userUUIDVal==="+userUUIDVal);
-
-		var headersOpt = {
-			"content-type": "application/json",
-		};
-		console.log("aa==="+ usernm+"==="+ userUUIDVal);
-		request({
-			method:'POST',
-			url:'http://127.0.0.1:8080/api/userUUID?${_csrf.parameterName}=${_csrf.token}',
-			form: {'uuiduser':  userUUIDVal, 'userid' : usernm},
-			
-			headers: headersOpt,
-			json: true,
-			}, async function (error, response, body) {
-				console.log("client ready --------------err==="+ error);
-				if(!error){
-					console.log("client ready --------------ret body==="+ body);
-				}else{
-					console.log("client ready --------------err="+ error);
-				}
-			}
-		);
-
-	// }
-}
 
 
-function userInfoWriteFile(){
-	return new Promise(function(resolve, reject){
-	  var uniqid = require('uniqid');
-	  var osType = require('os');
-	  var fileDir  = osType.homedir() + '/.config/hamonikr_finder/userinfo_config';
-	  var arg = uniqid()+(new Date()).getTime().toString(36);
-  
-	  // if (!fs.existsSync(fileDir)) {
-	  fs.unlink(fileDir, (err) => err ?  console.log(err) : console.log(`${fileDir} 를 정상적으로 삭제했습니다!!!`));
-	  fs.writeFile(fileDir, arg, (err) => {
-		  if(err){
-			reject("error");
-			console.log("//== save-dir-path() error  "+ err.message);
-		  }
-		   resolve(arg);
-		});
-	  // }else{
-	  // 	console.log("bbbbbbbbb");
-	  //    resolve(arg);
-	  // }
-	});
-  }
 
   
   
@@ -432,9 +411,7 @@ function uuid_db_chk(arg){
 
 function readUuidFile(){
 return new Promise(function(resolve, reject){
-  var osType = require('os');
-  var dirpath = osType.homedir() + '/.config/hamonikr_finder/userinfo_config';
-		fs.readFile(dirpath, (err, data) => {
+    		fs.readFile(fileDir, (err, data) => {
       if (err)  { reject("false")}
       else {
 				var os = require("os");
@@ -445,41 +422,6 @@ return new Promise(function(resolve, reject){
 	});
 }
 
-
-function FnChk_settingsFile(){
-	var osType = require('os');
-  var dirpath = osType.homedir() + '/.config/hamonikr_finder/userinfo_config';
-
-  try{
-   // var retVal =  fs.lstatSync(dirpath).isDirectory();
-	 var retVal = fs.existsSync(dirpath);
-		console.log("FnChk_settingsFile====="+ retVal);
-		return retVal;
-  }catch(e){
-     // Handle error
-     if(e.code == 'ENOENT'){
-       console.log("//==mkdir directory");
-			 return "false";
-     }
-  }
-}
-
-
-function getToken(result){
-	return new Promise((resolve,reject) => {
-	console.log("getTokent------ "+ result);
-		var unirest = require('unirest');
-		unirest.post('http://127.0.0.1:3001/userinfo')
-			.headers('Accept', 'application/json')
-			.send({ "userUuid": result })
-			.end(function (response) {
-				if(response.error){return reject(error)}
-				//return resolve(response.body.ops[0].user_uuid);
-				console.log("gettoken rest ===== "+ JSON.stringify(response.body));
-				return resolve(response.body);
-			});
-		})
-}
 
 
 function chkUuid(){
@@ -581,47 +523,30 @@ console.log("arg================="+ arg);
   });
 }
 
-ipcMain.on('initApp', (event, path) => { 
-	console.log("bbbbbbbbb");
-	var osType = require('os');
-	var dirpath = osType.homedir() + '/.config/hamonikr_finder/userinfo_config';
-	var userUuidStr = "";
-	try{
-		var retVal = fs.existsSync(dirpath);
-		if( retVal ){
-			userUuidStr = fs.readFileSync(dirpath, 'utf8');
-			console.log("userUuidStr=========" + userUuidStr);
 
-			var headersOpt = {
-				"content-type": "application/json",
-			};
-			request({
-				method:'post',
-				url:'http://127.0.0.1:8080/api/getUserCheck',
-				form: {'uuiduser':  userUuidStr},
-				headers: headersOpt,
-				json: true,
-				}, async function (error, response, body) {
-					console.log("getUserCheck --------------err==="+ error);
-					if(!error){
-						console.log("getUserCheck--------------ret body==="+ JSON.stringify(body));
-						if( body.output == "Y" ){
-							event.sender.send('initAppProc', body);
-						}
-					}else{
-						console.log("getUserCheck --------------err="+ error);
-					}
-				}
-			);
-		}
-		//else{
-			// initFileAsync(dir);
-		// }
-	}catch(e){
-		if(e.code == 'ENOENT'){
-			console.log("//==mkdir directory");
-			userUuidStr = "none";
-		}
-	}
-});
 
+function notiAction(){
+	const opt = {
+		title: 'Hamonikr-Office-Toolchain  Alert',
+		body: 'Hamonikr-Office-Toolchain사용자로부터 \n화상통화 연결 요청이 왔습니다.!!! ',
+		icon: path.join(__dirname, "/build/icons/48.png"),
+		sound:true,
+		wait: true
+	};
+	const notification = new Notification(opt.title, opt);
+	notification.on('show', () => {
+		console.log('notification show');
+	});
+	notification.onclick = () => {
+		console.log('notification click');
+		// var Request = unirest.get('http://mockbin.com/request');
+		open('https://hamonia.kr/1234', {app: 'firefox'});
+	};
+	notification.addEventListener('close', () => {
+		console.log('notification close');
+	});
+	notification.addListener('error', (err) => {
+		console.error(err);
+	});
+	setTimeout(() => notification.close(), 10000);
+}

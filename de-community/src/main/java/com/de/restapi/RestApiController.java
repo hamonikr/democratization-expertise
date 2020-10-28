@@ -32,12 +32,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.de.answer.Answers;
 import com.de.answer.AnswersService;
 import com.de.cmmn.CmmnMap;
+import com.de.cmmn.service.CmmnService;
 import com.de.login.mapper.LoginMapper;
 import com.de.login.service.LoginService;
 import com.de.login.service.SecurityMember;
 import com.de.login.vo.LoginVO;
 import com.de.question.Questions;
 import com.de.question.QuestionsService;
+import com.de.vote.Vote;
+import com.de.vote.VoteService;
 import com.de.wiki.Wiki;
 
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
@@ -61,11 +64,54 @@ public class RestApiController {
 	@Autowired
 	AnswersService as;
 
+	@Autowired
+	CmmnService cs;
+
+	@Autowired
+	VoteService vs;
+
 	@RequestMapping("/feedback")
 	public String jsd() {
 		System.out.println("jsd=======================");
 		return "/jsd/feedback";
 
+	}
+
+//	aaaaaaaa=q vo === Questions(questionno=null, editauth=1, section=Q, title=rrrrrrr, contents=<p>rrrrrrrrrrrrrrrrrr</p>
+//	, userno=56, firstuserno=56, tagno=null, readcnt=0, deleteat=0, questiontotalcnt=null, answercompletecnt=null,
+//	registerdate=null, updatedate=null, sort=null, searchtext=null, commentcnt=null, firstRecordIndex=0, recordCountPerPage=0, vote=null, users=null, wiki=null, answers=null)
+
+
+	@RequestMapping("/questWrite")
+	@ResponseBody
+	public ResponseEntity qestWrite(Questions vo, Vote vvo, LoginVO lvo) throws Exception {
+		String output = "";
+		CmmnMap param = new CmmnMap();
+
+		LoginVO retVO = loginMapper.getUserUUIDInfo(lvo);
+		vo.setQuestionno(Integer.parseInt(cs.selectObject("selectQNO", param).getString("questionno")));
+		vvo.setPno(vo.getQuestionno());
+		vvo.setSection(vo.getSection());
+		vvo.setUserno(retVO.getUserno());
+
+		try {
+			// 질문등록
+			qs.save(vo);
+			// 투표등록
+			vs.save(vvo);
+
+			param.put("userno", retVO.getUserno());
+			param.put("score", 5);
+			// 점수등록
+			int ret = cs.updateObject("saveScore", param);
+			System.out.println("ret===" + ret);
+			output = "Y";
+		} catch (Exception e) {
+			// TODO: handle exception
+			output = "N";
+		}
+
+		return ResponseEntity.ok(output);
 	}
 
 
@@ -224,14 +270,38 @@ public class RestApiController {
 				jsonObject.put("output", "Y");
 				jsonObject.put("userid", retVO.getUserid());
 				jsonObject.put("usernm", retVO.getUsername());
-				System.out.println("111111111======++" + retVO.getRepresentat());
 				if (retVO.getRepresentat() == 1) {
-//					Questions questions = new Questions();
-//					int listCount = qs.getListCount(questions);
 					Questions ansComplete = qs.getAnswerComplete();
 					jsonObject.put("totalCnt", ansComplete.getQuestiontotalcnt());
 					jsonObject.put("ansComplete", ansComplete.getAnswercompletecnt());
 				}
+			} else {
+				jsonObject.put("output", "N");
+			}
+		} catch (Exception e) {
+			jsonObject.put("output", "N");
+			e.printStackTrace();
+
+		}
+		output = jsonObject.toJSONString();
+		return ResponseEntity.ok(output);
+	}
+
+
+	@RequestMapping("/getUserInfo")
+	@ResponseBody
+	public ResponseEntity getUserInfo(LoginVO vo) {
+
+		String output = "";
+		JSONObject jsonObject = new JSONObject();
+		try {
+			LoginVO retVO = loginMapper.getUserUUIDInfo(vo);
+			if (retVO != null) {
+				jsonObject.put("output", "Y");
+				jsonObject.put("userid", retVO.getUserid());
+				jsonObject.put("usernm", retVO.getUsername());
+				System.out.println("111111111======++" + retVO.getRepresentat());
+
 			} else {
 				jsonObject.put("output", "N");
 			}
