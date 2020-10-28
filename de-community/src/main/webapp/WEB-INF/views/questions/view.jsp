@@ -129,6 +129,7 @@
 							
 							<div class="row">
 								<c:forEach var="list" items="${answerList}" varStatus="stat">
+								<a href="/answers/selected/${list.answerno}" class="btn btn-primary purple">채택</a>
 									<div class="col-2">
 										<span class="font-weight-bold"> 
 										<a href="#" onclick="fnLike('${list.answerno}','${list.userno}','A','${list.vote.likes }','${stat.count }')">
@@ -143,12 +144,12 @@
 										<font id="dislike${stat.count }">${list.vote.dislikes }</font>
 										</span>
 										<br>
-										<fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd" />
 									</div>
 								<div class="col-10">
 								답변내용:${list.contents } <br/>
 								등록자:${list.users.username } <br/>
 								등록일:<fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd" /><br/>
+								<c:if test="${list.selected eq 1 }">채택된 답변</c:if>
 								<c:if test="${(list.users.userno eq user.userno)}">
 									<a href="#" class="btn btn-primary purple">수정</a>
 								</c:if>

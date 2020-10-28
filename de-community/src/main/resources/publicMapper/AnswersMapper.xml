@@ -46,10 +46,11 @@
 <resultMap type="com.de.answer.Answers" id="Answers">
 	<result column="questionno" property="questionno"/>
 	<result column="editauth" property="editauth"/>
-	<result column="selected;" property="selected;"/>
+	<result column="selected" property="selected"/>
 	<result column="contents" property="contents"/>
 	<result column="userno" property="userno"/>
 	<result column="answerno" property="answerno"/>
+	<result column="registerdate" property="registerdate"/>
 	<collection property="vote" resultMap="Vote"/>
 	<collection property="users" resultMap="Users"/>
 </resultMap>

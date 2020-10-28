@@ -20,11 +20,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.de.cmmn.CmmnMap;
 import com.de.cmmn.service.CmmnService;
 import com.de.login.service.SecurityMember;
 import com.de.login.vo.LoginVO;
+import com.de.question.Questions;
 import com.de.tag.Tags;
 import com.de.vote.Vote;
 import com.de.vote.VoteService;
@@ -150,6 +152,19 @@ public class AnswersController {
 			cs.updateObject("saveScore", param);
 			return "redirect:/questions/view/"+vo.getQuestionno();
 		}
+	}
+	
+	@RequestMapping(value = "/selected/{answerno}")
+	public String editproc(HttpServletRequest request, Model model,@PathVariable("answerno") int answerno, Answers vo, LoginVO user,
+			HttpSession httpSession) throws Exception {
+		user = (LoginVO) httpSession.getAttribute("userSession");
+		String referrer = request.getHeader("Referer");
+		if (user == null) {
+			return "redirect:/login";
+		}
+		// 답변 채택
+		as.updateById(answerno);
+		return "redirect:"+referrer;
 	}
 
 

@@ -30,8 +30,10 @@ public class LoginController {
 	CmmnService cmmnService;
 	
 	@RequestMapping("")
-	 public String login() {
+	 public String login(HttpSession session, HttpServletRequest request) {
 		System.out.println("----login page----");
+		String referrer = request.getHeader("Referer");
+		session.setAttribute("referrer", referrer);
 	    return "/login/login";
 	  } 
 
@@ -69,20 +71,25 @@ public class LoginController {
 		model.addAttribute("loginUser", user);
 		System.out.println("대표 유저 여부==?? "+vo.getRepresentat());
 		Integer val = null;
+		String returnUrl = (String)session.getAttribute("referrer");
+		session.removeAttribute("referrer");
 		
-		if(vo.getRepresentat()==1) {
-			return "redirect:/enterprises/activity/"+vo.getEnterpriseno();
-
-		} else {
-			return "redirect:/users/activity/"+user.getUserno();
-				}
+//		if(vo.getRepresentat()==1) {
+//			return "redirect:/enterprises/activity/"+vo.getEnterpriseno();
+//
+//		} else {
+//			return "redirect:/users/activity/"+user.getUserno();
+//				}
 		
-		//		return "/users/profile";
+				return "redirect:"+returnUrl;
 	} 
 	
 	@RequestMapping("/socialLogin")
 	 public String socialLogin(Model model, HttpSession session , LoginVO vo,HttpServletRequest request) throws Exception{
 		System.out.println("<<--- controller for normal loginSuccess-->> ");
+		
+		String returnUrl = (String)session.getAttribute("referrer");
+		session.removeAttribute("referrer");
 		
 		String goo = (String) session.getAttribute("googleId");
 		session.removeAttribute("googleId");
@@ -91,7 +98,8 @@ public class LoginController {
 		session.setAttribute("userSession", vo);
 		System.out.println("userno======"+vo.getUserno());
 		model.addAttribute("loginUser", session.getAttribute("userSession"));
-		return "redirect:/users/activity/"+vo.getUserno();
+		//return "redirect:/users/activity/"+vo.getUserno();
+		return "redirect:"+returnUrl;
 	} 
 
 	 @RequestMapping("/message")

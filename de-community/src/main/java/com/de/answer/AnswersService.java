@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.de.answer.mapper.AnswersMapper;
+import com.de.cmmn.CmmnMap;
+import com.de.question.Questions;
 import com.de.question.mapper.QuestionsMapper;
 import com.de.tag.Tags;
 import com.de.tag.TagsRepository;
@@ -101,33 +103,15 @@ public class AnswersService {
 		
 	}
 	
-//	public void updateById(Answers vo) throws Exception {
-//		Optional<Answers> e = qr.findById(vo.getQuestionno());
-//		CmmnMap param = new CmmnMap();
-//		param.put("questionno",e.get().getQuestionno());
-//		param.put("contents",e.get().getContents());
-//		param.put("section",e.get().getSection());
-//		param.put("title",e.get().getTitle());
-//		param.put("deleteat",e.get().getDeleteat());
-//		param.put("editauth",e.get().getEditauth());
-//		param.put("readcnt",e.get().getReadcnt());
-//		param.put("registerdate",e.get().getRegisterdate());
-//		param.put("tagno",e.get().getTagno());
-//		param.put("updatedate",e.get().getUpdatedate());
-//		param.put("userno",e.get().getUserno());
-//		qm.insertHistory(param);
-//
-//		if (e.isPresent()) {
-//			e.get().setContents(vo.getContents());
-//			e.get().setTitle(vo.getTitle());
-//			e.get().setUserno(vo.getUserno());
-//			e.get().setTagno(vo.getTagno());
-//			e.get().setReadcnt(e.get().getReadcnt());
-//			e.get().setEditauth(vo.getEditauth());
-//			qr.save(vo);
-//		}
-//
-//  }
+	public void updateById(int answerno) throws Exception {
+		Optional<Answers> e = ar.findById(answerno);
+		if (e.isPresent()) {
+			e.get().setSelected(1);
+			//e.get().setContents(e.get().getContents());
+			ar.save(e.get());
+		}
+
+	}
 	public Answers updateHistory(Answers vo) throws Exception {
 		
 		return ar.save(vo);
