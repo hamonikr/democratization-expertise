@@ -129,7 +129,9 @@
 							
 							<div class="row">
 								<c:forEach var="list" items="${answerList}" varStatus="stat">
+								<c:if test="${result.userno eq userSession.userno and answerSelectedCount < 1}">
 								<a href="/answers/selected/${list.answerno}" class="btn btn-primary purple">채택</a>
+								</c:if>
 									<div class="col-2">
 										<span class="font-weight-bold"> 
 										<a href="#" onclick="fnLike('${list.answerno}','${list.userno}','A','${list.vote.likes }','${stat.count }')">

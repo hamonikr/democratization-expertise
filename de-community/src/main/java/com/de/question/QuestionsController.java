@@ -155,8 +155,10 @@ public class QuestionsController {
 		List<Wiki> tagList = qs.findAllTag();
 		//List<Answers> answerList = as.findAllByquestionno(questionno);
 		List<Answers> answerList = as.getList(questionno);
+		int cnt = as.getListCount(questionno);
 		model.addAttribute("tagList", tagList);
 		model.addAttribute("answerList", answerList);
+		model.addAttribute("answerSelectedCount", cnt);
 		// 조회수 증가
 		qs.updateReanCnt(questionno);
 		Questions qvo = new Questions();

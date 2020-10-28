@@ -12,7 +12,7 @@ public interface AnswersMapper {
 
 	public List<Answers> getList(int questionno) throws Exception;
 
-	public int getListCount(Questions vo) throws Exception;
+	public int getListCount(int questionno) throws Exception;
 
 	public Questions getView(int questionno) throws Exception;
 

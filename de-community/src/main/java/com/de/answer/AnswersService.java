@@ -75,8 +75,15 @@ public class AnswersService {
 		return ar.findAllByquestionno(questionno);
 	}
 	
+	
+	
+	
 	public List<Answers> getList(int questionno) throws Exception{
 		return am.getList(questionno);
+	}
+	
+	public int getListCount(int questionno) throws Exception {
+		return am.getListCount(questionno);
 	}
 	
 	public Answers save(Answers vo) throws Exception {

@@ -1,16 +1,20 @@
 package com.de.answer;
 
 
+import java.net.http.HttpResponse;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -40,6 +44,9 @@ import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 public class AnswersController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired
+	private MessageSource messageSource;
 
 	@Autowired
 	AnswersService as;
@@ -156,7 +163,7 @@ public class AnswersController {
 	
 	@RequestMapping(value = "/selected/{answerno}")
 	public String editproc(HttpServletRequest request, Model model,@PathVariable("answerno") int answerno, Answers vo, LoginVO user,
-			HttpSession httpSession) throws Exception {
+			HttpSession httpSession,HttpServletResponse response) throws Exception {
 		user = (LoginVO) httpSession.getAttribute("userSession");
 		String referrer = request.getHeader("Referer");
 		if (user == null) {
@@ -164,6 +171,9 @@ public class AnswersController {
 		}
 		// 답변 채택
 		as.updateById(answerno);
+		request.setAttribute("message", messageSource.getMessage("com.test", null, Locale.getDefault()));
+    	request.setAttribute("url", referrer);
+    	request.getRequestDispatcher("/login/message").forward(request, response);
 		return "redirect:"+referrer;
 	}
 

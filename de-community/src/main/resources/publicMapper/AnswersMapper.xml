@@ -72,13 +72,11 @@
 		where a.questionno=#{questionno} and b.section='A';
 	</select>
 	
-	<select id="getListCount" parameterType="com.de.question.Questions" resultType="java.lang.Integer">
-		select count(*) from tb_questions
-		<if test="searchtext != null and searchtext != ''">
+	<select id="getListCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(*) from tb_answers
 		<where>
-		<include refid="listWhere" />
+		questionno = #{questionno} and selected = 1
 		</where>
-		</if>
 	</select>
 	
 	<!-- <select id="getView" parameterType="integer" resultMap="Questions">
