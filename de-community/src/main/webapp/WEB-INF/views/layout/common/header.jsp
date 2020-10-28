@@ -31,7 +31,7 @@
 <!-- Right navbar links -->
 	<ul class="navbar-nav ">
 	<sec:authorize access="hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')">
-		<li class="nav-item dropdown"><img src="/img/profile.png"></li>
+		<li class="nav-item dropdown"><a href="/users/activity/${userSession.userno}"><img src="/img/profile.png"></a></li>
 		<li><img src="/img/alert.png" style="margin-left: 15px;"></li>
 		<li><img src="/img/help.png" style="margin-left: 15px;"></li>
 		<li>
