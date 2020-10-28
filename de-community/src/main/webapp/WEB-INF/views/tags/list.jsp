@@ -11,30 +11,27 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 
 <style>
+
 .ellipsis {
-/* height: 200px; 
+display: -webkit-box;
 width: 300px; 
-text-align: left; 
- */
+height: 208px;
+
+-webkit-line-clamp: 10;
+-webkit-box-orient: vertical;
 overflow: hidden; 
 text-overflow: ellipsis; 
+
 word-wrap: break-word; 
-display: -webkit-box;
--webkit-line-clamp: 12;
--webkit-box-orient: vertical;
-
 line-height: 1.2; 
-height: 3.6em;
 
-}
-
-.ellipsis_in{
-text-transform: uppercase;
 pointer-events: none;
 cursor: default;
 text-decoration:none ;
 font-size: small;
+color: rgb(0,0,0);
 }
+
 </style>
 <script>
 
@@ -90,11 +87,11 @@ font-size: small;
 											</h3>
 											
 											<div class="card-tools">
-											 	<p style="font-size:9px;"><a href="/questions/list">${list.relatedcnt}</a> 개의 질문들</p>
+											 	<p style="font-size:9px"><a href="/questions/list">${list.relatedcnt}</a> 개의 질문들</p>
 											 </div>
 										</div>
-										<div class="card-body col-12 ellipsis" style="height: 208px;">
-											<div class="ellipsis_in" style="color:red">${list.contents}</div>
+										<div class="card-body col-12 ellipsis">
+											<div> ${list.contents}</div>
 										</div>
 									</div>
 								</div>
@@ -104,8 +101,6 @@ font-size: small;
 						</div>
 					</div>
 				</div>
-
-
 			</div>
 			<!-- page number -->
 			<%-- 			<jsp:include page="/WEB-INF/views/include/paging.jsp" /> --%>
@@ -192,6 +187,7 @@ font-size: small;
     } );
 
   }
-
-
+ 
 </script>
+
+ 

@@ -2,12 +2,15 @@
 <%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
  
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.js"></script>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
  <!-- Select2 -->
 <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
 <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
- 
+<link rel="stylesheet" href="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.css"/>
+
 <style>
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
     background-color: #007bff;
@@ -81,12 +84,19 @@
 											<div id="editor"></div>
 										</div>
 										<script class="code-js">
-					                      var editor = new toastui.Editor( {
+											 const { Editor } = toastui;
+											// const { color-syntax } = Editor.plugins;
+   											 const { colorSyntax } = Editor.plugin;
+											 
+					                      var editor = new Editor({
 					                      el : document.querySelector( '#editor' ),
 					                      initialEditType : 'wysiwyg',
 					                      previewStyle : 'vertical',
-					                      height : '600px'
-					                      } );
+					                      height : '600px',
+					                      plugins: [colorSyntax],
+					                      placeholder: '설명을 입력해주세요.',
+					                      color:''
+					                      });
 					                    </script>
 									</div>
 									
