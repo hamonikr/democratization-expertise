@@ -187,7 +187,16 @@ public class QuestionsController {
 		Questions qvo = new Questions();
 		qvo = qs.getView(questionno);
 
+		boolean isMyQuestion = false;
+		System.out.println("editedit === user"+user.getUserno());
+		if(user.getUserno() == qvo.getFirstuserno()) {
+			isMyQuestion = true;
+		}else {
+			isMyQuestion = false;
+		}
+		
 		model.addAttribute("result", qvo);
+		model.addAttribute("isMyQuestion", isMyQuestion);
 		model.addAttribute("user", user);
 		return "/questions/save";
 	}

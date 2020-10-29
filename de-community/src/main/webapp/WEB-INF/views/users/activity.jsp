@@ -228,12 +228,9 @@
 								<div class="form-group">
 									<label for="userUrl" class="col-form-label">홈페이지</label>
 									<c:if test="${ isMypage }">
-									${ isMypage }
-									aa
 										<input class="form-control" id="userUrl" name="userurl" value="${user.userurl}" autocomplete="off">
 									</c:if>
 									<c:if test="${ ! isMypage }">
-									${ isMypage }	bb
 										<input class="form-control" id="userUrl" name="userurl" value="${user.userurl}" autocomplete="off" disabled="disabled">
 									</c:if>
 								</div>
@@ -241,9 +238,6 @@
 								<div class="form-group">
 									<label for="enterpriseName" class="col-form-label">회사명</label>
 									<c:if test="${ isMypage }">
-										<%-- <input type="hidden" name="enterpriseno" id="enterpriseNo" value="${enterprise.enterpriseno}" autocomplete="off">
-										<input type="text" class="form-control" id="enterpriseNameSearch" value="${enterprise.enterprisename}" autocomplete="off">
-										<div id="enterpriseListDiv"></div> --%>
 										<c:choose>
 											<c:when test="${enterprise.userat == 1}">
 												<input type="hidden" name="enterpriseno" id="enterpriseNo" value="${enterprise.enterpriseno}" autocomplete="off">

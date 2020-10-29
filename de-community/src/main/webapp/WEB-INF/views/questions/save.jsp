@@ -95,12 +95,17 @@
 											제목 <span class="important">*</span>
 										</label>
 										<c:choose>
-											<c:when test="${result.title ne null}">
+											<c:when test="${result.title ne null and isMyQuestion ne true}">
 												<span>
 													${result.title }
 													<input type="hidden" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="${result.title }" />
 												</span>
-											</c:when>  
+											</c:when> 
+											<c:when test="${isMyQuestion eq true}">
+												<span>
+													<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="${result.title }" />
+												</span>
+											</c:when>   
 											<c:otherwise>
 												<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="" />
 											</c:otherwise>											
