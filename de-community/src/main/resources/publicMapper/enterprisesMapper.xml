@@ -3,7 +3,7 @@
  
 <mapper namespace="com.de.enterprise.mapper.EnterprisesMapper">
 
-<resultMap id="usersDetailMap" type="com.de.user.UsersDetail">
+<resultMap id="usersDetailMap" type="com.de.user.Usersdetail">
 	<result property="seq"			column="seq"			/>
 	<result property="enterpriseno"	column="enterpriseno"/>
 	<result property="userno"		column="userno"		/>
@@ -24,7 +24,7 @@
 	<result property="newslater"		column="newslater"		/>
 	<result property="registerdate"		column="registerdate"	/>
 	<result property="updatedate"		column="updatedate"		/>
-	<collection property="usersDetail" resultMap="usersDetailMap" />
+	<collection property="usersdetail" resultMap="usersDetailMap" />
 </resultMap>
 
 
@@ -63,7 +63,7 @@ WHERE
 	enterpriseno = #{enterpriseno}
 </update>
 
-<select id="getMembersList" parameterType="com.de.user.UsersDetail" resultMap="usersMap">
+<select id="getMembersList" parameterType="com.de.user.Usersdetail" resultMap="usersMap">
 SELECT 
 	U.userno,
 	U.username,
@@ -81,7 +81,7 @@ WHERE
 	AND UD.userat = #{userat}
 </select>
 
-<update id="updateActivaet" parameterType="com.de.user.UsersDetail">
+<update id="updateActivaet" parameterType="com.de.user.Usersdetail">
 UPDATE 
 	tb_users_detail 
 SET 
@@ -91,7 +91,7 @@ WHERE
 	AND userno = #{userno}
 </update>
 
-<update id="updateUserat" parameterType="com.de.user.UsersDetail">
+<update id="updateUserat" parameterType="com.de.user.Usersdetail">
 <!-- UPDATE 
 	tb_users_detail 
 SET 

@@ -1,5 +1,6 @@
 package com.de.user;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,7 @@ import com.de.wiki.Wiki;
 @Controller
 @RequestMapping(value = "/users")
 public class UsersController {
+
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	private final boolean LOG_URL = true;
 
@@ -52,74 +54,74 @@ public class UsersController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/activity/{seq}")
-	public String dashboard(Model model, @PathVariable("seq") int seq, @AuthenticationPrincipal SecurityMember loginUserData, HttpSession sessionloginUser) throws Exception {
-		if(LOG_URL) logger.info(" -- url : /users/activity - seq : " + seq);
+	@RequestMapping(value = "/activity/{seq}")
+	public String dashboard(Model model, @PathVariable("seq") int seq,
+			@AuthenticationPrincipal SecurityMember loginUserData, HttpSession sessionloginUser) throws Exception {
+		if (LOG_URL)
+			logger.info(" -- url : /users/activity - seq : " + seq);
 
 		boolean isUserNo = false;
 
 		Optional<Users> users = usersService.findByUserno(seq);
 		System.out.println("seq users--->" + users.get().getUserno());
 
-		//System.out.println("loginUserData.getUserno()==?" + loginUserData.getUserno());
+		// System.out.println("loginUserData.getUserno()==?" + loginUserData.getUserno());
 //		System.out.println("loginUserData>>>>> " +loginUserData.getUserno());
-		
-		System.out.println("sessionloginUser--> "+sessionloginUser.getAttribute("userSession"));
-		
+
+		System.out.println("sessionloginUser--> " + sessionloginUser.getAttribute("userSession"));
+
 		LoginVO lvo = (LoginVO) sessionloginUser.getAttribute("userSession");
-		
-	
-		if ( loginUserData == null ) {
+
+		if (loginUserData == null) {
 			isUserNo = false;
-			
-			if(sessionloginUser != null) {
-				isUserNo= true;	
-			}else {
+
+			if (sessionloginUser != null) {
+				isUserNo = true;
+			} else {
 				isUserNo = false;
 			}
 		} else {
-			if( loginUserData.getUserno() ==  users.get().getUserno() ) {
+			if (loginUserData.getUserno() == users.get().getUserno()) {
 				isUserNo = true;
 			}
 		}
-		
-		System.out.println("isUserNo : " +isUserNo);
 
-		//Optional<Enterprises> enterprise = usersService.findEnterpriseno(seq);
+		System.out.println("isUserNo : " + isUserNo);
+
+		// Optional<Enterprises> enterprise = usersService.findEnterpriseno(seq);
 		Enterprises enterprise = usersService.findEnterpriseno(seq);
 
-		
 		// 평판점수
 		Integer score = usersService.getScore(seq);
 		logger.info(" ---- score : " + score);
-		if(score == null) score = 0;
-		
+		if (score == null)
+			score = 0;
+
 		// 평판 그래프 데이터
-		
-		
+
 		// 질문
 		int qCnt = usersService.cntQuestionsById(seq);
 		Page<Questions> qList = usersService.findQuestionsByUserno(seq);
-		
+
 		// 답변
 		int aCnt = usersService.cntAnswerById(seq);
 		Page<Answers> aList = usersService.findAnswerByUserno(seq);
-		
+
 		// 태그 n 위키
 		Wiki vo = new Wiki();
 		vo.setUserno(seq);
-		
+
 		// 태그
 		vo.setSection("t");
 		int tCnt = usersService.cntTagAndWikiById(vo);
 		List<Wiki> tList = usersService.findTagAndWikiByUserno(vo);
-		
+
 		// 위키
 		vo.setSection("h");
 		int wCnt = usersService.cntTagAndWikiById(vo);
 		List<Wiki> wList = usersService.findTagAndWikiByUserno(vo);
-		
-		if(LOG_URL) {
+
+		if (LOG_URL) {
 			logger.info(" ------ qCnt : " + qCnt);
 			logger.info(" ------ qList Content : " + qList.getContent());
 			logger.info(" ------ aCnt : " + aCnt);
@@ -129,30 +131,31 @@ public class UsersController {
 			logger.info(" ------ wCnt : " + wCnt);
 			logger.info(" ------ wList Content : " + wList);
 		}
-		
-		//System.out.println("1==========++"+ users.get().getUserprofileimg());
-		model.addAttribute("user", users.orElse(null));	// 프로필 정보
-		model.addAttribute("isMypage", isUserNo);		// 내 정보 유무
-		model.addAttribute("enterprise", enterprise);	// 회사명 정보
-		
-		model.addAttribute("score", score);					// 평판점수
-		
-		model.addAttribute("qCnt", qCnt);					// 질문 전체 수
-		model.addAttribute("qList", qList.getContent());	// 질문 목록
-		
-		model.addAttribute("aCnt", aCnt);					// 답변 전체 수
-		model.addAttribute("aList", aList.getContent());	// 답변 목록
-		
-		model.addAttribute("tCnt", tCnt);		// 태그 전체 수
-		model.addAttribute("tList", tList);	// 태그 목록
-		
-		model.addAttribute("wCnt", wCnt);		// 위키 전체 수
-		model.addAttribute("wList", wList);	// 위키 목록
+
+		// System.out.println("1==========++"+ users.get().getUserprofileimg());
+		model.addAttribute("user", users.orElse(null)); // 프로필 정보
+		model.addAttribute("isMypage", isUserNo); // 내 정보 유무
+		model.addAttribute("enterprise", enterprise); // 회사명 정보
+
+		model.addAttribute("score", score); // 평판점수
+
+		model.addAttribute("qCnt", qCnt); // 질문 전체 수
+		model.addAttribute("qList", qList.getContent()); // 질문 목록
+
+		model.addAttribute("aCnt", aCnt); // 답변 전체 수
+		model.addAttribute("aList", aList.getContent()); // 답변 목록
+
+		model.addAttribute("tCnt", tCnt); // 태그 전체 수
+		model.addAttribute("tList", tList); // 태그 목록
+
+		model.addAttribute("wCnt", wCnt); // 위키 전체 수
+		model.addAttribute("wList", wList); // 위키 목록
 //		model.addAttribute("tab", tab);
 
 		return "/users/activity";
 	}
-	
+
+
 	/**
 	 * 사용자 목록
 	 * @param model
@@ -160,16 +163,26 @@ public class UsersController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/list")
-	public String userList(@RequestParam Map<String, String> params,  Model model, @PageableDefault Pageable pageable) throws Exception {
-		if(LOG_URL) logger.info(" -- url : /users/list - pageable : " + pageable);
-		Page<Users> list = usersService.findAll(pageable);
-		
+	@RequestMapping(value = "/list")
+	public String userList(@RequestParam Map<String, String> params, Model model, @PageableDefault Pageable pageable,
+			HttpServletRequest req) throws Exception {
+		if (LOG_URL)
+			logger.info(" -- url : /users/list - pageable : " + pageable);
+
+		String sortvote = req.getParameter("sortvote");
+		String sortscore = req.getParameter("sortscore");
+
+		Page<Userslist> list = usersService.findAllaaa(pageable, sortvote, sortscore);
+
+		sortvote = list.getSort().toString();
+		model.addAttribute("sortvote", list.getSort().toString());
+		model.addAttribute("sortscore", list.getSort().toString());
 		model.addAttribute("paging", list);
 		model.addAttribute("data", list.getContent());
-		
+
 		return "/users/list";
 	}
+
 
 	/**
 	 * 사용자 상세 정보
@@ -178,37 +191,39 @@ public class UsersController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/profile/{seq}", method=RequestMethod.GET)
-	public String modify(Model model, @PathVariable("seq") int seq, @AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
-		if(LOG_URL) logger.info(" -- url : /users/profile - seq : " + seq);
-		
+	@RequestMapping(value = "/profile/{seq}", method = RequestMethod.GET)
+	public String modify(Model model, @PathVariable("seq") int seq,
+			@AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
+		if (LOG_URL)
+			logger.info(" -- url : /users/profile - seq : " + seq);
+
 		boolean isUserNo = false;
-		
+
 		Optional<Users> user = usersService.findByUserno(seq);
-		//Optional<Enterprises> enterprise = usersService.findEnterpriseno(seq);
+		// Optional<Enterprises> enterprise = usersService.findEnterpriseno(seq);
 		Enterprises enterprise = usersService.findEnterpriseno(seq);
-		System.out.println("profile -- > enterprise name > " +enterprise.getEnterprisename());
-		System.out.println("userat? "+enterprise.getUserat());
-		
+		System.out.println("profile -- > enterprise name > " + enterprise.getEnterprisename());
+		System.out.println("userat? " + enterprise.getUserat());
+
 		logger.info(" ------ user : " + user);
 		logger.info(" ------ enterprise : " + enterprise);
-		
-		if ( loginUserData == null ) {
+
+		if (loginUserData == null) {
 			isUserNo = false;
 		} else {
-			if( loginUserData.getUserno() == seq ) {
+			if (loginUserData.getUserno() == seq) {
 				isUserNo = true;
 			}
 		}
-		
-		
-		model.addAttribute("user", user.orElse(null));	// 프로필 정보
-		model.addAttribute("isMypage", isUserNo );	// 내 정보 유무
-		model.addAttribute("enterprise", enterprise);	// 회사명 정보
-		
+
+		model.addAttribute("user", user.orElse(null)); // 프로필 정보
+		model.addAttribute("isMypage", isUserNo); // 내 정보 유무
+		model.addAttribute("enterprise", enterprise); // 회사명 정보
+
 		return "/users/profile";
 	}
-	
+
+
 	/**
 	 * 사용자 정보 수정
 	 * @param model
@@ -217,14 +232,16 @@ public class UsersController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String modify(Model model, Users vo, UsersDetail userDetail) throws Exception {
-		if(LOG_URL) logger.info(" -- url : /users/modify - user : " + vo + " // detail : " + userDetail);
-		
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String modify(Model model, Users vo, Usersdetail userDetail) throws Exception {
+		if (LOG_URL)
+			logger.info(" -- url : /users/modify - user : " + vo + " // detail : " + userDetail);
+
 		System.out.println("userDetail? " + userDetail.getEnterpriseno());
 		usersService.updateUser(vo, userDetail);
 		return "redirect:/users/activity/" + vo.getUserno();
 	}
+
 
 	/**
 	 * 사용자 비밀번호 수정
@@ -234,23 +251,28 @@ public class UsersController {
 	 * @throws Exception
 	 */
 	@ResponseBody
-	@RequestMapping(value="/modifyPw", method=RequestMethod.POST)
-	public HashMap<String, Object> modifyPassword(Model model, UserPwVO vo, @AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
-		if(LOG_URL) logger.info(" -- url : /users/modify - UserPwVO : " + vo);
+	@RequestMapping(value = "/modifyPw", method = RequestMethod.POST)
+	public HashMap<String, Object> modifyPassword(Model model, UserPwVO vo,
+			@AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
+		if (LOG_URL)
+			logger.info(" -- url : /users/modify - UserPwVO : " + vo);
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
+
 		vo.setUserno(loginUserData.getUserno());
-		
+
 		boolean updateVal = usersService.updateUserPw(vo);
-		
-		if(updateVal) map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
-		else map.put("message", CodeMessage.MSG_100009_비밀번호가_일치하지_않습니다__다시_확인해주세요_);
-		
+
+		if (updateVal)
+			map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
+		else
+			map.put("message", CodeMessage.MSG_100009_비밀번호가_일치하지_않습니다__다시_확인해주세요_);
+
 		map.put("updateVal", updateVal);
 		return map;
 	}
-	
+
+
 	/**
 	 * 프로필 이미지 업로드
 	 * @param request
@@ -258,20 +280,24 @@ public class UsersController {
 	 * @throws Exception
 	 */
 	@ResponseBody
-	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public HashMap<String, Object> upload(MultipartHttpServletRequest request, @AuthenticationPrincipal SecurityMember loginUserData) throws Exception{
-		if(LOG_URL) logger.info(" -- url : /users/upload - request : " + request);
-		
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	public HashMap<String, Object> upload(MultipartHttpServletRequest request,
+			@AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
+		if (LOG_URL)
+			logger.info(" -- url : /users/upload - request : " + request);
+
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
+
 		Users vo = new Users();
 		vo.setUserno(loginUserData.getUserno());
-		
+
 		boolean updateVal = usersService.upload(vo, request);
-		
-		if(updateVal) map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
-		else map.put("message", CodeMessage.MSG_000024_변경_중_오류가_발생하였습니다_);
-		
+
+		if (updateVal)
+			map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
+		else
+			map.put("message", CodeMessage.MSG_000024_변경_중_오류가_발생하였습니다_);
+
 		map.put("result", updateVal);
 		return map;
 	}
@@ -284,27 +310,28 @@ public class UsersController {
 	 * @throws Exception
 	 */
 	@ResponseBody
-	@RequestMapping(value="/getEnterList", method=RequestMethod.POST)
-	public HashMap<String, Object> getEnterList(String enterName,HttpServletRequest req) throws Exception{
-		if(LOG_URL) logger.info(" -- url : /users/getEnterList - enterName : " + enterName);
+	@RequestMapping(value = "/getEnterList", method = RequestMethod.POST)
+	public HashMap<String, Object> getEnterList(String enterName, HttpServletRequest req) throws Exception {
+		if (LOG_URL)
+			logger.info(" -- url : /users/getEnterList - enterName : " + enterName);
 		System.out.println("getEnterList?? --");
 
-		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		 List<Enterprises> list= usersService.getEnterList(enterName);
+
+		List<Enterprises> list = usersService.getEnterList(enterName);
 		System.out.println("getEnterList?? --");
-		
-		 for(int i=0;i<list.size();i++) {
-			 System.out.println("enter===="+list.get(i).getEnterprisename());
-		 }
+
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println("enter====" + list.get(i).getEnterprisename());
+		}
 //		if(updateVal) map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
 //		else map.put("message", CodeMessage.MSG_000024_변경_중_오류가_발생하였습니다_);
-		
+
 		map.put("list", list);
 		return map;
 	}
-	
+
+
 	/**
 	 * 사용자 점수 그래프
 	 * @param model
@@ -313,18 +340,20 @@ public class UsersController {
 	 * @throws Exception
 	 */
 	@ResponseBody
-	@RequestMapping(value="/getScoregraph", method=RequestMethod.POST)
-	public HashMap<String, Object> getScoregraph(Model model, HttpServletRequest req) throws Exception{
-		if(LOG_URL) logger.info(" -- url : /users/getScoregraph");
+	@RequestMapping(value = "/getScoregraph", method = RequestMethod.POST)
+	public HashMap<String, Object> getScoregraph(Model model, HttpServletRequest req) throws Exception {
+		if (LOG_URL)
+			logger.info(" -- url : /users/getScoregraph");
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		Integer userno = Integer.valueOf(req.getParameter("userno"));
-		
-		if(userno != null) {
+
+		if (userno != null) {
 			String list = usersService.getScoregraph(userno);
 			map.put("list", list);
 		}
-		
+
 		return map;
 	}
+
 }

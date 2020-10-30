@@ -59,7 +59,7 @@ WHERE
 	userno = #{userno}
 </update>
 
-<update id="updateEnterpriseNo" parameterType="com.de.user.UsersDetail">
+<update id="updateEnterpriseNo" parameterType="com.de.user.Usersdetail">
 UPDATE
 	tb_users_detail
 SET

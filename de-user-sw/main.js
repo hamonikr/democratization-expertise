@@ -288,9 +288,12 @@ ipcMain.on('resize-me-please', (event, arg) => {
 		mainWindow.setSize(520,320);
 		console.log("init layer size 550:80");
 	}else if( arg == "viewLayer"){
-		  mainWindow.setSize(520, 700);
+		  mainWindow.setSize(520, 760);
 		 // esRequest();
-	}else{
+	}else if( arg == "questLayer"){
+		mainWindow.setSize(520, 640);
+	   // esRequest();
+  	}else{
 		createWindow();
 		mainWindow.setSize(520,320);
 	}		

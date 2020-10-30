@@ -103,7 +103,7 @@ button {
 														</span> 
 													</div>
 												</div>
-											</div>
+											</div> 
 										</div>
 										</c:if>
 									</c:forEach>
@@ -144,7 +144,7 @@ button {
 														</span> 
 													</div>
 												</div>
-											</div>
+											</div> 
 										</div>
 										</c:if>
 									</c:forEach>

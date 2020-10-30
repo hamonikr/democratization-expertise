@@ -1,5 +1,6 @@
 package com.de.user;
 
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -10,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -19,17 +19,18 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+
 @Getter
 @Setter
 @ToString
 @Entity
 @Embeddable
 @Table(name = "tb_users")
-public class Users implements Serializable{
-	
+public class Users implements Serializable {
+
 	@Id
-	@Column(name="userno")
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@Column(name = "userno")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	/* 회원 고유 번호 */
 	private Integer userno;
 	/* 회원 아이디 */
@@ -57,26 +58,12 @@ public class Users implements Serializable{
 	/* 뉴스레터 */
 	private String newslater;
 	/* 가입 일시 */
+
 	@CreationTimestamp
+	@Column(name = "registerdate")
 	private Timestamp registerdate;
 	/* 수정 일시 */
 	@UpdateTimestamp
 	private Timestamp updatedate;
 
-//	@JoinTable(name = "tb_users_detail", //조인테이블명
-//		joinColumns = @JoinColumn(name="userno")  //외래키
-//		//inverseJoinColumns = @JoinColumn(name="userno") //반대 엔티티의 외래키
-//	)
-	
-//	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//	@JoinColumn(name= "userno")
-	@Transient
-	private UsersDetail usersDetail;
-	
-//	@OneToOne
-//	@JoinTable(name = "tb_score", //조인테이블명
-//		joinColumns = @JoinColumn(name="userno"),  //외래키
-//		inverseJoinColumns = @JoinColumn(name="userno") //반대 엔티티의 외래키
-//	)
-//	private UsersDetail userScore;
 }

@@ -53,8 +53,8 @@
 											</div>
 										</td>
 										<td>
-											<button type="submit" class="btn btn-outline-primary float-right" name="sort" class="sort" value="1">평판순</button>
-											<button type="submit" class="btn btn-outline-primary float-right" name="sort" class="sort" value="2">투표많은순</button>
+											<button type="submit" class="btn btn-outline-primary float-right" name="sortscore" id="sortscore" class="sort" value="${sortscore }">평판순</button>
+											<button type="submit" class="btn btn-outline-primary float-right" name="sortvote" id="sortvote" class="sort" value="${sortvote }">투표많은순</button>
 											
 											<!-- <a href="javascript:alert('준비중');" class="btn btn-primary purple">평판</a> -->
 <!-- 											<a href="/users/list?sort=registerdate: DESC" class="btn btn-primary purple">사용자</a> -->
@@ -69,6 +69,7 @@
 							<div class="row">		
 					        	
 					        	<c:forEach var="list" items="${data}" varStatus="status">
+						        	
 						        	<div class="col-md-3 col-sm-6 col-xs-12">
 						         		<div class="info-box" onclick="javascript:location.href='/users/activity/${list.userno}'" style="cursor: pointer;">
 						            		<span class="info-box-icon bg-aqua">
@@ -81,9 +82,9 @@
 											</span>
 						            		<div class="info-box-content">
 						              		<span class="info-box-text">${list.username}</span>
-						              		<span class="info-box-number">${list.userno }</span>
+						              		<span class="info-box-number">${list.userno }, ${list.totlikes}</span>
 						            		</div>
-						          	</div>
+						          		</div>
 						        	</div>
 								</c:forEach>
 								<!-- 게시물이 없을 경우 -->
