@@ -34,6 +34,10 @@
 	margin : 10% 10% 10% 10%;
 }
 
+.login-page{
+background: transparent;	
+}
+
 strong{
 	margin-left:5%;
 	font-weight:20px;
@@ -43,9 +47,9 @@ strong{
 
 <body>
 <!-- contents -->
-<div class="hold-transition login-page">
+<div class="login-page">
 <!-- 입력 박스 -->
-<div class="col-3">
+<div class="col-6">
 <div class="card">
  <div class="login-card-body" >
   <form id ="frm" name="frm" method="post">      
@@ -61,12 +65,18 @@ strong{
 	<!-- 이메일 -->  
      <div class="row">
      <div class="col-8">
+     	<h6><strong>아이디</strong></h6>
+     </div>
+          	<div class="form-group col-12"> 	    
+		      	<input type="text" class="form-control englishOnly" id="userid" name="userid" value="" style="margin-left: 10px" placeholder="아이디를 입력해주세요">             	
+		   </div>
+     <div class="col-8">
      	<h6><strong>Email 주소</strong></h6>
      </div>
           	<div class="form-group col-12"> 	    
 		      	<input type="email" class="form-control englishOnly" id="useremail" name="useremail" value="bono6315@gmail.com" style="margin-left: 10px" placeholder="이메일을 입력해주세요">             	
 		   </div>
-        </div>
+     </div>
        <br>
      
 	
@@ -100,10 +110,14 @@ strong{
 	 
 	 $('#frm').validate({
 		 rules: {
-		 	 
-		 	  userEmail:{ required: true, email: true }
+		 	 userid:{ required: true }
+		 	 	,
+		 	  useremail:{ required: true, email: true }
 		    		  }, 
 		  messages:{
+			  userid: {
+		 			required : "아이디 필수값 입니다.",
+		 			},
 		 								
 			  useremail: {
 		 			required : "이메일은 필수값 입니다.",

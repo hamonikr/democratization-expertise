@@ -10,7 +10,7 @@ SELECT
 FROM 
 	tb_users ta left outer join tb_users_detail tb on ta.userno = tb.userno
 WHERE
-	ta.useremail = #{useremail} and tb.activeat!=1;
+	ta.useremail = #{useremail} and ta.userid= #{userid} and tb.activeat != 1;
 </select>	
 
 <!-- 비밀번호 초기화 -->

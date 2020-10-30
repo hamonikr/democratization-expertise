@@ -72,6 +72,8 @@ public class LoginController {
 		System.out.println("대표 유저 여부==?? "+vo.getRepresentat());
 		Integer val = null;
 		String returnUrl = (String)session.getAttribute("referrer");
+		
+		System.out.println("returnUrl======>>>> " +returnUrl);
 		session.removeAttribute("referrer");
 		
 //		if(vo.getRepresentat()==1) {
@@ -80,9 +82,12 @@ public class LoginController {
 //		} else {
 //			return "redirect:/users/activity/"+user.getUserno();
 //				}
-		
-				return "redirect:"+returnUrl;
-	} 
+		if(returnUrl==null) {			
+			return "redirect:/questions/list";
+		} else {
+			return "redirect:"+returnUrl;
+		}
+	}
 	
 	@RequestMapping("/socialLogin")
 	 public String socialLogin(Model model, HttpSession session , LoginVO vo,HttpServletRequest request) throws Exception{
@@ -99,7 +104,11 @@ public class LoginController {
 		System.out.println("userno======"+vo.getUserno());
 		model.addAttribute("loginUser", session.getAttribute("userSession"));
 		//return "redirect:/users/activity/"+vo.getUserno();
-		return "redirect:"+returnUrl;
+		if(returnUrl==null) {			
+			return "redirect:/questions/list";
+		} else {
+			return "redirect:"+returnUrl;
+		}
 	} 
 
 	 @RequestMapping("/message")
