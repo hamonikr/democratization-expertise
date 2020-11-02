@@ -23,4 +23,6 @@ public interface UsersMapper {
 	public List<Wiki> findTagAndWikiByUserno(Wiki vo);
 	public Integer getScore(int seq);
 	public String getScoregraph(int userno);
+	public List<Users> getList(Users vo) throws Exception;
+	public int getListCount(Users vo) throws Exception;
 }

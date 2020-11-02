@@ -188,7 +188,7 @@ strong{
 		                  type: 'post',
 		                  data: {userid},
 		                  success: function(retVal) {		 							
-		 						if(retVal == "사용가능한 아이디입니다"){
+		 						if(retVal == "S"){
 		 							//alert(retVal);
 		 							var useremail = $("#useremail").val();
 			 						//alert(useremail);

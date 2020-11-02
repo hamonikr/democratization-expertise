@@ -23,7 +23,7 @@
 
 
 	<section class="content" style="padding: 2px 12px 6px 19px;">
-		<form id="frm" name="frm" method="post">
+		<form id="frm" name="frm" method="post" action="/users/list">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			 <input type="hidden" name="page" value="${paginationInfo.currentPageNo }" />
 			<div class="container-fluid">
@@ -102,7 +102,7 @@
 
 			</div>
 			<!-- page number -->
-			<jsp:include page="/WEB-INF/views/include/paging_jpa.jsp" />
+			<jsp:include page="/WEB-INF/views/include/paging.jsp" />
 		</form>
 	</section>
 	

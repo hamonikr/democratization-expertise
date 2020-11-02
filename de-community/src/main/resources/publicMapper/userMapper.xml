@@ -3,6 +3,70 @@
  
 <mapper namespace="com.de.user.mapper.UsersMapper">
 
+<resultMap type="com.de.score.Score" id="Score">
+	<result column="seq" property="seq"/>
+	<result column="score" property="score"/>
+	<result column="userno" property="userno"/>
+	<result column="pno" property="pno"/>
+	<result column="section" property="section"/>
+</resultMap>
+
+<resultMap type="com.de.user.Users" id="Users">
+	<result column="userno" property="userno"/>
+	<result column="role" property="role"/>
+	<result column="aboutme" property="aboutme"/>
+	<result column="registerdate" property="registerdate"/>
+	<result column="updatedate" property="updatedate"/>
+	<result column="useremail" property="useremail"/>
+	<result column="username" property="username"/>
+	<result column="userpassword" property="userpassword"/>
+	<result column="userurl" property="userurl"/>
+	<result column="userid" property="userid"/>
+	<result column="picture" property="picture"/>
+	<result column="userstatus" property="userstatus"/>
+	<result column="newslater" property="newslater"/>
+	<result column="userprofileimg" property="userprofileimg"/>
+	<result column="location" property="location"/>
+	<result column="enterpriseno" property="enterpriseno"/>
+	<result column="firstRecordIndex" property="firstRecordIndex"/>
+	<result column="recordCountPerPage" property="recordCountPerPage"/>
+	<collection property="score" resultMap="Score"/>
+</resultMap>
+
+	<sql id="listWhere">
+		and	(userid like '%' || #{searchtext} || '%' 
+			or
+			username like '%' || #{searchtext} || '%')
+	</sql>
+	
+	<select id="getList" parameterType="com.de.user.Users" resultMap="Users">
+		select 
+		a.*
+		,b.*
+		,(select (sum(likes) - sum(dislikes)) from  tb_vote where userno=a.userno
+        group by userno)as total
+		from tb_users a left outer join tb_score b on a.userno = b.userno
+		<where>
+		<if test="searchtext != null and searchtext != ''">
+		<include refid="listWhere" />
+		</if>
+		</where>
+		<if test="sort == null" >order by a.registerdate desc</if>
+		<if test="sort == 1" >order by b.score desc nulls last</if>
+		<if test="sort == 2" >order by total desc nulls last</if>
+		OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage}
+	</select>
+	
+	<select id="getListCount" parameterType="com.de.user.Users" resultType="java.lang.Integer">
+		select count(*) from tb_users
+		<if test="searchtext != null and searchtext != ''">
+		<where>
+		<include refid="listWhere" />
+		</where>
+		</if>
+	</select>
+
+
 <select id="findEnterpriseno" parameterType="Integer" resultType="com.de.enterprise.Enterprises">
 SELECT 
 	a.enterpriseno,

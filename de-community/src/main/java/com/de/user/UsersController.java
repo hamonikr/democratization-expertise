@@ -25,12 +25,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.de.answer.Answers;
+import com.de.cmmn.CmmnMap;
 import com.de.cmmn.util.CodeMessage;
 import com.de.enterprise.Enterprises;
 import com.de.login.service.SecurityMember;
 import com.de.login.vo.LoginVO;
 import com.de.question.Questions;
 import com.de.wiki.Wiki;
+
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 
 @Controller
@@ -153,6 +156,24 @@ public class UsersController {
 		return "/users/activity";
 	}
 	
+//	/**
+//	 * 사용자 목록
+//	 * @param model
+//	 * @param pageable
+//	 * @return
+//	 * @throws Exception
+//	 */
+//	@RequestMapping(value="/list")
+//	public String userList(@RequestParam Map<String, String> params,  Model model, @PageableDefault Pageable pageable) throws Exception {
+//		if(LOG_URL) logger.info(" -- url : /users/list - pageable : " + pageable);
+//		Page<Users> list = usersService.findAll(pageable);
+//		
+//		model.addAttribute("paging", list);
+//		model.addAttribute("data", list.getContent());
+//		
+//		return "/users/list";
+//	}
+	
 	/**
 	 * 사용자 목록
 	 * @param model
@@ -160,14 +181,36 @@ public class UsersController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/list")
-	public String userList(@RequestParam Map<String, String> params,  Model model, @PageableDefault Pageable pageable) throws Exception {
-		if(LOG_URL) logger.info(" -- url : /users/list - pageable : " + pageable);
-		Page<Users> list = usersService.findAll(pageable);
-		
-		model.addAttribute("paging", list);
-		model.addAttribute("data", list.getContent());
-		
+	@RequestMapping(value = "/list")
+	public String getList(@RequestParam Map<String, String> params, Model model, Users users,
+			@AuthenticationPrincipal SecurityMember user, @PageableDefault Pageable pageable) throws Exception {
+
+		CmmnMap param = new CmmnMap();
+		param.putAll(params);
+
+		logger.info("----------excel param-----------------------");
+		logger.debug("");
+		logger.debug(param.toString());
+		logger.debug("");
+		logger.debug("----------excel param-----------------------");
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(param.getInt("pageNo") > 0 ? param.getInt("pageNo") : 1); // 현재 페이지 번호
+		paginationInfo.setRecordCountPerPage(30); // 한 페이지에 게시되는 게시물 건수
+		paginationInfo.setPageSize(5); // 페이징 리스트의 사이즈
+
+		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
+		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
+		users.setFirstRecordIndex(firstRecordIndex);
+		users.setRecordCountPerPage(recordCountPerPage);
+
+		List<Users> list = usersService.getList(users);
+
+
+		int listCount = usersService.getListCount(users);
+		paginationInfo.setTotalRecordCount(listCount); // 전체 게시물 건 수
+		model.addAttribute("data", list);
+		model.addAttribute("paginationInfo", paginationInfo);
+		model.addAttribute("vo", param);
 		return "/users/list";
 	}
 

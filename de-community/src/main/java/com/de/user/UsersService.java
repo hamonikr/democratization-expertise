@@ -240,4 +240,14 @@ public class UsersService {
 	public String getScoregraph(int userno) {
 		return um.getScoregraph(userno);
 	}
+	
+	// 게시물 목록
+	public List<Users> getList(Users vo) throws Exception {
+		return um.getList(vo);
+	}
+
+	// 게시물 카운트
+	public int getListCount(Users vo) throws Exception {
+		return um.getListCount(vo);
+	}
 }

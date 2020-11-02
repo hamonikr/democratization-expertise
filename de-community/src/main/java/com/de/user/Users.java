@@ -15,6 +15,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.de.score.Score;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -62,6 +64,12 @@ public class Users implements Serializable{
 	/* 수정 일시 */
 	@UpdateTimestamp
 	private Timestamp updatedate;
+	
+	/* 페이징 */
+	@Transient
+	private int firstRecordIndex;
+	@Transient
+	private int recordCountPerPage;
 
 //	@JoinTable(name = "tb_users_detail", //조인테이블명
 //		joinColumns = @JoinColumn(name="userno")  //외래키
@@ -73,10 +81,18 @@ public class Users implements Serializable{
 	@Transient
 	private UsersDetail usersDetail;
 	
+	@Transient
+	private Score score;
+	
 //	@OneToOne
 //	@JoinTable(name = "tb_score", //조인테이블명
 //		joinColumns = @JoinColumn(name="userno"),  //외래키
 //		inverseJoinColumns = @JoinColumn(name="userno") //반대 엔티티의 외래키
 //	)
 //	private UsersDetail userScore;
+	
+	/* 정렬 */
+	private Integer sort;
+	/* 검색 */
+	private String searchtext;
 }
