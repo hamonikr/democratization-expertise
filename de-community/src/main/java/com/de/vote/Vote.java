@@ -1,6 +1,5 @@
 package com.de.vote;
 
-
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -17,29 +16,27 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-
 @Getter
 @Setter
 @ToString
 @Entity
 @Table(name = "tb_vote")
 public class Vote {
-
+	
 	/* 투표 고유 번호 */
 	@Id
 	@Column
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Integer seq;
 	/* 부모 고유 번호 */
 	private Integer pno;
 	/* 구분 */
 	private String section;
-	/* 점수 +1 */
+	/* 점수 +1*/
 	private Integer likes;
-	/* 점수 -1 */
+	/* 점수 -1*/
 	private Integer dislikes;
 	/* 회원 고유 번호 */
-	@Column(name = "userno")
 	private Integer userno;
 	/* 투표한 회원 고유 번호 */
 	private Integer senduserno;
@@ -49,10 +46,5 @@ public class Vote {
 	/* 수정 일시 */
 	@UpdateTimestamp
 	private Timestamp updatedate;
-
-	private Integer likescnt;
-
-//	@OneToOne
-//	private Users users;
 
 }

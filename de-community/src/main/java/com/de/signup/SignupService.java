@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.de.enterprise.Enterprises;
 import com.de.signup.mapper.SignupMapper;
 import com.de.user.Users;
-import com.de.user.Usersdetail;
+import com.de.user.UsersDetail;
 
 
 @Service
@@ -43,7 +43,7 @@ public class SignupService {
 	}
 
 	
-	public int saveDetail(Usersdetail vo) throws Exception {	
+	public int saveDetail(UsersDetail vo) throws Exception {	
 		return mapper.saveDetail(vo);
 	}
 

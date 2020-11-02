@@ -45,7 +45,7 @@
  	)
 </insert>
 
-<insert id="saveDetail" parameterType="com.de.user.Usersdetail" >
+<insert id="saveDetail" parameterType="com.de.user.UsersDetail" >
     Insert
 	 into
   	  tb_users_detail(  	  	

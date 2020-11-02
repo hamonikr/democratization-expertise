@@ -22,7 +22,7 @@ import com.de.enterprise.mapper.EnterprisesMapper;
 import com.de.question.Questions;
 import com.de.question.QuestionsRepository;
 import com.de.user.Users;
-import com.de.user.Usersdetail;
+import com.de.user.UsersDetail;
 import com.de.wiki.Wiki;
 
 @Service
@@ -127,15 +127,15 @@ public class EnterpriseService {
 	}
 
 	// 기업 회원 목록
-	public List<Users> getMembersList(Usersdetail vo) {
+	public List<Users> getMembersList(UsersDetail vo) {
 		return em.getMembersList(vo);
 	}
 	
-	public boolean updateActivaet(Usersdetail vo) {
+	public boolean updateActivaet(UsersDetail vo) {
 		return em.updateActivaet(vo);
 	}
 
-	public boolean updateUserat(Usersdetail vo) {
+	public boolean updateUserat(UsersDetail vo) {
 		return em.updateUserat(vo);
 	}
 
@@ -175,7 +175,7 @@ public class EnterpriseService {
 	
 	// 평판점수
 	public Integer getScore(int seq) {
-		Usersdetail vo = new Usersdetail();
+		UsersDetail vo = new UsersDetail();
 		vo.setEnterpriseno(seq);
 		vo.setUserat(1);	// 승인
 		
@@ -191,7 +191,7 @@ public class EnterpriseService {
 	}
 	
 	public String getScoregraph(int seq) {
-		Usersdetail vo = new Usersdetail();
+		UsersDetail vo = new UsersDetail();
 		vo.setEnterpriseno(seq);
 		vo.setUserat(1);	// 승인
 		

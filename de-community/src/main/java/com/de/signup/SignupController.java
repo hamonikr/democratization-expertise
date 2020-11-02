@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.de.enterprise.Enterprises;
 import com.de.user.Users;
-import com.de.user.Usersdetail;
+import com.de.user.UsersDetail;
 
 @Controller
 @RequestMapping(value = "/signup")
@@ -120,7 +120,7 @@ public class SignupController {
 	
 	//일반 유저 회원가입
 	@RequestMapping(value = "/signup.proc", method = RequestMethod.POST)
-	public String signUpProc(Model model, Users vo, Usersdetail uvo, HttpServletRequest request) {
+	public String signUpProc(Model model, Users vo, UsersDetail uvo, HttpServletRequest request) {
 		System.out.println("----------sign Up Proc----------");
 
 		System.out.println("vo id==>" + vo.getUserid());
@@ -150,7 +150,7 @@ public class SignupController {
 	//파트너사 회원가입
 	@RequestMapping(value = "/signupForPartner.proc")
 	@ResponseBody
-	public String signUpForPartnerProc(Model model, Users vo, Enterprises evo ,Usersdetail uvo, HttpServletRequest request) {
+	public String signUpForPartnerProc(Model model, Users vo, Enterprises evo ,UsersDetail uvo, HttpServletRequest request) {
 		System.out.println("----------파트너사 sign Up Proc----------");
 		String retVal="aa";
 

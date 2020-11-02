@@ -7,11 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.de.user.Users;
-import com.de.user.Usersdetail;
+import com.de.user.UsersDetail;
 
 @Repository
-public interface SignupForDetailRepository extends JpaRepository<Usersdetail, Integer>{
-	List<Usersdetail> findAll();
-   List<Usersdetail> findByEnterpriseno(Integer enterpriseno);
+public interface SignupForDetailRepository extends JpaRepository<UsersDetail, Integer>{
+	List<UsersDetail> findAll();
+   List<UsersDetail> findByEnterpriseno(Integer enterpriseno);
    
 }

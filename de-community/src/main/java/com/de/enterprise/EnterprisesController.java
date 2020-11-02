@@ -26,7 +26,7 @@ import com.de.cmmn.util.CodeMessage;
 import com.de.login.service.SecurityMember;
 import com.de.question.Questions;
 import com.de.user.Users;
-import com.de.user.Usersdetail;
+import com.de.user.UsersDetail;
 import com.de.wiki.Wiki;
 
 
@@ -92,7 +92,7 @@ public class EnterprisesController {
 //		System.out.println("loginUserData.getUserno()=========+++++"+loginUserData.getEnterpriseno() );
 		Optional<Enterprises> enterprises = service.findByEnterpriseno(seq);
 		
-		Usersdetail vo = new Usersdetail();
+		UsersDetail vo = new UsersDetail();
 		
 		vo.setEnterpriseno(seq);
 		
@@ -337,7 +337,7 @@ public class EnterprisesController {
 			}
 		}
 		
-		Usersdetail vo = new Usersdetail();
+		UsersDetail vo = new UsersDetail();
 		
 		vo.setEnterpriseno(seq);
 		
@@ -368,7 +368,7 @@ public class EnterprisesController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/updateUserat", method=RequestMethod.POST)
-	public HashMap<String, Object> updateUserat(Model model, Usersdetail vo) throws Exception {
+	public HashMap<String, Object> updateUserat(Model model, UsersDetail vo) throws Exception {
 		if(LOG_URL) logger.info(" -- url : /enterprises/updateUserat - UsersDetail : " + vo);
 
 		HashMap<String, Object> map = new HashMap<String, Object>();

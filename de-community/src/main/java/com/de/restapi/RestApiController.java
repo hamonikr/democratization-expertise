@@ -349,7 +349,7 @@ public class RestApiController {
 
 			// 비밀번호 재인코딩
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-			System.out.println("==================++++" + passwordEncoder.encode("exitem0*"));
+//			System.out.println("==================++++" + passwordEncoder.encode("exitem0*"));
 
 			if (!passwordEncoder.matches(userPw, vo.getUserpassword())) {
 				jsonObject.put("output", "N");
