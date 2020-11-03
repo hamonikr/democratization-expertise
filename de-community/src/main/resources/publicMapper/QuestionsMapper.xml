@@ -94,13 +94,14 @@
 		left outer join tb_vote c on a.questionno = c.pno
 		<where>
 		 c.section = 'Q'
+		 and a.deleteat = 0
 		<if test="searchtext != null and searchtext != ''">
 		<include refid="listWhere" />
 		</if>
 		</where>
 		<if test="sort == null" >order by a.registerdate desc</if>
 		<if test="sort == 1" >order by a.registerdate desc</if>
-		<if test="sort == 2" >order by a.registerdate asc</if>
+		<if test="sort == 2" >order by commentcnt asc</if>
 		<if test="sort == 3" >order by c.likes desc</if>
 		OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage}
 	</select>
@@ -109,6 +110,7 @@
 		select count(*) from tb_questions
 		<if test="searchtext != null and searchtext != ''">
 		<where>
+		deleteat = 0
 		<include refid="listWhere" />
 		</where>
 		</if>

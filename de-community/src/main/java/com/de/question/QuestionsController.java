@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -214,6 +215,28 @@ public class QuestionsController {
 		// 질문수정
 		qs.updateById(vo);
 		return "redirect:/questions/list";
+	}
+	
+	@RequestMapping(value = "/delete/{questionno}")
+	public String deleteproc(HttpServletRequest request,@PathVariable("questionno") int questionno, Model model, 
+			Questions vo, LoginVO user, HttpSession httpSession,HttpServletResponse response)
+			throws Exception {
+		user = (LoginVO) httpSession.getAttribute("userSession");
+		if (user == null) {
+			return "redirect:/login";
+		}
+		// 질문수정
+		int result = qs.deleteById(questionno,user);
+		if(result == 1) {
+			request.setAttribute("message","삭제 되었습니다.");
+	    	request.setAttribute("url", "/questions/list");
+	    	request.getRequestDispatcher("/login/message").forward(request, response);
+		} else {
+			request.setAttribute("message","자신의 글이 아닙니다.");
+	    	request.setAttribute("url", "/questions/list");
+	    	request.getRequestDispatcher("/login/message").forward(request, response);
+		}
+		return "";
 	}
 
 

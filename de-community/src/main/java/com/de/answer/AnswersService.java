@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.de.answer.mapper.AnswersMapper;
 import com.de.cmmn.CmmnMap;
+import com.de.login.vo.LoginVO;
 import com.de.question.Questions;
 import com.de.question.mapper.QuestionsMapper;
 import com.de.tag.Tags;
@@ -110,13 +111,18 @@ public class AnswersService {
 		
 	}
 	
-	public void updateById(int answerno) throws Exception {
+	public int updateById(int answerno,LoginVO user) throws Exception {
 		Optional<Answers> e = ar.findById(answerno);
+		int result = 0;
 		if (e.isPresent()) {
+			if(!e.get().getUserno().equals(user.getUserno())) {
 			e.get().setSelected(1);
 			//e.get().setContents(e.get().getContents());
 			ar.save(e.get());
+			result = 1;
+			}
 		}
+		return result;
 
 	}
 	public Answers updateHistory(Answers vo) throws Exception {

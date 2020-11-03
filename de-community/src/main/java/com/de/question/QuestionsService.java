@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.de.cmmn.CmmnMap;
+import com.de.login.vo.LoginVO;
 import com.de.question.mapper.QuestionsMapper;
 import com.de.tag.Tags;
 import com.de.tag.TagsRepository;
@@ -75,8 +76,8 @@ public class QuestionsService {
 	}
 
 
-	public Optional<Questions> findById(int questionNo) {
-		return qr.findById(questionNo);
+	public Optional<Questions> findById(int questionno) {
+		return qr.findById(questionno);
 	}
 
 
@@ -141,6 +142,20 @@ public class QuestionsService {
 			
 			qr.save(e.get());
 		}
+
+	}
+	
+	public int deleteById(int questionno,LoginVO user) throws Exception {
+		Optional<Questions> e = qr.findById(questionno);
+		int result = 0;
+		if (e.isPresent()) {
+			if(e.get().getFirstuserno().equals(user.getUserno()) && e.get().getEditauth().equals(0)) {
+			e.get().setDeleteat(1);
+			qr.save(e.get());
+			result = 1;
+			}
+		}
+		return result;
 
 	}
 
