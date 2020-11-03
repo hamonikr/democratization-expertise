@@ -122,6 +122,9 @@
 								<c:if test="${((result.editauth eq 1) or (result.firstuserno eq user.userno))}">
 									<a href="/questions/edit/${result.questionno}" class="btn btn-primary purple">수정</a>
 								</c:if>
+								<c:if test="${((result.editauth eq 0) and (result.firstuserno eq user.userno) and fn:length(answerList) eq 0)}">
+									<a href="/questions/delete/${result.questionno}" class="btn btn-primary purple">삭제</a>
+								</c:if>
 								<button type="button" class="btn btn-primary gray" onclick="location.href='/questions/list'">목록</button>
 							</div>
 							

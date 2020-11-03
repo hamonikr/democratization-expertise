@@ -170,11 +170,17 @@ public class AnswersController {
 			return "redirect:/login";
 		}
 		// 답변 채택
-		as.updateById(answerno);
-		request.setAttribute("message", messageSource.getMessage("com.test", null, Locale.getDefault()));
-    	request.setAttribute("url", referrer);
-    	request.getRequestDispatcher("/login/message").forward(request, response);
-		return "redirect:"+referrer;
+		int result = as.updateById(answerno,user);
+		if(result == 1) {
+			request.setAttribute("message","답변이 채택되었습니다.");
+	    	request.setAttribute("url", referrer);
+	    	request.getRequestDispatcher("/login/message").forward(request, response);
+		}else {
+			request.setAttribute("message","자신의 답변은 채택 할 수 없습니다.");
+	    	request.setAttribute("url", referrer);
+	    	request.getRequestDispatcher("/login/message").forward(request, response);
+		}
+		return "";
 	}
 
 
