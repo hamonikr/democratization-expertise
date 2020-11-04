@@ -8,9 +8,10 @@ import lombok.ToString;
 @Setter
 public class Account {
 
-    private String userid;// 관리자 아이디
-    private String userpassword; //관리자 비밀번호
-    private String useremail;// 관리자 이메일
-    private int activeat; //활성화 여부 
+    private String userid;// 유저 아이디
+    private String username; // 유저 이름(닉네임)
+    private String userpassword; //유저 비밀번호
+    private String useremail;// 유저 이메일
+    private int activeat; // 계정 활성화 여부 
    
 }

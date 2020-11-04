@@ -36,7 +36,6 @@ public class FindAccountController {
 		
 			vo = service.isExistAccount(vo);		
 		if(vo != null) {
-			System.out.println("aaaaa");
 			up_result = service.resetUserPw(vo);
 			
 			if(up_result==1) {
@@ -52,7 +51,6 @@ public class FindAccountController {
 
 			}
 		} else {
-			System.out.println("bbbbb");
 			request.setAttribute("message", messageSource.getMessage("login.incorrect.email", null, Locale.getDefault()));
 	    	request.getRequestDispatcher("/accountRecovery/message").forward(request, response);
 

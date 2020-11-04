@@ -341,7 +341,7 @@
 			<h3 class="card-title">비밀번호 변경</h3>
 		</div>
 
-		<div class="card-body">
+		<div class="card-body" style="width:100%;">
 			<div class="input-group mb-3">
 				<input type="password" class="form-control" name="userpassword" placeholder="기존 비밀번호">
 			</div>
@@ -437,7 +437,7 @@ $('#enterpriseListDiv').on('click', '.entElement', function(){
 
 //비밀번호 팝업 열기/닫기
 function fnPopupPw(){
-	alert(1);
+	//alert(1);
 	if('none' == $('#popupPw').css('display')) $('#popupPw').css('display', 'block');
 	else if('block' == $('#popupPw').css('display')) $('#popupPw').css('display', 'none');
 

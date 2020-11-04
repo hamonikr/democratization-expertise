@@ -61,7 +61,7 @@ public class PostMail {
 					"              </p>\n" + 
 					              
 					"              <p style=\"margin:0 0 15px 0\">" + 
-					              "<strong style=\"font-size:20px\">"+ vo.getUserid()+"</strong>" +"님, 안녕하세요.\n" + 
+					              "<strong style=\"font-size:20px\">"+ vo.getUsername()+"</strong>" +"님, 안녕하세요.\n" + 
 					"                임시비밀번호를 발급해드렸습니다. \n" + 
 					"              </p>\n" + 
 					"              <p style=\"margin:0 0 15px 0\">\n" + 
