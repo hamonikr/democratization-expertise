@@ -36,7 +36,6 @@ public class FindAccountController {
 		
 			vo = service.isExistAccount(vo);		
 		if(vo != null) {
-			System.out.println("aaaaa");
 			up_result = service.resetUserPw(vo);
 			
 			if(up_result==1) {
@@ -44,8 +43,6 @@ public class FindAccountController {
 				request.setAttribute("message", messageSource.getMessage("email.send.success", null, Locale.getDefault()));
 		    	request.getRequestDispatcher("/accountRecovery/message").forward(request, response);
 				
-		    	System.out.println("성공!");
-
 			} else {					
 				System.out.println("비밀번호 초기화 및 이메일 발송 실패!");
 				
@@ -54,13 +51,10 @@ public class FindAccountController {
 
 			}
 		} else {
-			System.out.println("bbbbb");
 			request.setAttribute("message", messageSource.getMessage("login.incorrect.email", null, Locale.getDefault()));
 	    	request.getRequestDispatcher("/accountRecovery/message").forward(request, response);
 
 		}	
-		System.out.println("cccccc");
-   // 	response.sendRedirect("/login/login");
 
 		return "redirect:/login";
 	}

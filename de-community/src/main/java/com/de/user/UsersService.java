@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -130,8 +131,16 @@ public class UsersService {
 		if (e.isPresent()) {
 //			if(e.get().getUserPassword().equals(vo.getUserPassword())) {
 //				e.get().setUserPassword(vo.getUserPasswordNew());
-				int check = um.updateUserPw(vo);
-				if(check == 1) updateVal = true;
+			
+			System.out.println("setUserpasswordnew ---->" + vo.getUserpasswordnew());
+				
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			vo.setUserpasswordnew(passwordEncoder.encode(vo.getUserpasswordnew()));	
+			
+			System.out.println("after encode setUserpasswordnew ---->" + vo.getUserpasswordnew());
+			
+			int check = um.updateUserPw(vo);
+			if(check == 1) updateVal = true;
 //			}
 		}
 		return updateVal;

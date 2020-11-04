@@ -13,7 +13,7 @@ const windowStateKeeper = require('electron-window-state');
 const request = require('request');
 const open = require('open');
 const unirest = require('unirest');
-const CHILD_PADDING = 100;
+const CHILD_PADDING = 100; 
 var log = require('./logger');
 
 const { promisify } = require('util');
@@ -48,30 +48,31 @@ function createWindow () {
 		skipTaskbar: false,
 		'x': mainWindowState.x,
 		'y': mainWindowState.y,
-		'width': 427, 
-		'height': 544, 
+		'width': 310, 
+		'height': 460, 
 		// 'width': 427, 
-		// 'height': 531,
+		// 'height': 544, 
 		 frame:false,
 		 alwaysOnTop: false,
 		//  resizable: false,
 		 transparent: true,
-		 show: true,
-		 webPreferences: {
-			defaultEncoding: 'utf8',
-			defaultFontFamily: 'cursive',
-			focusable: true,
-			webviewTag: true,
-			nodeIntegration: true,
-			nodeIntegrationInWorker: true,
-			nodeIntegrationInSubFrames: true,
-			 sandbox: true
+		 show: true
+		 ,webPreferences: {
+			// defaultEncoding: 'utf8',
+			// defaultFontFamily: 'cursive',
+			// focusable: true,
+			// webviewTag: true,
+			nodeIntegration: true
+			// nodeIntegrationInWorker: true,
+			// nodeIntegrationInSubFrames: true,
+			//  sandbox: true
 //			webgl: true
 		}
 	});
 	mainWindowState.manage(mainWindow);
 
-	   mainWindow.loadURL('file://' + __dirname + '/public/index.html');
+	//    mainWindow.loadURL('file://' + __dirname + '/public/index.html');
+	   mainWindow.loadURL('file://' + __dirname + '/public/test.html');
 	  
 
 	let display = electron.screen.getPrimaryDisplay();
@@ -80,7 +81,7 @@ function createWindow () {
   	mainWindow.setMenu(null);
 	mainWindow.setMenuBarVisibility(false);	
 	// Open the DevTools.
-  	// mainWindow.webContents.openDevTools(); 
+  	mainWindow.webContents.openDevTools(); 
 
 	mainWindow.on('closed', function () {
 		mainWindow = null;
@@ -411,7 +412,7 @@ const machineIdAsync = async(event) => {
 		var machineIdChk = await getOsMachineId();
 
 		if( machineIdChk == 'N' ){
-			var createMachineId = await userOsMachineIdWriteFile();
+			// var createMachineId = await userOsMachineIdWriteFile();
 			if( createMachineId == 'Y' ){
 				var machineIdVal = await getOsMachineId();
 				event.sender.send('isOsMachineId', machineIdVal );
@@ -467,11 +468,21 @@ ipcMain.on('userLoginSuccess', (event, userid) => {
 	
 
 	const dir  = osType.homedir() + '/.config/support_compy/';
-	userInfoFileAsync(dir, userid);
+	// userUUidInfoSave(event,dir, userid);
+	userInfoFileAsync(event,dir,userid);
 })
 
+const userUUidInfoSave = async(event, dir, userid) => {
+	var isCreateFolder = await createDirectory(dir);
+	console.log("isCreateFolder==="+isCreateFolder);
 
-const userInfoFileAsync = async(dir, userid) => {
+	var retUUIDVal = await userLcnsInfoWriteFile(userid);
+	console.log("=====retUUIDVal===============" + retUUIDVal);
+	event.sender.send('isUserLoginSuccess' );
+};
+
+
+const userInfoFileAsync = async(event,dir, userid) => {
 
 	var isCreateFolder = await createDirectory(dir);
 	console.log("isCreateFolder==="+isCreateFolder);
@@ -494,6 +505,7 @@ const userInfoFileAsync = async(dir, userid) => {
 					console.log("client ready --------------err==="+ error);
 					if(!error){
 							console.log("client ready --------------ret body==="+ body);
+							event.sender.send('isUserLoginSuccess' );
 					}else{
 							console.log("client ready --------------err="+ error);
 					}
