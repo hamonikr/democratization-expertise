@@ -492,9 +492,6 @@ function fnUpdatePw(){
 		url			: '/users/modifyPw',
 		data		: $("#frm1").serialize(),
 		type		: 'post',
-		beforeSend : function(xhr) {
-			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-		},
 		success	: function(data){
 			alert(data.message);
 			if(data.updateVal) location.reload(true);
@@ -523,10 +520,7 @@ function fnProfileImg(){
 		type		: 'post',
 		processData: false, 
 		contentType: false,
-		cache		: false,
-		beforeSend : function(xhr) {
-			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-		},
+		cache		: false,	
 		success	: function(data){
 			alert(data.message);
 			if(data.result) location.reload(true);

@@ -44,8 +44,6 @@ public class FindAccountController {
 				request.setAttribute("message", messageSource.getMessage("email.send.success", null, Locale.getDefault()));
 		    	request.getRequestDispatcher("/accountRecovery/message").forward(request, response);
 				
-		    	System.out.println("성공!");
-
 			} else {					
 				System.out.println("비밀번호 초기화 및 이메일 발송 실패!");
 				
@@ -59,8 +57,6 @@ public class FindAccountController {
 	    	request.getRequestDispatcher("/accountRecovery/message").forward(request, response);
 
 		}	
-		System.out.println("cccccc");
-   // 	response.sendRedirect("/login/login");
 
 		return "redirect:/login";
 	}

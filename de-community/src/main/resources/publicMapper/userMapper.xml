@@ -98,8 +98,7 @@ SET
 	userpassword = #{userpasswordnew},
 	updatedate = now()
 WHERE
-	userno = #{userno} and
-	userpassword = #{userpassword}
+	userno = #{userno}
 </update>
 
 <select id="getEnterList" parameterType="com.de.enterprise.Enterprises" resultType="com.de.enterprise.Enterprises">

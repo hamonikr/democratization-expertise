@@ -285,7 +285,11 @@ public class UsersController {
 		
 		vo.setUserno(loginUserData.getUserno());
 		
+		System.out.println("pw? -- > oldone : " + vo.getUserpassword());
+		System.out.println("pw? -- > newone : " + vo.getUserpasswordnew());
+		
 		boolean updateVal = usersService.updateUserPw(vo);
+		System.out.println("updateVal...?" +updateVal);
 		
 		if(updateVal) map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
 		else map.put("message", CodeMessage.MSG_100009_비밀번호가_일치하지_않습니다__다시_확인해주세요_);
