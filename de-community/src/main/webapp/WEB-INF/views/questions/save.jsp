@@ -111,6 +111,7 @@
 											</c:otherwise>											
 										</c:choose>
 									</div>
+									<div id="preSearch"></div>
 									<div class="form-group">
 										<label for="contents">
 											내용<span class="important">*</span>
@@ -250,6 +251,36 @@
 	</form> --%>
 	<script type="text/javascript">
     $( function() {
+    	//질의시 presearch start
+    	$("#title").on("propertychange change keyup paste input", function() {
+    		var searchtxt = $(this).val();
+    		var url = window.location.pathname;
+    		console.log("searchtxt===="+searchtxt.length);
+    		if(searchtxt.length > 1){
+    		$.ajax({ 
+    			//type: "POST", 
+    			//contentType: "application/json", 
+    			url: "/search/data",
+    			data:{searchtxt:$("#title").val()},
+    			//dataType: 'json', 
+    			success: function (data) { 
+    				var shtml = "";
+    				$.each (data.list, function (index, el) {
+    					  var txt = "";
+      					txt = "<a href='/questions/view/"+el.seq+"'>"+el.title+"</a><br/>";
+      					shtml += txt;
+    					});
+    				$("#preSearch").html(shtml);
+    				}, 
+    				error: function (e) { 
+    					alert("fail"); 
+    				} 
+    				});
+    		}else{
+    			$("#preSearch").html("");
+    		}
+    	});
+    	//질의시 presearch end
       $( "input[data-bootstrap-switch]" ).each( function() {
         $( this ).bootstrapSwitch( 'state', $( this ).prop( 'checked' ) );
       } );
