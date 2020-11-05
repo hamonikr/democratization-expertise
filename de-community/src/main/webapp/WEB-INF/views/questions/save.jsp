@@ -145,7 +145,7 @@
 											수정권한 ${result.editauth}
 										</div>
 										<div class="col-2">
-										<input type="checkbox" class="custom-control-input" name="editcheck" checked="" data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
+										<input type="checkbox" class="custom-control-input" name="editcheck" id="editcheck" value="${result.editauth}" data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
 										<label for="Tag"></label>
 										</div>
 										<div class="col-6">
@@ -163,7 +163,6 @@
 									</c:when>
 									<c:otherwise>
 										<button type="submit" name="btnSubmit" class="btn btn-primary purple" value="u">수정</button>
-										<button type="button" id="btnDelete" class="btn btn-primary red">삭제</button>
 									</c:otherwise>
 								</c:choose>
 								<button type="button" class="btn btn-primary gray" onclick="location.href='/questions/list'">목록</button>
@@ -251,6 +250,11 @@
 	</form> --%>
 	<script type="text/javascript">
     $( function() {
+    	if($("#editcheck").val() == 1){
+    		$("input:checkbox[id='editcheck']").attr("checked", true);
+    	}else{
+    		$("input:checkbox[id='editcheck']").attr("checked", false);
+    	}
     	//질의시 presearch start
     	$("#title").on("propertychange change keyup paste input", function() {
     		var searchtxt = $(this).val();

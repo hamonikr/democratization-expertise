@@ -36,7 +36,7 @@
 		<li><img src="/img/help.png" style="margin-left: 15px;"></li>
 		<li>
 			<img src="/img/logout.png" style="margin-left: 15px;"><span style="color: white;"> 
-	     	<a href="javascript:;" style="margin-left:10px; width:100px;color: wheat;" onClick="location.href='/login/logout'">Sign out </a>
+	     	<a href="javascript:;" style="margin-left:10px; width:100px;color: wheat;" onClick="location.href='/login/logout'">Sign out </a></li>
 	</sec:authorize>
 	<sec:authorize access="!(hasRole('ROLE_USER') || hasRole('ROLE_ADMIN'))">
 	   	<li><img src="/img/alert.png" style="margin-left: 15px;"></li>
