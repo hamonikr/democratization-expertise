@@ -56,13 +56,13 @@
 				
 				<span class="name"><a href="/users/activity/${list.users.userno}">${list.users.username}</a></span> 
 				개발<br>
-				<span class="reputation">98</span> 
+				<span class="reputation">${list.scores}</span> 
 				<span class="voting"><img src="../img/level_gold.png" alt="" > 25</span>
 			</li>
 			
 		
 			<li class="question">
-				<p><fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd" /></p> 
+				<p><fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd HH:mm" /></p> 
 				<span class="ques-title"> <a href="view/${list.questionno }">${list.title }</a></span> 
 				${fn:substring(list.contents, 0, 50)}<c:if test="${fn:length(list.contents) > 49}"> ... </c:if>
 														
@@ -76,9 +76,9 @@
 			</li>
 			<li class="subinfo">
 				<span><i class="mdi mdi-message-processing"></i> ${list.commentcnt }</span> 
-				<span><i class="mdi mdi-eye-outline"></i>개발 1,289</span> 
-				<span class="up"><i class="mdi mdi-arrow-up" onclick="fnLike('${list.questionno}','${list.userno}','Q','${stat.count }','${list.vote.likes }')"></i>${list.vote.likes }</span>
-				<span class="down"><i class="mdi mdi-arrow-down" onclick="fnDisLike('${list.questionno}','${list.userno}','Q','${stat.count }','${list.vote.dislikes }')"></i> ${list.vote.dislikes }</span></li>
+				<span><i class="mdi mdi-eye-outline"></i>${list.readcnt }</span> 
+				<span class="up" onclick="fnLike('${list.questionno}','${list.userno}','Q','${stat.count }','${list.vote.likes }')"><i class="mdi mdi-arrow-up" id="like${stat.count }" >${list.vote.likes }</i></span>
+				<span class="down" onclick="fnDisLike('${list.questionno}','${list.userno}','Q','${stat.count }','${list.vote.dislikes }')"><i class="mdi mdi-arrow-down" id="dislike${stat.count }">${list.vote.dislikes }</i></span></li>
 		</ul>
 		</c:forEach>
 

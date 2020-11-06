@@ -54,6 +54,9 @@ public class Answers {
 	@UpdateTimestamp
 	private Timestamp updatedate;
 	
+	@Transient
+	private Integer scores = 0;
+	
 //	@OneToOne
 //	@JoinColumn(name= "userno", insertable = false, updatable = false)
 	@Transient

@@ -207,7 +207,6 @@
     //저장 버튼
     //$("#btnSave").on("click",fnSave);	
     //$("#btnUpdate").on("click",fnUpdate);
-    $( "#btnDelete" ).on( "click", fnDelete );
 
     $.validator.setDefaults( {
       submitHandler : function() {

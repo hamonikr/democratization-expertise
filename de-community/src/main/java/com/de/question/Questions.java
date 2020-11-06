@@ -69,7 +69,9 @@ public class Questions {
 	/* 검색 */
 	private String searchtext;
 	/* 댓글수 */
-	private Integer commentcnt;
+	private Integer commentcnt = 0;
+	@Transient
+	private Integer scores = 0;
 
 	/* 페이징 */
 	private int firstRecordIndex;

@@ -118,31 +118,37 @@ public class SearchController {
 		logger.debug(param.toString());
 		logger.debug("");
 		logger.debug("----------excel param-----------------------");
-		System.out.println("sort==========" + questions.getSort());
-		PaginationInfo paginationInfo = new PaginationInfo();
-		paginationInfo.setCurrentPageNo(param.getInt("pageNo") > 0 ? param.getInt("pageNo") : 1); // 현재 페이지 번호
-		paginationInfo.setRecordCountPerPage(10); // 한 페이지에 게시되는 게시물 건수
-		paginationInfo.setPageSize(5); // 페이징 리스트의 사이즈
-
-		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
-		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
-		questions.setFirstRecordIndex(firstRecordIndex);
-		questions.setRecordCountPerPage(recordCountPerPage);
 
 		//List<Questions> list = qs.getList(questions);
-		List<CmmnMap> list = cs.selectList("totalSearch", param);
-		for(int i = 0;i < list.size();i++) {
-			System.out.println("asdasd====+"+list.get(i));
-		}
-		List<Wiki> tagList = qs.findAllTag();
+		List<CmmnMap> list = cs.selectList("preSearch", param);
 
-		int listCount = qs.getListCount(questions);
-		paginationInfo.setTotalRecordCount(listCount); // 전체 게시물 건 수
-		model.addAttribute("list", list);
+
 		param.put("list", list);
-		//model.addAttribute("tagList", tagList);
-		model.addAttribute("paginationInfo", paginationInfo);
-		//model.addAttribute("vo", param);
+
+		return param;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/auto")
+	public CmmnMap searchAuto(@RequestParam Map<String, String> params, Model model, Questions questions,
+			@AuthenticationPrincipal SecurityMember user, @PageableDefault Pageable pageable) throws Exception {
+
+		CmmnMap param = new CmmnMap();
+		param.putAll(params);
+
+		logger.info("----------excel param-----------------------");
+		logger.debug("");
+		logger.debug(param.toString());
+		logger.debug("");
+		logger.debug("----------excel param-----------------------");
+
+		//List<Questions> list = qs.getList(questions);
+		List<CmmnMap> list = cs.selectList("autoSearch", param);
+
+
+		param.put("list", list);
+		param.put("searchtxt", param.get("searchtxt"));
+
 		return param;
 	}
 

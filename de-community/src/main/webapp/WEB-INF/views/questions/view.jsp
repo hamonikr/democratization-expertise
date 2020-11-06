@@ -66,12 +66,12 @@
 						</a> 
 						
 						<span class="name"><a href="/users/activity/${result.userno}">${result.users.username}</a></span> 
-						<span class="reputation">평판</span> 
+						<span class="reputation">${result.scores }</span> 
 						<span class="voting"><img src="/img/level_gold.png"alt=""> voting</span>
 					</li>
 					<li class="question">
 						<p>
-							<fmt:formatDate value="${result.registerdate}" pattern="yyyy-MM-dd" />
+							<fmt:formatDate value="${result.registerdate}" pattern="yyyy-MM-dd HH:mm" />
 						</p> 
 						<code>
 							<p>${result.contents }</p>
@@ -88,13 +88,13 @@
 						</span>
 					</li>
 					<li class="subinfo">
-						<span><i class="mdi mdi-message-processing"></i> 45</span> 
+						<span><i class="mdi mdi-message-processing"></i> ${result.commentcnt }</span> 
 						<span><i class="mdi mdi-eye-outline"></i> ${result.readcnt} </span> 
 						<span class="up" onclick="fnLike('${result.questionno}','${result.userno}','Q','${result.vote.likes }')">
-							<i class="mdi mdi-arrow-up"></i>${result.vote.likes }
+							<i class="mdi mdi-arrow-up" id="like">${result.vote.likes }</i>
 						</span> 
 						<span class="down" onclick="fnDisLike('${result.questionno}','${result.userno}','Q','${result.vote.dislikes }')">
-							<i class="mdi mdi-arrow-down"></i> ${result.vote.dislikes }
+							<i class="mdi mdi-arrow-down" id="dislike">${result.vote.dislikes }</i>
 						</span>
 					</li>
 				</ul>
@@ -104,7 +104,7 @@
 				<div class="view-replay">
 					<!-- 답변등록   -->
 					<c:if test="${historyCnt > 0}">
-						${historyCnt } Histories  <--- 이것는 뭐하는 녀석이냐...
+						${historyCnt }
 						<c:forEach var="his" items="${history}" varStatus="stat"> ${his.title } </c:forEach>
 					</c:if>
 
@@ -127,7 +127,7 @@
 				            </script>
 						</div>
 						<div class="mT30 txt-center">
-							<button type="button" class="btn-blue">답변 등록</button>
+							<button type="button" class="btn-blue" id="btnAnswer">답변 등록</button>
 						</div>
 					</div>
 
@@ -135,7 +135,7 @@
 					<div class="txt12 mB20 mT20">총 5개의 답변이있습니다.</div>
 
 					<c:forEach var="list" items="${answerList}" varStatus="stat">
-						<c:if test="${result.userno eq userSession.userno and answerSelectedCount < 1}">
+						<c:if test="${result.firstuserno eq userSession.userno and answerSelectedCount < 1}">
 							<a href="/answers/selected/${list.answerno}" class="btn btn-primary purple">채택</a>
 						</c:if>
 
@@ -144,21 +144,21 @@
 							<li class="person">
 								<img src="/img/sample_profile3.png" alt="">
 								<span class="name">${list.users.username }</span> 
-								<span class="reputation">평판</span> 
+								<span class="reputation">${list.scores }</span> 
 								<span class="voting"><img src="/img/level_gold.png" alt=""> voting</span>
 							</li>
 							<li class="question">
 								<p>
-									답변일: <fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd" />
+									답변일: <fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd HH:mm" />
 								</p> 
 								${list.contents }
 							</li>
 							<li class="subinfo">
-								<span id="like${stat.count }" class="up" onclick="fnLike('${list.answerno}','${list.userno}','A','${list.vote.likes }','${stat.count }')">
-									<i class="mdi mdi-arrow-up" ></i>${list.vote.likes }
+								<span class="up" onclick="fnLike('${list.answerno}','${list.userno}','A','${list.vote.likes }','${stat.count }')">
+									<i class="mdi mdi-arrow-up" id="like${stat.count }">${list.vote.likes }</i>
 								</span> 
-								<span id="dislike${stat.count }" class="down" onclick="fnDisLike('${list.answerno}','${list.userno}','A','${list.vote.dislikes }','${stat.count }')">
-									<i class="mdi mdi-arrow-down" ></i> ${list.vote.dislikes }
+								<span class="down" onclick="fnDisLike('${list.answerno}','${list.userno}','A','${list.vote.dislikes }','${stat.count }')">
+									<i class="mdi mdi-arrow-down" id="dislike${stat.count }">${list.vote.dislikes }</i>
 								</span> 
 								<span> 
 									<c:if test="${list.selected eq 1 }">채택된 답변</c:if> 퍼블 채택!

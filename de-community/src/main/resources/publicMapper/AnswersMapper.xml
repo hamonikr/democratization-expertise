@@ -50,6 +50,7 @@
 	<result column="contents" property="contents"/>
 	<result column="userno" property="userno"/>
 	<result column="answerno" property="answerno"/>
+	<result column="scores" property="scores"/>
 	<result column="registerdate" property="registerdate"/>
 	<collection property="vote" resultMap="Vote"/>
 	<collection property="users" resultMap="Users"/>
@@ -65,6 +66,7 @@
 	</sql>
 	<select id="getList" parameterType="java.lang.Integer" resultMap="Answers">
 		select a.* , b.* , c.*
+		,(select score from tb_score e where a.userno = e.userno) as scores
 			from 
 		tb_answers a left outer join tb_vote b 
 			on a.answerno = b.pno 

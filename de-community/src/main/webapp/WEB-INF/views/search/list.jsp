@@ -157,26 +157,5 @@ button {
 			
 	</form>
 </section>
-<script type="text/javascript">
-
-$(function() {
-	$("#btnUpdate").on("click", fnUpdate);
-	$("#btnDelete").on("click", fnDelete);
-});
-
-function fnUpdate() {
-	document.frm.action = "/wiki/edit.proc";
-	document.frm.contents.value = editor.getHtml();
-	document.frm.submit();
-}
-
-function fnDelete() {
-	document.frm.action = "/wiki/delete.proc";
-	document.frm.submit();
-}
-
-
-
-</script>
 </body>
 </html>
