@@ -1,0 +1,20 @@
+/* Noto Sans KR (korean) http://www.google.com/fonts/earlyaccess */
+@charset "utf-8"; 
+
+@font-face {
+   font-family: 'Noto Sans KR';
+   font-style: normal;
+   font-weight: 400;
+   src: url('fonts/NotoSansKR-Regular.woff2') format('woff2'),
+        url('fonts/NotoSansKR-Regular.woff') format('woff'),
+        url('fonts/NotoSansKR-Regular.otf') format('opentype');
+ }
+@font-face {
+   font-family: 'Noto Sans KR';
+   font-style: normal;
+   font-weight: 500;
+   src: url(fonts/NotoSansKR-Medium.woff2) format('woff2'),
+        url(fonts/NotoSansKR-Medium.woff) format('woff'),
+        url(fonts/NotoSansKR-Medium.otf) format('opentype');
+ }
+

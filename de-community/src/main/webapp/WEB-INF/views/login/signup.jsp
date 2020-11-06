@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>회원가입</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
+
 
   <!-- jquery-validation -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -18,52 +13,10 @@
   <meta name="google-signin-scope" content="profile email">
   <meta name="google-signin-client_id" content="1042506284094-s49av9n5sk34ell2u70lachpmihn07gu.apps.googleusercontent.com"></meta>
 
-</head>
-<style>
-.card{
-    background: #fff;
-    border-top: 0;
-    color: #666;
-    padding: 20px
-}
 
-
-.algin-center{
-	margin : 10% 10% 10% 10%;
-}
-
-strong{
-	margin-left:5%;
-	font-weight:20px;
-	font-weight:bold;
-}
-</style>
-
-<body>
-<!-- contents -->
-<div class="hold-transition login-page">
-  <!-- 회원가입 문구 -->
-<div class="row col-md-10" >
-  <div class="col-6" >
-	   <h3>
-	    <img src="/img/HamoniKR_logo600.png" style="height:60px;"> 회원가입
-	 	</h3><br>
-	   <h5>[DE] 커뮤니티에 가입하시면</h5><br>
-	   <br>
-	   <h6> 
-	  	 질문을 통해 궁금했던 정보를 얻고<br><br> 투표와 답변을 통해 새로운 권한을 부여받고<br><br>
-		 관심있는 태그와 위키문서를 저장할 수 있고<br><br>
-		 그리고 명성과 배지를 얻을 수 있습니다<br><br>
-		</h6>
-		<br><br><br><br>
-		파트너사이십니까? <a href="/signup/partnerSignup"> 파트너사 전용 회원가입</a>
-   </div>
-	
-<!-- 입력 박스 -->
-<div class="col-6" >
-<!-- <div class="card" style="width:450;"> -->
- <div class="login-card-body" >
-  <form id ="frm" name="frm" method="post">      
+<div class="content-center">
+파트너사이십니까? <a href="/signup/partnerSignup"> 파트너사 전용 회원가입</a>
+<form id ="frm" name="frm" method="post">      
    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
      <!-- 아이디 입력 -->
    <div class="row">
@@ -118,14 +71,9 @@ strong{
 		  </div>	
         
       </form>
-    </div>
-<!--   </div> -->
-  </div>
- </div>
+      
+      
 </div>
-
-<!-- /.login-box -->
-</body>
 
 
 <!-- 스크립트 함수 정의 부분 -->
@@ -243,3 +191,12 @@ function signUpProc(){
 } 
 
 </script>
+
+
+
+
+
+
+
+
+

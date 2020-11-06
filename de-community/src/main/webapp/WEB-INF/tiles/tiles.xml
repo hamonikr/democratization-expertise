@@ -10,6 +10,7 @@
        <put-attribute name="header" value="/WEB-INF/views/layout/common/header.jsp" />
        <put-attribute name="left" value="/WEB-INF/views/layout/common/left.jsp" />
   		<put-attribute name="body" value="" />
+       <put-attribute name="right" value="/WEB-INF/views/layout/common/right.jsp" />
   		<put-attribute name="footer" value="/WEB-INF/views/layout/common/footer.jsp" />
   </definition>
 
@@ -19,6 +20,7 @@
        <put-attribute name="header" value="/WEB-INF/views/layout/common/header.jsp" />
        <put-attribute name="left" value="/WEB-INF/views/layout/common/left.jsp" />
        <put-attribute name="body" value="" />
+       <put-attribute name="right" value="/WEB-INF/views/layout/common/right.jsp" />
        <put-attribute name="footer" value="/WEB-INF/views/layout/common/footer.jsp" />
    </definition>
    
@@ -26,6 +28,7 @@
    <definition name="one-layout" template="/WEB-INF/views/layout/base/sub2_base.jsp">
        <put-attribute name="header" value="/WEB-INF/views/layout/common/intro_header.jsp" />
        <put-attribute name="body" value="" />
+       <put-attribute name="right" value="/WEB-INF/views/layout/common/right.jsp" />
        <put-attribute name="footer" value="/WEB-INF/views/layout/common/footer.jsp" />
    </definition>
    

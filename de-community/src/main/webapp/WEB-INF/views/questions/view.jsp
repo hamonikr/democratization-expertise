@@ -1,202 +1,211 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
-<link rel="stylesheet" href="/plugins/summernote/summernote-bs4.css">
-<style> 
+<!-- <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.css"> -->
+
+<script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<!-- Select2 -->
+<script src="/plugins/select2/js/select2.full.min.js"></script>
+<link rel="stylesheet" href="/tui-editor/tui-editor/dist/tui-editor.css">
+<link rel="stylesheet" href="/tui-editor/tui-editor/dist/tui-editor-contents.css">
+<link rel="stylesheet" href="/tui-editor/codemirror/lib/codemirror.css">
+<link rel="stylesheet" href="/tui-editor/highlightjs/styles/github.css">
+<!-- Select2 -->
+<link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
+<link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<!-- tuideditor -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css" />
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.js"></script>
+
+<style>
 .rcorners1 {
-  border-radius: 25px;
-  background: #9c7df2;
-  padding: 10px; 
-  width: 100%;
-  height: 100%;  
-  color: white;
+	border-radius: 25px;
+	background: #9c7df2;
+	padding: 10px;
+	width: 100%;
+	height: 100%;
+	color: white;
 }
 
 .rcorners2 {
-  border-radius: 25px;
-  border: 2px solid #9a80eb;
-  padding: 20px; 
-  width: 200px;
-  height: 150px;  
+	border-radius: 25px;
+	border: 2px solid #9a80eb;
+	padding: 20px;
+	width: 200px;
+	height: 150px;
 }
-
 </style>
-<link rel="stylesheet" href="/tui-editor/tui-editor/dist/tui-editor.css">
-<link rel="stylesheet" href="/tui-editor/tui-editor/dist/tui-editor-contents.css">
-<script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-<script src='/tui-editor/markdown-it/dist/markdown-it.js'></script>
-<script src="/tui-editor/to-mark/dist/to-mark.js"></script>
-<script src="/tui-editor/tui-code-snippet/dist/tui-code-snippet.js"></script>
-<script src="/tui-editor/codemirror/lib/codemirror.js"></script>
-<script src="/tui-editor/highlightjs/highlight.pack.js"></script>
-<script src="/tui-editor/squire-rte/build/squire-raw.js"></script>
-<script src="/tui-editor/tui-editor/dist/tui-editor-Editor.js"></script>
-<body>
 
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1></h1>
+
+
+<div class="content-center">
+	<form id="frm" name="frm" method="post">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+	<input type="hidden" name="questionno" value="${result.questionno}" />
+		<h2>Stacked Q&amp;A</h2>
+
+		<div class="con-box">
+			<div class="form-view">
+
+				<!-- 질문내용 -->
+				<div class="view-title">${result.title}</div>
+
+				<ul class="qna-list">
+					<li class="person">
+						<a href="/users/activity/${result.userno}"> 
+							<c:if test="${result.users.userprofileimg != null}">
+								<img src="/upload/users/${result.users.userprofileimg}">
+							</c:if> 
+							<c:if test="${result.users.userprofileimg == null and result.users.picture == null}">
+								<img src="/img/noprofile.png">
+							</c:if> 
+							<c:if test="${result.users.picture != null and result.users.userprofileimg == null}">
+								<img alt="profile" src="${result.users.picture}" id="profileImg" class="img" width="63px" height="63px">
+							</c:if>
+						</a> 
+						
+						<span class="name"><a href="/users/activity/${result.userno}">${result.users.username}</a></span> 
+						<span class="reputation">평판</span> 
+						<span class="voting"><img src="/img/level_gold.png"alt=""> voting</span>
+					</li>
+					<li class="question">
+						<p>
+							<fmt:formatDate value="${result.registerdate}" pattern="yyyy-MM-dd" />
+						</p> 
+						<code>
+							<p>${result.contents }</p>
+						</code> 
+						<span class="ques-tag"> 
+							<c:set var="tag" value="${fn:split(result.tagno,',')}" /> 
+							<c:forEach var="tagName2" items="${tag }" varStatus="status">
+								<c:forEach var="tagName1" items="${tagList }" varStatus="status">
+									<c:if test="${tagName1.wikino == tagName2}">
+										<a href="/wiki/view/${tagName1.wikino }">${tagName1.title}</a>
+									</c:if>
+								</c:forEach>
+							</c:forEach>
+						</span>
+					</li>
+					<li class="subinfo">
+						<span><i class="mdi mdi-message-processing"></i> 45</span> 
+						<span><i class="mdi mdi-eye-outline"></i> ${result.readcnt} </span> 
+						<span class="up" onclick="fnLike('${result.questionno}','${result.userno}','Q','${result.vote.likes }')">
+							<i class="mdi mdi-arrow-up"></i>${result.vote.likes }
+						</span> 
+						<span class="down" onclick="fnDisLike('${result.questionno}','${result.userno}','Q','${result.vote.dislikes }')">
+							<i class="mdi mdi-arrow-down"></i> ${result.vote.dislikes }
+						</span>
+					</li>
+				</ul>
+
+
+
+				<div class="view-replay">
+					<!-- 답변등록   -->
+					<c:if test="${historyCnt > 0}">
+						${historyCnt } Histories  <--- 이것는 뭐하는 녀석이냐...
+						<c:forEach var="his" items="${history}" varStatus="stat"> ${his.title } </c:forEach>
+					</c:if>
+
+
+					<div class="write-reply">
+						<span class="bold">답변</span>
+						<div class="de-editro">
+							<input type="hidden" name="contents" id="contents" value="">
+							<div class="code-html">
+								<div id="editSection"></div>
+							</div>
+							<script class="code-js">
+				                var editor = new toastui.Editor( {
+				                el : document.querySelector( '#editSection' ),
+				                initialEditType : 'wysiwyg',
+				                //			                    initialEditType: 'markdown',
+				                previewStyle : 'vertical',
+				                height : '400px'
+				                } );
+				            </script>
+						</div>
+						<div class="mT30 txt-center">
+							<button type="button" class="btn-blue">답변 등록</button>
+						</div>
+					</div>
+
+					<!-- 답변 목록 -->
+					<div class="txt12 mB20 mT20">총 5개의 답변이있습니다.</div>
+
+					<c:forEach var="list" items="${answerList}" varStatus="stat">
+						<c:if test="${result.userno eq userSession.userno and answerSelectedCount < 1}">
+							<a href="/answers/selected/${list.answerno}" class="btn btn-primary purple">채택</a>
+						</c:if>
+
+
+						<ul class="qna-list">
+							<li class="person">
+								<img src="/img/sample_profile3.png" alt="">
+								<span class="name">${list.users.username }</span> 
+								<span class="reputation">평판</span> 
+								<span class="voting"><img src="/img/level_gold.png" alt=""> voting</span>
+							</li>
+							<li class="question">
+								<p>
+									답변일: <fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd" />
+								</p> 
+								${list.contents }
+							</li>
+							<li class="subinfo">
+								<span id="like${stat.count }" class="up" onclick="fnLike('${list.answerno}','${list.userno}','A','${list.vote.likes }','${stat.count }')">
+									<i class="mdi mdi-arrow-up" ></i>${list.vote.likes }
+								</span> 
+								<span id="dislike${stat.count }" class="down" onclick="fnDisLike('${list.answerno}','${list.userno}','A','${list.vote.dislikes }','${stat.count }')">
+									<i class="mdi mdi-arrow-down" ></i> ${list.vote.dislikes }
+								</span> 
+								<span> 
+									<c:if test="${list.selected eq 1 }">채택된 답변</c:if> 퍼블 채택!
+								</span> 
+								<c:if test="${(list.users.userno eq user.userno)}">
+									<span><a href="#" class="btn btn-primary purple">수정</a></span>
+								</c:if> 
+								<span>퍼블 수정</span></li>
+						</ul>
+					</c:forEach>
+
 				</div>
 			</div>
 		</div>
-		<!-- /.container-fluid -->
-	</section>
-	
-	
-	<section class="content" style="padding: 2px 12px 6px 19px;">
-		<form id="frm" name="frm" method="post">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			<input type="hidden" name="questionno" value="${result.questionno}" /> 
+		<div class="mT30 txt-center">
 
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-12">
-						<div class="invoice p-3 mb-3">
-							<div class="row">
-								<div class="col-1 rcorners2">
-									<span class="font-weight-bold"> 
-										<a href="#" onclick="fnLike('${result.questionno}','${result.userno}','Q','${result.vote.likes }')"> 
-										<i class="far fa-thumbs-up mr-1"></i>Up </a>
-										<font id="like">${result.vote.likes }</font>
-									</span> 
-									
-									<hr> 
-									
-									<span class="font-weight-bold"> 
-										<a href="#"  onclick="fnDisLike('${result.questionno}','${result.userno}','Q','${result.vote.dislikes }')"> 
-											<i class="far fa-thumbs-down mr-1"></i> Down </a> 
-										<font id="dislike">${result.vote.dislikes }</font>
-									</span>
-								</div>
-								
-								<div style="width:10px"></div>
-								
-								<div class="col-10">
-									<div class="post">
-										<div class="user-block" style="border-bottom: thick double #32a1ce;">
-											<span class="username" style="margin-left: 0px;"> <a href="#">${result.title}</a></span> 
-											<span class="description" style="margin-left: 0px;">
-												<fmt:formatDate value="${result.registerdate}" pattern="yyyy-MM-dd" />
-												<font class="float-right">조회수 : ${result.readcnt} </font>
-											</span>
-										</div>
-										<code><p>${result.contents }</p></code>
-										<p>
-										<c:set var="tag" value="${fn:split(result.tagno,',')}" />
-											<font class="link-black text-sm rcorners1"> Tags : 
-											<c:forEach var="tagName2" items="${tag }" varStatus="status">
-												<c:forEach var="tagName1" items="${tagList }" varStatus="status">
-													<c:if test="${tagName1.wikino == tagName2}"><a href="/wiki/view/${tagName1.wikino }">${tagName1.title}</a></c:if>
-												</c:forEach>
-											</c:forEach>
-											</font> 
-											<span class="float-right "> 
-											<a href = "/users/activity/${result.userno}">
-												<c:if test="${result.users.userprofileimg != null}">
-													<img src="/upload/users/${result.users.userprofileimg}">
-												</c:if>
-												<c:if test="${result.users.userprofileimg == null and result.users.picture == null}">
-													<img src="/img/noprofile.png">
-												</c:if>
-												<c:if test="${result.users.picture != null and result.users.userprofileimg == null}">
-													<img alt="profile" src="${result.users.picture}" id="profileImg" class="img" width="63px" height="63px"><br/>
-												</c:if>
-												</a>
-												<a href="/users/activity/${result.userno}" class="link-black text-sm"> ${result.users.username}</a>
-											</span>
-										</p>
-									</div>
-								</div>
-								
-							</div>
-							
-							<div class="card-footer cont_btn_div">
-							<c:if test="${historyCnt > 0}">
-							${historyCnt } Histories
-							<c:forEach var="his" items="${history}" varStatus="stat">
-							${his.title } 
-							</c:forEach>
-							</c:if>
-							
-								<c:if test="${((result.editauth eq 1) or (result.firstuserno eq user.userno))}">
-									<a href="/questions/edit/${result.questionno}" class="btn btn-primary purple">수정</a>
-								</c:if>
-								<c:if test="${((result.editauth eq 0) and (result.firstuserno eq user.userno) and fn:length(answerList) eq 0)}">
-									<a href="/questions/delete/${result.questionno}" class="btn btn-primary purple">삭제</a>
-								</c:if>
-								<button type="button" class="btn btn-primary gray" onclick="location.href='/questions/list'">목록</button>
-							</div>
-							
-							<div class="row p-3 col-12" style="border-bottom: thick double #32a1ce;"></div>
-							
-							<div class="row">
-								<c:forEach var="list" items="${answerList}" varStatus="stat">
-								<c:if test="${result.userno eq userSession.userno and answerSelectedCount < 1}">
-								<a href="/answers/selected/${list.answerno}" class="btn btn-primary purple">채택</a>
-								</c:if>
-									<div class="col-2">
-										<span class="font-weight-bold"> 
-										<a href="#" onclick="fnLike('${list.answerno}','${list.userno}','A','${list.vote.likes }','${stat.count }')">
-											<i class="ion ion-android-arrow-up text-success"></i> 
-										</a>
-										<font id="like${stat.count }" >${list.vote.likes }</font></span> 
-										<br> 
-										<span class="font-weight-bold">
-										<a href="#" onclick="fnDisLike('${list.answerno}','${list.userno}','A','${list.vote.dislikes }','${stat.count }')">
-											<i class="ion ion-android-arrow-down text-success"></i>
-										</a> 
-										<font id="dislike${stat.count }">${list.vote.dislikes }</font>
-										</span>
-										<br>
-									</div>
-								<div class="col-10">
-								답변내용:${list.contents } <br/>
-								등록자:${list.users.username } <br/>
-								등록일:<fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd" /><br/>
-								<c:if test="${list.selected eq 1 }">채택된 답변</c:if>
-								<c:if test="${(list.users.userno eq user.userno)}">
-									<a href="#" class="btn btn-primary purple">수정</a>
-								</c:if>
-								</div>
-								</c:forEach>
-								<div class="mb-3">
-								<input type="hidden" name="contents" id="contents" value="">
-										<div class="code-html">
-											<div id="editSection"></div>
-										</div>
-										<script class="code-js">
-					                      var editor = new tui.Editor( {
-					                      el : document.querySelector( '#editSection' ),
-					                      initialEditType : 'wysiwyg',
-					                      //			                    initialEditType: 'markdown',
-					                      previewStyle : 'vertical',
-					                      height : '400px'
-					                      } );
-					                    </script>
-              					</div>
-							</div>
-							<button id="btnAnswer" class="btn btn-primary purple">답변등록</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</form>
-	</section>
+			<c:if test="${((result.editauth eq 1) or (result.firstuserno eq user.userno))}">
+				<button type="button" onclick="location.href='/questions/edit/${result.questionno}'" class="btn-gray">수정</button>
+			</c:if>
+			<c:if test="${((result.editauth eq 0) and (result.firstuserno eq user.userno) and fn:length(answerList) eq 0)}">
+				<button type="button" onclick="location.href='/questions/delete/${result.questionno}'" class="btn-gray">삭제</button>
+			</c:if>
+			<button type="button" class="btn-gray" onclick="location.href='/questions/list'">목록</button>
 
-	<script type="text/javascript">
-    $( function() {
-      //승인 버튼
-      $( "#btnAnswer" ).on( "click", fnAnswer );
-      //$( "#btnUpdate" ).on( "click", fnUpdate );
-      //$( "#btnSale" ).on( "click", fnSale );
-    } );
+		</div>
 
-    function fnAnswer() {
-      document.frm.contents.value = editor.getHtml();
-      document.frm.action = "/answers/save.proc";
-      document.frm.submit();
-    }
+	</form>
+</div>
+
+
+
+
+
+
+<script type="text/javascript">
+  $( function() {
+    //승인 버튼
+    $( "#btnAnswer" ).on( "click", fnAnswer );
+    //$( "#btnUpdate" ).on( "click", fnUpdate );
+    //$( "#btnSale" ).on( "click", fnSale );
+  } );
+
+  function fnAnswer() {
+    document.frm.contents.value = editor.getHtml();
+    document.frm.action = "/answers/save.proc";
+    document.frm.submit();
+  }
 
     function fnLike(p, su, s, l, i) {
       var like = l;
@@ -236,42 +245,47 @@
       } );
 
     }
-    function fnDisLike(p, su, s, l , i) {
+  function fnDisLike(p, su, s, l, i) {
 
-      $.ajax( {
-      //type: "POST", 
-      contentType : "application/json",
-      url : "/vote/dislike",
-      data : {
-      pno : p,
-      section : s,
-      userno : su,
-      dislikes : 1
-      },
-      //dataType: 'json', 
-      success : function(data) {
-        console.log( data );
-        if (data == "FAIL") {
-          alert( "이미 투표하셨습니다." );
-        } else if (data == "LOGIN") {
-            alert( "로그인 후 투표해주세요." );
-            location.href = "/login";
-        } else {
-          alert( "투표하였습니다." );
-          ++l;
+    $.ajax( {
+    //type: "POST", 
+    contentType : "application/json",
+    url : "/vote/dislike",
+    data : {
+    pno : p,
+    section : s,
+    userno : su,
+    dislikes : 1
+    },
+    //dataType: 'json', 
+    success : function(data) {
+      console.log( data );
+      if (data == "FAIL") {
+        alert( "이미 투표하셨습니다." );
+      } else if (data == "LOGIN") {
+        alert( "로그인 후 투표해주세요." );
+        location.href = "/login";
+      } else {
+        alert( "투표하였습니다." );
+        ++l;
           if(s == 'Q'){
           	$( "#dislike" ).html( l );
           }else{
         	  $( "#dislike"+i ).text( l );
           }
+        if (s == 'Q') {
+          $( "#dislike" ).html( l );
+        } else {
+          $( "#dislike" + i ).text( l );
         }
-      },
-      error : function(e) {
-        alert( "fail" );
       }
-      } );
-
+    },
+    error : function(e) {
+      alert( "fail" );
     }
-  </script>
+    } );
+
+  }
+</script>
 </body>
 </html>

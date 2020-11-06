@@ -2,13 +2,6 @@
 <%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
 
 <script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-<script src='/tui-editor/markdown-it/dist/markdown-it.js'></script>
-<script src="/tui-editor/to-mark/dist/to-mark.js"></script>
-<script src="/tui-editor/tui-code-snippet/dist/tui-code-snippet.js"></script>
-<script src="/tui-editor/codemirror/lib/codemirror.js"></script>
-<script src="/tui-editor/highlightjs/highlight.pack.js"></script>
-<script src="/tui-editor/squire-rte/build/squire-raw.js"></script>
-<script src="/tui-editor/tui-editor/dist/tui-editor-Editor.js"></script>
 <!-- Select2 -->
 <script src="/plugins/select2/js/select2.full.min.js"></script>
 <link rel="stylesheet" href="/tui-editor/tui-editor/dist/tui-editor.css">
@@ -18,238 +11,140 @@
 <!-- Select2 -->
 <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
 <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<!-- tuideditor -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css" />
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
-<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-
-
-<!-- jquery-validation -->
-<!-- <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
-<script src="/plugins/jquery-validation/additional-methods.min.js"></script> -->
-
 <style>
 <!--
-.select2-container--default .select2-selection--multiple .select2-selection__choice {
-    background-color: #007bff;
-    border: 1px solid #aaa;
-    border-radius: 4px;
-    cursor: default;
-    float: left;
-    margin-right: 5px;
-    margin-top: 5px;
-    padding: 0 5px;
-}
-.select2-container--default.select2-container--focus .select2-selection--multiple {
-    height: 40px;
+.select2-container--default .select2-selection--multiple .select2-selection__choice
+	{
+	background-color: #007bff;
+	border: 1px solid #aaa;
+	border-radius: 4px;
+	cursor: default;
+	float: left;
+	margin-right: 5px;
+	margin-top: 5px;
+	padding: 0 5px;
 }
 
+.select2-container--default.select2-container--focus .select2-selection--multiple
+	{
+	height: 40px;
+}
 -->
 </style>
-<body>
 
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1></h1>
-				</div>
-			</div>
-		</div>
-		<!-- /.container-fluid -->
-	</section>
 
-	<section class="content" style="padding: 2px 12px 6px 19px;">
-		<form id="frm" name="frm" method="post">
-			
-			<!-- 스프링 시큐리티 form에 추가 해줘야함. -->
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			<input type="hidden" name="tags" value="${result.tagno }" />
-			<input type="hidden" name="section" value="Q" />
-			<input type="hidden" name="editauth" value="" />
-			<input type="hidden" name="userno" value="${user.userno }" /> 
-			<c:if test="${empty result.users.userid}">
+
+<div class="content-center">
+	<h2>Stacked Q&amp;A</h2>
+	<div class="section-info">
+		<span class="bold">질문 작성 가이드 :</span> 커뮤니티는 특정한 코딩, 알고리즘 또는 언어 문제에 대해 당신을 돕기 위함입니다. 의견 기반 질문을 피해주세요.<br> 1. 문제를 요약하세요. (목표에 대한 세부 정보 포함, 예상 결과 및 실제 결과 설명, 오류 메시지 포함)<br> 2. 시도해 본 내용을
+		설명하세요.<br> 3. 일부 코드 표시<br>
+	</div>
+
+
+	<form id="frm" name="frm" method="post">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> <input type="hidden" name="tags" value="${result.tagno }" /> <input type="hidden" name="section" value="Q" /> <input
+			type="hidden" name="editauth" value=""
+		/> <input type="hidden" name="userno" value="${user.userno }" />
+		<c:if test="${empty result.users.userid}">
 			<input type="hidden" name="firstuserno" value="${user.userno }" />
-			</c:if>
-			<c:if test="${not empty result.users.userid}">
-			<input type="hidden" name="userid" value="${result.users.userid }" /> 
-			<input type="hidden" name="readcnt" value="${result.readcnt }" /> 
+		</c:if>
+		<c:if test="${not empty result.users.userid}">
+			<input type="hidden" name="userid" value="${result.users.userid }" />
+			<input type="hidden" name="readcnt" value="${result.readcnt }" />
 			<input type="hidden" name="questionno" value="${result.questionno }" />
-			<input type="hidden" name="firstuserno" value="${result.users.userno }" /> 
-			</c:if>
-			
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-12">
-						<div class="callout callout-info">
-							<h5>질문등록</h5>
-						</div>
+			<input type="hidden" name="firstuserno" value="${result.users.userno }" />
+		</c:if>
 
-						<div class="invoice p-3 mb-3" style="border-left: 5px solid #117a8b;">
 
-							<!-- Table row -->
-							<div class="row">
-								<div class="card-body card-primary card-outline">
-									<div class="form-group">
-										<label for="subject">
-											제목 <span class="important">*</span>
-										</label>
-										<c:choose>
-											<c:when test="${result.title ne null and isMyQuestion ne true}">
-												<span>
-													${result.title }
-													<input type="hidden" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="${result.title }" />
-												</span>
-											</c:when> 
-											<c:when test="${isMyQuestion eq true}">
-												<span>
-													<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="${result.title }" />
-												</span>
-											</c:when>   
-											<c:otherwise>
-												<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="" />
-											</c:otherwise>											
-										</c:choose>
-									</div>
-									<div id="preSearch"></div>
-									<div class="form-group">
-										<label for="contents">
-											내용<span class="important">*</span>
-										</label>
-										<input type="hidden" name="contents" id="contents" value="">
-										<div class="code-html">
-											<div id="editSection">${result.contents }</div>
-										</div>
-										<script class="code-js">
-										var editor = new toastui.Editor( {
-					                      el : document.querySelector( '#editSection' ),
-					                      initialEditType : 'wysiwyg',
-					                      //			                    initialEditType: 'markdown',
-					                      previewStyle : 'vertical',
-					                      height : '400px'
-					                      } );
-					                    </script>
-									</div>
-									<div class="form-group" style="color:black;">
-										<label for="Tag">태그</label>
-										<%-- <input type="text" name="tag" id="tag" class="form-control" placeholder="ex)" value="${result.tag}"/ --%>
-										<select class="select2" multiple="multiple" name="tagno" id="tagno" data-placeholder="" style="width: 100%; background-color: #8056d6;">
-											<c:forEach var="item" items="${tagList}" varStatus="status">
-												<option value="${item.wikino }">${item.title }</option>
-											</c:forEach>
-										</select>
-									</div>
-								 <c:if test="${(result.firstuserno eq user.userno) or (result.users.userno eq null)}"> 
-									<div class=" row form-group">
-										<div class="col-1">
-											수정권한 ${result.editauth}
-										</div>
-										<div class="col-2">
-										<input type="checkbox" class="custom-control-input" name="editcheck" id="editcheck" value="${result.editauth}" data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
-										<label for="Tag"></label>
-										</div>
-										<div class="col-6">
-											on을 선택할 경우 다른 사람이 내가 작성한 질문을 수정할 수 있습니다.<br>
-				                      		off을 선택할 경우 다른 사람이 내 질문을 수정할 수 없습니다.
-										</div>
-									</div>
-									</c:if>
-								</div>
-							</div>
-							<div class="card-footer cont_btn_div">
-								<c:choose>
-									<c:when test="${empty result.users.userid}">
-										<button type="submit" name="btnSubmit" class="btn btn-primary purple" value="c">등록</button>
-									</c:when>
-									<c:otherwise>
-										<button type="submit" name="btnSubmit" class="btn btn-primary purple" value="u">수정</button>
-									</c:otherwise>
-								</c:choose>
-								<button type="button" class="btn btn-primary gray" onclick="location.href='/questions/list'">목록</button>
-							</div>
-				
+		<div class="con-box">
+			<div class="form-list">
+				<span>제목 <font class="red">*</font></span>
+				<c:choose>
+					<c:when test="${result.title ne null and isMyQuestion ne true}">
+						<span> ${result.title } <input type="hidden" class="input-type1" id="title" name="title" placeholder="제목을 입력해주세요." value="${result.title }" />
+						</span>
+					</c:when>
+					<c:when test="${isMyQuestion eq true}">
+						<span> <input type="text" class="input-type1" id="title" name="title" placeholder="제목을 입력해주세요." value="${result.title }" />
+						</span>
+					</c:when>
+					<c:otherwise>
+						<input type="text" class="input-type1" id="title" name="title" placeholder="제목을 입력해주세요." value="" />
+					</c:otherwise>
+				</c:choose>
+
+				<!-- 퍼블 필요 -->
+				<div id="preSearch"></div>
+
+				<span>내용 <font class="red">*</font></span>
+				<div class="de-editro">
+					<input type="hidden" name="contents" id="contents" value="">
+					<div class="code-html">
+						<div id="editSection">${result.contents }</div>
+					</div>
+					<script class="code-js">
+			            var editor = new toastui.Editor( {
+			            el : document.querySelector( '#editSection' ),
+			            initialEditType : 'wysiwyg',
+			            //			                    initialEditType: 'markdown',
+			            previewStyle : 'vertical',
+			            height : '400px'
+			            } );
+			          </script>
+				</div>
+
+				<span>태그</span>
+				<select class="select2" multiple="multiple" name="tagno" id="tagno" data-placeholder="" style="width: 100%; background-color: #8056d6;">
+					<c:forEach var="item" items="${tagList}" varStatus="status">
+						<option value="${item.wikino }">${item.title }</option>
+					</c:forEach>
+				</select>
+
+				<c:if test="${(result.firstuserno eq user.userno) or (result.users.userno eq null)}">
+					<span>수정권한 ${result.editauth}</span>
+
+					<div class="checkbox-switch">
+						<input type="checkbox" checked="" onchange="T.toggleToobarStatus()" value="" name="editcheck" class="input-checkbox" id="toolbar-active">
+						<div class="checkbox-animate">
+							<span class="checkbox-off">OFF</span> <span class="checkbox-on">ON</span>
 						</div>
 					</div>
-				</div>
-			</div>
-		</form>
-	</section>
+					<div class="txt12 txtgray">ON을 선택할 경우 다른 사람이 내가 작성한 질문을 수정할 수 있습니다. OFF을 선택할 경우 다른 사람이 내 질문을 수정할 수 없습니다.</div>
+				</c:if>
 
-
-
-
-	<%-- <form id="frm" name="frm" method="post">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-		<input type="hidden" name="userid" value="${result.users.userid }" /> 
-		<input type="hidden" name="section" value="Q" />
-		<input type="hidden" name="username" value="" /> 
-		<input type="hidden" name="editauth" value="" /> 
-		<input type="hidden" name="tag" value="${result.tagno }" /> 
-		<input type="hidden" name="questionno" value="${result.questionno }" />
-		<div class="row">
-			<!-- general form elements -->
-			<div class="col-12">
-				<div class="card card-primary">
-
-					<div class="card-body card-primary card-outline">
-						<div class="form-group">
-							<label for="subject">
-								제목 <span class="important">*</span>
-							</label>
-							<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요." value="${result.title}" />
-						</div>
-						<div class="form-group">
-							<label for="contents">
-								내용<span class="important">*</span>
-							</label>
-							<input type="hidden" name="contents" id="contents" value="">
-							<div class="code-html">
-								<div id="editSection">${result.contents }</div>
-							</div>
-							<script class="code-js">
-                var editor = new tui.Editor( {
-                el : document.querySelector( '#editSection' ),
-                initialEditType : 'wysiwyg',
-                //			                    initialEditType: 'markdown',
-                previewStyle : 'vertical',
-                height : '400px'
-                } );
-              </script>
-						</div>
-						<div class="form-group">
-							<label for="Tag">태그</label>
-							<input type="text" name="tag" id="tag" class="form-control" placeholder="ex)" value="${result.tag}"/
-							<select class="select2" multiple="multiple" name="tagno" id="tagno" data-placeholder="" style="width: 100%;">
-								<c:forEach var="item" items="${tag}" varStatus="status">
-									<option value="${item.tagno }">${item.title }</option>
-								</c:forEach>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="Tag">수정권한</label>
-							<input type="checkbox" name="editcheck" checked="" data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
-						</div>
-					</div>
-				</div>
-
-				<div class="card-footer cont_btn_div">
-					<c:choose>
-						<c:when test="${empty result.users.userid}">
-							<button type="submit" name="btnSubmit" class="btn btn-primary purple" value="c">등록</button>
-						</c:when>
-						<c:otherwise>
-							<button type="submit" name="btnSubmit" class="btn btn-primary purple" value="u">수정</button>
-							<button type="button" id="btnDelete" class="btn btn-primary red">삭제</button>
-						</c:otherwise>
-					</c:choose>
-					<button type="button" class="btn btn-primary gray" onclick="location.href='/questions/list'">목록</button>
-				</div>
 			</div>
 		</div>
+
+
+		<div class="mT30 txt-center">
+			<c:choose>
+				<c:when test="${empty result.users.userid}">
+					<button type="submit" name="btnSubmit" class="btn-blue" value="c">등록</button>
+				</c:when>
+				<c:otherwise>
+					<button type="submit" name="btnSubmit" class="btn-blue" value="u">수정</button>
+				</c:otherwise>
+			</c:choose>
+			<button type="button" class="btn-gray" onclick="location.href='/questions/list'">목록</button>
 		</div>
-	</form> --%>
-	<script type="text/javascript">
-    $( function() {
+
+
+
+
+	</form>
+
+
+</div>
+
+
+<script type="text/javascript">
+ $( function() {
     	if($("#editcheck").val() == 1){
     		$("input:checkbox[id='editcheck']").attr("checked", true);
     	}else{
@@ -308,88 +203,79 @@
         } );
       }
 
-      //저장 버튼
-      //$("#btnSave").on("click",fnSave);	
-      //$("#btnUpdate").on("click",fnUpdate);
-      $( "#btnDelete" ).on( "click", fnDelete );
 
-      $.validator.setDefaults( {
-        submitHandler : function() {
-          if ($( 'input:checkbox[name="editcheck"]' ).is( ":checked" ) == true)
-            document.frm.editauth.value = 1;
-          else
-            document.frm.editauth.value = 0;
-          var vv = $( "input[name=btnSubmit]" ).val();
-          document.frm.contents.value = editor.getHtml();
-          if (vv == "c")
-            document.frm.action = "/questions/save.proc";
-          else if (vv == "u")
-            document.frm.action = "/questions/edit.proc";
+    //저장 버튼
+    //$("#btnSave").on("click",fnSave);	
+    //$("#btnUpdate").on("click",fnUpdate);
+    $( "#btnDelete" ).on( "click", fnDelete );
 
-          document.frm.submit();
-        }
-      } );
-      $( '#frm' ).validate( {
-      rules : {
-      title : {
-        required : true
-      },
-      tag : {
-        required : true
-      },
-      contents : {
-        required : true
+    $.validator.setDefaults( {
+      submitHandler : function() {
+        if ($( 'input:checkbox[name="editcheck"]' ).is( ":checked" ) == true)
+          document.frm.editauth.value = 1;
+        else
+          document.frm.editauth.value = 0;
+        var vv = $( "input[name=btnSubmit]" ).val();
+        document.frm.contents.value = editor.getHtml();
+        if (vv == "c")
+          document.frm.action = "/questions/save.proc";
+        else if (vv == "u")
+          document.frm.action = "/questions/edit.proc";
+
+        document.frm.submit();
       }
-      },
-      messages : {
-      title : {
-        required : "제목을 입력 해주세요."
-      },
-      tag : {
-      required : "가격을 입력 해주세요.",
-      number : "숫자만 입력 가능합니다."
-      },
-      contents : {
-        required : "내용을 입력 해주세요."
-      }
-      },
-      errorElement : 'span',
-      errorPlacement : function(error, element) {
-        error.addClass( 'invalid-feedback' );
-        element.closest( '.form-group' ).append( error );
-      },
-      highlight : function(element, errorClass, validClass) {
-        $( element ).addClass( 'is-invalid' );
-      },
-      unhighlight : function(element, errorClass, validClass) {
-        $( element ).removeClass( 'is-invalid' );
-      }
-      } );
-
-    });
-
-    /* function fnSave() {
-    document.frm.contents.value = editor.getHtml();
-    if($('input:checkbox[name="editauth"]').is(":checked") == true)
-     document.frm.editauth.value = 1;
-    else 
-     document.frm.editauth.value = 0;
-    console.log("val===="+document.frm.editauth.value);
-    return;
-    document.frm.action = "/questions/save.proc";
-    document.frm.submit();
-    } */
-
-    /* function fnUpdate() {
-    document.frm.content.value = editor.getHtml();
-    document.frm.action = "update.proc";
-    document.frm.submit();
-    } */
-
-    function fnDelete() {
-      document.frm.action = "delete.proc";
-      document.frm.submit();
+    } );
+    $( '#frm' ).validate( {
+    rules : {
+    title : {
+      required : true
+    },
+    tag : {
+      required : true
+    },
+    contents : {
+      required : true
     }
-  </script>
-</body>
-</html>
+    },
+    messages : {
+    title : {
+      required : "제목을 입력 해주세요."
+    },
+    tag : {
+    required : "가격을 입력 해주세요.",
+    number : "숫자만 입력 가능합니다."
+    },
+    contents : {
+      required : "내용을 입력 해주세요."
+    }
+    },
+    errorElement : 'span',
+    errorPlacement : function(error, element) {
+      error.addClass( 'invalid-feedback' );
+      element.closest( '.form-group' ).append( error );
+    },
+    highlight : function(element, errorClass, validClass) {
+      $( element ).addClass( 'is-invalid' );
+    },
+    unhighlight : function(element, errorClass, validClass) {
+      $( element ).removeClass( 'is-invalid' );
+    }
+    } );
+
+  } );
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+

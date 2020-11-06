@@ -189,6 +189,7 @@ public class EnterprisesController {
 				+ "페이지에 표시할 element 수 : {" + list.getSize() + "}, 현재 페이지 index : {" + list.getNumber() + "}, "
 				+ "현재 페이지의 element 수 : {" + list.getNumberOfElements() + "}");
 
+
 		model.addAttribute("paging", list);
 		model.addAttribute("data", list.getContent());
 		return "/enterprises/list";

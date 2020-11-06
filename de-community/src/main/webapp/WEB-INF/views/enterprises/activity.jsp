@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
 
-<head>
 
 <!-- tui chart -->
 <link rel="stylesheet" type="text/css" href="/tui-chart/tui-chart.css" />
@@ -11,27 +10,9 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 
 
-<style type="text/css">
-/* .dash-list { height: 25px } */
-/* .dash-list > a { margin-left: 8px } */
-/* .dash-list .tagSpan {  */
-/* 	margin-left: 0; */
-/* 	margin-right: 5px; */
-/* 	margin-bottom: 5px;  */
-/* } */
-
-/* .enterprise-list-card { border: 1px solid #ddd } */
-/* .enterprise-list-card p { margin: 0 } */
-/* .enterprise-list-card .title { font-weight: bold } */
-/* .enterprise-list-card .position {  } */
-/* .enterprise-list-card .reputation {  } */
-</style>
-</head>
-
-<body>
 
 
-
+	<div class="content-center">
 
 		
 	<section class="content" style="padding: 2px 12px 6px 19px;">
@@ -446,7 +427,7 @@
 	</section>
 
 
-
+</div>
 
 
 <!-- FLOT CHARTS -->

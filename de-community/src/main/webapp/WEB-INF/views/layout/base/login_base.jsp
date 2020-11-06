@@ -1,84 +1,83 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
+<%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-<html>
+
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title><%-- <tiles:getAsString name="title" /> --%></title>
+	<title> DE-Community</title>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<link rel="icon" type="image/png" sizes="16x16" href="">
+	<meta property="og:image" content="">
+	<!--- 모바일전용이미지 -->
+	<link href="/css/common.css" rel="stylesheet">
+  
 
-<link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
-<link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css">
-<!-- Ionicons -->
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="/dist/css/adminlte.min.css">
-<!-- Google Font: Source Sans Pro -->
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+<!-- css -->
+
+</head>
+
+
+<div id="main-wrapper">
+	<tiles:insertAttribute name="header" />
+	<tiles:insertAttribute name="left" />
+	
+	<div class="page-wrapper">
+	    <div class="container-fluid">
+	        <div class="content-all">
+	            <tiles:insertAttribute name="body" />
+	            <tiles:insertAttribute name="right" />
+	        </div>
+	    </div>
+	</div>
+
+</div>
+
+
+
 
 
 <!-- jQuery -->
 <script src="/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/plugins/moment/moment.min.js"></script>
-<script src="/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
-<script src="/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
-<script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <!-- jquery-validation -->
+<!--   <script src="/js/jquery.min.js"></script> -->
 <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="/plugins/jquery-validation/additional-methods.min.js"></script>
-<!-- Date Picker -->
-<script src="/plugins/daterangepicker/daterangepicker.js"></script>
-<!-- AdminLTE App -->
-<script src="/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="/dist/js/demo.js"></script>
-<script src="/dist/js/common.js"></script>
-<!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+
+
+  <!-- Bootstrap tether Core JavaScript -->
+  <script src="/js/popper.min.js"></script>
+  <!-- slimscrollbar scrollbar JavaScript -->
+  <script src="/js/perfect-scrollbar.jquery.min.js"></script>
+  <!--Menu sidebar -->
+  <script src="/js/sidebarmenu.js"></script>
+  <!--Custom JavaScript -->
+  <script src="/js/custom.min.js"></script>
+  <!--farmcontent JavaScript -->
+  <script src="/js/content.js"></script>
+
+  <!-- 달력 -->
+  <script src="/js/calendar.js"></script>
+  <script src="/js/datepicker-ko.js"></script>
+
+
+
 <script type="text/javascript">
 function numberWithCommas(x) {
 	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
 </script>
-
-<!-- css -->
-<link rel="stylesheet" type="text/css" href="/css/index.css" />
-<style>
- .loginLayerBg {	 
- 	background-image: url(/img/signbg.jpg); 
-     background-size: cover; 
-     height: 100%;
-     width: 100%; 
- } 
-</style>
-</head>
-
-<body class="hold-transition sidebar-mini control-sidebar-slide-open accent-indigo">
-	<div class="wrapper loginLayerBg">
-		<tiles:insertAttribute name="header" />
-
-		<aside class="main-sidebar sidebar-light elevation-4">
-			<tiles:insertAttribute name="left" />
-		</aside>
-		<div class="content-wrapper">
-			<div class="row">
-				<div class="col-sm-8">
-					<tiles:insertAttribute name="body" />
-				</div>
-				<div class="col-sm-4" id="bodyrightLayer">
-					<!-- style="background-color:black;" -->
-					<img src="/img/stackedViewR.jpg">
-				</div>
-			</div>
-		</div>
-		<footer class="main-footer">
-			<tiles:insertAttribute name="footer" />
-		</footer>
-	</div>
-
 </body>
-
-
 </html>
+
+
+
+  

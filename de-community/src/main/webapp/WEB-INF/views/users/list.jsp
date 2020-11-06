@@ -3,109 +3,67 @@
 
 
 
-<!-- <head> -->
-<!-- <style type="text/css"> 
- .profileImg img{ width: 100% }--> 
-<!-- </style> -->
-<!-- </head> -->
+<div class="content-center">
+	<h2>Users...</h2>
+	<div class="section-info">
+		각 메뉴 섹션 상단에 카피문구 넣어주세요. 2~3줄 나올수 있으면 예뻐요.<br> 문구가 나옵니다. 개발시 당신이 겪는 어려움에 대해 자유롭게 질문을 하고 답변을 받으세요. 그리고 그 지식을 커뮤니티의 회원들과 함께 공유해주세요. 모바일버전에서는 display:none.<br>
+	</div>
 
 
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1></h1>
-				</div>
+	<form id="frm" name="frm" method="post" action="/users/list">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> <input type="hidden" name="page" value="${paginationInfo.currentPageNo }" />
+
+		<div class="list-left">
+			<ul class="sort-align">
+				<li><button type="submit" name="sort" class="sort" value="1">평판순</button></li>
+				<li><button type="submit" class="current" name="sort" class="sort" value="2">투표많은순</li>
+			</ul>
+
+		</div>
+		<div class="list-right">
+			<div class="board-search inblock mR10 mT10">
+				<input type="text" name="searchtext" value="${vo.searchtext }" placeholder="Search">
+				<button type="button">
+					<i class="mdi mdi-magnify"></i>
+				</button>
+			</div>
+			<div class="inblock">
+				<button type="submit" class="btn-blue" id="btnSave" onclick="location.href='save'">질문하기</button>
 			</div>
 		</div>
-		<!-- /.container-fluid -->
-	</section>
 
-
-	<section class="content" style="padding: 2px 12px 6px 19px;">
-		<form id="frm" name="frm" method="post" action="/users/list">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			 <input type="hidden" name="page" value="${paginationInfo.currentPageNo }" />
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-12">
-						<div class="callout callout-info">
-							<h5>Users</h5>
-							<div class="card-header" style="border-bottom: 0px;">
-								<p>활동적인 유저의 공헌 목록은 다음과 같습니다. 커뮤니티에 지식을 제공하여 더 많은 사람들이 성장할 수 있도록합니다</p>
-							</div>
-						</div>
-
-
-						<div class="invoice p-3 mb-3" style="border-left: 5px solid #117a8b;">
-							<table class="table table-striped">
-								<tbody>
-									<tr>
-										<td>
-											
-											<div class="input-group">
-												<input type="text" name="searchtext" class="form-control float-left" value="${vo.searchtext }" placeholder="Search">
-												<div class="input-group-append">
-													<button type="submit" class="btn btn-default">
-														<i class="fas fa-search"></i>
-													</button>
-												</div>
-											</div>
-										</td>
-										<td>
-											<button type="submit" class="btn btn-outline-primary float-right" name="sort" class="sort" value="1">평판순</button>
-											<button type="submit" class="btn btn-outline-primary float-right" name="sort" class="sort" value="2">투표많은순</button>
-											
-											<!-- <a href="javascript:alert('준비중');" class="btn btn-primary purple">평판</a> -->
-<!-- 											<a href="/users/list?sort=registerdate: DESC" class="btn btn-primary purple">사용자</a> -->
-											<!-- <a href="javascript:alert('준비중');" class="btn btn-primary purple">좋아요</a> -->
-											
-										</td>
-									</tr>
-								</tbody>
-							</table>
-									
-									
-							<div class="row">		
-					        	
-					        	<c:forEach var="list" items="${data}" varStatus="status">
-						        	<div class="col-md-3 col-sm-6 col-xs-12">
-						         		<div class="info-box" onclick="javascript:location.href='/users/activity/${list.userno}'" style="cursor: pointer;">
-						            		<span class="info-box-icon bg-aqua">
-						            			<c:if test="${list.userprofileimg != null}">
-													<img src="/upload/users/${list.userprofileimg}">
-												</c:if>
-												<c:if test="${list.userprofileimg == null}">
-													<img src="/img/noprofile.png">
-												</c:if>
-											</span>
-						            		<div class="info-box-content">
-						              		<span class="info-box-text">${list.username}</span>
-						              		<span class="info-box-number">${list.userno }</span>
-						            		</div>
-						          	</div>
-						        	</div>
-								</c:forEach>
-								<!-- 게시물이 없을 경우 -->
-								<c:if test="${empty data}">
-									<div class="col-12">
-										<p class="nodata">사용자 데이터가 없습니다.</p>
-									</div>
-								</c:if>
-				        	</div>
-				        	
-							
-        
-						</div>
-					</div>
+		<div class="con-box">
+			<ul class="qna-list">
+			<c:forEach var="list" items="${data}" varStatus="status">
+					<li class="person"  >
+						 <c:if test="${list.userprofileimg != null}">
+								<img src="/upload/users/${list.userprofileimg}">
+							</c:if> <c:if test="${list.userprofileimg == null}">
+								<img src="/img/noprofile.png">
+							</c:if>
+						<li class="question" style="width:200px;">
+							<span class="ques-title"><a href="/users/activity/${list.userno}"> ${list.username}</a></span>
+							<p>${list.userno }</p>
+							</li>
+					</li>
+			</c:forEach>
+			</ul>
+			
+			<!-- 게시물이 없을 경우 -->
+			<c:if test="${empty data}">
+				<div class="col-12">
+					<p class="nodata">사용자 데이터가 없습니다.</p>
 				</div>
+			</c:if>
+		</div>
 
-			</div>
-			<!-- page number -->
-			<jsp:include page="/WEB-INF/views/include/paging.jsp" />
-		</form>
-	</section>
-	
+		<!-- page number -->
+		<jsp:include page="/WEB-INF/views/include/paging.jsp" />
+	</form>
+</div>
+
+
+
 
 
 <script type="text/javascript">

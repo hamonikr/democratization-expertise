@@ -1,0 +1,196 @@
+/*--------------------
+폼 style
+----------------------*/
+
+input[type=text], input[type=password] {
+    box-sizing: border-box; 
+    -webkit-appearance:none;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px; 
+    background-color:#fff; 
+    vertical-align: middle;
+    font-family: 'Noto Sans KR', Helvetica, '맑은 고딕', sans-serif;
+}
+
+
+
+input:focus { outline: none;}
+input:-webkit-autofill {-webkit-box-shadow: 0 0 0 1000px white inset;}
+label {font-weight: 400!important;}
+.labelzero {font-size:0;margin:0; padding:0}
+
+/* placeholder */
+input::placeholder{color: #bbb}
+input::-webkit-input-placeholder {color:#bbb; }
+input::-moz-placeholder          {color:#bbb;}
+input:-moz-placeholder           {color:#bbb;}
+input:-ms-input-placeholder      {color:#bbb;}
+textarea::-webkit-input-placeholder {color:#bbb;}
+textarea::-moz-placeholder          {color:#bbb;}
+textarea:-moz-placeholder           {color:#bbb;}
+textarea:-ms-input-placeholder      {color:#bbb;}
+input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder {color:transparent; } 
+input:focus:-moz-placeholder, textarea:focus:-moz-placeholder { color:transparent; } 
+input:focus::-moz-placeholder, textarea:focus::-moz-placeholder {color:transparent; } 
+input:focus:-ms-input-placeholder, textarea:focus:-ms-input-placeholder { color:transparent; }
+
+
+
+
+/* bottom line input */
+.input-type1       {background-color: #fff; color: #3e5569;height: 40px; padding: 10px;  border: 1px solid #c8d2de; }
+.input-type1:focus {font-weight: 500;  } 
+
+
+textarea { font-family: 'Noto Sans KR'; overflow: auto; border:1px solid #c8d2de; padding:10px; -webkit-appearance:none;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px; color:#c8d2de} 
+
+
+/* 셀렉트 */
+select::-ms-expand{display:none;}
+select {
+-webkit-appearance: none;-moz-appearance: none;appearance: none; 
+vertical-align: middle;
+-webkit-box-shadow:none;
+box-shadow:none;
+box-sizing:border-box;
+border-radius: 3px;
+background:#fff url(../img/icon_sel.png) no-repeat;
+font-size:14px;
+-webkit-background-size: 10px auto;
+background-size: 10px auto;
+background-position:right 10px top 15px;
+color:#555;
+height:35px; 
+ font-family: 'Noto Sans KR', Helvetica, '맑은 고딕', sans-serif;
+}
+
+/* 기본 */
+.sel-base  {border:1px solid #ddd; color:#555;padding:0 10px; height:35px;  min-width: 100px; margin:3px 1px;  } 
+
+
+/* 버튼 */
+button {
+border:0;
+-webkit-transition-duration: 0.4s; transition-duration: 0.4s;
+-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;
+cursor: pointer;
+display: inline-block;
+vertical-align:middle; 
+text-align: center;
+box-sizing: border-box;      
+}
+button:focus { outline: none;}
+
+
+.btn-blue  {background-color: #1249b8; color:#fff; line-height: 35px; height: 35px;  padding:0 30px; }
+.btn-blue:hover  {background-color: #103785; }
+
+.btn-gray  {background-color: #6b737b; color:#fff; line-height: 35px; height: 35px;  padding:0 30px; }
+.btn-gray:hover  {background-color: #525a61; }
+
+
+
+
+
+
+
+/* Checkbox switch */
+.checkbox-switch {
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    text-align: left;
+    width: 80px;
+    height: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    line-height: 1.2;
+    margin-bottom: 10px;
+
+}
+
+.checkbox-switch input[type=checkbox] {display:block!important;}
+.checkbox-switch input.input-checkbox {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 80px;
+	height: 30px;
+	padding: 0;
+	margin: 0;
+	opacity: 0;
+	z-index: 2;
+	cursor: pointer;
+}
+
+.checkbox-switch .checkbox-animate {
+    position: relative;
+    width: 80px;
+    height: 30px;
+    background-color: #95a5a6;
+    -webkit-transition: background 0.25s ease-out 0s;
+    transition: background 0.25s ease-out 0s;
+}
+
+.checkbox-switch .checkbox-animate:before {
+	content: "";
+	display: block;
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	background-color: #7f8c8d;
+	top: 5px;
+	left: 5px;
+	 -webkit-transition: left 0.3s ease-out 0s;
+    transition: left 0.3s ease-out 0s;
+    z-index: 10;
+}
+
+.checkbox-switch input.input-checkbox:checked + .checkbox-animate {background-color: #2d90dd;}
+.checkbox-switch input.input-checkbox:checked + .checkbox-animate:before {left: 55px;background-color: #1b76bc;}
+
+
+.checkbox-switch .checkbox-off,
+.checkbox-switch .checkbox-on {
+	float: left;
+	color: #fff;
+	font-weight: 400;
+	line-height: 30px;
+	 -webkit-transition: all 0.3s ease-out 0s;
+    transition: all 0.3s ease-out 0s;
+}
+
+.checkbox-switch .checkbox-off {margin-left: 30px;opacity: 1;}
+.checkbox-switch .checkbox-on {display: none;float: right;margin-right: 35px;opacity: 0;}
+.checkbox-switch input.input-checkbox:checked + .checkbox-animate .checkbox-off {display: none;opacity: 0;}
+.checkbox-switch input.input-checkbox:checked + .checkbox-animate .checkbox-on {display: block;opacity: 1;}
+
+
+
+
+
+/* 파일찾기  */
+.file-input label {position:relative; cursor:pointer;display:inline-block;overflow:hidden;width:100px;height:35px;background:#7f8592;color:#fff;text-align:center;line-height:35px;vertical-align:middle; border-radius: 3px}
+.file-input label input {position:absolute;width:0;height:0;overflow:hidden;}
+.file-input input[type=text] {border:1px solid #ddd; height:35px;font-size:14px; padding-left:20px;margin:3px 1px; color:#555;vertical-align:middle;display:inline-block;width:300px;}
+.file-input button {height:35px; font-size:18px; width: 30px;}
+
+
+
+
+@media (max-width: 736px) {
+  input[type=text], input[type=password] {height:45px; font-size:14px!important}    
+  select {height:45px!important; font-size:14px!important ; background-position:right 10px top 20px!important; margin:3px 0!important}   
+  button {height:45px!important;font-size:14px!important }
+  .sel-base-s  { background-position:right 5px top 20px!important;  } 
+  .btn-type2 {padding: 0 30px}
+  .file-input input[type=text] {width:200px;}
+}
+
+@media (max-width: 360px) {
+   .btn-type3 { padding:0 3px!important; letter-spacing: -1px!important  }
+}
