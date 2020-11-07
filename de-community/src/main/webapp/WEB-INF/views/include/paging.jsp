@@ -6,7 +6,7 @@
 		<c:if test="${paginationInfo.currentPageNo ne paginationInfo.firstPageNo}">
 			<a href="list?pageNo=${paginationInfo.currentPageNo - 1}&sort=${vo.sort}"><i class="mdi mdi-chevron-left"></i></a>
 		</c:if> 
-		<c:forEach begin="1" end="${paginationInfo.totalPageCount}" var="pageNo">
+		<c:forEach begin="${paginationInfo.firstPageNoOnPageList}" end="${paginationInfo.lastPageNoOnPageList}" var="pageNo">
 			<a href="list?pageNo=${pageNo}&sort=${vo.sort}">${pageNo}</a>
 		</c:forEach>
 		 <c:if test="${(paginationInfo.currentPageNo ne paginationInfo.lastPageNo && paginationInfo.totalPageCount > 0)}">

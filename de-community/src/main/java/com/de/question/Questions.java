@@ -65,16 +65,21 @@ public class Questions {
 	private Timestamp updatedate;
 	// 추후 테이블에서 삭제할 컬럼
 	/* 정렬 */
+	@Transient
 	private Integer sort;
 	/* 검색 */
+	@Transient
 	private String searchtext;
 	/* 댓글수 */
+	@Transient
 	private Integer commentcnt = 0;
 	@Transient
 	private Integer scores = 0;
 
 	/* 페이징 */
+	@Transient
 	private int firstRecordIndex;
+	@Transient
 	private int recordCountPerPage;
 
 	@Transient

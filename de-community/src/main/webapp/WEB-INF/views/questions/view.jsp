@@ -132,7 +132,7 @@
 					</div>
 
 					<!-- 답변 목록 -->
-					<div class="txt12 mB20 mT20">총 5개의 답변이있습니다.</div>
+					<div class="txt12 mB20 mT20">총 ${result.commentcnt }개의 답변이있습니다.</div>
 
 					<c:forEach var="list" items="${answerList}" varStatus="stat">
 						<c:if test="${result.firstuserno eq userSession.userno and answerSelectedCount < 1}">

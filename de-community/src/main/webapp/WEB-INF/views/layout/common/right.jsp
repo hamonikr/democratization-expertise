@@ -8,30 +8,36 @@ $(function() {
 	$.ajax({ 
 		//type: "POST", 
 		//contentType: "application/json", 
-		url: "/cmmn/list", 
+		url: "/cmmn/list",
+		async : false,
 		//dataType: 'json', 
 		success: function (data) { 
 			
 			if (data != null){
-
-				for(i=0;i<data.user.length;i++){
-				  var userHtml = "";
-// 				  <li><a href="#"> <img src="../img/sample_profile3.png" alt=""> Company <span>(89)</span></a></li>
-					
-					userHtml += '<li><a href="/users/activity/'+data.user[i].userno+'">';
-					 
-					if(data.user[i].userprofileimg != null && data.user[i].picture == null)
-						userHtml += "<img src='/upload/users/"+data.user[i].userprofileimg+"' alt='' width='25px' height='25px'>";
-					else if(data.user[i].userprofileimg == null && data.user[i].picture != null)
-						userHtml += "<img src='/upload/users/"+data.user[i].picture+"' alt='' width='25px' height='25px'>";
+				
+				$.each (data.user, function (index, el) {
+					var userHtml = "";
+// 				  <li><a href="#"> <img src="../img/sample_profile3.png" alt=""> Company <span>(89)</span></a></li>	
+					userHtml += '<li><a href="/users/activity/'+el.userno+'">';			 
+					if(el.userprofileimg != null && el.picture == null)
+						userHtml += "<img src='/upload/users/"+el.userprofileimg+"' alt='' width='25px' height='25px'>";
+					else if(el.userprofileimg == null && el.picture != null)
+						userHtml += "<img src='"+el.picture+"' alt='' width='25px' height='25px'>";
 					else
 						userHtml += "<img src='/img/noprofile.png' alt='' width='25px' height='25px'>";
 					
-					userHtml +=data.user[i].username+'<span>'+data.user[i].score+'</span></a></li>';
-						
+					userHtml += el.username+'<span>('+el.score+')</span></a></li>';
 					$("#userrightLayer").append(userHtml);
-				}
-				console.log(userHtml);
+				});
+				//console.log(userHtml);
+				
+				
+				$.each (data.tag, function (index, el) {
+					var tagHtml = "";
+					  
+						tagHtml += '<li><a href="/wiki/view/'+el.wikino+'">'+el.title+'</li>';			 
+						$("#tagrightLayer").append(tagHtml);
+					});
 				
 // 				$("#bodyrightLayer").append("<br/>");
 				
@@ -68,8 +74,8 @@ $(function() {
 <div class="content-right">
 
 	<div class="right-title">Tages</div>
-	<ul class="right-tags">
-		<li><a href="#">javascript</a>(234)</li>
+	<ul class="right-tags" id="tagrightLayer">
+		<!-- <li><a href="#">javascript</a>(234)</li>
 		<li><a href="#">hamonikr</a>(145)</li>
 		<li><a href="#">html</a>(99)</li>
 		<li><a href="#">javascript</a>(234)</li>
@@ -78,7 +84,7 @@ $(function() {
 		<li><a href="#">c++</a>(22)</li>
 		<li><a href="#">css</a>(15)</li>
 		<li><a href="#">javascript</a>(234)</li>
-		<li><a href="#">hamonikr</a>(145)</li>
+		<li><a href="#">hamonikr</a>(145)</li> -->
 	</ul>
 
 	<div class="right-title">활동순위</div>

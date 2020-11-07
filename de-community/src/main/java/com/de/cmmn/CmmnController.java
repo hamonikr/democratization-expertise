@@ -10,10 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,11 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.de.cmmn.service.CmmnService;
 import com.de.enterprise.EnterpriseService;
 import com.de.enterprise.Enterprises;
-import com.de.login.service.SecurityMember;
 import com.de.question.QuestionsService;
 import com.de.user.Users;
 import com.de.user.UsersService;
 import com.de.wiki.Wiki;
+import com.de.wiki.WikiRepository;
 import com.de.wiki.service.WikiService;
 
 @Controller
@@ -46,6 +44,9 @@ public class CmmnController {
 	
 	@Autowired
 	EnterpriseService es;
+	
+	@Autowired
+	WikiRepository wr;
 	
 	@RequestMapping("/view")
 	@ResponseBody
@@ -76,6 +77,7 @@ public class CmmnController {
 		param.put("user", cs.selectList("getUserScore", param));
 		param.put("partner", cs.selectList("getPartnerScore", param));
 		param.put("partnerslist", cs.selectList("getPromteList", param));
+		param.put("tag", wr.findAllBySectionAndDeleteat("t", 0));
 
 		return param;
 	}
