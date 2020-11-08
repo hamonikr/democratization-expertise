@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
 <style>
 .ui-autocomplete {
     max-height: 200px;
@@ -50,7 +51,7 @@
 			
 		    $( "#searchtxt" ).autocomplete({
 		      delay: 0,	
-		      minLength: 2,
+		      //minLength: 2,
 		      source: availableTags,
 		      focus: function( event, ui ) {
 		        $( "#searchtxt" ).val( ui.item.value );
@@ -81,6 +82,7 @@
 
 		<div class="top-search">
 		<form name="sfrm" action="/search/list" method="post">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 			<input type="text" name="searchtxt" id="searchtxt" placeholder="Search" value="${searchtxt }"/>
 			<%-- <input type="hidden" id="searchtxt" name="searchtxt" value="${searchtxt }"/> --%>
 			<button type="submit">
@@ -93,7 +95,17 @@
 			<div class="navbar-nav f-left mr-auto"></div>
 			<ul class="navbar-nav  userinfo">
 				<li class="profile">
+				<c:if test="${not empty userSession}">
+					<c:if test="${userSession.userprofileimg ne null}">
+					<span class="photo"><img src="/upload/users/${userSession.userprofileimg}" alt="" /></span> 
+				</c:if>
+				<c:if test="${userSession.userprofileimg eq null and userSession.picture eq null}" >
 					<span class="photo"><img src="/img/sample_profile.png" alt="" /></span> 
+				</c:if>
+				<c:if test="${userSession.picture ne null and userSession.userprofileimg eq null}">
+					<span class="photo"><img src="${userSession.picture}" alt="" /></span> 
+				</c:if>
+				</c:if>
 					<span class="alarm">알람</span> 
 					<span class="level"><img src="/img/level_gold.png" alt="" /></span>
 					<a href="/users/activity/${userSession.userno}">${userSession.username }</a></li>
