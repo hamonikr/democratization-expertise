@@ -77,6 +77,7 @@ public class CmmnController {
 		param.put("user", cs.selectList("getUserScore", param));
 		param.put("partner", cs.selectList("getPartnerScore", param));
 		param.put("partnerslist", cs.selectList("getPromteList", param));
+		param.put("board", cs.selectList("boardConfig", param));
 		param.put("tag", wr.findAllBySectionAndDeleteat("t", 0));
 
 		return param;

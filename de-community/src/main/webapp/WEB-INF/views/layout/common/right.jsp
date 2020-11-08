@@ -38,6 +38,12 @@ $(function() {
 						tagHtml += '<li><a href="/wiki/view/'+el.wikino+'">'+el.title+'</li>';			 
 						$("#tagrightLayer").append(tagHtml);
 					});
+				$.each (data.board, function (index, el) {
+					var boardHtml = "";
+					  
+					boardHtml += '<li><a href="/board/'+el.boardid+'/list">'+el.boardname+'</li>';			 
+						$("#menu").append(boardHtml);
+					});
 				
 // 				$("#bodyrightLayer").append("<br/>");
 				

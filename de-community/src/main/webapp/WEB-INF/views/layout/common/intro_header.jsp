@@ -55,7 +55,7 @@
 			</span>
 		</li>
 	</ul> --%>
-	<ul class="navbar-nav ">
+	<%-- <ul class="navbar-nav ">
 	<sec:authorize access="hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')">
 		<li class="nav-item dropdown"><a href="/users/activity/${userSession.userno}"><img src="/img/profile.png"></a></li>
 		<li><img src="/img/alert.png" style="margin-left: 15px;"></li>
@@ -71,7 +71,29 @@
 		<li><a href="/signup/signup" style="margin-left:10px; width:100px;color: wheat;">Sign up</a></li>
 	</sec:authorize>
 			
-	</ul>
+	</ul> --%>
+	<div class="navbar-collapse collapse f-right" id="user">
+			<div class="navbar-nav f-left mr-auto"></div>
+			<ul class="navbar-nav  userinfo">
+				<li class="profile">
+					<span class="photo"><img src="/img/sample_profile.png" alt="" /></span> 
+					<span class="alarm">알람</span> 
+					<span class="level"><img src="/img/level_gold.png" alt="" /></span>
+					<a href="/users/activity/${userSession.userno}">${userSession.username }</a></li>
+
+				<li><a href="#">Help</a></li>
+
+				<li>
+					<sec:authorize access="hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')">
+						<a href="javascript:;" style="margin-left:10px; width:100px;color: wheat;" onClick="location.href='/login/logout'">Sign out </a>
+					</sec:authorize>
+					<sec:authorize access="!(hasRole('ROLE_USER') || hasRole('ROLE_ADMIN'))">
+						<a href="/login" style="margin-left:10px; width:100px;color: wheat;">Sign in</a>
+						<a href="/signup/signup" style="margin-left:10px; width:100px;color: wheat;">Sign up</a>	
+					</sec:authorize>
+				</li>
+			</ul>
+		</div>
 
 	<!-- <ul class="navbar-nav ">
       <li class="nav-item dropdown">

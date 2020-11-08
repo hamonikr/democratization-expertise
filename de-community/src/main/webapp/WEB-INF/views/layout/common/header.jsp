@@ -96,7 +96,7 @@
 					<span class="photo"><img src="/img/sample_profile.png" alt="" /></span> 
 					<span class="alarm">알람</span> 
 					<span class="level"><img src="/img/level_gold.png" alt="" /></span>
-					<a href="/users/activity/${userSession.userno}">${user.username }</a></li>
+					<a href="/users/activity/${userSession.userno}">${userSession.username }</a></li>
 
 				<li><a href="#">Help</a></li>
 

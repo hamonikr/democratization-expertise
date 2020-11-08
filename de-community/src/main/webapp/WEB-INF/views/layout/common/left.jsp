@@ -3,7 +3,7 @@
 
 
 <div class="left-sidebar">
-  <ul class="sidebar-nav">
+  <ul class="sidebar-nav" id="menu">
     <li><a href="/questions/list" class="current"><i class="mdi mdi-comment-question-outline"></i>Stacked Q&A</a></li>
     <li><a href="/tags/list"><i class="mdi mdi-console"></i>Tags</a></li>
     <li><a href="/users/list"><i class="mdi mdi-account-box-outline"></i>Users</a></li>

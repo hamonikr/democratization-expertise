@@ -37,6 +37,12 @@ select title from tb_wiki) a where a.title is not null
 
 </select>
 
+<select id="boardConfig" parameterType="com.de.cmmn.CmmnMap" resultType="com.de.cmmn.CmmnMap">
+select * from tb_boardconfig where deleteat = 0
+
+</select>
+
+
 
 
 </mapper>

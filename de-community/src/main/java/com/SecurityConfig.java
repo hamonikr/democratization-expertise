@@ -77,7 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginProcessingUrl("/login").defaultSuccessUrl("/").successHandler(authSuccessHandler)
 				.failureForwardUrl("/login").failureHandler(customAccessDeniedHandler).and().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/login/logout")).logoutSuccessUrl("/login")
-				.invalidateHttpSession(true).and().csrf().disable();
+				.invalidateHttpSession(true);
 
 	}
 
