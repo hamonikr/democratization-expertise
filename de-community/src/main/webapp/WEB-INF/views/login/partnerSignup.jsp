@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>파트너사 회원가입</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
+
   
   <!-- jquery-validation -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -19,125 +14,61 @@
  <meta name="google-signin-scope" content="profile email">
  <meta name="google-signin-client_id" content="1042506284094-s49av9n5sk34ell2u70lachpmihn07gu.apps.googleusercontent.com"></meta>
  
-</head>
-<style>
-.card{
-    background: #fff;
-    border-top: 0;
-    color: #666;
-    padding: 20px
-}
 
-.algin-center{
-	margin : 10% 10% 10% 10%;
-}
 
-strong{
-	margin-left:5%;
-	font-weight:20px;
-	font-weight:bold;
-}
-</style>
 
-<body>
-<!-- contents -->
-<div class="hold-transition login-page">
-  <!-- 회원가입 문구 -->
-<div class="row col-md-10" >
-  <div class="col-6" >
-	   <h3>
-	    <img src="/img/HamoniKR_logo600.png" style="height:60px;"> 회원가입 for Partners
-	 	</h3>
-	 	<br>
-	   <h5>[DE] 커뮤니티에 가입하시면</h5><br>
-	   <br>
-	   <h6> 
-	  	 질문을 통해 궁금했던 정보를 얻고<br><br> 투표와 답변을 통해 새로운 권한을 부여받고<br><br>
-		 관심있는 태그와 위키문서를 저장할 수 있고<br><br>
-		 그리고 명성과 배지를 얻을 수 있습니다<br><br>
-		</h6>
-		<br><br><br><br>
-		일반 사용자이십니까? <a href="/signup/signup">일반 사용자 회원가입</a>
-   </div>
-	
-<!-- 입력 박스 -->
-<div class="col-6" >
-<!-- <div class="card" style="width:450px;"> -->
- <div class="login-card-body" >
-  <form id ="frm" name="frm" method="post">      
-   	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>     
-     <!-- 회사이름 입력 -->
-   		<div class="row">
-     		<div class=" col-12"><span>회사명 * </span></div>
-			<div class="form-group col-12"> 	    
-		   		<input type="text" class="form-control englishOnly" id="username" name="username" value="testCompany" placeholder="회사명을 입력해주세요">             	
-		   </div>
-		</div>
-     <!-- 아이디 입력 -->
-   		<div class="row">
-     		<div class=" col-12"><span>아이디 * </span></div>
-			<div class="form-group col-12"> 	    
-		   		<input type="text" class="form-control englishOnly" id="userid" name="userid" value="testCom" placeholder="아이디를 입력해주세요">             	
-		   </div>
-		</div>
-      
-	
-	<!-- 이메일 -->  
-     <div class="row">
-     	<div class="col-12"><span>Email 주소 * </span></div>
-		<div class="form-group col-12"> 	    
-			<input type="email" class="form-control" id="useremail" name="useremail" value="test@test.com"  placeholder="이메일을 입력해주세요">             	
-		</div>
-		</div>
-      
-      
-     
-       	<!-- 사업자 번호-->  
-     	<div class="row">
-     		<div class="col-12"><span>사업자 번호 * </span></div>
-	      <div class="form-group col-12">
-	      		<input type="text" class=" numberOnly" maxlength=3 id="bizNo1" value="" name="bizNo1" style=" width:25%">
-	 	   		<span style="margin-left:10px; width:20%;"> - </span> 
-	 	   		<input type="text" class=" numberOnly" maxlength=2 id="bizNo2" value="" name="bizNo2" style="width:20%">       
-	 	   		<span style="margin-left:10px; width:20%;"> - </span> 
-		   		<input type="text" class=" numberOnly" maxlength=5 id="bizNo3" value="" name="bizNo3" style="width:30%">
-	   		</div>
-	 	</div>
-  
-     	<!-- 비밀번호 -->
-     	<div class="row">
-			<div class="col-12"><span>비밀번호 * </span></div>
-			<div class="form-group col-12"> 	    
-		   		<input type="password" class="form-control" id="userpassword" name="userpassword" value="test1234" placeholder="비밀번호를 입력해주세요">             	
-		   </div>
-		</div>
-      
-             
-       <!-- g-recaptcha -->
-       <div class="row">
-	      <div class="col-12">
-			   <div class="g-recaptcha" style="margin-left:25px;" data-sitekey="6LeS16wZAAAAADQYkYoSCaRt5wIb0YBSGGnnqVdH">
-			   </div>
-			</div>
-		 </div>
-		
-		<br><br>	
-        <!-- button -->
-		  <div class="row">
-       	 <div class="col">
-       		  <input type="submit" id="create_account" value="계정 생성하기" class="btn btn-primary btn-block blue">
-			</div>	
-		  </div>	
-        
-      </form>
+<div class="content-center">
+<h2>회원가입</h2>
+ 
+<div class="con-box">
+<form id ="frm" name="frm" method="post">      
+   	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+   	
+    <div class="login bg2">
+      <div class="join-info">
+        <font class="blue bold">ASKOS에 가입하시면,</font> 
+        질문을 통해 궁금했던 정보를 얻고 투표와 답변을 통해 새로운 권한을 부여받고 관심있는 태그와 위키문서를 저장할 수 있습니다.
+      </div>
+      <ul class="user-tab">
+        <li><a href="/signup/signup">일반회원 가입</a></li>
+        <li><a href="/signup/partnerSignup" class="current">파트너사 가입</a></li>
+      </ul>
+      <ul class="login-in">
+        <li><label>회사명</label>
+        	<input type="text"  id="username" name="username" value="testCompany" placeholder="회사명을 입력해주세요" class="input-type1">
+<!--         	<input type="text" class="form-control englishOnly" id="username" name="username" value="testCompany" placeholder="회사명을 입력해주세요"> -->
+        </li>
+        <li>
+        	<label>아이디</label>
+		   	<input type="text" class="input-type1 englishOnly" id="userid" name="userid" value="testCom" placeholder="아이디를 입력해주세요">   
+		</li>
+        <li><label>E-mail 주소</label><input type="text" id="useremail" name="useremail" value="test@test.com"  placeholder="이메일을 입력해주세요" class="input-type1"></li>
+        <li><label>사업자번호</label>
+        	<input type="text" class=" input-type1 numberOnly" maxlength=3 id="bizNo1" value="" name="bizNo1" style=" width:15%">-
+ 	   		<input type="text" class=" input-type1 numberOnly" maxlength=2 id="bizNo2" value="" name="bizNo2" style="width:15%">  -     
+	   		<input type="text" class=" input-type1 numberOnly" maxlength=5 id="bizNo3" value="" name="bizNo3" style="width:30%">
+        </li>
+        <li><label>비밀번호</label><input type="password" id="userpassword" name="userpassword" value="test1234" placeholder="비밀번호를 입력해주세요" class="input-type1"></li>
+        <li><label>비밀번호확인</label><input type="password" name="reuserpassword" id="reuserpassword" class="input-type1"></li>
+        <li><div class="g-recaptcha" data-sitekey="6LeS16wZAAAAADQYkYoSCaRt5wIb0YBSGGnnqVdH"></div></li>
+        <li>
+<!--         	<input type="submit" id="create_account" value="계정 생성하기" class="btn btn-primary btn-block blue"> -->
+        	<button type="submit" id="create_account"class="btn-blue">계정생성</button>
+		</li>
+      </ul>
+      <div class="mT20 mB10">- SNS 계정으로 회원가입하기 -</div>
+      <ul class="login-in3">
+        <li><a href="#"><img src="/img/join_kakao.png" alt="kakao"></a></li>
+        <li><a href="#"><img src="/img/join_google.png" alt="google"></a></li>
+        <li><a href="#"><img src="/img/join_naver.png" alt="naver"></a></li>
+        <li><a href="#"><img src="/img/join_github.png" alt="github"></a></li>
+      </ul>
     </div>
-<!--   </div> -->
+</form>
   </div>
- </div>
-</div>
 
-<!-- /.login-box -->
-</body>
+
+</div>
 
 
 <!-- 스크립트 함수 정의 부분 -->
@@ -154,9 +85,9 @@ strong{
  		});
 
 		// 영문, 숫자, 공백, 특수문자
- 		$(".englishOnly").on("keyup", function() {
- 		    $(this).val($(this).val().replace(/[^a-zA-Z\s|^0-9|^~!@#$%^&*()_+|<>?:{}(.),]+$/gi,""));
- 		});
+//  		$(".englishOnly").on("keyup", function() {
+//  		    $(this).val($(this).val().replace(/[^a-zA-Z\s|^0-9|^~!@#$%^&*()_+|<>?:{}(.),]+$/gi,""));
+//  		});
 
 		//validation check	 
 		 $('#frm').validate({
@@ -165,6 +96,7 @@ strong{
 				 	userid : { required: true, minlength: 3 },
                  useremail : { required: true, email: true },
                  userpassword : { required: true, minlength:6, passwordCk : true },
+                 reuserpassword : { required: true, minlength:6, passwordCk : true },
                  bizNo1 : { required: true },
                  bizNo2 : { required: true },
                  bizNo3 : { required: true }
@@ -180,6 +112,11 @@ strong{
 			 			},
 			 		userpassword: {
 			 			required : "비밀번호를 입력해주세요",
+			 			minlength : "최소 {0}자 입력해주세요",
+			 			passwordCk : "비밀번호는 영문, 숫자 조합으로 입력해주세요"
+			 			},
+			 		reuserpassword: {
+			 			required : "비밀번호 확인을를 입력해주세요",
 			 			minlength : "최소 {0}자 입력해주세요",
 			 			passwordCk : "비밀번호는 영문, 숫자 조합으로 입력해주세요"
 			 			},

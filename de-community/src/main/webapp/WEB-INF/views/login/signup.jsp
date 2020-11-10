@@ -14,67 +14,47 @@
   <meta name="google-signin-client_id" content="1042506284094-s49av9n5sk34ell2u70lachpmihn07gu.apps.googleusercontent.com"></meta>
 
 
+
+
+
 <div class="content-center">
-파트너사이십니까? <a href="/signup/partnerSignup"> 파트너사 전용 회원가입</a>
-<form id ="frm" name="frm" method="post">      
-   	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-     <!-- 아이디 입력 -->
-   <div class="row">
-     	<div class="col-12"><span>아이디 * </span></div>
-		<div class="form-group col-12"> 	    
-			<input type="text" class="form-control englishOnly" id="userid" name="userid" maxlength="20"  placeholder="아이디를 입력해주세요">             	
-		</div>
-	</div>
-   
-	
-     <!-- 이름 입력 -->
-   <div class="row">
-     	<div class="col-12"><span>이름 * </span></div>
-		<div class="form-group col-12"> 	    
-			<input type="text" class="form-control" id="username" value="이영은" name="username" maxlength="30" placeholder="이름을 입력해주세요">             	
-		</div>
-	</div>
-   
+<h2>회원가입</h2>
 
-	<!-- 이메일 -->  
-	<div class="row">
-		<div class="col-12"><span>Email 주소 * </span></div>
-		<div class="form-group col-12"> 	    
-			<input type="email" class="form-control englishOnly" id="useremail" value="lee@invesume.com" name="useremail"  placeholder="이메일을 입력해주세요">             	
-		</div>
-	</div>
-   
-     
-    <!-- 비밀번호 -->
-	<div class="row">
-		<div class="col-12"><span>비밀번호 * </span></div>
-		<div class="form-group col-12"> 	    
-			<input type="password" class="form-control" id="userpassword" value="lee1234" name="userpassword"  placeholder="비밀번호를 입력해주세요">             	
-		</div>
-	</div>
-   
-             
-       <!-- g-recaptcha -->
-       <div class="row">
-	      <div class="col-8">
-			   <div class="g-recaptcha" style="margin-left:25px;" data-sitekey="6LeS16wZAAAAADQYkYoSCaRt5wIb0YBSGGnnqVdH">
-			   </div>
+
+	<div class="con-box">
+	<form id ="frm" name="frm" method="post">      
+   		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <div class="login bg2">
+        	<div class="join-info">
+            	<font class="blue bold">ASKOS에 가입하시면,</font> 질문을 통해 궁금했던 정보를 얻고 투표와 답변을 통해 새로운 권한을 부여받고 관심있는 태그와 위키문서를 저장할 수 있습니다.
 			</div>
-		 </div>
-		
-		<br><br>	
-        <!-- button -->
-		  <div class="row">
-       	 <div class="col">
-       		  <input type="submit" id="create_account" value="계정 생성하기" class="btn btn-primary btn-block blue">
-			</div>	
-		  </div>	
-        
-      </form>
-      
-      
-</div>
+            
+            <ul class="user-tab">
+            	<li><a href="/signup/signup" class="current">일반회원 가입</a></li>
+                <li><a href="/signup/partnerSignup">파트너사 가입</a></li>
+			</ul>
+            <ul class="login-in">
+            	<li><label>아이디</label><input type="text"  id="userid" name="userid" maxlength="20"  placeholder="아이디를 입력해주세요" class="input-type1"></li>
+                <li><label>이름</label><input type="text" id="username" value="이영은" name="username" maxlength="30" placeholder="이름을 입력해주세요"class="input-type1"></li>
+                <li><label>E-mail 주소</label><input type="text" id="useremail" value="lee@invesume.com" name="useremail"  placeholder="이메일을 입력해주세요" class="input-type1"></li>
+                <li><label>비밀번호</label><input type="password" id="userpassword" value="lee1234" name="userpassword"  placeholder="비밀번호를 입력해주세요"class="input-type1"></li>
+                <li><label>비밀번호확인</label><input type="password" name="" id="" class="input-type1"></li>
+                <li><div class="g-recaptcha" data-sitekey="6LeS16wZAAAAADQYkYoSCaRt5wIb0YBSGGnnqVdH"></div></li>
+                <li><input type="submit" id="create_account" value="계정 생성하기" class="btn-blue"></li>
+			</ul>
 
+            <div class="mT20 mB10">- SNS 계정으로 회원가입하기 -</div>
+            	<ul class="login-in3">
+                	<li><a href="#"><img src="../img/join_kakao.png" alt="kakao"></a></li>
+                  	<li><a href="#"><img src="../img/join_google.png" alt="google"></a></li>
+                  	<li><a href="#"><img src="../img/join_naver.png" alt="naver"></a></li>
+                  	<li><a href="#"><img src="../img/join_github.png" alt="github"></a></li>
+				</ul>
+			</div>
+	</form>
+    </div>
+</div>
+     
 
 <!-- 스크립트 함수 정의 부분 -->
 
