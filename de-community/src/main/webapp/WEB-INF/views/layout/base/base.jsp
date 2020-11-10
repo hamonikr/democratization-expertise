@@ -15,6 +15,10 @@
 	<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
+	<meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
+    
+    
 	<link rel="icon" type="image/png" sizes="16x16" href="">
 	<meta property="og:image" content="">
 	<!--- 모바일전용이미지 -->

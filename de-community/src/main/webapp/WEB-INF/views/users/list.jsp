@@ -2,11 +2,26 @@
 <%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
 
 
+<style>
+.buttonStyle {
+  border: 0;
+  border-radius: 0.25rem;
+  background: #1E88E5;
+  color: white;
+  font-size: 1rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  margin: 0.25rem;
+  cursor: pointer;
+}
+</style>
 
 <div class="content-center">
-	<h2>Users...</h2>
+	<h2>커뮤니티 사람들</h2>
 	<div class="section-info">
-		각 메뉴 섹션 상단에 카피문구 넣어주세요. 2~3줄 나올수 있으면 예뻐요.<br> 문구가 나옵니다. 개발시 당신이 겪는 어려움에 대해 자유롭게 질문을 하고 답변을 받으세요. 그리고 그 지식을 커뮤니티의 회원들과 함께 공유해주세요. 모바일버전에서는 display:none.<br>
+		활동적인 유저의 공헌 목록은 다음과 같습니다. 커뮤니티에 지식을 제공하여 더 많은 사람들이 성장할 수 있도록 합니다.
 	</div>
 
 
@@ -14,9 +29,10 @@
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> <input type="hidden" name="page" value="${paginationInfo.currentPageNo }" />
 
 		<div class="list-left">
+			<div class="pagenum">현재페이지 1/10 (총 50건)</div>
 			<ul class="sort-align">
-				<li><button type="submit" name="sort" class="sort" value="1">평판순</button></li>
-				<li><button type="submit" class="current" name="sort" class="sort" value="2">투표많은순</li>
+				<li><button type="submit" name="sort" class="" value="1">평판순</button></li>
+				<li><button type="submit" class="" name="sort" class="sort" value="2">투표많은순</li>
 			</ul>
 
 		</div>
@@ -27,25 +43,22 @@
 					<i class="mdi mdi-magnify"></i>
 				</button>
 			</div>
-			<div class="inblock">
-				<button type="submit" class="btn-blue" id="btnSave" onclick="location.href='save'">질문하기</button>
-			</div>
 		</div>
 
 		<div class="con-box">
-			<ul class="qna-list">
+			<ul class="user-con">
 			<c:forEach var="list" items="${data}" varStatus="status">
-					<li class="person"  >
-						 <c:if test="${list.userprofileimg != null}">
-								<img src="/upload/users/${list.userprofileimg}">
-							</c:if> <c:if test="${list.userprofileimg == null}">
-								<img src="/img/noprofile.png">
-							</c:if>
-						<li class="question" style="width:200px;">
-							<span class="ques-title"><a href="/users/activity/${list.userno}"> ${list.username}</a></span>
-							<p>${list.userno }</p>
-							</li>
-					</li>
+				<li>
+                  <a href="#">
+                  <c:if test="${list.userprofileimg != null}">
+						<img src="/upload/users/${list.userprofileimg}">
+					</c:if> <c:if test="${list.userprofileimg == null}">
+						<img src="/img/noprofile.png">
+					</c:if>
+                  </a>
+                  <span class="name"><a href="/users/activity/${list.userno}"> ${list.username}</a></span>
+                  <span class="reputation">${list.userno }</span>
+                </li>
 			</c:forEach>
 			</ul>
 			
@@ -59,6 +72,7 @@
 
 		<!-- page number -->
 		<jsp:include page="/WEB-INF/views/include/paging.jsp" />
+		
 	</form>
 </div>
 

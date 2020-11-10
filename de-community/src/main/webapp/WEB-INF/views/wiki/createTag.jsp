@@ -12,74 +12,39 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.css"/>
 
 <style>
-.select2-container--default .select2-selection--multiple .select2-selection__choice {
-    background-color: #007bff;
-    border: 1px solid #aaa;
-    border-radius: 4px;
-    cursor: default;
-    float: left;
-    margin-right: 5px;
-    margin-top: 5px;
-    padding: 0 5px;
-}
+/* .select2-container--default .select2-selection--multiple .select2-selection__choice { */
+/*     background-color: #007bff; */
+/*     border: 1px solid #aaa; */
+/*     border-radius: 4px; */
+/*     cursor: default; */
+/*     float: left; */
+/*     margin-right: 5px; */
+/*     margin-top: 5px; */
+/*     padding: 0 5px; */
+/* } */
 
-.select2-container--default.select2-container--focus .select2-selection--multiple {
-    height: 40px;
-}
+/* .select2-container--default.select2-container--focus .select2-selection--multiple { */
+/*     height: 40px; */
+/* } */
 
 </style>
 <body>
 
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1></h1>
-				</div>
-			</div>
-		</div>
-		<!-- /.container-fluid -->
-	</section>
+<div class="content-center">
+	<h2>Tags 작성하기</h2>
+	<form id="frm" name="frm" method="post">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<input type="hidden" name="section" value="t" />		
+			
+			
+		<div class="con-box">
+			<div class="form-list">
+				<span>이름 <font class="red">*</font></span>
+                <input type="text" id="title" name="title" value="${result.title}" placeholder="태그 이름을 입력하세요" class="input-type1">
 
-	<section class="content" style="padding: 2px 12px 6px 19px;">
-		<form id="frm" name="frm" method="post">
-			<!-- 스프링 시큐리티 form에 추가 해줘야함. -->
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			<input type="hidden" name="section" value="t" />			
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-12">
-						<div class="callout callout-info" >
-							<h5>[Tags] 작성하기</h5>
-						</div>
-
-						<div class="invoice p-3 mb-3" style="border-left: 5px solid #117a8b;">
-
-							<!-- Table row -->
-							<div class="row">
-								<div class="card-body card-primary card-outline">
-									<div class="form-group">
-										<label for="subject">
-											[Tag] 이름<span class="important">*</span>
-										</label>
-										
-										<input type="text" class="form-control" id="title" name="title" placeholder="태그 이름을 입력해주세요." value="${result.title}" />
-									</div>
-									
-							<%-- 		<div class="form-group" style="color:black;">
-										<label for="Tag">태그</label>
-										<select class="select2" multiple="multiple" name="tagno" id="tagno" data-placeholder="" style="width: 100%; background-color: #8056d6;">
-											<c:forEach var="item" items="${tagList}" varStatus="status">
-												<option value="${item.wikino}">${item.title}</option>
-											</c:forEach>
-										</select>
-									</div>
-									 --%>
-									<div class="form-group">
-										<label for="contents">
-											설명<span class="important">*</span>
-										</label>
-										<input type="hidden" name="contents" id="contents" value="">
+                <span>설명 <font class="red">*</font></span>
+                <div class="de-editro" >
+                  <input type="hidden" name="contents" id="contents" value="" >
 										<div class="code-html">
 											<div id="editor"></div>
 										</div>
@@ -92,37 +57,45 @@
 					                      el : document.querySelector( '#editor' ),
 					                      initialEditType : 'wysiwyg',
 					                      previewStyle : 'vertical',
-					                      height : '600px',
+					                      height : '400px',
 					                      plugins: [colorSyntax],
 					                      placeholder: '설명을 입력해주세요.',
 					                      color:''
 					                      });
 					                    </script>
-									</div>
-									
-
-								</div>
-							</div>
-							
-							<div class="card-footer cont_btn_div">
-								<c:choose>
-									<c:when test="${empty result.wikino}">
-										<button type="submit" name="btnSubmit" class="btn btn-primary purple" value="c">등록</button>
-									</c:when>
-									<c:otherwise>
-										<button type="submit" name="btnSubmit" class="btn btn-primary purple" value="u">수정</button>
-										<button type="button" id="btnDelete" class="btn btn-primary red">삭제</button>
-									</c:otherwise>
-								</c:choose>
-								<button type="button" class="btn btn-primary gray" onclick="location.href='/wiki/getStart'">목록</button>
-							</div>
-				
-						</div>
-					</div>
-				</div>
+                </div>
 			</div>
-		</form>
-	</section>
+		</div>
+		
+		<div class="mT30 txt-center">
+			<c:choose>
+				<c:when test="${empty result.wikino}">
+					<button type="submit" name="btnSubmit" class="btn-blue" value="c">등록</button>
+				</c:when>
+				<c:otherwise>
+					<button type="submit" name="btnSubmit" class="btn-blue" value="u">수정</button>
+					<button type="button" id="btnDelete" class="btn-blue">삭제</button>
+				</c:otherwise>
+			</c:choose>
+			<button type="button" class="btn-gray" onclick="location.href='/tags/list'">목록</button>
+<!-- 			<button type="button" class="btn-gray" onclick="location.href='/wiki/getStart'">목록</button> -->
+		</div>
+		
+	</form>   
+</div>
+
+									
+							<%-- 		<div class="form-group" style="color:black;">
+										<label for="Tag">태그</label>
+										<select class="select2" multiple="multiple" name="tagno" id="tagno" data-placeholder="" style="width: 100%; background-color: #8056d6;">
+											<c:forEach var="item" items="${tagList}" varStatus="status">
+												<option value="${item.wikino}">${item.title}</option>
+											</c:forEach>
+										</select>
+									</div>
+									 --%>
+							
+				
 
 	<script type="text/javascript">
     $( function() {

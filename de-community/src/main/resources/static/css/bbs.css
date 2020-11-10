@@ -1,0 +1,78 @@
+
+
+
+/*--------------------
+게시판 리스트 
+----------------------*/
+.board-list table		{width:100%;border-top:1px solid #26a042; min-width: 600px}
+.board-list thead th	{padding:10px 5px; color:#333;background-color:#f5f6fa;text-align:center;border-bottom:1px solid #e8e8e8; font-weight:400;line-height:17px}
+.board-list tbody th	{padding:10px 5px; border-bottom:1px solid #e8e8e8;text-align:center; line-height:17px}
+.board-list tbody td	{padding:10px 5px; border-bottom:1px solid #e8e8e8;text-align:center; ; color:#666; font-size:13px; line-height:17px}
+.board-list tbody tr:hover td	{background:#fffff4;}
+.board-list-info { color:#777; font-size:13px; display:block;padding-bottom: 10px;width: 100%; text-align: right}
+
+
+.board-list2 table		{width:100%;border-top:2px solid #26a042; }
+.board-list2 thead th	{padding:7px 5px; color:#333;background-color:#f5f6fa;text-align:center;border:1px solid #e8e8e8; font-weight:400;line-height:17px}
+.board-list2 tbody td	{padding:10px 5px; border:1px solid #e8e8e8;text-align:center; ; color:#666; font-size:13px; line-height:17px}
+.board-list2 tbody tr:hover td	{background:#fffff4;}
+.modal-body .board-list2 table	select {width:90%;}
+.modal-body .board-list2 table .input-type-s {width:90%;}
+.modal-body .board-list2 table input[type=checkbox]+ label {font-size:0; margin-right:0}
+.modal-body .board-list2 table input[type=checkbox]+ label:before {margin-right:0}
+.modal-body .btn-align1 {text-align:right ; padding:10px 0; border-bottom:1px solid #ddd }
+select.equ  {width:60%!important; min-width:80px!important}
+
+.board-list3 table		{width:100%; }
+.board-list3 tbody th	{padding:10px 5px; border-bottom:1px solid #e8e8e8;text-align:center; line-height:17px}
+.board-list3 tbody td	{padding:10px 5px; border-bottom:1px solid #e8e8e8;text-align:center; ; color:#666; font-size:13px; line-height:17px}
+.board-list3 tbody tr:hover td	{background:#fffff4;}
+.board-list3 tbody tr.current {background-color:#dcefea; }
+.board-list3 tbody tr.current:hover td {background-color:#dcefea; }
+.board-list3 tbody tr.current td { border-bottom:1px solid #dcefea; color:#438974}
+
+/* 왼쪽정렬 */
+.board-list4 table		{width:100%; border-top:1px solid #e8e8e8;}
+.board-list4 tbody th	{padding:10px 5px; border-bottom:1px solid #e8e8e8;text-align:left; line-height:17px}
+.board-list4 tbody td	{padding:10px 5px; border-bottom:1px solid #e8e8e8;text-align:left; ; color:#666; font-size:13px; line-height:17px}
+.board-list4 tbody tr:hover {background:#fffff4;}
+
+
+.board-view table		{width:100%; border-top:1px solid #26a042; }
+.board-view tbody th	{padding:10px 10px; border-bottom:1px solid #e8e8e8;text-align:center; background-color:#f5f6fa; font-weight: 400}
+.board-view tbody td	{padding:10px 10px; border-bottom:1px solid #e8e8e8;text-align:left; ; color:#666; }
+.board-view tbody tr:hover {background:#fffff4;}
+.board-view tbody td .list li{ display: inline-block; padding-left:50px;}
+.board-view tbody td .list li:before{content: " | " ; padding-right: 50px; color:#ddd}
+.board-view tbody td .list li:first-child {padding-left: 0}
+.board-view tbody td .list li:first-child:before {content: "  " ; padding-right: 0px;}
+.board-view tbody td.view { padding: 20px 10px; vertical-align: top}
+
+
+.board-reple table		{width:100%; border:1px solid #e8e8e8; margin-top:10px;}
+.board-reple tbody td	{padding:10px; border-bottom:1px solid #e8e8e8;text-align:left; ; color:#666; font-size:13px; line-height:22px; word-break:keep-all }
+.board-reple tbody td em {color:#333;}
+.board-reple tbody td span {padding-left:20px; padding-right:20px}
+.board-reple tbody td p {font-size:12px; margin-top:5px}
+.board-reple tbody td .writer {border:1px solid #1e8936; color:#1e8936; font-size:11px; line-height: 15px; padding:0 5px; border-radius: 3px}
+.board-reple tbody td .admin {border:1px solid #c01a36; color:#c01a36; font-size:11px; line-height: 15px; padding:0 5px; border-radius: 3px}
+.board-reple table td.rewrite textarea {width: calc(90%  - 20px); height:50px; display: inline-block; vertical-align: top;}
+.board-reple table td.rewrite button {height:50px;vertical-align: top; width:9%; margin:0; min-width: 40px;  float: right}
+
+.board-reple table td ul {margin-top:10px }
+.board-reple table td ul li {display: inline-block; vertical-align: top; }
+.board-reple table td ul li.re1 {width:2%}
+.board-reple table td ul li.re2 {width:90%}
+.board-reple table td ul li.re3 {width:7%}
+.board-reple table td ul li.re2 textarea {width:100%; height:50px; }
+.board-reple table td ul li.re3 button{float:right}
+
+.board-reple table td  button.btn-type4 {font-size:11px; line-height:22px; padding:0 8px; border-radius: 3px; height: 22px; border:1px solid #ccc}
+
+
+/* 페이지넘버 */
+.page-num      {margin:30px 0; text-align:center; font-size:0; color:#767d87;}
+.page-num a    { margin-left:-1px; display:inline-block;*zoom:1;height:35px;line-height:35px;background:#fff; width:35px; border:1px solid #c8d2de; color:#767d87!important; font-size: 13px}
+.page-num a:hover		{background:#ddd; color:#000}
+.page-num a.current		{background:#000;border:1px solid #000; color:#fff!important;}
+.page-num .inner		{display:inline;*zoom:1;}

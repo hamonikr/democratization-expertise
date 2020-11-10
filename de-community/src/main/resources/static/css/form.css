@@ -40,10 +40,11 @@ input:focus:-ms-input-placeholder, textarea:focus:-ms-input-placeholder { color:
 
 /* bottom line input */
 .input-type1       {background-color: #fff; color: #3e5569;height: 40px; padding: 10px;  border: 1px solid #c8d2de; }
-.input-type1:focus {font-weight: 500;  } 
+.input-type1:focus {font-weight: 500;  border-color: #66afe9;box-shadow: 0 0 0 0.2rem rgba(119, 167, 255, 0.25)} 
 
 
-textarea { font-family: 'Noto Sans KR'; overflow: auto; border:1px solid #c8d2de; padding:10px; -webkit-appearance:none;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px; color:#c8d2de} 
+
+textarea { font-family: 'Noto Sans KR'; overflow: auto; border:1px solid #c8d2de; padding:10px; -webkit-appearance:none;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px; } 
 
 
 /* 셀렉트 */
@@ -88,10 +89,6 @@ button:focus { outline: none;}
 
 .btn-gray  {background-color: #6b737b; color:#fff; line-height: 35px; height: 35px;  padding:0 30px; }
 .btn-gray:hover  {background-color: #525a61; }
-
-
-
-
 
 
 
@@ -181,7 +178,6 @@ button:focus { outline: none;}
 
 
 
-
 @media (max-width: 736px) {
   input[type=text], input[type=password] {height:45px; font-size:14px!important}    
   select {height:45px!important; font-size:14px!important ; background-position:right 10px top 20px!important; margin:3px 0!important}   
@@ -194,3 +190,29 @@ button:focus { outline: none;}
 @media (max-width: 360px) {
    .btn-type3 { padding:0 3px!important; letter-spacing: -1px!important  }
 }
+
+
+/* checkbox / radio  */
+.control {display: block;position: relative; padding-left: 30px;margin-bottom:5px;cursor: pointer;font-size: 18px;}
+.control input {position: absolute;z-index: -1;opacity: 0;}
+.control-indicator {position: absolute;top: 2px;left: 0;height: 20px;width: 20px;background: #e6e6e6; border-radius: 2px}
+.control-radio .control-indicator {border-radius: 50%;}
+.control:hover input ~ .control-indicator,
+.control input:focus ~ .control-indicator {background: #ccc;}
+.control input:checked ~ .control-indicator {background: #1b50b0;}
+.control:hover input:not([disabled]):checked ~ .control-indicator,
+.control input:checked:focus ~ .control-indicator {background: #1b50b0;}
+.control input:disabled ~ .control-indicator {background: #e6e6e6;opacity: 0.6;pointer-events: none;}
+.control-indicator:after {content: '';position: absolute;display: none;}
+.control input:checked ~ .control-indicator:after {display: block;}
+.control-checkbox .control-indicator:after {left: 8px;top: 4px; width: 6px;height: 10px;border: solid #fff;border-width: 0 2px 2px 0;transform: rotate(45deg);}
+.control-checkbox input:disabled ~ .control-indicator:after {border-color: #7b7b7b;}
+.control-radio .control-indicator:after {left: 7px;top: 7px;height: 6px;width: 6px;border-radius: 50%;background: #fff;}
+.control-radio input:disabled ~ .control-indicator:after {background: #7b7b7b;}
+
+
+
+
+
+
+

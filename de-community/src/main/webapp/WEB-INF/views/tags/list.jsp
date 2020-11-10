@@ -30,27 +30,59 @@ color: rgb(0,0,0);
 
 </style>
 <div class="content-center">
+	<h2>태그(Tags)</h2>
+	<div class="section-info">
+		태그는 질문을 유사한 다른 질문으로 분류하는 키워드 또는 레이블입니다. <br>
+       	올바른 태그를 사용하면 다른 사람이 사용자의 질문을 쉽게 찾아 답변할 수 있습니다.
+	</div>
+	
+	<div class="list-left"> !!개발영역
+		<div class="pagenum">현재페이지 1/10 (총 50건)</div>
+       	<ul class="sort-align">
+       		<li><a href="#" class="current">인기순</a></li>
+         	<li><a href="#">이름순</a></li>
+         	<li><a href="#">새로운순</a></li>
+		</ul>
+	</div>
+    
+    <div class="list-right">
+    	<div class="board-search inblock mR10 mT10">
+    		<input type="text" name="" id="" placeholder="!!개발영역">
+<!--     		<input type="text" name="" id="" placeholder="Search"> -->
+    		<button type="button"><i class="mdi mdi-magnify"></i> </button>
+		</div>
+		<div class="inblock">
+			<button type="button" class="btn-blue" id="btnSave" onclick="location.href='/wiki/saveTag'">Tag 생성</button>
+		</div>
+	</div>
+	 
+	
 	<form id="frm" name="frm" method="post">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> <input type="hidden" name="pageNo" value="${paginationInfo.currentPageNo }" />
-
-		<c:forEach var="list" items="${result}" varStatus="status">
-			<div class="">
-				<div >
-					<h3 >
-						<a href="/wiki/view/${list.wikino}">${list.title}</a>
-					</h3>
-
-					<div >
-						<p style="font-size: 9px">
-							<a href="/questions/list">${list.relatedcnt}</a> 개의 질문들
-						</p>
-					</div>
-					<div class="card-body col-12 ellipsis">
-						<div>${list.contents}</div>
-					</div>
-				</div>
-			</div>
-		</c:forEach>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+		<input type="hidden" name="pageNo" value="${paginationInfo.currentPageNo }" />
+		<div class="con-box">
+			<ul class="tag-con">
+				<c:forEach var="list" items="${result}" varStatus="status">
+					<li>
+						<div class="tag-title">
+							<em><a href="/wiki/view/${list.wikino}">${list.title}</a></em>
+		                   	<div class="qna"><font class="bold"><a href="/questions/list">${list.relatedcnt}</a> </font>개의 질문들</div>
+						</div>
+						${list.contents}
+						<div class="space">space</div>
+					</li>
+					
+<!-- 							<div class="card-body col-12 ellipsis"> -->
+<%-- 								<div>${list.contents}</div> --%>
+<!-- 							</div> -->
+				</c:forEach>
+				
+				
+			</ul>
+		</div>
+		
+		
+		
 
 
 	</form>

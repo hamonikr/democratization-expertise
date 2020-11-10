@@ -37,34 +37,50 @@ sub-Content
 
 
 
-h2 {font-size:24px; color: #222; font-weight: 400!important; margin-bottom: 30px!important; margin-top: 10px!important}
-.section-info {border-radius: 3px;background: #e6eaee; padding:20px 30px ; color: #444e66; font-size: 13px; line-height: 22px}
+h2 {font-size:22px; color: #222; font-weight: 400!important; margin-bottom: 30px!important; margin-top: 10px!important; letter-spacing: -0.5px}
+.section-info {border-radius: 3px;background: #e6eaee; padding:15px 30px ; color: #444e66; font-size: 13px; line-height: 22px}
 
 
 .con-box {background: #fff; border-radius: 3px; border:1px solid #f2f3f4; box-sizing: border-box; padding:20px 40px 40px 40px; margin-top: 20px;  display: block; width: 100%; clear: both}
 
-.qna-list {width: 100%; border-bottom: 1px solid #e5ecf2; padding-bottom:20px; margin-bottom:30px; display: block; }
+.qna-list {width: 100%; border-bottom: 1px solid #e5ecf2; padding-bottom:20px; margin-bottom:20px; display: block; }
 .qna-list li {display: inline-block; vertical-align: top; }
-.qna-list li.person {width:130px; text-align: center}
+.qna-list li.person {width:130px; text-align: center; padding-top: 10px}
 .qna-list li.person img {border-radius: 50%; width:50px; height:50px; display: block; margin-bottom: 5px; margin-left: 40px}
 .qna-list li.person .name {font-size: 12px; text-align: center; color: #1e3a65; display: block}
 .qna-list li.person .reputation {font-size: 11px; color:#888; }
 .qna-list li.person .voting  {font-size: 11px; color:#888; }
 .qna-list li.person .voting img {width:15px ; height:15px; display: inline-block; margin-left:10px}
+.qna-list li.person img:hover {
+        cursor:pointer;
+       transform:scale(1.1); 
+       -o-transform:scale(1.1); 
+       -moz-transform:scale(1.1);
+       -webkit-transform:scale(1.1);
 
-.qna-list li.question {width: calc(100% - 260px) ; font-size: 13px; line-height: 22px; padding-left: 10px }
+
+       transition: transform .35s;  
+       -o-transition: transform .35s;
+       -moz-transition: transform .35s;
+       -webkit-transition: transform .35s;}
+
+
+.qna-list li.question {width: calc(100% - 260px) ; font-size: 13px; line-height: 22px; padding-left: 10px;  }
 .qna-list li.question p {display: block; font-size: 12px; color:#888}
-.qna-list li.question .ques-title {display: block; font-size: 18px; color:#1b33c1; line-height: 30px}
+.qna-list li.question .ques-title a{display: block; font-size: 18px; color:#1c36bc; line-height: 30px;overflow: hidden ;text-overflow: ellipsis;white-space: nowrap;width: 100%;}
+.qna-list li.question .ques-text a {display: block; font-size: 14px; overflow: hidden; text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2; -webkit-box-orient: vertical;}
 .qna-list li.question .ques-tag {display:block;  }
 .qna-list li.question .ques-tag a {font-size: 11px; color:#355d80; line-height:25px;display: inline-block; margin-top: 10px ;border-radius: 3px; padding: 0 10px; background: #d2e3f3; margin-right: 5px;}
 .qna-list li.question .ques-tag a:hover {background:#c0d2e2}
 
 
-.qna-list li.subinfo {width:100px; text-align: right; padding-top: 25px; font-weight: 300; letter-spacing: 0}
+.qna-list li.subinfo {width:100px; text-align: right; padding-top: 15px; font-weight: 300; letter-spacing: 0}
 .qna-list li.subinfo span {display: block; width: 60px; height:25px;  background:#152546; color:#fff; font-size: 11px; border-radius: 3px; text-align: left; float: right; margin-bottom: 2px; padding-left: 7px }
 .qna-list li.subinfo span i {padding-right:2px; font-size: 12px}
 .qna-list li.subinfo span.up {background:#444e64;}
 .qna-list li.subinfo span.down {background:#6a7386;}
+.qna-list li.subinfo a:hover span.up {background:#000;}
+.qna-list li.subinfo a:hover span.down {background:#000;}
 
 
 .list-left {margin-bottom: 10px;float: left;  margin-top: 30px;font-size: 12px}
@@ -83,10 +99,14 @@ h2 {font-size:24px; color: #222; font-weight: 400!important; margin-bottom: 30px
 .board-search  input::placeholder {font-weight: 400}
 
 
+.reply-off {border: 1px solid #c8d2de; box-sizing: border-box; border-radius: 2px; text-align: center; line-height: 20px; font-size: 11px!important;width:60px; margin-top: 10px; letter-spacing: -0.8px } 
+.reply-on {border: 1px solid #ef7c16;  box-sizing: border-box; border-radius: 2px; text-align: center; line-height: 20px; font-size: 11px!important;width:60px; margin-top: 10px; letter-spacing: -0.8px } 
+
 
 
 .form-list span{ font-weight: 500; line-height: 40px; display: block}
-.form-list input, textarea, .de-editro {display: block; width: 100%; margin-bottom: 20px;}
+.form-list input, textarea {display: block; width: 100%; margin-bottom: 20px; }
+.form-list .de-editro {display: block; width: 100%; margin-bottom: 20px; }
 
 .form-view .view-title {font-weight: 500; font-size: 17px; padding-bottom: 30px; border-bottom: 1px solid #c8d2de}
 .form-view .qna-list {margin-top:30px; border-bottom: 8px solid #d5dde7;  margin-bottom: 20px; padding-bottom: 50px}
@@ -95,98 +115,195 @@ h2 {font-size:24px; color: #222; font-weight: 400!important; margin-bottom: 30px
 .view-replay .qna-list {margin-top:20px; border-bottom: 1px solid #d5dde7;  margin-bottom: 10px; padding-bottom:20px}
 
 
+/* 태그 */
 .tag-con {font-size: 0}
-.tag-con li {display: inline-block; width: calc(20% - 20px); border: 1px solid #c8d2de; border-radius: 3px; padding:15px; margin:5px 10px; font-size: 12px; line-height: 22px;  height:200px; overflow: hidden; letter-spacing: -0.5px}
+.tag-con li {position: relative; display: inline-block; width: calc(20% - 20px); border: 1px solid #c8d2de; border-radius: 3px; padding:15px; margin:5px 10px; font-size: 12px; line-height: 20px;  height:200px; letter-spacing: -0.5px;  -webkit-line-clamp:7; -webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;}
+.tag-con li .space {height:22px;  line-height:22px;background:#fff; position: absolute;left:5px; bottom: 0px; font-size: 0; width: 100%}
+
 .tag-con li .tag-title {display: block; padding-bottom: 15px}
-.tag-con li .tag-title em {font-size: 16px; color:#1b33c1; font-weight: 500; display: inline-block}
-.tag-con li .tag-title span {font-size: 12px; color:#888; display: inline-block; text-align: right; float:right}
-.tag-con li .tag-title span font {color:#000;}
+.tag-con li .tag-title em a{font-size: 16px; color:#183b9c; font-weight: 500; display: inline-block}
+.tag-con li .tag-title .qna {font-size: 12px; color:#888; display: inline-block; text-align: right; float:right}
+.tag-con li .tag-title font {color:#000;}
+.tag-con li span a{color:#167be3}
+.tag-con li span a:hover{text-decoration: underline}
+
+/* wiki */
+.wiki-con {font-size: 0}
+.wiki-con li {font-size: 13px;  display: inline-block; width: calc(20% - 60px); border-top: 1px solid #d5dde7; padding:10px; margin:5px 30px;   height:170px; overflow: hidden; }
+.wiki-con li a {display: block}
+.wiki-con li a:hover {text-decoration: underline; }
+
+.wiki-list li {display: block; border-bottom: 1px solid #e5ecf2;padding: 10px 30px}
+.wiki-list li::before {content:"\F16C";  font-size:15px; padding-right: 10px;font-family:"Material Design Icons"; } 
+
+.wiki-title {font-weight: 500; font-size: 20px; color: #222; border-bottom: 1px solid #95a3b1; line-height: 60px}
+.wiki-list li .date {float: right; color: #888; font-size: 12px; }
 
 
 
 
 
+/* user */
+.user-con {}
+.user-con li {display: inline-block; width: calc(20% - 24px);  margin:10px; font-size: 12px; line-height: 22px; vertical-align: top  }
+.user-con li img { width:55px; height:55px; margin-bottom: 5px; margin-right:20px;  border-radius: 3px; float:left }
+.user-con li img:hover {
+        cursor:pointer;
+       transform:scale(1.1); 
+       -o-transform:scale(1.1); 
+       -moz-transform:scale(1.1);
+       -webkit-transform:scale(1.1);
+
+
+       transition: transform .35s;  
+       -o-transition: transform .35s;
+       -moz-transition: transform .35s;
+       -webkit-transition: transform .35s;}
+
+.user-con li .name a{font-size: 14px; text-align: center; color: #183b9c; display: block; text-align: left}
+.user-con li .name a:hover{text-decoration: underline}
+.user-con li .reputation {font-size: 11px; color:#888; }
+
+
+/* Parners */
+.company-user {}
+.company-user li {position:relative;display: inline-block; width: calc(25% - 24px); height: 85px;  margin:10px; font-size: 12px; line-height: 22px; vertical-align: top; border: 1px solid #e5ecf2;  padding: 10px; border-radius: 3px;overflow: hidden ;text-overflow: ellipsis;white-space: nowrap;}
+.company-user li img { width:55px; height:55px;  margin-right:20px; margin-top: 5px; border-radius: 3px; float:left }
+.company-user li img:hover {
+        cursor:pointer;
+       transform:scale(1.1); 
+       -o-transform:scale(1.1); 
+       -moz-transform:scale(1.1);
+       -webkit-transform:scale(1.1);
+
+
+       transition: transform .35s;  
+       -o-transition: transform .35s;
+       -moz-transition: transform .35s;
+       -webkit-transition: transform .35s;}
+
+.company-user li .name a{font-size: 14px; text-align: center; color: #183b9c; display: block; text-align: left}
+.company-user li .name a:hover{text-decoration: underline}
+.company-user li .reputation {font-size: 11px; color:#888;display: block; line-height: 20px}
+.company-user li .tag {font-size: 11px; color:#4f8ad3; line-height: 20px}
+.company-user li .active {position: absolute; right:10px; top:15px}
+.company-user li .active a{background: #1b3ca8; border-radius: 2px; text-align: center; color: #fff; font-size: 11px; line-height: 25px; width:40px;display: block; margin-bottom: 4px}
+.company-user li .active a.off{background: #878fa9; }
+.company-user li .active a:hover {opacity: 0.6}
+.user-tab {margin-top:10px}
+.user-tab li { display: inline-block;height: 30px; line-height: 27px; margin-right: 5px;  border-radius: 20px; }
+.user-tab li a{ display: block; text-align: center;  border-radius: 20px;  padding: 0 30px;border: 1px solid #d0d9e1;background: #e6eaee;}
+.user-tab li a:hover{text-decoration: underline}
+.user-tab li a.current {font-weight: 500;background: #2d096a; color: #fff;  border: 1px solid #2d096a}
+
+
+/* 프로필 자세히 */
+.profile-con {margin-top: 20px; display: inline-block; width: 100%}
+.profile-con a:hover {text-decoration: underline}
+.profile-photo {float: left; margin-right: 30px; width: 250px; vertical-align: top; display: inline-block}
+.profile-photo img{display: block; width: 200px; border-radius: 5px; margin-bottom: 10px}
+.profile-photo .level img {display: block; width:30px; border-radius: 0px; margin-bottom: 5px }
+.profile-photo .url a {text-decoration: underline}
+
+.profile-info  {width: calc(100% - 300px); display: inline-block}
+.profile-info .myname {font-weight: 500px; font-size: 20px; color:#183b9c; padding-bottom: 20px}
+.profile-info .myintro {font-size: 13px; color: #666; line-height: 20px;padding-bottom: 10px}
+.profile-info .graph {border: 1px solid #e3ebf4; border-radius: 3px; padding:15px; width: 50%; height: 220px; margin-right: 30px}
+
+.profile-info .info-detail {margin-top: 10px;}
+.profile-info .info-detail li {display: inline-block; color: #666; vertical-align: top}
+.profile-info .info-detail li .score {display: block; padding-bottom: 10px}
+.profile-info .info-detail li .score span{font-weight: 500; font-size: 20px; color: #222}
+.profile-info .info-detail li .myinfo {display: inline-block; margin-right: 40px; color:#777f89}
+.profile-info .info-detail li .myinfo span{color: #222;  }
+
+
+/* user 글목록 */
+.mywrit-con {margin-top: 60px; padding-top: 60px;  border-top: 4px solid #d5dde7;  clear: both; display: inline-block; width: 100%}
+.mywrit-con a:hover {text-decoration: underline}
+.mywrit-con.border-none {border-top:0px; margin-top: 0; padding-top: 0}
+
+.mywrit {width: 45%; margin-bottom: 40px;  float: left; display: inline-block; }
+.mytitle {font-weight: 500; border-bottom: 1px solid #e3ebf4; margin-bottom: 10px; padding: 10px 0; color: #111}
+.mytitle .more{float: right; font-size: 11px;  color: #777}
+
+.mywrit li {width:100%;display: block; overflow: hidden ;text-overflow: ellipsis;white-space: nowrap;width: 100%;}
+.mywrit li span {display: inline-block; width: 50px; height:20px; line-height: 20px;   background:#152546; color:#fff; font-size: 11px; border-radius: 3px; text-align: left;  padding-left: 7px; margin-right: 20px }
+.mywrit li span i {padding-right:2px; font-size: 12px}
+.mywrit li span.up {background:#444e64;}
+.mywrit li span.down {background:#6a7386;}
+
+.mywrit.other {float:right}
+.mywrit-con .ques-tag {display:block;  }
+.mywrit-con .ques-tag a {font-size: 11px; color:#355d80; line-height:25px;display: inline-block; margin-top: 10px ;border-radius: 3px; padding: 0 10px; background: #d2e3f3; margin-right: 5px;}
+.mywrit-con .ques-tag a:hover {background:#c0d2e2}
+
+.leftbtn {line-height: 30px; width: 200px;  border: 1px solid #ccd7e4; border-radius: 3px; display: block;margin-bottom: 5px; padding-left: 43px}
+.leftbtn i {padding-right: 10px}
+
+
+.my-modify  {width: calc(100% - 300px); display: inline-block; }
+.my-modify li {margin-bottom: 10px}
+.my-modify li input {width: calc(100% - 140px);}
+.my-modify li label {width:130px; display: inline-block; font-size: 13px; color: #727882}
+
+.my-modify li .de-editro {width: calc(100% - 140px); margin-bottom: 20px; display: inline-block; height: 250px }
 
 
 
-/*--------------------
-게시판 리스트 
-----------------------*/
-.board-list table		{width:100%;border-top:1px solid #26a042; min-width: 600px}
-.board-list thead th	{padding:10px 5px; color:#333;background-color:#f5f6fa;text-align:center;border-bottom:1px solid #e8e8e8; font-weight:400;line-height:17px}
-.board-list tbody th	{padding:10px 5px; border-bottom:1px solid #e8e8e8;text-align:center; line-height:17px}
-.board-list tbody td	{padding:10px 5px; border-bottom:1px solid #e8e8e8;text-align:center; ; color:#666; font-size:13px; line-height:17px}
-.board-list tbody tr:hover td	{background:#fffff4;}
-.board-list-info { color:#777; font-size:13px; display:block;padding-bottom: 10px;width: 100%; text-align: right}
+/* 뉴스레터 */
+.news {width: 50%; margin: 0 auto; background:url('../img/news.png') no-repeat center top; background-size: 100px; text-align: center; padding-top: 120px; margin-top: 30px}
+.news .title {font-weight: 500; font-size: 20px; line-height: 60px}
+.news-in  {width: 300px; display: block; margin: 40px auto;}
+.news-in li {margin-bottom: 10px; text-align: left!important}
+.news-in li input {width:100% }
+.news-in li label {font-size: 13px; color: #727882; }
+.news-in li button {width: 100%; margin-top: 20px; }
 
 
-.board-list2 table		{width:100%;border-top:2px solid #26a042; }
-.board-list2 thead th	{padding:7px 5px; color:#333;background-color:#f5f6fa;text-align:center;border:1px solid #e8e8e8; font-weight:400;line-height:17px}
-.board-list2 tbody td	{padding:10px 5px; border:1px solid #e8e8e8;text-align:center; ; color:#666; font-size:13px; line-height:17px}
-.board-list2 tbody tr:hover td	{background:#fffff4;}
-.modal-body .board-list2 table	select {width:90%;}
-.modal-body .board-list2 table .input-type-s {width:90%;}
-.modal-body .board-list2 table input[type=checkbox]+ label {font-size:0; margin-right:0}
-.modal-body .board-list2 table input[type=checkbox]+ label:before {margin-right:0}
-.modal-body .btn-align1 {text-align:right ; padding:10px 0; border-bottom:1px solid #ddd }
-select.equ  {width:60%!important; min-width:80px!important}
 
-.board-list3 table		{width:100%; }
-.board-list3 tbody th	{padding:10px 5px; border-bottom:1px solid #e8e8e8;text-align:center; line-height:17px}
-.board-list3 tbody td	{padding:10px 5px; border-bottom:1px solid #e8e8e8;text-align:center; ; color:#666; font-size:13px; line-height:17px}
-.board-list3 tbody tr:hover td	{background:#fffff4;}
-.board-list3 tbody tr.current {background-color:#dcefea; }
-.board-list3 tbody tr.current:hover td {background-color:#dcefea; }
-.board-list3 tbody tr.current td { border-bottom:1px solid #dcefea; color:#438974}
-
-/* 왼쪽정렬 */
-.board-list4 table		{width:100%; border-top:1px solid #e8e8e8;}
-.board-list4 tbody th	{padding:10px 5px; border-bottom:1px solid #e8e8e8;text-align:left; line-height:17px}
-.board-list4 tbody td	{padding:10px 5px; border-bottom:1px solid #e8e8e8;text-align:left; ; color:#666; font-size:13px; line-height:17px}
-.board-list4 tbody tr:hover {background:#fffff4;}
+.images img {width:150px}
 
 
-.board-view table		{width:100%; border-top:1px solid #26a042; }
-.board-view tbody th	{padding:10px 10px; border-bottom:1px solid #e8e8e8;text-align:center; background-color:#f5f6fa; font-weight: 400}
-.board-view tbody td	{padding:10px 10px; border-bottom:1px solid #e8e8e8;text-align:left; ; color:#666; }
-.board-view tbody tr:hover {background:#fffff4;}
-.board-view tbody td .list li{ display: inline-block; padding-left:50px;}
-.board-view tbody td .list li:before{content: " | " ; padding-right: 50px; color:#ddd}
-.board-view tbody td .list li:first-child {padding-left: 0}
-.board-view tbody td .list li:first-child:before {content: "  " ; padding-right: 0px;}
-.board-view tbody td.view { padding: 20px 10px; vertical-align: top}
+
+/* 로그인 */
+.login {width: 50%; margin: 0 auto; text-align: center;  margin-top: 30px;padding-top: 120px;}
+.login-in  {width: 300px; display: block; margin: 0 auto; margin-top:20px; margin-bottom: 20px}
+.login-in li {margin-bottom: 10px; text-align: left!important}
+.login-in li input {width:100% }
+.login-in li label {font-size: 12px; color: #727882; }
+.login-in li button {width: 100%; margin-top: 10px; height: 50px; background: #2d096a}
+.login-in li .control-radio{display: inline-block; margin-right: 20px; margin-left: 20px}
+
+.login-in2 li {display: inline-block; padding: 0 30px}
+.login i {padding-right: 10px}
+.login-in3 {margin-bottom: 50px}
+.login-in3 li {display: inline-block; padding: 5px}
+.login-in3 li img {width: 35px;}
+.login-in3 li a:hover img {opacity: 0.6}
+.login.bg1 {background:url('../img/bg_login.png') no-repeat center top; background-size: 60px; }
+.login.bg2 {background:url('../img/bg_join.png') no-repeat center top; background-size: 80px;}
+.login.bg3 {background:url('../img/bg_idpw.png') no-repeat center top; background-size: 50px;padding-top: 60px; }
+
+.joinplus {text-decoration: underline; margin-top: 10px; }
 
 
-.board-reple table		{width:100%; border:1px solid #e8e8e8; margin-top:10px;}
-.board-reple tbody td	{padding:10px; border-bottom:1px solid #e8e8e8;text-align:left; ; color:#666; font-size:13px; line-height:22px; word-break:keep-all }
-.board-reple tbody td em {color:#333;}
-.board-reple tbody td span {padding-left:20px; padding-right:20px}
-.board-reple tbody td p {font-size:12px; margin-top:5px}
-.board-reple tbody td .writer {border:1px solid #1e8936; color:#1e8936; font-size:11px; line-height: 15px; padding:0 5px; border-radius: 3px}
-.board-reple tbody td .admin {border:1px solid #c01a36; color:#c01a36; font-size:11px; line-height: 15px; padding:0 5px; border-radius: 3px}
-.board-reple table td.rewrite textarea {width: calc(90%  - 20px); height:50px; display: inline-block; vertical-align: top;}
-.board-reple table td.rewrite button {height:50px;vertical-align: top; width:9%; margin:0; min-width: 40px;  float: right}
+.policy-info {margin: 40px 0}
+.policy-info label {font-size: 14px;  display: inline-block}
+.policy-info textarea {font-size: 12px; line-height: 20px; margin-top: 10px}
 
-.board-reple table td ul {margin-top:10px }
-.board-reple table td ul li {display: inline-block; vertical-align: top; }
-.board-reple table td ul li.re1 {width:2%}
-.board-reple table td ul li.re2 {width:90%}
-.board-reple table td ul li.re3 {width:7%}
-.board-reple table td ul li.re2 textarea {width:100%; height:50px; }
-.board-reple table td ul li.re3 button{float:right}
+.policy-in  {width: 90%; display: block; margin: 0 auto; margin-top:20px; margin-bottom: 20px; }
+.policy-in li {position: relative; text-align: left!important; border-top: 1px solid #d5dde7; padding: 10px 0}
+.policy-in li label {font-size: 14px;  display: inline-block}
 
-.board-reple table td  button.btn-type4 {font-size:11px; line-height:22px; padding:0 8px; border-radius: 3px; height: 22px; border:1px solid #ccc}
+.accordion {position: absolute; right:0; top:10px;  width: 50px;  border: none;text-align: left;outline: none;transition: 0.4s;background: #fff}
+.accordion:after {content: '\002B';color: #222;text-align: center;  margin-left: 5px; font-size: 20px;}
+.active:after {content: " ";}
+/* .active:after {content: "\2212";} */
+
+.panel {padding:0 40px; border-radius: 0;  background-color: #fff;max-height: 0;overflow: hidden;transition: max-height 0.2s ease-out; box-shadow: 0!important; border:0!important;box-shadow:0 0px 0px rgba(0,0,0,0); margin-top: 10px; font-size: 11px; margin-bottom: 0!important; line-height: 18px; border-top:1px solid #d5dde7}
 
 
-/* 페이지넘버 */
-.page-num      {margin:30px 0; text-align:center; font-size:0; color:#767d87;}
-.page-num a    { margin-left:-1px; display:inline-block;*zoom:1;height:35px;line-height:35px;background:#fff; width:35px; border:1px solid #c8d2de; color:#767d87!important; font-size: 13px}
-.page-num a:hover		{background:#ddd; color:#000}
-.page-num a.current		{background:#000;border:1px solid #000; color:#fff!important;}
-.page-num .inner		{display:inline;*zoom:1;}
-
-
-.tooltip{position:absolute;z-index:1070;display:block;margin:0;line-height:1.5;text-align:left;text-align:start;text-decoration:none;text-shadow:none;text-transform:none;letter-spacing:normal;word-break:normal;word-spacing:normal;white-space:normal;line-break:auto;font-size:0.76563rem;word-wrap:break-word;opacity:0; background: #000}
 
 
 
@@ -195,6 +312,21 @@ select.equ  {width:60%!important; min-width:80px!important}
 
 /*--------------------
 레이어팝업
+----------------------*/
+#popup { position: absolute; left: 50%; top: 200px; z-index: 9998;  background: #fff; border-radius: 5px; padding: 20px}
+.popa { width: 500px; margin-left: -250px; }
+
+.pop-content {padding:30px;text-align: center}
+
+#popup .page_num, #popup2 .page_num  {margin-top:10px; margin-bottom: 0}
+#bg_fix { display: block; position: fixed; z-index: 9997; width: 100%; height: 100%; top: 0px; left: 0px; background: #000; opacity: 0.6; filter: opacity(60);}
+
+
+
+
+
+/*--------------------
+모달
 ----------------------*/
 .modal{overflow: auto; width:100%; overflow:scroll;-webkit-overflow-scrolling:touch;}
 .modal-content h1 {font-size:17px; color:#333; }
@@ -233,6 +365,10 @@ select.equ  {width:60%!important; min-width:80px!important}
 
 
 
+.tooltip{position:absolute;z-index:1070;display:block;margin:0;line-height:1.5;text-align:left;text-align:start;text-decoration:none;text-shadow:none;text-transform:none;letter-spacing:normal;word-break:normal;word-spacing:normal;white-space:normal;line-break:auto;font-size:0.76563rem;word-wrap:break-word;opacity:0; background: #000}
+
+
+
 
 
 
@@ -243,69 +379,132 @@ select.equ  {width:60%!important; min-width:80px!important}
 /*--------------------
 해상도별
 ----------------------*/
+ @media (max-width: 1680px) {
+     
+.user-con li { width: calc(25% - 24px);   }
+   
+.company-user li { width: calc(33.3% - 24px);}
+     
+}
+
+
  @media (max-width: 1440px) {
      
-.top-search .title { vertical-align: top;}
-.top-search .title:before { vertical-align: top}
+  .top-search .title { vertical-align: top;}
+  .top-search .title:before { vertical-align: top}
+
+  .tag-con li {width: calc(25% - 20px); }
+  .user-con li img { display: block; float: none}
+
+  .profile-info .graph {width: 100%;  margin-right: 0; margin-bottom: 10px}
+  .company-user li { width: calc(50% - 24px);}
    
-.tag-con li {width: calc(25% - 20px); }
-     
+  .wiki-con li { width: calc(25% - 60px); }
+
 }
 
 
 
  @media (max-width: 1280px) {
 
-.tag-con li {width: calc(33.3% - 20px); }
+  .tag-con li {width: calc(33.3% - 20px); }
+   
+  .profile-photo .level img {margin: 5px auto }
+  .profile-info .myname {margin-top: 20px}
+
+  .profile-photo {float: none; margin-right: 0; width: 100%;  display:block; text-align: center}
+  .profile-photo img{width: 150px; border-radius: 5px; margin-bottom: 10px; margin: 0 auto}
+  .profile-info  {width: 100% ; display:block}
+   
+  .my-modify  {width:100% ; display: block; margin-top: 30px}
+  .my-modify li {margin-bottom: 10px}
+  .my-modify li input {width: 100% ;}
+  .my-modify li label {width:100%; display:block; }
+  .my-modify li .de-editro {width: 100%}
+  .leftbtn {line-height: 30px; width: 150px;  padding-left: 10px; margin: 5px auto;}
+   
+  .wiki-con li { width: calc(33.3% - 60px); }
+
 }
 
 
  @media (max-width: 1024px) {
      
+.mywrit {width:100%; margin-bottom: 30px;  float: none; display:block; }
+.mywrit.other {float:none}
 
+
+
+   
 }
      
 
 
  @media (max-width: 800px) {
 
-.mobile-mno {margin-top:0}
-.modal{top:0!important; }     
-.modal-dialog{max-width:700px!important;} 
-.modal i.mdi-close {font-size:24px;}
-.modal-body {padding: 20px}
-     
-     
-.board-list {overflow: auto; width:100%; overflow:scroll;-webkit-overflow-scrolling:touch;}   
-.board-list2 {overflow: auto; width:100%; overflow:scroll;-webkit-overflow-scrolling:touch;}
+  .mobile-mno {margin-top:0}
+  .modal{top:0!important; }     
+  .modal-dialog{max-width:700px!important;} 
+  .modal i.mdi-close {font-size:24px;}
+  .modal-body {padding: 20px}
 
-.tag-con li {width: calc(50% - 20px); }
-     
+
+  .board-list {overflow: auto; width:100%; overflow:scroll;-webkit-overflow-scrolling:touch;}   
+  .board-list2 {overflow: auto; width:100%; overflow:scroll;-webkit-overflow-scrolling:touch;}
+
+  .tag-con li {width: calc(50% - 20px); }
+  .wiki-con li { width: calc(50% - 20px);  margin:5px 10px; }
+
+  .news {width: 100%;}
+  .news-in  {width: 100%; }   
+   
+   
+  .login {width: 100%;} 
 }
      
      
 
 
 @media (max-width: 736px) {
-  
-.con-box { padding: 15px 15px;  }
-.qna-list li {display: block; vertical-align: top; }
-.qna-list li.question {width:100%; padding-left: 0}
-.qna-list li.question .ques-title {line-height: 24px}
-  
-.qna-list li.person {width:100%; text-align: left}
-.qna-list li.person img {display: inline-block; margin-bottom: 5px; margin-left: 0}
-.qna-list li.person .name {text-align: left; display: inline-block; padding-right: 10px}
-.qna-list li.person .reputation {font-size: 12px; }
-.qna-list li.person .voting  {font-size: 12px; }
-.qna-list li.person .voting img {width:15px ; height:15px; display: inline-block; margin-left:10px; margin-right: 3px;}
-  
-.qna-list li.subinfo {width:100%; float: none; padding-top: 0; text-align:right; margin-top:20px; display: block}
-.qna-list li.subinfo span {display:inline-block; width:auto; line-height: 22px;  font-size: 12px;  text-align: left; float: none;  padding-left:10px; padding-right: 10px; margin-left:2px; text-align: center}
-.qna-list li.subinfo span i {padding-right:2px; font-size: 13px}
+  h2 {font-size: 18px; font-weight: 500!important}
+  .con-box { padding: 15px 15px;  }
+  .qna-list li {display: block; vertical-align: top; }
+  .qna-list li.question {width:100%; padding-left: 0}
+  .qna-list li.question .ques-title {line-height: 24px}
 
-.tag-con li {width: 100%; }
+  .qna-list li.person {width:100%; text-align: left}
+  .qna-list li.person img {display: inline-block; margin-bottom: 5px; margin-left: 0}
+  .qna-list li.person .name {text-align: left; display: inline-block; padding-right: 10px}
+  .qna-list li.person .reputation {font-size: 12px; }
+  .qna-list li.person .voting  {font-size: 12px; }
+  .qna-list li.person .voting img {width:15px ; height:15px; display: inline-block; margin-left:10px; margin-right: 3px;}
+
+  .qna-list li.subinfo {width:100%; float: none; padding-top: 0; text-align:right; margin-top:20px; display: block}
+  .qna-list li.subinfo span {display:inline-block; width:auto; line-height: 22px;  font-size: 12px;  text-align: left; float: none;  padding-left:10px; padding-right: 10px; margin-left:2px; text-align: center}
+  .qna-list li.subinfo span i {padding-right:2px; font-size: 13px}
+
+  .tag-con li {width: 100%; }
+
+  .user-con li {display: inline-block; width: calc(33% - 24px);   }
+
+  .company-user li { width: 100%;}
+  
+  .section-info {display: none}
    
+  .list-right {margin-top: 0!important}
+  .list-right button {padding-right:10px; padding-left: 10px }
+  
+  .tag-con li, .company-user li {margin:5px 0}
+  .user-tab li a {padding: 0 15px}
+  .wiki-list li {padding: 10px}
+  .wiki-title {line-height: 25px; font-size: 16px; padding-bottom: 10px}
+  .wiki-list li .date{display: block; float: none}
+  
+  #popup {  top: 100px; padding: 20px}
+  .popa { width: 300px; margin-left: -150px; }
+  
+ .pop-content {padding:10px;}
+  
 }
 
 
