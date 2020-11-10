@@ -9,5 +9,7 @@ public interface BoardMapper {
 	public List<Board> getList(Board vo) throws Exception;
 
 	public int getListCount(Board vo) throws Exception;
+	
+	public Board getView(int boardno) throws Exception;
 
 }

@@ -36,22 +36,11 @@
 		<c:forEach var="list" items="${list}" varStatus="stat">
 		
 		<ul class="qna-list">
-			<%-- <li class="person">
-				<c:if test="${list.users.userprofileimg != null}">
-					<img src="/upload/users/${list.users.userprofileimg}" width="63px" height="63px">
-				</c:if>
-				<c:if test="${list.users.userprofileimg == null and list.users.picture == null}" >
-					<img src="/img/noprofile.png"  width="63px" height="63px">
-				</c:if>
-				<c:if test="${list.users.picture != null and list.users.userprofileimg == null}">
-					<img alt="profile" src="${list.users.picture}" id="profileImg" class="img" width="63px" height="63px"><br/>
-				</c:if>
+			<li class="person">
+				<img src="/img/noprofile.png"  width="63px" height="63px">
 				
-				<span class="name"><a href="/users/activity/${list.users.userno}">${list.users.username}</a></span> 
-				개발<br>
-				<span class="reputation"></span> 
-				<span class="voting"><img src="../img/level_gold.png" alt="" > 25</span>
-			</li> --%>
+				<span class="name">${list.userid}</span> 
+			</li>
 			
 		
 			<li class="question">

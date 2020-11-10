@@ -3,6 +3,8 @@ package com.de.board;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.de.answer.Answers;
 import com.de.answer.AnswersService;
 import com.de.cmmn.CmmnMap;
 import com.de.cmmn.service.CmmnService;
@@ -79,6 +82,24 @@ public class BoardController {
 		model.addAttribute("vo", param);
 		model.addAttribute("boardinfo", cs.selectObject("boardinfo", param));
 		return "/board/list";
+	}
+	
+	@RequestMapping("/{boardid}/view/{boardno}")
+	public String view(@PathVariable("boardid") String boardid,@PathVariable("boardno") int boardno, Model model,
+			@AuthenticationPrincipal SecurityMember user, HttpSession httpSession) throws Exception {
+		// List<Tags> tagList = qs.tagList();
+		CmmnMap param = new CmmnMap();
+
+
+		Board vo = new Board();
+		vo.setSection(boardid);
+		vo = bs.getView(boardno);
+
+		model.addAttribute("result", vo);
+
+		if (httpSession.getAttribute("userSession") != null)
+			model.addAttribute("user", httpSession.getAttribute("userSession"));
+		return "/board/view";
 	}
 
 }

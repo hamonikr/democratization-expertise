@@ -42,7 +42,7 @@
 <div class="content-center">
 	<form id="frm" name="frm" method="post">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
-	<input type="hidden" name="questionno" value="${result.questionno}" />
+	<input type="hidden" name="boardno" value="${result.boardno}" />
 		<h2>Stacked Q&amp;A</h2>
 
 		<div class="con-box">
@@ -53,21 +53,10 @@
 
 				<ul class="qna-list">
 					<li class="person">
-						<a href="/users/activity/${result.userno}"> 
-							<c:if test="${result.users.userprofileimg != null}">
-								<img src="/upload/users/${result.users.userprofileimg}">
-							</c:if> 
-							<c:if test="${result.users.userprofileimg == null and result.users.picture == null}">
-								<img src="/img/noprofile.png">
-							</c:if> 
-							<c:if test="${result.users.picture != null and result.users.userprofileimg == null}">
-								<img alt="profile" src="${result.users.picture}" id="profileImg" class="img" width="63px" height="63px">
-							</c:if>
-						</a> 
-						
-						<span class="name"><a href="/users/activity/${result.userno}">${result.users.username}</a></span> 
-						<span class="reputation">${result.scores }</span> 
-						<span class="voting"><img src="/img/level_gold.png"alt=""> voting</span>
+						<img src="/img/noprofile.png">
+						<span class="name">${result.userid}</span> 
+						<span class="reputation"></span> 
+						<span class="voting"></span>
 					</li>
 					<li class="question">
 						<p>
@@ -76,7 +65,7 @@
 						<code>
 							<p>${result.contents }</p>
 						</code> 
-						<span class="ques-tag"> 
+						<%-- <span class="ques-tag"> 
 							<c:set var="tag" value="${fn:split(result.tagno,',')}" /> 
 							<c:forEach var="tagName2" items="${tag }" varStatus="status">
 								<c:forEach var="tagName1" items="${tagList }" varStatus="status">
@@ -85,23 +74,23 @@
 									</c:if>
 								</c:forEach>
 							</c:forEach>
-						</span>
+						</span> --%>
 					</li>
-					<li class="subinfo">
+					<%-- <li class="subinfo">
 						<span><i class="mdi mdi-message-processing"></i> ${result.commentcnt }</span> 
 						<span><i class="mdi mdi-eye-outline"></i> ${result.readcnt} </span> 
-						<span class="up" onclick="fnLike('${result.questionno}','${result.userno}','Q','${result.vote.likes }')">
+						<span class="up" onclick="fnLike('${result.boardno}','${result.userno}','Q','${result.vote.likes }')">
 							<i class="mdi mdi-arrow-up" id="like">${result.vote.likes }</i>
 						</span> 
-						<span class="down" onclick="fnDisLike('${result.questionno}','${result.userno}','Q','${result.vote.dislikes }')">
+						<span class="down" onclick="fnDisLike('${result.boardno}','${result.userno}','Q','${result.vote.dislikes }')">
 							<i class="mdi mdi-arrow-down" id="dislike">${result.vote.dislikes }</i>
 						</span>
-					</li>
+					</li> --%>
 				</ul>
 
 
 
-				<div class="view-replay">
+				<%-- <div class="view-replay">
 					<!-- 답변등록   -->
 					<c:if test="${historyCnt > 0}">
 						${historyCnt }
@@ -170,20 +159,20 @@
 						</ul>
 					</c:forEach>
 
-				</div>
+				</div> --%>
 			</div>
 		</div>
-		<div class="mT30 txt-center">
+		<%-- <div class="mT30 txt-center">
 
 			<c:if test="${((result.editauth eq 1) or (result.firstuserno eq user.userno))}">
-				<button type="button" onclick="location.href='/questions/edit/${result.questionno}'" class="btn-gray">수정</button>
+				<button type="button" onclick="location.href='/questions/edit/${result.boardno}'" class="btn-gray">수정</button>
 			</c:if>
 			<c:if test="${((result.editauth eq 0) and (result.firstuserno eq user.userno) and fn:length(answerList) eq 0)}">
-				<button type="button" onclick="location.href='/questions/delete/${result.questionno}'" class="btn-gray">삭제</button>
+				<button type="button" onclick="location.href='/questions/delete/${result.boardno}'" class="btn-gray">삭제</button>
 			</c:if>
 			<button type="button" class="btn-gray" onclick="location.href='/questions/list'">목록</button>
 
-		</div>
+		</div> --%>
 
 	</form>
 </div>

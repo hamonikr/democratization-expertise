@@ -36,6 +36,8 @@ public class Board {
 	private String contents;
 	/* 회원 고유 번호 */
 	private Integer userno;
+	/* 질문 이름 */
+	private String userid;
 	/* 최초 등록 회원 고유 번호 */
 	private Integer firstuserno;
 	/* 태그 고유 번호 */

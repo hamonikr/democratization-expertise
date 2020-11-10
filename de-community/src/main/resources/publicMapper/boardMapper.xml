@@ -90,20 +90,15 @@
 		</where>
 	</select>
 	
-	<!-- <select id="getView" parameterType="integer" resultMap="Board">
-		select a.*,b.*,c.*
-		,(select count(d.answerno) from tb_answers d where a.questionno = d.questionno) as commentcnt
-		,(select score from tb_score e where a.userno = e.userno) as scores
-		from tb_questions a left outer join tb_users b on a.firstuserno = b.userno
-		left outer join tb_vote c on a.questionno = c.pno
+	<select id="getView" parameterType="integer" resultMap="Board">
+		select a.*
+		from tb_boards a 
 		<where>
-		a.questionno = #{questionno}
-		and c.section = 'Q'
-		and a.deleteat = 0
+		a.boardno = #{boardno}
 		</where>
 	</select>
 	
-	<update id="updateReanCnt" parameterType="integer">
+	<!-- <update id="updateReanCnt" parameterType="integer">
 	update tb_questions set readcnt = readcnt + 1
 	<where>
 	questionno = #{questionno}
