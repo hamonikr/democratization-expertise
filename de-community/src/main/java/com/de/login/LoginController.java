@@ -82,7 +82,7 @@ public class LoginController {
 //		} else {
 //			return "redirect:/users/activity/"+user.getUserno();
 //				}
-		if(returnUrl==null) {			
+		if(returnUrl==null || returnUrl.contains("/sendRecoveryEmail.proc") || returnUrl.contains("/login")) {			
 			return "redirect:/questions/list";
 		} else {
 			return "redirect:"+returnUrl;
@@ -104,7 +104,7 @@ public class LoginController {
 		System.out.println("userno======"+vo.getUserno());
 		model.addAttribute("loginUser", session.getAttribute("userSession"));
 		//return "redirect:/users/activity/"+vo.getUserno();
-		if(returnUrl==null) {			
+		if(returnUrl==null || returnUrl.contains("/sendRecoveryEmail.proc") || returnUrl.contains("/login")) {			
 			return "redirect:/questions/list";
 		} else {
 			return "redirect:"+returnUrl;
