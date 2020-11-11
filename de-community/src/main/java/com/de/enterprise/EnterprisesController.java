@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.de.answer.Answers;
+import com.de.answer.AnswersService;
 import com.de.cmmn.util.CodeMessage;
 import com.de.login.service.SecurityMember;
 import com.de.question.Questions;
@@ -60,6 +61,9 @@ public class EnterprisesController {
 	EnterpriseService service;
 
 	@Autowired
+	AnswersService answService;
+
+	@Autowired
 	EnterprisesRepository repository;
 
 	/**
@@ -86,6 +90,8 @@ public class EnterprisesController {
 				isUserNo = false;
 			}
 		}
+
+		System.out.println("isUserNo=======+++" + loginUserData.getUserno());
 //		System.out.println("loginUserData.getUserno()=========+++++"+loginUserData.getEnterpriseno() );
 		Optional<Enterprises> enterprises = service.findByEnterpriseno(seq);
 		System.out.println("enterprises========+" + enterprises);
@@ -101,38 +107,36 @@ public class EnterprisesController {
 		// 평판 그래프 데이터
 
 		// 질문
-		int qCnt = service.cntQuestionsById(seq);
-		Page<Questions> qList = service.findQuestionsByUserno(seq);
+		System.out.println("==========질문================");
+		Questions qVo = new Questions();
+		qVo.setUserno(seq);
+		List<Questions> qList = service.getQuestionList(qVo);
+		int qCnt = service.getQuestionListCnt(qVo);
 
 		// 답변
+		System.out.println("==========답변================");
 		int aCnt = service.cntAnswerById(seq);
 		Page<Answers> aList = service.findAnswerByUserno(seq);
+		Answers answVo = new Answers();
+		answVo.setUserno(seq);
+		List<Answers> answList = answService.getAnswerList(answVo);
+		int answCnt = answService.getAnswerListCnt(answVo);
 
 		// 태그 n 위키
 		Wiki wVo = new Wiki();
 		wVo.setUserno(seq);
 
 		// 태그
+		System.out.println("==========태그================");
 		wVo.setSection("t");
 		int tCnt = service.cntTagAndWikiById(wVo);
 		List<Wiki> tList = service.findTagAndWikiByUserno(wVo);
 
 		// 위키
+		System.out.println("==========위키================");
 		wVo.setSection("h");
 		int wCnt = service.cntTagAndWikiById(wVo);
 		List<Wiki> wList = service.findTagAndWikiByUserno(wVo);
-
-		if (LOG_URL) {
-			logger.info(" ------ score : " + score);
-			logger.info(" ------ qCnt : " + qCnt);
-			logger.info(" ------ qList Content : " + qList.getContent());
-			logger.info(" ------ aCnt : " + aCnt);
-			logger.info(" ------ aList Content : " + aList.getContent());
-			logger.info(" ------ tCnt : " + tCnt);
-			logger.info(" ------ tList Content : " + tList);
-			logger.info(" ------ wCnt : " + wCnt);
-			logger.info(" ------ wList Content : " + wList);
-		}
 
 		vo.setUserat(0); // 승인 대기
 		List<Users> users = service.getMembersList(vo); // 승인 대기 회원 목록
@@ -154,10 +158,12 @@ public class EnterprisesController {
 		model.addAttribute("score", score); // 평판점수
 
 		model.addAttribute("qCnt", qCnt); // 질문 전체 수
-		model.addAttribute("qList", qList.getContent()); // 질문 목록
+		model.addAttribute("qList", qList); // 질문 목록
 
-		model.addAttribute("aCnt", aCnt); // 답변 전체 수
-		model.addAttribute("aList", aList.getContent()); // 답변 목록
+		model.addAttribute("aCnt", answCnt); // 답변 전체 수
+		model.addAttribute("aList", answList); // 답변 목록
+//		model.addAttribute("aCnt", aCnt); // 답변 전체 수
+//		model.addAttribute("aList", aList.getContent()); // 답변 목록
 
 		model.addAttribute("tCnt", tCnt); // 태그 전체 수
 		model.addAttribute("tList", tList); // 태그 목록

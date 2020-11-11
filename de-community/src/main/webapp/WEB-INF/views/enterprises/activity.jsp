@@ -109,11 +109,7 @@
 						</c:if>
                     </span>
                   </div>
-                  				<c:forEach var="list" items="${ qList }" varStatus="status">
-									<div class="dash-list">
-										<a href="/questions/view/${ list.questionno }">${ list.title }</a>
-									</div>
-								</c:forEach>
+                  
 								
 								
 								

@@ -251,4 +251,40 @@ SELECT
 	AS TEXT)
 </select>
 
+
+
+	<select id="getQuestionList" parameterType="com.de.question.Questions" resultType="com.de.question.Questions">
+	 select
+	        questionno,
+	        answercompletecnt,
+	        contents ,
+	        deleteat ,
+	        editauth ,
+	        firstuserno,
+	        questiontotalcnt,
+	        readcnt ,
+	        registerdate,
+	        section, 
+	        tagno ,
+	        title ,
+	        updatedate,
+	        userno 
+	    from
+	        tb_questions  
+	    where
+	        userno in ( select userno from tb_users_detail where enterpriseno = #{userno} )
+	    order by registerdate desc
+	     limit 4
+	</select>	
+
+	<select id="getQuestionListCnt" parameterType="com.de.question.Questions" resultType="Integer">
+	 select
+	       count(*)
+	    from
+	        tb_questions  
+	    where
+	        userno in ( select userno from tb_users_detail where enterpriseno = #{userno} )
+	</select>	
+	
+	
 </mapper>

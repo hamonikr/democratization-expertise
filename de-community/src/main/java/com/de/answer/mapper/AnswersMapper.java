@@ -28,4 +28,8 @@ public interface AnswersMapper {
 
 	public Questions getAnswerComplete() throws Exception;
 
+	public List<Answers> getAnswerList(Answers vo);
+
+	public int getAnswerListCnt(Answers vo);
+
 }

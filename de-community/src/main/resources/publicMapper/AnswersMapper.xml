@@ -105,6 +105,23 @@
 				,#{deleteat},#{editauth},#{readcnt},#{registerdate},#{tagno},#{updatedate},#{userno})
 	</insert>
 
+
+
+	<select id="getAnswerList" parameterType="com.de.answer.Answers" resultType="com.de.answer.Answers">
+		select * 
+		from   tb_answers 
+		where 
+	        userno in ( select userno from tb_users_detail where enterpriseno = #{userno} )
+	     order by registerdate desc
+	     limit 4
+	</select>	
+	<select id="getAnswerListCnt" parameterType="com.de.answer.Answers" resultType="Integer">
+		select count(*)
+		from   tb_answers 
+		where 
+	        userno in ( select userno from tb_users_detail where enterpriseno = #{userno} )
+	</select>	
+	
 </mapper>
  
 	
