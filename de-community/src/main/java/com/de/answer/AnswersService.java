@@ -71,9 +71,9 @@ public class AnswersService {
 //		return qm.getListCount(vo);
 //	}
 //	// 게시물 상세
-//	public Answers getView(int questionno) throws Exception {
-//		return qm.getView(questionno);
-//	}
+	public Answers getView(int answerno) throws Exception {
+		return am.getView(answerno);
+	}
 	// 조회수 증가
 	public int updateReanCnt(int questionno) throws Exception {
 		return qm.updateReanCnt(questionno);
@@ -136,6 +136,21 @@ public class AnswersService {
 		if (e.isPresent()) {
 			if (!e.get().getUserno().equals(user.getUserno())) {
 				e.get().setSelected(1);
+				// e.get().setContents(e.get().getContents());
+				ar.save(e.get());
+				result = 1;
+			}
+		}
+		return result;
+
+	}
+	
+	public int updateById(Answers vo, LoginVO user) throws Exception {
+		Optional<Answers> e = ar.findById(vo.getAnswerno());
+		int result = 0;
+		if (e.isPresent()) {
+			if (e.get().getUserno().equals(user.getUserno())) {
+				e.get().setContents(vo.getContents());
 				// e.get().setContents(e.get().getContents());
 				ar.save(e.get());
 				result = 1;

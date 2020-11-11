@@ -122,6 +122,10 @@
 	        userno in ( select userno from tb_users_detail where enterpriseno = #{userno} )
 	</select>	
 	
+	<select id="getView" resultType="com.de.answer.Answers">
+		select * from tb_answers where answerno = #{answerno}
+	</select>
+	
 </mapper>
  
 	

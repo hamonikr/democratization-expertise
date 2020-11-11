@@ -14,7 +14,7 @@ public interface AnswersMapper {
 
 	public int getListCount(int questionno) throws Exception;
 
-	public Questions getView(int questionno) throws Exception;
+	public Answers getView(int answerno) throws Exception;
 
 	public int updateReanCnt(int questionno) throws Exception;
 

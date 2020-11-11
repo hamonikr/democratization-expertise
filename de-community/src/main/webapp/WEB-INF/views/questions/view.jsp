@@ -164,10 +164,9 @@
 									<c:if test="${list.selected eq 1 }">채택된 답변</c:if> 퍼블 채택!
 								</span> 
 								<c:if test="${(list.users.userno eq user.userno)}">
-									<span><a href="#" class="btn btn-primary purple">수정</a></span>
-									<span><a href="#" class="btn btn-primary purple">삭제</a></span>
-								</c:if> 
-								<span>퍼블 수정</span></li>
+									<span><a href="#" onclick="location.href='/answers/edit/${list.answerno}'">수정</a></span>
+									<span><a href="#">삭제</a></span>
+								</c:if>
 						</ul>
 					</c:forEach>
 

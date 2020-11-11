@@ -265,8 +265,6 @@ public class QuestionsController {
 		if (user == null) {
 			return "redirect:/login";
 		}
-		System.out.println("title? " + vo.getTitle());
-		System.out.println("1에서? editauth 0으로 넘어온다>>> " + vo.getEditauth());
 		// 질문수정
 		qs.updateById(vo);
 		return "redirect:/questions/list";

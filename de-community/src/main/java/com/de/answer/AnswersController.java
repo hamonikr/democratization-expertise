@@ -182,6 +182,67 @@ public class AnswersController {
 		}
 		return "";
 	}
+	
+	@RequestMapping("/edit/{answerno}")
+	public String edit(HttpServletRequest request, @PathVariable("answerno") int answerno, Model model,
+			LoginVO user, HttpSession httpSession) throws Exception {
+		user = (LoginVO) httpSession.getAttribute("userSession");
+		if (user == null) {
+			return "redirect:/login";
+		}
+		Answers vo = new Answers();
+		vo = as.getView(answerno);
+
+		
+		model.addAttribute("result", vo);
+		model.addAttribute("user", user);
+		return "/answer/save";
+	}
+
+
+	@RequestMapping(value = "/edit.proc")
+	public String editproc(HttpServletRequest request, Model model, Answers vo, LoginVO user, HttpSession httpSession,HttpServletResponse response)
+			throws Exception {
+		user = (LoginVO) httpSession.getAttribute("userSession");
+		if (user == null) {
+			return "redirect:/login";
+		}
+		String referrer = request.getHeader("Referer");
+		// 질문수정
+		int result = as.updateById(vo,user);
+		if(result == 1) {
+			request.setAttribute("message","수정 되었습니다.");
+	    	request.setAttribute("url", "/questions/list");
+	    	request.getRequestDispatcher("/login/message").forward(request, response);
+		}else {
+			request.setAttribute("message","수정 실패 하였습니다.");
+	    	request.setAttribute("url", referrer);
+	    	request.getRequestDispatcher("/login/message").forward(request, response);
+		}
+		return "";
+	}
+	
+//	@RequestMapping(value = "/delete/{questionno}")
+//	public String deleteproc(HttpServletRequest request,@PathVariable("questionno") int questionno, Model model, 
+//			Questions vo, LoginVO user, HttpSession httpSession,HttpServletResponse response)
+//			throws Exception {
+//		user = (LoginVO) httpSession.getAttribute("userSession");
+//		if (user == null) {
+//			return "redirect:/login";
+//		}
+//		// 질문수정
+//		int result = qs.deleteById(questionno,user);
+//		if(result == 1) {
+//			request.setAttribute("message","삭제 되었습니다.");
+//	    	request.setAttribute("url", "/questions/list");
+//	    	request.getRequestDispatcher("/login/message").forward(request, response);
+//		} else {
+//			request.setAttribute("message","자신의 글이 아닙니다.");
+//	    	request.setAttribute("url", "/questions/list");
+//	    	request.getRequestDispatcher("/login/message").forward(request, response);
+//		}
+//		return "";
+//	}
 
 
 //	@RequestMapping("/view/{questionno}")
