@@ -383,15 +383,11 @@ public class UsersController {
 			logger.info(" -- url : /users/getScoregraph");
 		}
 
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@" + req.getParameter("userno"));
-
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		Integer userno = Integer.valueOf(req.getParameter("userno"));
-		System.out.println("userno=========++" + userno);
 
 		if (userno != null) {
 			String list = usersService.getScoregraph(userno);
-			System.out.println("list====" + list);
 			map.put("list", list);
 		}
 

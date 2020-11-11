@@ -3,58 +3,58 @@
 
 
 <div class="content-center">
-
-	<form id="frm" name="frm" method="post">
+	<h2>커뮤니티 참여기업</h2>
+	
+	<div class="section-info">
+       활동적인 파트너사의 공헌 목록은 다음과 같습니다. 커뮤니티에 지식을 제공하여 더 많은 사람들이 성장할 수 있도록합니다.
+     </div>
+     
+     
+	<form id="frm" name="frm" method="post" action="/enterprises/list">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> <input type="hidden" name="page" value="${paginationInfo.currentPageNo }" />
 
-		<h2>Stacked Q&amp;A</h2>
-		<div class="section-info">
-			각 메뉴 섹션 상단에 카피문구 넣어주세요. 2~3줄 나올수 있으면 예뻐요.<br> 문구가 나옵니다. 개발시 당신이 겪는 어려움에 대해 자유롭게 질문을 하고 답변을 받으세요. 그리고 그 지식을 커뮤니티의 회원들과 함께 공유해주세요. 모바일버전에서는 display:none.<br>
-		</div>
 
-
+ 
 
 		<div class="list-left">
 			<div class="pagenum">
 				현재페이지 ${paging.number+1}/${paging.totalPages} (총 <c:out value="${paging.totalElements}" /> 건)
 			</div>
-			<ul class="sort-align">
-				<li><button type="submit" name="sort" class="sort" value="1">신규등록</button></li>
-				<li><button type="submit" class="current" name="sort" class="sort" value="2">답변없는순</li>
-				<li><button type="submit" name="sort" class="sort" value="3">좋아요 많은 순</button></li>
-			</ul>
+<!-- 			<ul class="sort-align"> -->
+<!-- 				<li><button type="submit" name="sort" class="sort" value="registerdate">신규등록</button></li> -->
+<!-- 				<li><button type="submit" class="current" name="sort" class="sort" value="2">답변없는순</li> -->
+<!-- 				<li><button type="submit" name="sort" class="sort" value="3">좋아요 많은 순</button></li> -->
+<!-- 			</ul> -->
 		</div>
 
 		<div class="list-right">
 			<div class="board-search inblock mR10 mT10">
-				<input type="text" name="searchtext" value="${vo.searchtext }" placeholder="Search">
+				<input type="text" name="searchtext"  id="searchtext" value="${vo.searchtext }" placeholder="Search">
 				<button type="button">
 					<i class="mdi mdi-magnify"></i>
 				</button>
-			</div>
-			<div class="inblock">
-				<button type="button" class="btn-blue" id="btnSave" onclick="location.href='save'">질문하기</button>
 			</div>
 		</div>
 
 
 
 		<div class="con-box">
-			<ul class="qna-list">
+			<ul class="company-user">
 				<c:forEach var="list" items="${data}" varStatus="status">
-					<li class="person">
-							<c:if test="${list.enterpriseimg != null}">
-								<img src="/upload/enterprises/${list.enterpriseimg}">
-							</c:if>
-							<c:if test="${list.enterpriseimg == null}">
-								<img src="/img/noprofile.png">
-							</c:if>
-					</li>
-					<li class="question" style="width: 200px;"><span class="ques-title"><a href='/enterprises/activity/${list.enterpriseno}'>${list.enterprisename}</a></span>
-						<p>${list.enterpriseno }</p></li>
+				<li>
+                  <a href="#">
+	                  <c:if test="${list.enterpriseimg != null}">
+						<img src="/upload/enterprises/${list.enterpriseimg}">
+					</c:if>
+					<c:if test="${list.enterpriseimg == null}">
+						<img src="/img/noprofile.png">
+					</c:if>
+                  </a>
+                  <span class="name"><a href="/enterprises/activity/${list.enterpriseno}">${list.enterprisename}</a></span>
+                  <span class="reputation">${list.enterpriseno }</span>
+                  <span class="tag">javascript, c#, debugging</span>
+                </li>
 				</c:forEach>
-
-
 			</ul>
 
 			<!-- 게시물이 없을 경우 -->

@@ -71,21 +71,16 @@
 	<div class=" tab-pane fade active show con-box" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
 		<div class="profile-con">
 			<div class="profile-photo">
-<%-- 				<c:if test="${ user.userprofileimg.length() != 0 }"> --%>
-<%-- 					<img alt="profile" src="/upload/users/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/> --%>
-<%-- 				</c:if> --%>
-<%-- 				<c:if test="${user.userprofileimg.length() == 0 and user.userprofileimg == null and user.picture == null}"> --%>
-<!-- 					<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/> -->
-<%-- 				</c:if> --%>
-<%-- 				<c:if test="${user.picture != null and user.userprofileimg == null}"> --%>
-<%-- 					<img alt="profile" src="${user.picture}" id="profileImg" class="img" width="100%"><br/> --%>
-<%-- 				</c:if> --%>
-				<c:if test="${user.userprofileimg != null && user.userprofileimg != ''}">
+				<c:if test="${ user.userprofileimg.length() != 0 }">
 					<img alt="profile" src="/upload/users/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
-				<c:if test="${user.userprofileimg == null || user.userprofileimg == ''}">
+				<c:if test="${user.userprofileimg.length() == 0 and user.userprofileimg == null and user.picture == null}">
 					<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
+				<c:if test="${user.picture != null and user.userprofileimg == null}">
+					<img alt="profile" src="${user.picture}" id="profileImg" class="img" width="100%"><br/>
+				</c:if>
+				
 				<span class="level"><img src="/img/level_gold.png" alt=""></span>
 				<span class="url">홈페이지:<a href="${user.userurl}" target="_blank">${user.userurl}</a></span>
 			</div>
@@ -591,8 +586,8 @@ $.ajax({
 	type		: 'post',
 	async		: false,
 	beforeSend : function(xhr) {
-	xhr.setRequestHeader(header, token);
-},
+		xhr.setRequestHeader(header, token);
+	},
 	success	: function(data){
 		list = data.list.split(',');
 		for (var i = 0; i < 6; ++i) {

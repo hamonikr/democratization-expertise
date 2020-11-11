@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
 
-
 <!-- tui chart -->
 <link rel="stylesheet" type="text/css" href="/tui-chart/tui-chart.css" />
+<!-- <link rel="stylesheet" type="text/css" href="/tui-chart/tui-chart.css" /> -->
 
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
@@ -11,95 +11,204 @@
 
 
 
+<style>
+.profile-info .graph2 {
+    border: 1px solid #e3ebf4;
+    border-radius: 3px;
+    /* padding: 15px; */
+    /* width: 50%; */
+    height: 220px;
+    margin-right: 20px;
+}
+.nav-tabs .nav-link.active {
+	font-weight: 500;
+    background: #2d096a;
+    color: #fff;
+    border: 1px solid #2d096a;
+    border-radius: 20px;
+}
 
-	<div class="content-center">
+.nav-tabs .nav-link {
+    border-radius: 20px;
+}
+.nav-tabs {
+    border-bottom: 0;
+}
+</style>	
 
-		
-	<section class="content" style="padding: 2px 12px 6px 19px;">
-		
+<div class="content-center">
+	<h2>커뮤니티 참여기업 </h2>
+
+	<ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+		<li class="nav-item">
+			<a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true">Activity</a>
+		</li>
+             	<li class="nav-item">
+             		<a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">Profile</a>
+		</li>
+		<li class="nav-item">
+		   	<a class="nav-link" id="custom-tabs-three-members-tab" data-toggle="pill" href="#custom-tabs-three-members" role="tab" aria-controls="custom-tabs-three-members" aria-selected="false">Members</a>
+           		<c:if test="${ isMypage }">
+			   	<a class="nav-link" id="custom-tabs-three-members-tab" data-toggle="pill" href="#custom-tabs-three-members" role="tab" aria-controls="custom-tabs-three-members" aria-selected="false">Members</a>
+			</c:if>
+           	</li>
+	</ul>
 	
-	<div class="col-12">
-		<div class=" card-primary card-outline card-outline-tabs">
-			<div class="card-header p-0 border-bottom-0">
-				<ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
-					<li class="nav-item">
-						<a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true">Activity</a>
-					</li>
-                <li class="nav-item">
-                	<a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">Profile</a>
-					</li>
-					<li class="nav-item">
-					   	<a class="nav-link" id="custom-tabs-three-members-tab" data-toggle="pill" href="#custom-tabs-three-members" role="tab" aria-controls="custom-tabs-three-members" aria-selected="false">Members</a>
-					
-             		<c:if test="${ isMypage }">
-					   	<a class="nav-link" id="custom-tabs-three-members-tab" data-toggle="pill" href="#custom-tabs-three-members" role="tab" aria-controls="custom-tabs-three-members" aria-selected="false">Members</a>
-					</c:if>
-             		</li>
-				</ul>
-			</div>
+	
+<div class="tab-content" id="custom-tabs-three-tabContent">
+
+	<div class=" tab-pane fade active show con-box" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
+		<div class="profile-con">
+		
+			<form id="frm" name="frm" method="post">
+				<input type="hidden" name="_csrf" value="${_csrf.token}">
+				<input type="hidden" name="_csrf_header" value="${_csrf.headerName}"/>
+				<input type="hidden" name="enterpriseno" value="${enterprise.enterpriseno}">
 			
-			<div class="col-12">
-				<div class="tab-content" id="custom-tabs-three-tabContent">
-					<div class="tab-pane fade active show" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
-                     
-						<div class="card-body card-primary row" style="width: 100%;">
-							<div class="col-8 row">
-								<div class="col-12"><h2><b>${enterprise.enterprisename}</b></h2><p>${enterprise.enterpriseabout}</p></div>
-								<div class="col-3"><h4>평판</h4><span>${ score }</span></div>
-								<div class="col-9"><div id="chart-area"></div></div>
-							</div>
-	
-							<div class="col-4 profileLeftDiv">
-<%-- 								<c:if test="${user.userprofileimg != null}"> --%>
-<%-- 									<img alt="profile" src="/upload/users/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/> --%>
-<%-- 								</c:if> --%>
-<%-- 								<c:if test="${user.userprofileimg == null}"> --%>
-									<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
-<%-- 								</c:if> --%>
-								<span>배지 : </span><br/>
-								<span>홈페이지 : </span> <%-- <a href="${user.userurl}" target="_blank">${user.userurl}</a> --%>
-							</div>
-						</div>
-					
-					
-						<div class="card-body card-primary row" style="width: 100%;">
-						
-							<div class="col-6">
-								<div>질문(${ qCnt })</div>
-								<hr/>
-								<c:forEach var="list" items="${ qList }" varStatus="status">
+			
+				<div class="profile-photo">
+					<c:if test="${user.userprofileimg != null}">
+						<img alt="profile" src="/upload/users/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
+					</c:if>
+					<c:if test="${user.userprofileimg == null}">
+						<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
+					</c:if>
+									
+	                <span class="level"><img src="/img/level_gold.png" alt=""></span>
+	                <span class="url">홈페이지:<a href="${enterprise.enterpriseurl }" target="_blank">${enterprise.enterpriseurl }</a></span>
+				</div>
+	            
+	            <div class="profile-info">
+	            	<p class="myname">${enterprise.enterprisename}</p>
+	               	<p class="myintro">${enterprise.enterpriseabout}</p>
+					<ul class="info-detail">
+	                	<li class="graph2"><div id="chart-area"></div></li>
+	                 	<li>
+		                   <p class="score">평판 : <span>${ score }</span></p>
+		                   <p class="myinfo">현재레벨 : <span>1등</span> <br> 다음레벨 : <span>2등</span></p>
+		                   <p class="myinfo"><span>+9999</span> <br> <span>-250</span> </p>
+		                   <p class="myinfo">질문 : <span>456</span> <br> 답변 : <span>89</span></p>
+	                 	</li>
+					</ul>
+				</div>
+	            
+	            
+	            <!--  list -->
+	             <div class="mywrit-con">
+
+                <div class="mywrit">
+                  <div class="mytitle">
+                    질문 (${ qCnt })
+                    <span class="more">
+                    	<c:if test="${ qCnt > 5 }">
+							<form action="/questions/myList">
+								<input type="hidden" name="userno" value="${ user.userno }">
+								<input type="hidden" name="section" value="Q">
+								<button type="submit" class="btn-primary btn-xs" >+더보기</button>
+							</form>
+						</c:if>
+                    </span>
+                  </div>
+                  				<c:forEach var="list" items="${ qList }" varStatus="status">
 									<div class="dash-list">
 										<a href="/questions/view/${ list.questionno }">${ list.title }</a>
 									</div>
 								</c:forEach>
 								
-								<c:if test="${ qCnt > 5 }">
-									<form action="/questions/myList">
-										<input type="hidden" name="userno" value="${ user.userno }">
-										<input type="hidden" name="section" value="Q">
-										<button type="submit" class="btn-primary btn-xs" >더보기</button>
-									</form>
-								</c:if>
+								
+								
+                  <ul>
+                  <c:forEach var="list" items="${ qList }" varStatus="status">
+									<li>
+										<span class="up"><i class="mdi"></i>Q.</span>
+										<a href="/questions/view/${ list.questionno }">${ list.title }</a>
+									</li>
+								</c:forEach>
+                      
+                  </ul>
+                </div><!-- // 질문 -->
+
+                <div class="mywrit other">
+                  <div class="mytitle">
+                    답변 (${ aCnt })
+                    <span class="more">
+                    	<c:if test="${ aCnt > 5 }">
+							<form action="/questions/myList">
+								<input type="hidden" name="userno" value="${ user.userno }">
+								<input type="hidden" name="section" value="A">
+								<button type="submit" class="btn-primary btn-xs" >+더보기</button>
+							</form>
+						</c:if>
+                    </span>
+                  </div>
+                  <ul>
+               				<c:forEach var="list" items="${ aList }" varStatus="status">
+						<li>
+						<span class="up"><i class="mdi"></i>A.</span>
+							<a href="/questions/view/${ list.questionno }">
+								${fn:substring(list.contents.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""), 0, 150)}
+							</a>
+						</li>
+					</c:forEach>
+								
+								
+								
+                  </ul>
+                </div><!-- // 답변 -->
+
+                <div class="mywrit">
+                  <div class="mytitle">
+                    Tags (${ tCnt })
+                    <c:if test="${ tCnt > 5 }">
+						<form action="/questions/myList">
+							<input type="hidden" name="userno" value="${ user.userno }">
+							<input type="hidden" name="type" value="A">
+							<button type="submit" class="btn-primary btn-xs" >더보기</button>
+						</form>
+					</c:if>
+                  </div>
+                   <span class="ques-tag">
+						<c:forEach var="list" items="${ tList }" varStatus="status">
+							<a href="/wiki/view/${ list.wikino }" class="float-left badge bg-primary tagSpan">${ list.title }</span>
+						</c:forEach>
+					</span>
+                </div><!-- // Tags -->
+
+                <div class="mywrit other">
+                  <div class="mytitle">
+                    Wiki (569)
+                    <span class="more"><a href="#">+더보기</a></span>
+                  </div>
+                  <ul>
+                    <li>
+                      <a href="#">wiki 문서 제목나옵니다.</a>
+                    </li>
+                  </ul>
+                </div><!-- // wiki -->
+              </div>
+              
+              
+              
+			</form>             
+		</div>
+	</div>
+</div>
+		
+		
+		
+		
+		
+		
+					
+					
+						<div class="card-body card-primary row" style="width: 100%;">
+						
+							<div class="col-6">
+								
 							</div>
 						
 							<div class="col-6">
-								<div>답변(${ aCnt })</div>
-								<hr/>
-								<c:forEach var="list" items="${ aList }" varStatus="status">
-									<div class="dash-list">
-										<a href="/questions/view/${ list.questionno }">
-											${fn:substring(list.contents.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""), 0, 150)}
-										</a>
-									</div>
-								</c:forEach>
 								
-								<c:if test="${ aCnt > 5 }">
-									<form action="/questions/myList">
-										<input type="hidden" name="userno" value="${ user.userno }">
-										<input type="hidden" name="section" value="A">
-										<button type="submit" class="btn-primary btn-xs" >더보기</button>
-									</form>
-								</c:if>
 							</div>
 						</div>
 					
@@ -107,21 +216,9 @@
 						<div class="card-body card-primary row" style="width: 100%;">
 						
 							<div class="col-6 row">
-								<div class="col-12">태그(${ tCnt })</div>
+								<div class="col-12">태그()</div>
 								<hr/>
-								<div class="dash-list col-12">
-									<c:forEach var="list" items="${ tList }" varStatus="status">
-										<a href="/wiki/view/${ list.wikino }" class="float-left badge bg-primary tagSpan">${ list.title }</a>
-									</c:forEach>
-								</div>
 								
-								<c:if test="${ tCnt > 5 }">
-									<form action="/questions/myList">
-										<input type="hidden" name="userno" value="${ user.userno }">
-										<input type="hidden" name="type" value="A">
-										<button type="submit" class="btn-primary btn-xs" >더보기</button>
-									</form>
-								</c:if>
 							</div>
 						
 							<div class="col-6">
@@ -148,10 +245,6 @@
 					<!--  profile layer  -->
 					<div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
 						
-						<form id="frm" name="frm" method="post">
-						<input type="hidden" name="_csrf" value="${_csrf.token}">
-						<input type="hidden" name="_csrf_header" value="${_csrf.headerName}"/>
-						<input type="hidden" name="enterpriseno" value="${enterprise.enterpriseno}">
 						<div class="card-body card-primary card-outline row" style="width: 100%;">
 
 							<div class="col-3 profileLeftDiv">
@@ -232,14 +325,7 @@
 										<div class="code-html">
 											<div id="editSection">${enterprise.enterpriseabout}</div> 
 										</div>
-										<script class="code-js">
-											var editor = new toastui.Editor( { //new tui.Editor({
-												el: document.querySelector('#editSection'),
-												initialEditType: 'wysiwyg',
-												previewStyle: 'vertical',
-												height: '400px'
-											});
-							            </script>
+										
 									</c:if>
 									<c:if test="${ ! isMypage }">
 										<input class="form-control contents" id="enterpriseabout" name="enterpriseabout" value="${enterprise.enterpriseabout}" autocomplete="off" disabled="disabled">
@@ -620,12 +706,17 @@ var monthList = [''];
 var score = [];
 var list = '';
 var enterpriseno = $('form[name=frm] input[name=enterpriseno]').val();
+var token = $("meta[name='_csrf']").attr("content");
+var header = $("meta[name='_csrf_header']").attr("content");
 
 $.ajax({
 	url			: '/enterprises/getScoregraph',
 	data		: {'enterpriseno' : enterpriseno},
 	type		: 'post',
 	async		: false,
+	beforeSend : function(xhr) {
+		xhr.setRequestHeader(header, token);
+	},
 	success	: function(data){
 		list = data.list.split(',');
 		for (var i = 0; i < 6; ++i) {
@@ -649,8 +740,8 @@ var data = {
 };
 var options = {
     chart: {
-        width: 360,
-        height: 240,
+        width: 300,
+        height: 220,
         format: '1,000'
     },
     yAxis: {
