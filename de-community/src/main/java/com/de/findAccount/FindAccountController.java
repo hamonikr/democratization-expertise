@@ -36,23 +36,28 @@ public class FindAccountController {
 		
 			vo = service.isExistAccount(vo);		
 		if(vo != null) {
+			System.out.println("aaaa");
 			up_result = service.resetUserPw(vo);
 			
 			if(up_result==1) {
 				System.out.println("비밀번호 초기화 및 이메일 발송 성공!");
 				request.setAttribute("message", messageSource.getMessage("email.send.success", null, Locale.getDefault()));
-		    	request.getRequestDispatcher("/accountRecovery/message").forward(request, response);
-				
+		    	request.setAttribute("url", "/login");
+				request.getRequestDispatcher("/accountRecovery/message").forward(request, response);
 			} else {					
 				System.out.println("비밀번호 초기화 및 이메일 발송 실패!");
 				
 				request.setAttribute("message", messageSource.getMessage("login.incorrect.id", null, Locale.getDefault()));
-		    	request.getRequestDispatcher("/accountRecovery/message").forward(request, response);
-
+		    	request.setAttribute("url", "/login");
+				request.getRequestDispatcher("/accountRecovery/message").forward(request, response);
+		    
 			}
 		} else {
+			System.out.println("cccc");
 			request.setAttribute("message", messageSource.getMessage("login.incorrect.email", null, Locale.getDefault()));
-	    	request.getRequestDispatcher("/accountRecovery/message").forward(request, response);
+	    	request.setAttribute("url", "/login");
+			request.getRequestDispatcher("/accountRecovery/message").forward(request, response);
+	    	
 
 		}	
 
