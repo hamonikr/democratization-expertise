@@ -107,10 +107,8 @@
 				</select>
 
 				<c:if test="${(result.firstuserno eq user.userno) or (result.users.userno eq null)}">
-					<span>수정권한 ${result.editauth}</span>
-
 					<div class="checkbox-switch">
-						<input type="checkbox" checked="" onchange="T.toggleToobarStatus()" value="" name="editcheck" class="input-checkbox" id="toolbar-active">
+						<input type="checkbox" checked="" onchange="T.toggleToobarStatus()" value="${result.editauth}" name="editcheck" id="editcheck" class="input-checkbox" id="toolbar-active">
 						<div class="checkbox-animate">
 							<span class="checkbox-off">OFF</span> <span class="checkbox-on">ON</span>
 						</div>

@@ -16,7 +16,7 @@
 		<div class="pagenum">현재페이지 ${paginationInfo.currentPageNo}/${paginationInfo.totalPageCount} (총 <c:out value="${paginationInfo.totalRecordCount}" />건)</div>
 		<ul class="sort-align">
 			<li><button type="submit"  name="sort" class="sort" value="1">신규등록</button></li>
-			<li><button type="submit" class="current" name="sort" class="sort" value="2">답변없는순</li>
+			<li><button type="submit" class="current" name="sort" class="sort" value="2">답변없는순</button></li>
 			<li><button type="submit"  name="sort" class="sort" value="3">좋아요 많은 순</button></li>
 		</ul>
 <!-- 		<button type="submit" class="btn btn-outline-primary float-right" name="sort" class="sort" value="3">좋아요 많은 순</button> -->

@@ -165,6 +165,7 @@
 								</span> 
 								<c:if test="${(list.users.userno eq user.userno)}">
 									<span><a href="#" class="btn btn-primary purple">수정</a></span>
+									<span><a href="#" class="btn btn-primary purple">삭제</a></span>
 								</c:if> 
 								<span>퍼블 수정</span></li>
 						</ul>
