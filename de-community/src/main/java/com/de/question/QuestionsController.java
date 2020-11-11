@@ -4,6 +4,7 @@ package com.de.question;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -150,7 +151,7 @@ public class QuestionsController {
 
 	@RequestMapping("/view/{questionno}")
 	public String view(@PathVariable("questionno") int questionno, Model model,
-			@AuthenticationPrincipal SecurityMember user, HttpSession httpSession) throws Exception {
+			@AuthenticationPrincipal SecurityMember user, HttpSession httpSession, HttpServletRequest request, HttpServletResponse response, LoginVO vo) throws Exception {
 		// List<Tags> tagList = qs.tagList();
 		CmmnMap param = new CmmnMap();
 		List<Wiki> tagList = qs.findAllTag();
@@ -160,17 +161,71 @@ public class QuestionsController {
 		model.addAttribute("tagList", tagList);
 		model.addAttribute("answerList", answerList);
 		model.addAttribute("answerSelectedCount", cnt);
-		// 조회수 증가
-		qs.updateReanCnt(questionno);
-		Questions qvo = new Questions();
-		qvo = qs.getView(questionno);
 
+//		// 조회수 증가
+    	Questions qvo = new Questions();
+		qvo = qs.getView(questionno);
+	
+		//Cookie 설정
+		Cookie[] cookies = request.getCookies();
+        
+        // 비교하기 위해 새로운 쿠키
+        Cookie viewCookie = null;
+       if(httpSession.getAttribute("userSession") != null) {
+    	   
+    	   model.addAttribute("user", httpSession.getAttribute("userSession"));
+    	   System.out.println("httpSession--user? >>" + httpSession.getAttribute("userSession").toString());
+    	   vo = (LoginVO) httpSession.getAttribute("userSession");
+    	   
+    	   System.out.println("vo.getUserno() --- >> "+vo.getUserno());
+    	   System.out.println("qvo qno userno=== > " + qvo.getFirstuserno());
+       
+    	   // 쿠키가 있을 경우 
+       if (cookies != null && cookies.length > 0) {
+           for (int i = 0; i < cookies.length; i++) {
+               // Cookie의 name이 cookie + questionno와 일치하는 쿠키를 viewCookie에 넣어줌 
+               if (cookies[i].getName().equals("cookie"+questionno)) { 
+                   System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
+                   viewCookie = cookies[i];
+                   System.out.println("viewCookie " +viewCookie.getName()+"\ncookies[i].getValue()" + cookies[i].getValue());
+                }
+            }
+        } 
+        
+        // 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
+        if (viewCookie == null) {    
+            System.out.println("cookie 없음");
+            // 쿠키 생성(이름, 값)
+            Cookie newCookie = new Cookie("cookie"+questionno, "|" + questionno + "|");
+              
+            // 쿠키 추가
+            response.addCookie(newCookie);
+           
+           // 쿠키를 추가 시키고 조회수 증가시킴 작성자는 카운트에서 제외
+          if(vo.getUserno() != qvo.getFirstuserno()) {
+            qs.updateReanCnt(questionno);           	
+          	}
+          
+        } else { // viewCookie가 null이 아닐경우 쿠키가 있으므로 조회수 증가 로직을 처리하지 않음.
+            System.out.println("cookie 있음 ==> 쿠키에 저장된 값 : "+viewCookie.getName()+" : " + viewCookie.getValue() );
+    
+//            if(viewCookie.getValue() != vo.getUserno()) {
+//                qs.updateReanCnt(questionno);
+//            }
+            
+              // 쿠키 값 받아옴.
+            String value = viewCookie.getValue();
+            System.out.println("cookie 값 : " + value);
+        }
+       }
 		model.addAttribute("result", qvo);
+        
+//		model.addAttribute("result", qvo);
 		param.put("questionno", questionno);
 		model.addAttribute("history", cs.selectList("selectHistory", param));
 		model.addAttribute("historyCnt", cs.selectCount("selectHistoryCnt", param));
-		if (httpSession.getAttribute("userSession") != null)
-			model.addAttribute("user", httpSession.getAttribute("userSession"));
+	
+		
 		return "/questions/view";
 	}
 

@@ -23,7 +23,6 @@ public class MemberService implements UserDetailsService {
 			e.printStackTrace();
 		}
 			return null;
-
     	
     }
 }

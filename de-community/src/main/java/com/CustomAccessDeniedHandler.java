@@ -31,7 +31,11 @@ public class CustomAccessDeniedHandler implements AuthenticationFailureHandler {
         	request.setAttribute("url", "/login");
         	request.getRequestDispatcher("/login/message").forward(request, response);
         } else if(exception instanceof InternalAuthenticationServiceException) {
-        	request.setAttribute("url", "/");
+			request.setAttribute("message", messageSource.getMessage("com.test", null, Locale.getDefault()));
+
+        	request.setAttribute("url", "/login");
+        	request.getRequestDispatcher("/login/message").forward(request, response);
+
         }
 
 	}
