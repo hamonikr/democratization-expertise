@@ -63,9 +63,7 @@
 	<select id="boardinfo" resultType="com.de.cmmn.CmmnMap" parameterType="com.de.cmmn.CmmnMap">
       select * from tb_boardconfig where boardid=#{boardid}
 	</select>
-	<select id="selectQNO" resultType="com.de.cmmn.CmmnMap">
-      SELECT COALESCE(max(questionno),0)+1 AS questionno FROM tb_questions
-	</select>
+
 	<sql id="listWhere">
 	and	(title like '%' || #{searchtext} || '%' 
 		or
