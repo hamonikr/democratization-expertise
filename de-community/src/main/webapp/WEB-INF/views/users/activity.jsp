@@ -485,9 +485,6 @@ function fnUpdatePw(){
 	$('#popupPwAlter').text('');
 	
 	// 유효성 검사
-
-	// 비밀번호는 영문+숫자 조합으로	
-	
 	if(uPwNewVal.length == 0){
 		$('#popupPwAlter').text('새 비밀번호를 입력해 주세요.');
 		$(uPwNew).focus();
