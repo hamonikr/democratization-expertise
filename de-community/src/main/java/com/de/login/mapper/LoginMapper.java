@@ -3,6 +3,7 @@ package com.de.login.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.de.login.vo.LoginHistoryVO;
 import com.de.login.vo.LoginVO;
 
 
@@ -21,4 +22,5 @@ public interface LoginMapper {
 
 	public LoginVO getSocialUserInfo(String username) throws Exception;
 
+	public int saveLoginHistory(LoginHistoryVO vo) throws Exception;
 }

@@ -17,6 +17,7 @@ import com.de.cmmn.service.CmmnService;
 import com.de.login.service.GoogleUser;
 import com.de.login.service.LoginService;
 import com.de.login.service.SecurityMember;
+import com.de.login.vo.LoginHistoryVO;
 import com.de.login.vo.LoginVO;
 
 
@@ -54,7 +55,7 @@ public class LoginController {
 	
 	
 	@RequestMapping("/login")
-	 public String loginSuccess(Model model, @AuthenticationPrincipal SecurityMember user, LoginVO vo, HttpSession session ) throws Exception{
+	 public String loginSuccess(Model model, @AuthenticationPrincipal SecurityMember user, LoginHistoryVO hvo , LoginVO vo, HttpSession session ) throws Exception{
 		System.out.println("<<--- controller for normal loginSuccess-->> ");
 	
 		if(user!=null) {
@@ -63,6 +64,14 @@ public class LoginController {
 		System.out.println("user no --- >" + user.getUserno());
 		}
 		
+		// 로그인 히스토리 저장
+		hvo.setUserid(user.getUserid());
+		int ret = service.saveLoginHistory(hvo);
+		if(ret ==1) {
+			System.out.println("save history");
+		}else {
+			System.out.println("fail");
+		}
 		
 		// 유저가 회사계정이냐 일반 유저이냐에 따라 프로필 페이지 변경
 		vo = service.getUserInfo(user.getUserid());
@@ -75,13 +84,8 @@ public class LoginController {
 		
 		System.out.println("returnUrl======>>>> " +returnUrl);
 		session.removeAttribute("referrer");
+
 		
-//		if(vo.getRepresentat()==1) {
-//			return "redirect:/enterprises/activity/"+vo.getEnterpriseno();
-//
-//		} else {
-//			return "redirect:/users/activity/"+user.getUserno();
-//				}
 		if(returnUrl==null || returnUrl.contains("/sendRecoveryEmail.proc") || returnUrl.contains("/login")) {			
 			return "redirect:/questions/list";
 		} else {
@@ -90,8 +94,8 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/socialLogin")
-	 public String socialLogin(Model model, HttpSession session , LoginVO vo,HttpServletRequest request) throws Exception{
-		System.out.println("<<--- controller for normal loginSuccess-->> ");
+	 public String socialLogin(Model model, HttpSession session , LoginHistoryVO hvo, LoginVO vo,HttpServletRequest request) throws Exception{
+		System.out.println("<<--- controller for sns loginSuccess-->> ");
 		
 		String returnUrl = (String)session.getAttribute("referrer");
 		session.removeAttribute("referrer");
@@ -100,9 +104,20 @@ public class LoginController {
 		session.removeAttribute("googleId");
 		System.out.println("google============"+goo);
 		vo = service.getSocialUserInfo(goo);
+		
+		// 로그인 히스토리 저장
+		hvo.setUserid(goo);
+		int ret = service.saveLoginHistory(hvo);
+		if(ret ==1) {
+			System.out.println("save history");
+		}else {
+			System.out.println("fail");
+		}
+		
 		session.setAttribute("userSession", vo);
 		System.out.println("userno======"+vo.getUserno());
 		model.addAttribute("loginUser", session.getAttribute("userSession"));
+		
 		//return "redirect:/users/activity/"+vo.getUserno();
 		if(returnUrl==null || returnUrl.contains("/sendRecoveryEmail.proc") || returnUrl.contains("/login")) {			
 			return "redirect:/questions/list";

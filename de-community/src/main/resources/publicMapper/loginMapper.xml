@@ -34,7 +34,6 @@ where a.userid  = #{userid}
 
 
 <select id="getUserChk" parameterType="com.de.login.vo.LoginVO" resultType="com.de.login.vo.LoginVO">
-
 	select * 
 	from tb_users ta, tb_enterprises tb
 	where ta.userno = tb.userno
@@ -48,6 +47,19 @@ where a.userid  = #{userid}
 	where ta.uuiduser  = #{uuiduser} 
 </select>	
 
+<insert id="saveLoginHistory" parameterType="com.de.login.vo.LoginHistoryVO">
+insert 
+	into
+	 tb_login_history(
+	 	userid,
+	 	logintime
+	 ) values(
+	 	#{userid},
+	 	now()
+	 )
+
+
+</insert>
 
 </mapper>
  
