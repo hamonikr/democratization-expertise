@@ -76,7 +76,9 @@
 		contents like '%' || #{searchtext} || '%')
 	</sql>
 	<select id="getList" parameterType="com.de.question.Questions" resultMap="Questions">
-		select 
+	select * from
+	(
+		select
 		a.questionno
 		,a.title
 		,a.contents
@@ -89,7 +91,20 @@
 		,a.updatedate
 		,a.firstuserno
 		,a.userno
-		,b.*,c.*
+		,b.userno
+		,b.userid
+		,b.username
+		,b.useremail
+		,b.userstatus
+		,b.userprofileimg
+		,b.picture
+		,c.seq
+		,c.pno
+		,c.section
+		,c.userno
+		,c.likes
+		,c.dislikes
+		,c.senduserno
 		,(select count(d.answerno) from tb_answers d where a.questionno = d.questionno) as commentcnt
 		,(select score from tb_score e where a.userno = e.userno) as scores
 		from tb_questions a left outer join tb_users b on a.firstuserno = b.userno
@@ -101,33 +116,124 @@
 		<include refid="listWhere" />
 		</if>
 		</where>
-		<if test="sort == null" >order by a.registerdate desc</if>
-		<if test="sort == 1" >order by a.registerdate desc</if>
-		<if test="sort == 2" >order by commentcnt asc,a.registerdate desc</if>
-		<if test="sort == 3" >order by c.likes desc,a.registerdate desc</if>
+		union all
+		 select
+		 question_id::INTEGER
+		 ,title
+		 ,body
+		 ,''
+		 ,0
+		 ,0
+		 ,view_count::INTEGER
+		 ,ins_date
+		 ,''
+		 ,ins_date
+		 ,0
+		 ,0
+		 ,0
+		 ,''
+		 ,''
+		 ,''
+		 ,0
+		 ,''
+		 ,''
+		 ,0
+		 ,0
+		 ,''
+		 ,0
+		 ,0
+		 ,0
+		 ,0
+		 ,comment_count::INTEGER
+		 ,score::INTEGER
+		 from tbl_stack_question ) AA
+		<if test="sort == null" >order by AA.registerdate desc</if>
+		<if test="sort == 1" >order by AA.registerdate desc</if>
+		<if test="sort == 2" >order by AA.commentcnt asc,AA.registerdate desc</if>
+		<if test="sort == 3" >order by AA.likes desc,AA.registerdate desc</if>
 		OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage}
 	</select>
 	
 	<select id="getListCount" parameterType="com.de.question.Questions" resultType="java.lang.Integer">
-		select count(*) from tb_questions
-		<if test="searchtext != null and searchtext != ''">
+	select sum(AA.cnt) from (
+		select count(*) as cnt from tb_questions
 		<where>
 		deleteat = 0
+		<if test="searchtext != null and searchtext != ''">
 		<include refid="listWhere" />
-		</where>
 		</if>
+		</where>
+		union all select count(*) as cnt from tbl_stack_question) AA
 	</select>
 	
 	<select id="getView" parameterType="integer" resultMap="Questions">
-		select a.*,b.*,c.*
+		select * from
+	( select
+		a.questionno
+		,a.title
+		,a.contents
+		,a.section
+		,a.deleteat
+		,a.editauth
+		,a.readcnt
+		,a.registerdate
+		,a.tagno
+		,a.updatedate
+		,a.firstuserno
+		,a.userno
+		,b.userno
+		,b.userid
+		,b.username
+		,b.useremail
+		,b.userstatus
+		,b.userprofileimg
+		,b.picture
+		,c.seq
+		,c.pno
+		,c.section as votesection
+		,c.userno
+		,c.likes
+		,c.dislikes
+		,c.senduserno
 		,(select count(d.answerno) from tb_answers d where a.questionno = d.questionno) as commentcnt
 		,(select score from tb_score e where a.userno = e.userno) as scores
 		from tb_questions a left outer join tb_users b on a.firstuserno = b.userno
 		left outer join tb_vote c on a.questionno = c.pno
+		union all
+		 select
+		 question_id::INTEGER
+		 ,title
+		 ,body
+		 ,''
+		 ,0
+		 ,0
+		 ,view_count::INTEGER
+		 ,ins_date
+		 ,''
+		 ,ins_date
+		 ,0
+		 ,0
+		 ,0
+		 ,''
+		 ,''
+		 ,''
+		 ,0
+		 ,''
+		 ,''
+		 ,0
+		 ,0
+		 ,'Q'
+		 ,0
+		 ,0
+		 ,0
+		 ,0
+		 ,comment_count::INTEGER
+		 ,score::INTEGER
+		 from tbl_stack_question ) AA
 		<where>
-		a.questionno = #{questionno}
-		and c.section = 'Q'
-		and a.deleteat = 0
+		AA.questionno = #{questionno}
+		and AA.votesection = 'Q'
+		and AA.deleteat = 0
 		</where>
 	</select>
 	
