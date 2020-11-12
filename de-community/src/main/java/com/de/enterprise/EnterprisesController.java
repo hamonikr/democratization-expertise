@@ -95,7 +95,7 @@ public class EnterprisesController {
 			}
 		}
 
-		System.out.println("isUserNo=======+++" + loginUserData.getUserno());
+//		System.out.println("isUserNo=======+++" + loginUserData.getUserno());
 //		System.out.println("loginUserData.getUserno()=========+++++"+loginUserData.getEnterpriseno() );
 		Optional<Enterprises> enterprises = service.findByEnterpriseno(seq);
 		System.out.println("enterprises========+" + enterprises);
