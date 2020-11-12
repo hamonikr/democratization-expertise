@@ -6,7 +6,7 @@
 <tiles-definitions>
 
 <!-- login-layout --> 
-  <definition name="login-layout" template="/WEB-INF/views/layout/base/login_base.jsp">
+  <definition name="login-layout" template="/WEB-INF/views/layout/base/base.jsp">
        <put-attribute name="header" value="/WEB-INF/views/layout/common/header.jsp" />
        <put-attribute name="left" value="/WEB-INF/views/layout/common/left.jsp" />
   		<put-attribute name="body" value="" />
