@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -283,8 +284,8 @@ public class UsersController {
 	 * @return
 	 * @throws Exception
 	 */
-	@ResponseBody
 	@RequestMapping(value = "/modifyPw", method = RequestMethod.POST)
+	@ResponseBody
 	public HashMap<String, Object> modifyPassword(Model model, UserPwVO vo,
 			@AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
 		if (LOG_URL)
@@ -297,15 +298,18 @@ public class UsersController {
 		System.out.println("pw? -- > oldone : " + vo.getUserpassword());
 		System.out.println("pw? -- > newone : " + vo.getUserpasswordnew());
 
-		boolean updateVal = usersService.updateUserPw(vo);
-		System.out.println("updateVal...?" + updateVal);
+		boolean updateVal = false;
+		
+		 updateVal = usersService.updateUserPw(vo);
+		 System.out.println("updateVal...?" + updateVal);
 
-		if (updateVal)
+		if (updateVal )
 			map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
 		else
 			map.put("message", CodeMessage.MSG_100009_비밀번호가_일치하지_않습니다__다시_확인해주세요_);
 
 		map.put("updateVal", updateVal);
+
 		return map;
 	}
 

@@ -57,8 +57,6 @@ insert
 	 	#{userid},
 	 	now()
 	 )
-
-
 </insert>
 
 </mapper>
