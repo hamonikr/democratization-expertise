@@ -242,7 +242,7 @@
 
             <ul class="my-modify">
             	<li><label>이름</label>
-            		<c:if test="${ isMypage }">
+            		<c:if test="${ isMypage }">${isMypage }
 						<input class="input-type1" id="userName" name="username" value="${user.username}" autocomplete="off">
 					</c:if>
 					<c:if test="${ ! isMypage }">
@@ -372,9 +372,6 @@
 
 		<div class="card-body" style="width:100%;">
 			<div class="input-group mb-3">
-				<input type="password" class="form-control" name="userpassword" placeholder="기존 비밀번호">
-			</div>
-			<div class="input-group mb-3">
 				<input type="password" class="form-control" name="userpasswordnew" placeholder="새 비밀번호">
 			</div>
 			<div class="input-group mb-3">
@@ -489,21 +486,17 @@ function fnUpdate() {
 
 //사용자 비밀번호 변경
 function fnUpdatePw(){
-	var uPw = $('input[name=userpassword]');
+//	var uPw = $('input[name=userpassword]');
 	var uPwNew = $('input[name=userpasswordnew]');
 	var uPwNew2 = $('input[name=userpasswordnew2]');
-	var uPwVal = $.trim($(uPw).val());
+//	var uPwVal = $.trim($(uPw).val());
 	var uPwNewVal = $.trim($(uPwNew).val());
 	var uPwNew2Val = $.trim($(uPwNew2).val());
 	
 	$('#popupPwAlter').text('');
 	
 	// 유효성 검사
-	if(uPwVal.length == 0){
-		$('#popupPwAlter').text('비밀번호를 입력해 주세요.');
-		$(uPw).focus();
-		return;
-	}else if(uPwNewVal.length == 0){
+	if(uPwNewVal.length == 0){
 		$('#popupPwAlter').text('새 비밀번호를 입력해 주세요.');
 		$(uPwNew).focus();
 		return;
@@ -521,12 +514,12 @@ function fnUpdatePw(){
 		url			: '/users/modifyPw',
 		data		: $("#frm1").serialize(),
 		type		: 'post',
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success	: function(data){
 			alert(data.message);
 			if(data.updateVal) location.reload(true);
-		},
-		error		: function(xhr, status, error){
-			console.log(xhr, status, error);
 		}
 	});
 }
@@ -550,6 +543,10 @@ function fnProfileImg(){
 		processData: false, 
 		contentType: false,
 		cache		: false,	
+		
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success	: function(data){
 			alert(data.message);
 			if(data.result) location.reload(true);

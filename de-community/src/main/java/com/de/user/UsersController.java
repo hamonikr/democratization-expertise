@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,8 +59,10 @@ public class UsersController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/activity/{seq}")
-	public String dashboard(Model model, @PathVariable("seq") int seq,
-			@AuthenticationPrincipal SecurityMember loginUserData, HttpSession sessionloginUser) throws Exception {
+	public String dashboard(Model model, @PathVariable("seq") int seq, HttpSession session, LoginVO loginUserData , HttpServletRequest request,HttpSession sessionloginUser) throws Exception {
+		request.getSession(false);
+		loginUserData = (LoginVO) session.getAttribute("userSession");
+
 		if (LOG_URL)
 			logger.info(" -- url : /users/activity - seq : " + seq);
 
@@ -73,16 +76,14 @@ public class UsersController {
 
 		System.out.println("sessionloginUser--> " + sessionloginUser.getAttribute("userSession"));
 
-		LoginVO lvo = (LoginVO) sessionloginUser.getAttribute("userSession");
+		//LoginVO lvo = (LoginVO) sessionloginUser.getAttribute("userSession");
 
+		System.out.println("loginUserData : "+loginUserData);
+	//	System.out.println("loginUserData : "+loginUserData.getUserno());
+		
 		if (loginUserData == null) {
 			isUserNo = false;
 
-			if (sessionloginUser != null) {
-				isUserNo = true;
-			} else {
-				isUserNo = false;
-			}
 		} else {
 			if (loginUserData.getUserno() == users.get().getUserno()) {
 				isUserNo = true;
@@ -225,13 +226,15 @@ public class UsersController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/profile/{seq}", method = RequestMethod.GET)
-	public String modify(Model model, @PathVariable("seq") int seq,
-			@AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
+	public String modify(Model model, @PathVariable("seq") int seq, HttpSession session, LoginVO loginUserData) throws Exception {
+		loginUserData = (LoginVO) session.getAttribute("userSession");
 		if (LOG_URL)
 			logger.info(" -- url : /users/profile - seq : " + seq);
 
 		boolean isUserNo = false;
-
+		
+		
+		
 		Optional<Users> user = usersService.findByUserno(seq);
 		// Optional<Enterprises> enterprise = usersService.findEnterpriseno(seq);
 		Enterprises enterprise = usersService.findEnterpriseno(seq);
@@ -283,10 +286,9 @@ public class UsersController {
 	 * @return
 	 * @throws Exception
 	 */
-	@ResponseBody
 	@RequestMapping(value = "/modifyPw", method = RequestMethod.POST)
-	public HashMap<String, Object> modifyPassword(Model model, UserPwVO vo,
-			@AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
+	@ResponseBody
+	public HashMap<String, Object> modifyPassword(Model model, UserPwVO vo, @AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
 		if (LOG_URL)
 			logger.info(" -- url : /users/modify - UserPwVO : " + vo);
 
@@ -297,15 +299,18 @@ public class UsersController {
 		System.out.println("pw? -- > oldone : " + vo.getUserpassword());
 		System.out.println("pw? -- > newone : " + vo.getUserpasswordnew());
 
-		boolean updateVal = usersService.updateUserPw(vo);
-		System.out.println("updateVal...?" + updateVal);
+		boolean updateVal = false;
+		
+		 updateVal = usersService.updateUserPw(vo);
+		 System.out.println("updateVal...?" + updateVal);
 
-		if (updateVal)
+		if (updateVal )
 			map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
 		else
 			map.put("message", CodeMessage.MSG_100009_비밀번호가_일치하지_않습니다__다시_확인해주세요_);
 
 		map.put("updateVal", updateVal);
+
 		return map;
 	}
 
