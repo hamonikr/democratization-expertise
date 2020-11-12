@@ -73,9 +73,24 @@
 						<p>
 							<fmt:formatDate value="${result.registerdate}" pattern="yyyy-MM-dd HH:mm" />
 						</p> 
-						<code>
-							<p>${result.contents }</p>
-						</code> 
+<!-- 						<code> -->
+<%-- 							<p>${result.contents }</p> --%>
+<!-- 						</code> -->
+						
+						<p>
+						<div class="code-html">
+								<div id="aaaa">${result.contents}</div> 
+							</div>
+							<script class="code-js">
+								var editor = new toastui.Editor.factory( {
+				                el : document.querySelector( '#aaaa' ),
+				                initialEditType : 'wysiwyg',
+				                previewStyle : 'vertical',
+				                height : '400px',
+				                viewer : true
+				                } );
+ 				            </script>
+						</p>
 						<span class="ques-tag"> 
 							<c:set var="tag" value="${fn:split(result.tagno,',')}" /> 
 							<c:forEach var="tagName2" items="${tag }" varStatus="status">

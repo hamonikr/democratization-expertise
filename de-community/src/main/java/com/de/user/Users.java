@@ -1,5 +1,6 @@
 package com.de.user;
 
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -21,17 +22,18 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+
 @Getter
 @Setter
 @ToString
 @Entity
 @Embeddable
 @Table(name = "tb_users")
-public class Users implements Serializable{
-	
+public class Users implements Serializable {
+
 	@Id
-	@Column(name="userno")
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@Column(name = "userno")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	/* 회원 고유 번호 */
 	private Integer userno;
 	/* 회원 아이디 */
@@ -64,7 +66,8 @@ public class Users implements Serializable{
 	/* 수정 일시 */
 	@UpdateTimestamp
 	private Timestamp updatedate;
-	
+	/* 회사 대표 계정 여부 : 일반:0, 대표:1, 하위:2 */
+	private Integer representat;
 	/* 페이징 */
 	@Transient
 	private int firstRecordIndex;
@@ -75,24 +78,25 @@ public class Users implements Serializable{
 //		joinColumns = @JoinColumn(name="userno")  //외래키
 //		//inverseJoinColumns = @JoinColumn(name="userno") //반대 엔티티의 외래키
 //	)
-	
+
 //	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //	@JoinColumn(name= "userno")
 	@Transient
 	private UsersDetail usersDetail;
-	
+
 	@Transient
 	private Score score;
-	
+
 //	@OneToOne
 //	@JoinTable(name = "tb_score", //조인테이블명
 //		joinColumns = @JoinColumn(name="userno"),  //외래키
 //		inverseJoinColumns = @JoinColumn(name="userno") //반대 엔티티의 외래키
 //	)
 //	private UsersDetail userScore;
-	
+
 	/* 정렬 */
 	private Integer sort;
 	/* 검색 */
 	private String searchtext;
+
 }

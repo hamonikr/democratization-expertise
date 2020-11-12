@@ -12,6 +12,7 @@
 </resultMap> 
 
 <resultMap id="usersMap" type="com.de.user.Users">
+	<result property="representat"		column="representat"		/>
 	<result property="userno"			column="userno"			/>
 	<result property="userid"			column="userid"			/>
 	<result property="username"			column="username"			/>
@@ -69,7 +70,8 @@ SELECT
 	U.username,
 	U.userprofileimg,
 	UD.userat,
-	UD.activeat 
+	UD.activeat,
+	(select representat from tb_enterprises where userno = U.userno) as representat
 FROM
     tb_users U
 LEFT JOIN 
@@ -78,7 +80,7 @@ ON
     U.userno = UD.userno
 WHERE
 	UD.enterpriseno = #{enterpriseno}
-	AND UD.userat = #{userat}
+<!-- 	AND UD.userat = #{userat} -->
 </select>
 
 <update id="updateActivaet" parameterType="com.de.user.UsersDetail">

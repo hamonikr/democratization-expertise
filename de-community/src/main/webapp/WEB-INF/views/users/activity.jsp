@@ -34,6 +34,14 @@
 	min-width: 380px;
 	width: 380px;
 }
+.profile-info .graph2 {
+    border: 1px solid #e3ebf4;
+    border-radius: 3px;
+    /* padding: 15px; */
+    /* width: 50%; */
+    height: 220px;
+    margin-right: 20px;
+}
 </style>
 <body>
 
@@ -71,13 +79,13 @@
 	<div class=" tab-pane fade active show con-box" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
 		<div class="profile-con">
 			<div class="profile-photo">
-				<c:if test="${ user.userprofileimg.length() != 0 }">
+				<c:if test="${ user.userprofileimg != null}">
 					<img alt="profile" src="/upload/users/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
-				<c:if test="${user.userprofileimg.length() == 0 and user.userprofileimg == null and user.picture == null}">
+				<c:if test="${user.userprofileimg == null and user.picture == null}">
 					<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
-				<c:if test="${user.picture != null and user.userprofileimg == null}">
+				<c:if test="${user.userprofileimg == null and user.picture != null}">
 					<img alt="profile" src="${user.picture}" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
 				
@@ -89,7 +97,7 @@
             	<p class="myname">${user.username}</p>
                 <p class="myintro">${user.aboutme}</p>
                 <ul class="info-detail">
-                	<li class="graph"><div id="chart-area"></div></li>
+                	<li class="graph2"><div id="chart-area"></div></li>
                     <li>
                     	<p class="score">평판 : <span>${score}</span></p>
                       	<p class="myinfo">현재레벨 : <span>1등</span> <br> 다음레벨 : <span>2등</span></p>
@@ -212,11 +220,14 @@
 			<input type="hidden" name="userno" value="${user.userno}">
             
             <div class="profile-photo">
-            	<c:if test="${user.userprofileimg != null && user.userprofileimg != ''}">
+            	<c:if test="${ user.userprofileimg != null}">
 					<img alt="profile" src="/upload/users/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
-				<c:if test="${user.userprofileimg == null || user.userprofileimg == ''}">
+				<c:if test="${user.userprofileimg == null and user.picture == null}">
 					<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
+				</c:if>
+				<c:if test="${user.userprofileimg == null and user.picture != null}">
+					<img alt="profile" src="${user.picture}" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
 				<c:if test="${ isMypage }">
 					<label class="leftbtn" >
@@ -610,7 +621,7 @@ var data = {
 };
 var options = {
     chart: {
-        width: 360,
+        width: 300,
         height: 200,
         format: '1,000'
     },

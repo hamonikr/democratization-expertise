@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 
 
-
 <style>
 .profile-info .graph2 {
     border: 1px solid #e3ebf4;
@@ -59,47 +58,38 @@
 
 	<div class=" tab-pane fade active show con-box" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
 		<div class="profile-con">
-		
-			<form id="frm" name="frm" method="post">
-				<input type="hidden" name="_csrf" value="${_csrf.token}">
-				<input type="hidden" name="_csrf_header" value="${_csrf.headerName}"/>
-				<input type="hidden" name="enterpriseno" value="${enterprise.enterpriseno}">
-			
-			
-				<div class="profile-photo">
-					<c:if test="${user.userprofileimg != null}">
-						<img alt="profile" src="/upload/users/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
-					</c:if>
-					<c:if test="${user.userprofileimg == null}">
-						<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
-					</c:if>
+			<div class="profile-photo">
+				<c:if test="${user.userprofileimg != null}">
+					<img alt="profile" src="/upload/users/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
+				</c:if>
+				<c:if test="${user.userprofileimg == null}">
+					<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
+				</c:if>
 									
-	                <span class="level"><img src="/img/level_gold.png" alt=""></span>
-	                <span class="url">홈페이지:<a href="${enterprise.enterpriseurl }" target="_blank">${enterprise.enterpriseurl }</a></span>
-				</div>
+	            <span class="level"><img src="/img/level_gold.png" alt=""></span>
+	            <span class="url">홈페이지:<a href="${enterprise.enterpriseurl }" target="_blank">${enterprise.enterpriseurl }</a></span>
+			</div>
 	            
-	            <div class="profile-info">
-	            	<p class="myname">${enterprise.enterprisename}</p>
-	               	<p class="myintro">${enterprise.enterpriseabout}</p>
-					<ul class="info-detail">
-	                	<li class="graph2"><div id="chart-area"></div></li>
-	                 	<li>
-		                   <p class="score">평판 : <span>${ score }</span></p>
-		                   <p class="myinfo">현재레벨 : <span>1등</span> <br> 다음레벨 : <span>2등</span></p>
-		                   <p class="myinfo"><span>+9999</span> <br> <span>-250</span> </p>
-		                   <p class="myinfo">질문 : <span>456</span> <br> 답변 : <span>89</span></p>
-	                 	</li>
-					</ul>
-				</div>
+	        <div class="profile-info">
+	        	<p class="myname">${enterprise.enterprisename}</p>
+	            <p class="myintro">${enterprise.enterpriseabout}</p>
+				<ul class="info-detail">
+	            	<li class="graph2"><div id="chart-area"></div></li>
+	                <li>
+		            	<p class="score">평판 : <span>${ score }</span></p>
+		                <p class="myinfo">현재레벨 : <span>1등</span> <br> 다음레벨 : <span>2등</span></p>
+		                <p class="myinfo"><span>+9999</span> <br> <span>-250</span> </p>
+		                <p class="myinfo">질문 : <span>456</span> <br> 답변 : <span>89</span></p>
+					</li>
+				</ul>
+			</div>
 	            
-	            
-	            <!--  list -->
-	             <div class="mywrit-con">
-				<!-- // 질문 -->
-                <div class="mywrit">
-                  <div class="mytitle">
-                    질문 (${ qCnt })
-                    <span class="more">
+	        <div class="mywrit-con">
+			<!-- // 질문 -->
+            	<div class="mywrit">
+                	<div class="mytitle">
+                    	질문 (${ qCnt })
+                    	<span class="more">
                     	<c:if test="${ qCnt > 5 }">
 							<form action="/questions/myList">
 								<input type="hidden" name="userno" value="${ user.userno }">
@@ -107,409 +97,282 @@
 								<button type="submit" class="btn-primary btn-xs" >+더보기</button>
 							</form>
 						</c:if>
-                    </span>
-                  </div>
-								
-                  <ul>
-                  <c:forEach var="list" items="${ qList }" varStatus="status">
-									<li>
-										<span class="up"><i class="mdi"></i>Q.</span>
-										<a href="/questions/view/${ list.questionno }">${ list.title }</a>
-									</li>
-								</c:forEach>
-                      
-                  </ul>
-                </div>
+                    	</span>
+                  	</div>
+                  	<ul>
+                  		<c:forEach var="list" items="${ qList }" varStatus="status">
+						<li>
+							<span class="up"><i class="mdi"></i>Q.</span>
+								<a href="/questions/view/${ list.questionno }">${ list.title }</a>
+						</li>
+						</c:forEach>
+					</ul>
+				</div>
 
-<!-- // 답변 -->
+				<!-- // 답변 -->
                 <div class="mywrit other">
-                  <div class="mytitle">
-                    답변 (${ aCnt })
-                    <span class="more">
-                    	<c:if test="${ aCnt > 5 }">
+                	<div class="mytitle">
+                    	답변 (${ aCnt })
+                    	<span class="more">
+                    		<c:if test="${ aCnt > 5 }">
 							<form action="/questions/myList">
 								<input type="hidden" name="userno" value="${ user.userno }">
 								<input type="hidden" name="section" value="A">
 								<button type="submit" class="btn-primary btn-xs" >+더보기</button>
 							</form>
-						</c:if>
-                    </span>
-                  </div>
-                  <ul>
-               				<c:forEach var="list" items="${ aList }" varStatus="status">
+							</c:if>
+                    	</span>
+                  	</div>
+					<ul>
+               			<c:forEach var="list" items="${ aList }" varStatus="status">
 						<li>
-						<span class="up"><i class="mdi"></i>A.</span>
+							<span class="up"><i class="mdi"></i>A.</span>
 							<a href="/questions/view/${ list.questionno }">
 								${fn:substring(list.contents.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""), 0, 150)}
 							</a>
 						</li>
-					</c:forEach>
-                  </ul>
-                </div>
+						</c:forEach>
+                  	</ul>
+				</div>
 
-
-<!-- // Tags -->
+				<!-- // Tags -->
                 <div class="mywrit">
-                  <div class="mytitle">
-                    Tags (${ tCnt })
-                    <c:if test="${ tCnt > 5 }">
+                	<div class="mytitle">
+                    	Tags (${ tCnt })
+                    	<c:if test="${ tCnt > 5 }">
 						<form action="/questions/myList">
 							<input type="hidden" name="userno" value="${ user.userno }">
 							<input type="hidden" name="type" value="A">
 							<button type="submit" class="btn" >+더보기</button>
 						</form>
-					</c:if>
-                  </div>
-                   <span class="ques-tag">
+						</c:if>
+                  	</div>
+					<span class="ques-tag">
 						<c:forEach var="list" items="${ tList }" varStatus="status">
 							<a href="/wiki/view/${ list.wikino }" >${ list.title }</a>
 						</c:forEach>
 					</span>
-                </div>
+				</div>
 
 
-
-
-<!-- // wiki -->
+				<!-- // wiki -->
                 <div class="mywrit other">
-                  <div class="mytitle">
-                    Wiki (${ wCnt })
-                    <span class="more">
-                    <!-- <a href="#">+더보기</a> -->
-                    <c:if test="${ wCnt > 5 }">
-						<form action="/questions/myList">
-							<input type="hidden" name="userno" value="${ user.userno }">
-							<input type="hidden" name="type" value="A">
-							<button type="submit" class="btn" >더보기</button>
-						</form>
-					</c:if>
-					
-                    </span>
-                  </div>
-                  <ul>
-                  <c:forEach var="list" items="${ wList }" varStatus="status">
-									<li>
-										<a href="/wiki/view/${ list.wikino }">${ list.title }</a>
-									</li>
-								</c:forEach>
-                  </ul>
+                	<div class="mytitle">
+                    	Wiki (${ wCnt })
+                    	<span class="more">
+                    		<c:if test="${ wCnt > 5 }">
+								<form action="/questions/myList">
+									<input type="hidden" name="userno" value="${ user.userno }">
+									<input type="hidden" name="type" value="A">
+									<button type="submit" class="btn" >더보기</button>
+								</form>
+							</c:if>
+                    	</span>
+                  	</div>
+                  	<ul>
+                  		<c:forEach var="list" items="${ wList }" varStatus="status">
+							<li><a href="/wiki/view/${ list.wikino }">${ list.title }</a></li>
+						</c:forEach>
+                  	</ul>
                 </div>
-              </div>
+			</div>
               
-              
-              
-			</form>             
 		</div>
+		<div class="mywrite-com"></div>
+		
 	</div>
 	
-	<div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
-			<div class="profile-con">
+	<div class="tab-pane fade con-box" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
+		<div class="profile-con">
+			<form id="frm" name="frm" method="post">
+				<input type="hidden" name="_csrf" value="${_csrf.token}">
+				<input type="hidden" name="_csrf_header" value="${_csrf.headerName}"/>
+				<input type="hidden" name="enterpriseno" value="${enterprise.enterpriseno}">
                 <div class="profile-photo">
-                  <c:if test="${enterprise.enterpriseimg != null && enterprise.enterpriseimg != ''}">
+                	<c:if test="${enterprise.enterpriseimg != null && enterprise.enterpriseimg != ''}">
 						<img alt="profile" src="/upload/enterprise/${enterprise.enterpriseimg}" id="profileImg" class="img" width="100%"><br/>
 					</c:if>
 					<c:if test="${enterprise.enterpriseimg == null || enterprise.enterpriseimg == ''}">
 						<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
 					</c:if>
-					
-<%-- 					<c:if test="${ isMypage }"> --%>
-<!-- 						<label class="btn btn-block btn-outline-primary" > -->
-<%-- 							<input type="hidden" name="userprofileimg" value="${enterprise.enterpriseimg}"> --%>
-<!-- 							<input id="iptProfileImg" name="profileImg" type="file" onchange="fnProfileImg()" style="display: none;"> -->
-<!-- 							<i class="mdi mdi-camera"></i>사진첨부</a> -->
-<!-- 						</label> -->
-<!-- 						<button type="button" id="btnPw" class="btn btn-block btn-outline-primary">비밀번호 변경</button> -->
-<%-- 					</c:if> --%>
-					
-<%-- 					<c:if test="${ isMypage }"> --%>
+					<c:if test="${ isMypage }">
 						<label class="leftbtn" >
 							<input type="hidden" name="userprofileimg" value="${enterprise.enterpriseimg}">
 							<input id="iptProfileImg" name="profileImg" type="file" onchange="fnProfileImg()" style="display: none;">
 							<span style="cursor: pointer"><i class="mdi mdi-camera"></i>사진첨부</span><br/>
 						</label>
-<!-- 						<a href="javascript:;" class="leftbtn" id="btnPw"> <i class="mdi mdi-key"></i>비밀번호 변경</a> -->
 						<a href="javascript:fnPopupPw();" class="leftbtn" id="btnPw"> <i class="mdi mdi-key"></i>비밀번호 변경</a>
-<%-- 					</c:if> --%>
-				
-				
+					</c:if>
                 </div>
 
-
                 <ul class="my-modify">
-                <label for="userName" class="col-form-label"></label>
-									
-									
-                  <li><label>상호명</label>
-					<c:if test="${ isMypage }">
-						<input class="input-type1" id="enterprisename" name="enterprisename" value="${enterprise.enterprisename}" autocomplete="off">
-					</c:if>
-					<c:if test="${ ! isMypage }">
-						<input class="input-type1" id="enterprisename" name="enterprisename" value="${enterprise.enterprisename}" autocomplete="off" disabled="disabled">
-					</c:if>
-                  </li>
-                  <li><label>E-mail 주소</label>
-                  <c:if test="${ isMypage }">
-						<input class="input-type1" id="enterpriseemail" name="enterpriseemail" value="${enterprise.enterpriseemail}" autocomplete="off">
-					</c:if>
-					<c:if test="${ ! isMypage }">
-						<input class="input-type1" id="enterpriseemail" name="enterpriseemail" value="${enterprise.enterpriseemail}" autocomplete="off" disabled="disabled">
-					</c:if>
-                  </li>
+                	<li>
+                		<label>상호명</label>
+                		<c:if test="${ isMypage }">
+							<input class="input-type1" id="enterprisename" name="enterprisename" value="${enterprise.enterprisename}" autocomplete="off">
+						</c:if>
+						<c:if test="${ ! isMypage }">
+							<input class="input-type1" id="enterprisename" name="enterprisename" value="${enterprise.enterprisename}" autocomplete="off" disabled="disabled">
+						</c:if>
+					</li>
+                  	<li>
+                  		<label>E-mail 주소</label>
+                  		<c:if test="${ isMypage }">
+							<input class="input-type1" id="enterpriseemail" name="enterpriseemail" value="${enterprise.enterpriseemail}" autocomplete="off">
+						</c:if>
+						<c:if test="${ ! isMypage }">
+							<input class="input-type1" id="enterpriseemail" name="enterpriseemail" value="${enterprise.enterpriseemail}" autocomplete="off" disabled="disabled">
+						</c:if>
+                  	</li>
                   
-                  <li><label>Url</label>
-                  <c:if test="${ isMypage }">
+                  	<li>
+                  		<label>Url</label>
+                  		<c:if test="${ isMypage }">
 							<input class="input-type1" id="enterpriseurl" name="enterpriseurl" value="${enterprise.enterpriseurl}" autocomplete="off">
 						</c:if>
 						<c:if test="${ ! isMypage }">
 							<input class="input-type1" id="enterpriseurl" name="enterpriseurl" value="${enterprise.enterpriseurl}" autocomplete="off" disabled="disabled">
 						</c:if>
-						</li>
-                  <li><label>지역</label>
-                  <c:if test="${ isMypage }">
-								<input class="input-type1" id="enterprisearea" name="enterprisearea" value="${enterprise.enterprisearea}" autocomplete="off">
+					</li>
+                  	<li>
+                  		<label>지역</label>
+                  		<c:if test="${ isMypage }">
+							<input class="input-type1" id="enterprisearea" name="enterprisearea" value="${enterprise.enterprisearea}" autocomplete="off">
+						</c:if>
+						<c:if test="${ !isMypage }">
+							<input class="input-type1" id="enterprisearea" name="enterprisearea" value="${enterprise.enterprisearea}" autocomplete="off" disabled="disabled">
+						</c:if>
+                  	</li>
+                  	<li>
+                    	<label>사업자번호</label>
+                      	<c:if test="${ isMypage }">
+							<input class="input-type1" id="enterprisebizno" name="enterprisebizno" value="${enterprise.enterprisebizno}" autocomplete="off">
+						</c:if>
+						<c:if test="${ ! isMypage }">
+							<input class="input-type1" id="enterprisebizno" name="enterprisebizno" value="${enterprise.enterprisebizno}" autocomplete="off" disabled="disabled">
+						</c:if>
+                  	</li>
+                  	<li>
+                  		<label>기업홍보</label>
+                    	<div class="de-editro">
+							<c:if test="${ isMypage }">
+								<input type="hidden" class="form-control contents" id="enterpriseabout" name="enterpriseabout" value="${enterprise.enterpriseabout}" autocomplete="off">
+								<div class="code-html">
+									<div id="editSection">${enterprise.enterpriseabout}</div> 
+								</div>
+								<script class="code-js">
+									var editor = new toastui.Editor( { //new tui.Editor({
+										el: document.querySelector('#editSection'),
+										previewStyle: 'vertical',
+										height: '250px',
+										initialValue: content
+									});
+								</script>
 							</c:if>
-							<c:if test="${ !isMypage }">
-								<input class="input-type1" id="enterprisearea" name="enterprisearea" value="${enterprise.enterprisearea}" autocomplete="off" disabled="disabled">
-							</c:if>
-                  </li>
-                  <li><label>나에대한 설명</label>
-                    <div class="de-editro">
-                      여기에 에디터를 적용해주세요. 가로: 100% / 높이: 250px 
-                    </div>
-                  </li>
-                  <li>
-                    <label class="control control-checkbox">
-                      뉴스레터 구독하기
-                      <input type="checkbox" checked="checked" name="" id="">
-                      <div class="control-indicator"></div>
-                    </label>
-                  </li>
-                </ul>
-
-                <div class="mT30 txt-center">
-                  <button type="button" class="btn-blue">수정하기</button>
-                </div>
-
-              </div>
-              
+							<c:if test="${ ! isMypage }">
+								<div class="code-html">
+									<div id="viewAbout">${enterprise.enterpriseabout}</div> 
+								</div>
+								<script class="code-js">
+									var editor = new toastui.Editor.factory( {
+					                	el : document.querySelector( '#viewAbout' ),
+					                	initialEditType : 'wysiwyg',
+					                	previewStyle : 'vertical',
+					                	height : '250px',
+					                	viewer : true
+					                	} );
+ 				            	</script>
+							</c:if> 
+                    	</div>
+                  	</li>
+				</ul>
+				
+				<c:if test="${! isMypage }">
+					<div class="mT30 txt-center"><button type="button" class="btn-blue">수정하기</button></div>
+				</c:if> 
+                
+			</form>
+		</div>
 	</div>
 	
-	<div class="tab-pane fade" id="custom-tabs-three-members" role="tabpanel" aria-labelledby="custom-tabs-three-members-tab">
-	asd
-	</div>
+	<div class="tab-pane fade con-box" id="custom-tabs-three-members" role="tabpanel" aria-labelledby="custom-tabs-three-members-tab">
+		<div class="con-box">
+	    	<div class="mytitle"> 활동중인 사람들</div>
+    			<ul class="company-user">
+					<c:forEach var="useratCompy" items="${ usersAtStatus }" varStatus="status">
+         				<c:if test="${ useratCompy.usersDetail.userat == 1 }">
+         				<li>
+                  			<a href="/users/activity/${useratCompy.userno}">
+								<c:if test="${ useratCompy.userprofileimg != null}">
+									<img alt="profile" src="/upload/users/${useratCompy.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
+								</c:if>
+								<c:if test="${useratCompy.userprofileimg == null and useratCompy.picture == null}">
+									<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
+								</c:if>
+								<c:if test="${useratCompy.userprofileimg == null and useratCompy.picture != null}">
+									<img alt="profile" src="${useratCompy.picture}" id="profileImg" class="img" width="100%"><br/>
+								</c:if>
+								<span class="name"><a href="/users/activity/${useratCompy.userno}">${useratCompy.username}</a></span>
+                  				<span class="reputation">평판</span>
+	<%--                   <span>${useratCompy.representat }ss</span> --%>
+							</a>
+							<div class="active">
+								<c:if test="${ useratCompy.usersDetail.activeat == 0 }">
+                    				<a href="javascript:fnt_activeatUser('not','${mem.userno}');">활성</a>
+                    				<a href="javascript:fnt_activeatUser('userat','${mem.userno}');" class="off">비활성</a>
+								</c:if>
+								<c:if test="${ useratCompy.usersDetail.activeat == 1 }">
+                    				<a href="javascript:fnt_activeatUser('not','${mem.userno}');" class="off">활성</a>
+                    				<a href="javascript:fnt_activeatUser('userat','${mem.userno}');" >비활성</a>
+								</c:if>
+							</div>
+						</li>
+         				</c:if>
+					</c:forEach>	            
+		      	</ul>
+		      
+              	<div class="mytitle mT30"> 요청한 사람들</div>
+              		<ul class="company-user">
+              			<c:forEach var="useratCompy" items="${ usersAtStatus }" varStatus="status">
+         					<c:if test="${ useratCompy.usersDetail.userat == 0 }">
+         					<li>
+                  				<a href="/users/activity/${useratCompy.userno}">
+									<c:if test="${ useratCompy.userprofileimg != null}">
+										<img alt="profile" src="/upload/users/${useratCompy.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
+									</c:if>
+									<c:if test="${useratCompy.userprofileimg == null and useratCompy.picture == null}">
+										<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
+									</c:if>
+									<c:if test="${useratCompy.userprofileimg == null and useratCompy.picture != null}">
+										<img alt="profile" src="${useratCompy.picture}" id="profileImg" class="img" width="100%"><br/>
+									</c:if>
+									<span class="name"><a href="/users/activity/${useratCompy.userno}">${useratCompy.username}</a></span>
+                  					<span class="reputation">평판</span>
+								</a>
+								<div class="active">
+									<c:if test="${ useratCompy.usersDetail.activeat == 0 }">
+				                    	<a href="javascript:fnt_activeatUser('not','${mem.userno}');">승인</a>
+				                    	<a href="javascript:fnt_activeatUser('userat','${mem.userno}');" class="off">거절</a>
+									</c:if>
+									<c:if test="${ useratCompy.usersDetail.activeat == 1 }">
+				                    	<a href="javascript:fnt_activeatUser('not','${mem.userno}');" class="off">승인</a>
+				                    	<a href="javascript:fnt_activeatUser('userat','${mem.userno}');" >거절</a>
+									</c:if>
+<%-- 					<input type="button" class="btn btn-primary" onclick="fnt_useratUser('userat','${mem.userno}');" value="승인"><br>  --%>
+<%-- 					<input type="button" class="btn btn-primary" onclick="fnt_useratUser('not','${mem.userno}');" value="거절">													 --%>
+												
+                  				</div>
+							</li>
+         				</c:if>
+					</c:forEach>	 
+				</ul>
+			</div>
+		</div>
 </div>
 		
 		
 								
-								<div class="form-group">
-									<label for="enterprisearea" class="col-form-label">지역</label>
-									
-								</div>
-								
-								<div class="form-group">
-									<label for="enterpriseName" class="col-form-label">사업자번호</label>
-									<c:if test="${ isMypage }">
-										<input class="form-control" id="enterprisebizno" name="enterprisebizno" value="${enterprise.enterprisebizno}" autocomplete="off">
-									</c:if>
-									<c:if test="${ ! isMypage }">
-										<input class="form-control" id="enterprisebizno" name="enterprisebizno" value="${enterprise.enterprisebizno}" autocomplete="off" disabled="disabled">
-									</c:if>
-								</div>
-							</div>
-						
-							<div class="col-12">
-								<div class="form-group">
-									<label for="aboutMe" class="col-form-label">기업홍보</label>
-									<c:if test="${ isMypage }">
-										<input type="hidden" class="form-control contents" id="enterpriseabout" name="enterpriseabout" value="${enterprise.enterpriseabout}" autocomplete="off">
-										<div class="code-html">
-											<div id="editSection">${enterprise.enterpriseabout}</div> 
-										</div>
-										
-									</c:if>
-									<c:if test="${ ! isMypage }">
-										<input class="form-control contents" id="enterpriseabout" name="enterpriseabout" value="${enterprise.enterpriseabout}" autocomplete="off" disabled="disabled">
-									</c:if>
-								</div>
-							</div>
-							
-						</div>
-					
-						<c:if test="${ isMypage }">
-							<div class="card-footer cont_btn_div">
-								<button type="button" id="btnUpdate" class="btn btn-primary purple">수정</button>
-							</div>
-						</c:if> 
-					</form>
-					</div>
-					<!--  end profile  -->
-					
-					
-					<div class="tab-pane fade" id="csustom-tabs-three-members" role="tabpanel" aria-labelledby="custom-tabs-three-members-tab">
-						
-						<div class="card-body card-primary row" style="width: 100%;">
-						<!-- 승인된 유저 -->
-						<div class="col-12">
-							<div>활동중인 사람들</div>
-							<hr/>
-							<div class="enterprise-list row">
-								
-								<c:if test="${ atusers.size() == 0 }">
-									<p>활동중인 사람이 없습니다.</p>
-								</c:if>
-								
-								<c:if test="${ atusers.size() != 0 }">
-									<c:forEach var="mem" items="${ atusers }" varStatus="status">
-										<c:if test="${ mem.usersDetail != null && mem.usersDetail.userat !=0 }">
-											
-											<div class="enterprise-list-card col-6 row">
-												<div class="col-4">
-													<a href="/users/activity/${mem.userno}">
-														<c:if test="${ mem.userprofileimg != null && mem.userprofileimg != ''}">
-															<img alt="profile" src="/upload/users/${mem.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
-														</c:if>
-														<c:if test="${ mem.userprofileimg == null || mem.userprofileimg == ''}">
-															<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
-														</c:if>
-													</a>
-												</div>
-												
-												<div class="col-4">
-													<p class="title">
-														<a href="/users/activity/${mem.userno}">${mem.username}</a>
-													</p>
-													<p class="position">CEO</p>
-													<p class="reputation">평판 300</p>
-												</div>
-												
-												<div class="col-4">
-													
-													<!-- 활성 -->
-													<c:if test="${ mem.usersDetail.userat == 1 }">
-														<input disabled type="button" class="btn btn-primary active" onclick="fnt_activeatUser('userat','${mem.userno}');" value="활성"><br/>
-														<input type="button" class="btn btn-primary" onclick="fnt_activeatUser('not','${mem.userno}');" value="비활성">
-													</c:if>
-													
-													<!-- 비활성 -->
-													<c:if test="${ mem.usersDetail.userat == 3 }">
-														<input type="button" class="btn btn-primary" onclick="fnt_activeatUser('userat','${mem.userno}');" value="활성"><br/>
-<%-- 														<input type="button" class="btn btn-primary active" onclick="fnt_activeatUser('not','${mem.userno}');" value="비활성">
- --%>													</c:if>
-													
-												</div>
-											</div>
-											
-										</c:if>
-									</c:forEach>
-								</c:if>
-									<c:if test="${ unatusers.size() != 0 }">
-									<c:forEach var="mem" items="${ unatusers }" varStatus="status">
-										<c:if test="${ mem.usersDetail != null && mem.usersDetail.userat !=0 }">
-											
-											<div class="enterprise-list-card col-6 row">
-												<div class="col-4">
-													<a href="/users/activity/${mem.userno}">
-														<c:if test="${ mem.userprofileimg != null && mem.userprofileimg != ''}">
-															<img alt="profile" src="/upload/users/${mem.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
-														</c:if>
-														<c:if test="${ mem.userprofileimg == null || mem.userprofileimg == ''}">
-															<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
-														</c:if>
-													</a>
-												</div>
-												
-												<div class="col-4">
-													<p class="title">
-														<a href="/users/activity/${mem.userno}">${mem.username}</a>
-													</p>
-													<p class="position">CEO</p>
-													<p class="reputation">평판 300</p>
-												</div>
-												
-												<div class="col-4">
-													
-													<!-- 활성 -->
-													<c:if test="${ mem.usersDetail.userat == 1 }">
-													<input disabled type="button" class="btn btn-primary" onclick="fnt_activeatUser('userat','${mem.userno}');" value="활성"><br/>
- 													<input disabled type="button" class="btn btn-primary active" onclick="fnt_activeatUser('not','${mem.userno}');" value="비활성">
-													</c:if>
-													
-													<!-- 비활성 -->
-													<c:if test="${ mem.usersDetail.userat == 3 }">
-														<input type="button" class="btn btn-primary" onclick="fnt_activeatUser('userat','${mem.userno}');" value="활성"><br/>
- 														<input disabled type="button" class="btn btn-primary active" onclick="fnt_activeatUser('not','${mem.userno}');" value="비활성">
-												</c:if>
-													
-												</div>
-											</div>
-											
-										</c:if>
-									</c:forEach>
-								</c:if>
-								
-							</div>
-						</div>
-
-						
-						<div class="col-12">
-							<div>요청한 사람들</div>
-							<hr/>
-							<div class="enterprise-list row">
-								<c:if test="${ users.size() == 0 }">
-									<p>요청한 사람이 없습니다.</p>
-								</c:if>
-								
-								<c:if test="${ users.size() != 0 }">
-									<c:forEach var="mem" items="${ users }" varStatus="status">
-										<c:if test="${ mem.usersDetail != null && mem.usersDetail.userat == 0 }">
-											
-											<div class="enterprise-list-card col-6 row">
-												<div class="col-4">
-													<a href="/users/activity/${mem.userno}">
-														<c:if test="${ mem.userprofileimg != null && mem.userprofileimg != ''}">
-															<img alt="profile" src="/upload/users/${mem.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
-														</c:if>
-														<c:if test="${ mem.userprofileimg == null || mem.userprofileimg == ''}">
-															<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
-														</c:if>
-													</a>
-												</div>
-												
-												<div class="col-4">
-													<p class="title">
-														<a href="/users/activity/${mem.userno}">${mem.username}</a>
-													</p>
-													<p class="reputation">평판 300</p>
-												</div>
-												
-												<div class="col-4">
-												<%-- 	<c:if test="${ isMypage }">
-														<input type="button" class="btn btn-primary" onclick="fnt_useratUser('userat','${mem.userno}');" value="승인"><br/>
-														<input type="button" class="btn btn-primary" onclick="fnt_useratUser('not','${mem.userno}');" value="거절">
-													</c:if> --%>
-													<input type="button" class="btn btn-primary" onclick="fnt_useratUser('userat','${mem.userno}');" value="승인"><br> 
-													<input type="button" class="btn btn-primary" onclick="fnt_useratUser('not','${mem.userno}');" value="거절">													
-												</div>
-											</div>
-											
-										</c:if>
-									</c:forEach>
-								</c:if>
-								
-							</div>
-						</div>
-						
-					</div>
-						
-						
-					</div>
-					
-					
-				</div>
-			</div>
-		</div>
-	</div>
-	
+</div>
 
 <!-- 비밀번호 변경 팝업 -->
 <div id="popupPw" class="card card-primary pop-layer" style="display: none;">
@@ -542,10 +405,6 @@
 	</form>
 </div>
 
-<!-- FLOT CHARTS -->
-<!-- <script src="../../plugins/flot/jquery.flot.js"></script> -->
-<script type="text/javascript">
-</script>
 
 <script type="text/javascript">
 $(function() {
@@ -673,13 +532,16 @@ function fnt_useratUser(type,uno){
 	else if(type == 'userat') type = 1;
 	else return;
 	alert(type);
+
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
 	$.ajax({
 		url			: '/enterprises/updateUserat',
 		data		: { 'userat' : type , 'userno' : uno},
 		type		: 'post',
-		/* beforeSend : function(xhr) {
-			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-		}, */
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success	: function(data){
 			alert(data.message);
 			if(data.updateVal) location.reload(true);
@@ -695,14 +557,17 @@ function fnt_activeatUser(type,uno){
 	if(type == 'not') type = 3;
 	else if(type == 'userat') type = 1;
 	else return;
+
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
 	
 	$.ajax({
 		url			: '/enterprises/updateUserat',
 		data		: { 'userat' : type , 'userno' : uno},
 		type		: 'post',
-		/* beforeSend : function(xhr) {
-			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-		}, */
+		beforeSend : function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success	: function(data){
 			alert(data.message);
 			if(data.updateVal) location.reload(true);
@@ -802,5 +667,3 @@ tui.chart.columnChart(container, data, options);
 <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/addon/lint/javascript-lint.js'></script>
 <script src='/tui-chart/example.js'></script>
 
-</body>
-</html>
