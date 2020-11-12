@@ -82,7 +82,6 @@
 		a.questionno
 		,a.title
 		,a.contents
-		,a.section
 		,a.deleteat
 		,a.editauth
 		,a.readcnt
@@ -121,7 +120,6 @@
 		 question_id::INTEGER
 		 ,title
 		 ,body
-		 ,''
 		 ,0
 		 ,0
 		 ,view_count::INTEGER
@@ -139,7 +137,7 @@
 		 ,''
 		 ,0
 		 ,0
-		 ,''
+		 ,'Q'
 		 ,0
 		 ,0
 		 ,0
@@ -147,6 +145,15 @@
 		 ,comment_count::INTEGER
 		 ,score::INTEGER
 		 from tbl_stack_question ) AA
+		 <where>
+		 AA.section = 'Q'
+		 and AA.deleteat = 0
+		<if test="searchtext != null and searchtext != ''">
+		and	(AA.title like '%' || #{searchtext} || '%' 
+		or
+		AA.contents like '%' || #{searchtext} || '%')
+		</if>
+		</where>
 		<if test="sort == null" >order by AA.registerdate desc</if>
 		<if test="sort == 1" >order by AA.registerdate desc</if>
 		<if test="sort == 2" >order by AA.commentcnt asc,AA.registerdate desc</if>

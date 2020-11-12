@@ -65,13 +65,40 @@
 		contents like '%' || #{searchtext} || '%')
 	</sql>
 	<select id="getList" parameterType="java.lang.Integer" resultMap="Answers">
-		select a.* , b.* , c.*
+		select * from (
+		select 
+		a.questionno,
+		a.selected,
+		a.contents,
+		a.userno,
+		a.answerno,
+		a.registerdate,
+		b.seq,
+		b.pno,
+		b.section,
+		b.likes,
+		b.dislikes,
+		b.userno,
+		b.senduserno,
+		c.userno,
+		c.userid,
+		c.username,
+		c.useremail,
+		c.userstatus,
+		c.userprofileimg
 		,(select score from tb_score e where a.userno = e.userno) as scores
 			from 
 		tb_answers a left outer join tb_vote b 
 			on a.answerno = b.pno 
 		left outer join tb_users c on a.userno = c.userno
-		where a.questionno=#{questionno} and b.section='A';
+		where b.section='A'
+		union all
+		SELECT question_id::integer, 
+		case when is_accepted = 'true' then 1
+		     else 0
+		end as is_accepted , body,0,answer_id::integer,ins_date,0,0,'A',0,0,0,0,0,'','','',0,'',score::integer 
+		FROM public.tbl_stack_answer) AA
+		where AA.questionno = #{questionno}
 	</select>
 	
 	<select id="getListCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
