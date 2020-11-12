@@ -1,6 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
 
+<style>
+
+.ellipsis {
+display: -webkit-box;
+width: 100%; 
+height: 10%;
+-webkit-line-clamp: 10;
+-webkit-box-orient: vertical;
+overflow: hidden; 
+text-overflow: ellipsis; 
+
+word-wrap: break-word; 
+line-height: 1.2; 
+
+pointer-events: none;
+cursor: default;
+text-decoration:none ;
+font-size: small;
+color: rgb(0,0,0);
+}
+
+</style>
 <div class="content-center">
 <form id="frm" name="frm" action="list" method="post">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
@@ -55,7 +77,6 @@
 				</c:if>
 				
 				<span class="name"><a href="/users/activity/${list.users.userno}">${list.users.username}</a></span> 
-				개발<br>
 				<span class="reputation">${list.scores}</span> 
 				<span class="voting"><img src="../img/level_gold.png" alt="" > 25</span>
 			</li>
@@ -64,8 +85,22 @@
 			<li class="question">
 				<p><fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd HH:mm" /></p> 
 				<span class="ques-title"> <a href="view/${list.questionno }">${list.title }</a></span> 
-				${fn:substring(list.contents, 0, 50)}<c:if test="${fn:length(list.contents) > 49}"> ... </c:if>
-														
+				<span class="ques-text">
+					<div id="ques-text" class="ellipsis">
+<%-- 					${fn:split(list.contents, '<img')[1]} --%>
+									${fn:substring(list.contents, 0, 150)}<c:if test="${fn:length(list.contents) gt 151}"> ... </c:if>
+					</div> 
+					<script class="code-js">
+						var editor = new toastui.Editor.factory( {
+		                el : document.querySelector( '#ques-text' ),
+		                initialEditType : 'wysiwyg',
+		                previewStyle : 'vertical',
+		                height : '400px',
+		                width: '200px',
+		                viewer : true
+		                } );
+			            </script>
+ 				</span>												
 				<span class="ques-tag">
 					<c:forEach var="tagName2" items="${tag }" varStatus="status">
 						<c:forEach var="tagName1" items="${tagList }" varStatus="status">

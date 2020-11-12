@@ -85,6 +85,7 @@
 								var editor = new toastui.Editor.factory( {
 				                el : document.querySelector( '#aaaa' ),
 				                initialEditType : 'wysiwyg',
+				                //			                    initialEditType: 'markdown',
 				                previewStyle : 'vertical',
 				                height : '400px',
 				                viewer : true
