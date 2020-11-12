@@ -231,7 +231,7 @@
 
             <ul class="my-modify">
             	<li><label>이름</label>
-            		<c:if test="${ isMypage }">
+            		<c:if test="${ isMypage }">${isMypage }
 						<input class="input-type1" id="userName" name="username" value="${user.username}" autocomplete="off">
 					</c:if>
 					<c:if test="${ ! isMypage }">
