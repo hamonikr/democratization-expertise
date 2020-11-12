@@ -51,8 +51,7 @@ public class LoginController {
 		
 		return "redirect:/";
 	 } 
-	
-	
+		
 	
 	@RequestMapping("/login")
 	 public String loginSuccess(Model model, @AuthenticationPrincipal SecurityMember user, LoginHistoryVO hvo , LoginVO vo, HttpSession session ) throws Exception{
