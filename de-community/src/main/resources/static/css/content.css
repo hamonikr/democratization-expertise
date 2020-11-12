@@ -208,7 +208,7 @@ h2 {font-size:22px; color: #222; font-weight: 400!important; margin-bottom: 30px
 .profile-info  {width: calc(100% - 300px); display: inline-block}
 .profile-info .myname {font-weight: 500px; font-size: 20px; color:#183b9c; padding-bottom: 20px}
 .profile-info .myintro {font-size: 13px; color: #666; line-height: 20px;padding-bottom: 10px}
-.profile-info .graph {border: 1px solid #e3ebf4; border-radius: 3px; padding:15px; width: 50%; height: 220px; margin-right: 30px}
+.profile-info .graph {border: 1px solid #e3ebf4; border-radius: 3px; padding:15px; width: 45%; height: 150px; margin-right: 30px}
 
 .profile-info .info-detail {margin-top: 10px;}
 .profile-info .info-detail li {display: inline-block; color: #666; vertical-align: top}
@@ -298,8 +298,7 @@ h2 {font-size:22px; color: #222; font-weight: 400!important; margin-bottom: 30px
 
 .accordion {position: absolute; right:0; top:10px;  width: 50px;  border: none;text-align: left;outline: none;transition: 0.4s;background: #fff}
 .accordion:after {content: '\002B';color: #222;text-align: center;  margin-left: 5px; font-size: 20px;}
-.active:after {content: " ";}
-/* .active:after {content: "\2212";} */
+.active:after {content: "\2212";}
 
 .panel {padding:0 40px; border-radius: 0;  background-color: #fff;max-height: 0;overflow: hidden;transition: max-height 0.2s ease-out; box-shadow: 0!important; border:0!important;box-shadow:0 0px 0px rgba(0,0,0,0); margin-top: 10px; font-size: 11px; margin-bottom: 0!important; line-height: 18px; border-top:1px solid #d5dde7}
 

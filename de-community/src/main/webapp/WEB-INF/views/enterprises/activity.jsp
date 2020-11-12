@@ -95,7 +95,7 @@
 	            
 	            <!--  list -->
 	             <div class="mywrit-con">
-
+				<!-- // 질문 -->
                 <div class="mywrit">
                   <div class="mytitle">
                     질문 (${ qCnt })
@@ -109,9 +109,6 @@
 						</c:if>
                     </span>
                   </div>
-                  
-								
-								
 								
                   <ul>
                   <c:forEach var="list" items="${ qList }" varStatus="status">
@@ -122,8 +119,9 @@
 								</c:forEach>
                       
                   </ul>
-                </div><!-- // 질문 -->
+                </div>
 
+<!-- // 답변 -->
                 <div class="mywrit other">
                   <div class="mytitle">
                     답변 (${ aCnt })
@@ -146,12 +144,11 @@
 							</a>
 						</li>
 					</c:forEach>
-								
-								
-								
                   </ul>
-                </div><!-- // 답변 -->
+                </div>
 
+
+<!-- // Tags -->
                 <div class="mywrit">
                   <div class="mytitle">
                     Tags (${ tCnt })
@@ -159,28 +156,44 @@
 						<form action="/questions/myList">
 							<input type="hidden" name="userno" value="${ user.userno }">
 							<input type="hidden" name="type" value="A">
-							<button type="submit" class="btn-primary btn-xs" >더보기</button>
+							<button type="submit" class="btn" >+더보기</button>
 						</form>
 					</c:if>
                   </div>
                    <span class="ques-tag">
 						<c:forEach var="list" items="${ tList }" varStatus="status">
-							<a href="/wiki/view/${ list.wikino }" class="float-left badge bg-primary tagSpan">${ list.title }</span>
+							<a href="/wiki/view/${ list.wikino }" >${ list.title }</a>
 						</c:forEach>
 					</span>
-                </div><!-- // Tags -->
+                </div>
 
+
+
+
+<!-- // wiki -->
                 <div class="mywrit other">
                   <div class="mytitle">
-                    Wiki (569)
-                    <span class="more"><a href="#">+더보기</a></span>
+                    Wiki (${ wCnt })
+                    <span class="more">
+                    <!-- <a href="#">+더보기</a> -->
+                    <c:if test="${ wCnt > 5 }">
+						<form action="/questions/myList">
+							<input type="hidden" name="userno" value="${ user.userno }">
+							<input type="hidden" name="type" value="A">
+							<button type="submit" class="btn" >더보기</button>
+						</form>
+					</c:if>
+					
+                    </span>
                   </div>
                   <ul>
-                    <li>
-                      <a href="#">wiki 문서 제목나옵니다.</a>
-                    </li>
+                  <c:forEach var="list" items="${ wList }" varStatus="status">
+									<li>
+										<a href="/wiki/view/${ list.wikino }">${ list.title }</a>
+									</li>
+								</c:forEach>
                   </ul>
-                </div><!-- // wiki -->
+                </div>
               </div>
               
               
@@ -188,118 +201,109 @@
 			</form>             
 		</div>
 	</div>
+	
+	<div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
+			<div class="profile-con">
+                <div class="profile-photo">
+                  <c:if test="${enterprise.enterpriseimg != null && enterprise.enterpriseimg != ''}">
+						<img alt="profile" src="/upload/enterprise/${enterprise.enterpriseimg}" id="profileImg" class="img" width="100%"><br/>
+					</c:if>
+					<c:if test="${enterprise.enterpriseimg == null || enterprise.enterpriseimg == ''}">
+						<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
+					</c:if>
+					
+<%-- 					<c:if test="${ isMypage }"> --%>
+<!-- 						<label class="btn btn-block btn-outline-primary" > -->
+<%-- 							<input type="hidden" name="userprofileimg" value="${enterprise.enterpriseimg}"> --%>
+<!-- 							<input id="iptProfileImg" name="profileImg" type="file" onchange="fnProfileImg()" style="display: none;"> -->
+<!-- 							<i class="mdi mdi-camera"></i>사진첨부</a> -->
+<!-- 						</label> -->
+<!-- 						<button type="button" id="btnPw" class="btn btn-block btn-outline-primary">비밀번호 변경</button> -->
+<%-- 					</c:if> --%>
+					
+<%-- 					<c:if test="${ isMypage }"> --%>
+						<label class="leftbtn" >
+							<input type="hidden" name="userprofileimg" value="${enterprise.enterpriseimg}">
+							<input id="iptProfileImg" name="profileImg" type="file" onchange="fnProfileImg()" style="display: none;">
+							<span style="cursor: pointer"><i class="mdi mdi-camera"></i>사진첨부</span><br/>
+						</label>
+<!-- 						<a href="javascript:;" class="leftbtn" id="btnPw"> <i class="mdi mdi-key"></i>비밀번호 변경</a> -->
+						<a href="javascript:fnPopupPw();" class="leftbtn" id="btnPw"> <i class="mdi mdi-key"></i>비밀번호 변경</a>
+<%-- 					</c:if> --%>
+				
+				
+                </div>
+
+
+                <ul class="my-modify">
+                <label for="userName" class="col-form-label"></label>
+									
+									
+                  <li><label>상호명</label>
+					<c:if test="${ isMypage }">
+						<input class="input-type1" id="enterprisename" name="enterprisename" value="${enterprise.enterprisename}" autocomplete="off">
+					</c:if>
+					<c:if test="${ ! isMypage }">
+						<input class="input-type1" id="enterprisename" name="enterprisename" value="${enterprise.enterprisename}" autocomplete="off" disabled="disabled">
+					</c:if>
+                  </li>
+                  <li><label>E-mail 주소</label>
+                  <c:if test="${ isMypage }">
+						<input class="input-type1" id="enterpriseemail" name="enterpriseemail" value="${enterprise.enterpriseemail}" autocomplete="off">
+					</c:if>
+					<c:if test="${ ! isMypage }">
+						<input class="input-type1" id="enterpriseemail" name="enterpriseemail" value="${enterprise.enterpriseemail}" autocomplete="off" disabled="disabled">
+					</c:if>
+                  </li>
+                  
+                  <li><label>Url</label>
+                  <c:if test="${ isMypage }">
+							<input class="input-type1" id="enterpriseurl" name="enterpriseurl" value="${enterprise.enterpriseurl}" autocomplete="off">
+						</c:if>
+						<c:if test="${ ! isMypage }">
+							<input class="input-type1" id="enterpriseurl" name="enterpriseurl" value="${enterprise.enterpriseurl}" autocomplete="off" disabled="disabled">
+						</c:if>
+						</li>
+                  <li><label>지역</label>
+                  <c:if test="${ isMypage }">
+								<input class="input-type1" id="enterprisearea" name="enterprisearea" value="${enterprise.enterprisearea}" autocomplete="off">
+							</c:if>
+							<c:if test="${ !isMypage }">
+								<input class="input-type1" id="enterprisearea" name="enterprisearea" value="${enterprise.enterprisearea}" autocomplete="off" disabled="disabled">
+							</c:if>
+                  </li>
+                  <li><label>나에대한 설명</label>
+                    <div class="de-editro">
+                      여기에 에디터를 적용해주세요. 가로: 100% / 높이: 250px 
+                    </div>
+                  </li>
+                  <li>
+                    <label class="control control-checkbox">
+                      뉴스레터 구독하기
+                      <input type="checkbox" checked="checked" name="" id="">
+                      <div class="control-indicator"></div>
+                    </label>
+                  </li>
+                </ul>
+
+                <div class="mT30 txt-center">
+                  <button type="button" class="btn-blue">수정하기</button>
+                </div>
+
+              </div>
+              
+	</div>
+	
+	<div class="tab-pane fade" id="custom-tabs-three-members" role="tabpanel" aria-labelledby="custom-tabs-three-members-tab">
+	asd
+	</div>
 </div>
 		
 		
-		
-		
-		
-		
-					
-					
-						<div class="card-body card-primary row" style="width: 100%;">
-						
-							<div class="col-6">
-								
-							</div>
-						
-							<div class="col-6">
-								
-							</div>
-						</div>
-					
-					
-						<div class="card-body card-primary row" style="width: 100%;">
-						
-							<div class="col-6 row">
-								<div class="col-12">태그()</div>
-								<hr/>
-								
-							</div>
-						
-							<div class="col-6">
-								<div>위키(${ wCnt })</div>
-								<hr/>
-								<c:forEach var="list" items="${ wList }" varStatus="status">
-									<div class="dash-list">
-										<a href="/wiki/view/${ list.wikino }">${ list.title }</a>
-									</div>
-								</c:forEach>
-								
-								<c:if test="${ wCnt > 5 }">
-									<form action="/questions/myList">
-										<input type="hidden" name="userno" value="${ user.userno }">
-										<input type="hidden" name="type" value="A">
-										<button type="submit" class="btn-primary btn-xs" >더보기</button>
-									</form>
-								</c:if>
-							</div>
-						</div>
-					</div>
-					
-					
-					<!--  profile layer  -->
-					<div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
-						
-						<div class="card-body card-primary card-outline row" style="width: 100%;">
-
-							<div class="col-3 profileLeftDiv">
-								<c:if test="${enterprise.enterpriseimg != null && enterprise.enterpriseimg != ''}">
-									<img alt="profile" src="/upload/enterprise/${enterprise.enterpriseimg}" id="profileImg" class="img" width="100%"><br/>
-								</c:if>
-								<c:if test="${enterprise.enterpriseimg == null || enterprise.enterpriseimg == ''}">
-									<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
-								</c:if>
-				
-								<c:if test="${ isMypage }">
-									<label class="btn btn-block btn-outline-primary" >
-										<input type="hidden" name="userprofileimg" value="${enterprise.enterpriseimg}">
-										<input id="iptProfileImg" name="profileImg" type="file" onchange="fnProfileImg()" style="display: none;">
-										<span>사진변경</span><br/>
-									</label>
-									<button type="button" id="btnPw" class="btn btn-block btn-outline-primary">비밀번호 변경</button>
-								</c:if>
-							</div>
-
-							<div class="col-9 profileRightDiv">
-								<div class="form-group">
-									<label for="userName" class="col-form-label">상호명</label>
-									<c:if test="${ isMypage }">
-										<input class="form-control" id="enterprisename" name="enterprisename" value="${enterprise.enterprisename}" autocomplete="off">
-									</c:if>
-									<c:if test="${ ! isMypage }">
-										<input class="form-control" id="enterprisename" name="enterprisename" value="${enterprise.enterprisename}" autocomplete="off" disabled="disabled">
-									</c:if>
-								</div>
-
-								<div class="form-group">
-									<label for="userEmail" class="col-form-label">메일</label>
-									<c:if test="${ isMypage }">
-										<input class="form-control" id="enterpriseemail" name="enterpriseemail" value="${enterprise.enterpriseemail}" autocomplete="off">
-									</c:if>
-									<c:if test="${ ! isMypage }">
-										<input class="form-control" id="enterpriseemail" name="enterpriseemail" value="${enterprise.enterpriseemail}" autocomplete="off" disabled="disabled">
-									</c:if>
-								</div>
-								
-								<div class="form-group">
-									<label for="userUrl" class="col-form-label">홈페이지</label>
-									<c:if test="${ isMypage }">
-										<input class="form-control" id="enterpriseurl" name="enterpriseurl" value="${enterprise.enterpriseurl}" autocomplete="off">
-									</c:if>
-									<c:if test="${ ! isMypage }">
-										<input class="form-control" id="enterpriseurl" name="enterpriseurl" value="${enterprise.enterpriseurl}" autocomplete="off" disabled="disabled">
-									</c:if>
-								</div>
 								
 								<div class="form-group">
 									<label for="enterprisearea" class="col-form-label">지역</label>
-									<c:if test="${ isMypage }">
-										<input class="form-control" id="enterprisearea" name="enterprisearea" value="${enterprise.enterprisearea}" autocomplete="off">
-									</c:if>
-									<c:if test="${ !isMypage }">
-										<input class="form-control" id="enterprisearea" name="enterprisearea" value="${enterprise.enterprisearea}" autocomplete="off" disabled="disabled">
-									</c:if>
+									
 								</div>
 								
 								<div class="form-group">
@@ -341,7 +345,7 @@
 					<!--  end profile  -->
 					
 					
-					<div class="tab-pane fade" id="custom-tabs-three-members" role="tabpanel" aria-labelledby="custom-tabs-three-members-tab">
+					<div class="tab-pane fade" id="csustom-tabs-three-members" role="tabpanel" aria-labelledby="custom-tabs-three-members-tab">
 						
 						<div class="card-body card-primary row" style="width: 100%;">
 						<!-- 승인된 유저 -->
@@ -506,11 +510,37 @@
 		</div>
 	</div>
 	
-	</section>
 
+<!-- 비밀번호 변경 팝업 -->
+<div id="popupPw" class="card card-primary pop-layer" style="display: none;">
+	<form id="frm1" name="frm1" method="post">
+		<div class="dim-layer">
+			<div class="dimBg"></div>
+		</div>
+		
+		<div class="card-header">
+			<h3 class="card-title">비밀번호 변경</h3>
+		</div>
 
+		<div class="card-body" style="width:100%;">
+			<div class="input-group mb-3">
+				<input type="password" class="form-control" name="userpassword" placeholder="기존 비밀번호">
+			</div>
+			<div class="input-group mb-3">
+				<input type="password" class="form-control" name="userpasswordnew" placeholder="새 비밀번호">
+			</div>
+			<div class="input-group mb-3">
+				<input type="password" class="form-control" name="userpasswordnew2" placeholder="새 비밀번호 확인">
+			</div>
+			<p id="popupPwAlter" class="popupPwAlter"></p>
+		</div>
+		
+		<div class="card-footer cont_btn_div">
+			<button type="button" id="btnUpdatePw" class="btn btn-primary purple">수정</button>
+			<button type="button" id="btnUpdatePWCancle" class="btn btn-primary purple">취소</button>
+		</div>
+	</form>
 </div>
-
 
 <!-- FLOT CHARTS -->
 <!-- <script src="../../plugins/flot/jquery.flot.js"></script> -->
@@ -526,12 +556,13 @@ $(function() {
 	$('#btnUpdatePw').on('click', fnUpdatePw);
 	
 	// 비밀번호 팝업 열기/닫기
-	$('#btnPw').on('click', fnPopupPw);
+// 	$('#btnPw').on('click', fnPopupPw);
 	$('#btnUpdatePWCancle').on('click', fnPopupPw);
 });
 
 //비밀번호 팝업 열기/닫기
 function fnPopupPw(){
+  alert(1);
 	if('none' == $('#popupPw').css('display')) $('#popupPw').css('display', 'block');
 	else if('block' == $('#popupPw').css('display')) $('#popupPw').css('display', 'none');
 

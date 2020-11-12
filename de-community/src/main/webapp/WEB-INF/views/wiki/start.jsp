@@ -33,6 +33,18 @@ text-overflow: ellipsis;
 text-transform: uppercase;
 font-size: medium;
 }
+
+.mywrit .ques-tag a {
+    font-size: 11px;
+    color: #355d80;
+    line-height: 25px;
+    display: inline-block;
+    margin-top: 10px;
+    border-radius: 3px;
+    padding: 0 10px;
+    background: #d2e3f3;
+    margin-right: 5px;
+}
 </style>
 
 
@@ -46,6 +58,7 @@ font-size: medium;
     <div class="list-right">
     	<div class="inblock">
         	<button type="button" class="btn-blue"  id="btnSave" onclick="location.href='/wiki/saveTag'"> Tag 작성하기</button>
+        	<button type="button" class="btn-blue"  id="btnWikiSave" onclick="location.href='/wiki/saveWiki'"> Wiki 작성하기</button>
 		</div>
 	</div>
     
@@ -72,34 +85,30 @@ font-size: medium;
 				</c:forEach>
 			</ul>
 		</div>
-                
-		<!-- <div class="mywrit">
-        	<div class="mytitle">
-            	평판 &amp; 관리자<span class="more"><a href="#">+더보기</a></span>
-			</div>
-			<ul>
-				<li><a href="#">제목이 나옵니다. 제목이 나옵니다.</a></li>
-			</ul>
-		</div>
 		
-		<div class="mywrit other">
-			<div class="mytitle">
-				계정<span class="more"><a href="#">+더보기</a></span>
+		<div class="mywrit-con" style="height: 220px;">
+        	<div class="mytitle">
+            	Wiki<span class="more"><a href="/wiki/Help/h">+더보기</a></span>
 			</div>
             <ul>
-            	<li><a href="#">제목이 나옵니다. 제목이 나옵니다.</a></li>
+            	<c:forEach var="list" items="${wiki_result}" varStatus="status">
+		 			<li><a href="/wiki/view/${list.wikino}">${list.title}</a></li>
+				</c:forEach>
 			</ul>
-		</div> -->
-	
-		<!--     <div class="list-right"> -->
-<!--     	<div class="inblock"> -->
-<!--         	<button type="button" class="btn-blue">작성하기</button> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
+		</div>
+			
+		<div class="mywrit-con other" style="height: 220px;">
+        	<div class="mytitle">
+            	Tags<span class="more"><a href="/wiki/Help/m">+더보기</a></span>
+			</div>
+            <span class="ques-tag">
+            	<c:forEach var="list" items="${ tagsResult }" varStatus="status">
+					<a href="/wiki/view/${list.wikino}">${list.title}</a>
+				</c:forEach>
+			</span>
+		</div>
 
-
-		<ul class="tag-con mT40">
-		    
+		<%-- <ul class="tag-con mT40">
 			<c:forEach var="list" items="${tagsResult}" varStatus="status">
 			<li>
 		    	<div class="tag-title">
@@ -108,18 +117,11 @@ font-size: medium;
 						<font class="bold"><a href="/questions/list">${list.relatedcnt}</a></font>개의 질문들
 					</div>
 				</div>
-				${list.contents}
 				<div class="space">space</div>
 			</li>
-			
-	<!-- 						<div class="card-body col-12 ellipsis" style="height: 100px;"> -->
-	<!-- 						</div> -->
-				</c:forEach>
-				
-				
-	    </ul>
+			</c:forEach>
+	    </ul> --%>
 	</div>
-               
 </div>
 
 

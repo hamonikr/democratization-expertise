@@ -30,6 +30,7 @@ import com.de.question.Questions;
 import com.de.user.Users;
 import com.de.user.UsersDetail;
 import com.de.wiki.Wiki;
+import com.de.wiki.service.WikiService;
 
 
 /**
@@ -62,6 +63,9 @@ public class EnterprisesController {
 
 	@Autowired
 	AnswersService answService;
+
+	@Autowired
+	WikiService wikiService;
 
 	@Autowired
 	EnterprisesRepository repository;
@@ -115,8 +119,8 @@ public class EnterprisesController {
 
 		// 답변
 		System.out.println("==========답변================");
-		int aCnt = service.cntAnswerById(seq);
-		Page<Answers> aList = service.findAnswerByUserno(seq);
+//		int aCnt = service.cntAnswerById(seq);
+//		Page<Answers> aList = service.findAnswerByUserno(seq);
 		Answers answVo = new Answers();
 		answVo.setUserno(seq);
 		List<Answers> answList = answService.getAnswerList(answVo);
@@ -129,14 +133,23 @@ public class EnterprisesController {
 		// 태그
 		System.out.println("==========태그================");
 		wVo.setSection("t");
-		int tCnt = service.cntTagAndWikiById(wVo);
-		List<Wiki> tList = service.findTagAndWikiByUserno(wVo);
+		wVo.setUserno(seq);
+		int tCnt = wikiService.getWikiListCntFromCom(wVo);
+		List<Wiki> tList = wikiService.getWikiListFromCom(wVo);
+
+//		int tCnt = service.cntTagAndWikiById(wVo);
+//		List<Wiki> tList = service.findTagAndWikiByUserno(wVo);
 
 		// 위키
 		System.out.println("==========위키================");
-		wVo.setSection("h");
-		int wCnt = service.cntTagAndWikiById(wVo);
-		List<Wiki> wList = service.findTagAndWikiByUserno(wVo);
+//		wVo.setSection("h");
+//		int wCnt = service.cntTagAndWikiById(wVo);
+//		List<Wiki> wList = service.findTagAndWikiByUserno(wVo);
+
+		wVo.setSection("w");
+		wVo.setUserno(seq);
+		int wCnt = wikiService.getWikiListCntFromCom(wVo);
+		List<Wiki> wList = wikiService.getWikiListFromCom(wVo);
 
 		vo.setUserat(0); // 승인 대기
 		List<Users> users = service.getMembersList(vo); // 승인 대기 회원 목록
@@ -150,8 +163,6 @@ public class EnterprisesController {
 		users = service.getMembersList(vo); // 비활성 회원 목록
 		model.addAttribute("unatusers", users);
 
-//		model.addAttribute("enterpriseno", seq);	// 페이지 번호
-
 		model.addAttribute("enterprise", enterprises.orElse(null)); // 프로필 정보
 		model.addAttribute("isMypage", isUserNo); // 내 정보 유무
 
@@ -162,8 +173,6 @@ public class EnterprisesController {
 
 		model.addAttribute("aCnt", answCnt); // 답변 전체 수
 		model.addAttribute("aList", answList); // 답변 목록
-//		model.addAttribute("aCnt", aCnt); // 답변 전체 수
-//		model.addAttribute("aList", aList.getContent()); // 답변 목록
 
 		model.addAttribute("tCnt", tCnt); // 태그 전체 수
 		model.addAttribute("tList", tList); // 태그 목록
