@@ -24,9 +24,9 @@ public class PostMail {
 		//UUID authkey = UUID.randomUUID();
 
 		String host = "smtp.gmail.com";
-		String subject = "[DE-COMMUNITY] 임시비밀번호를 발급해드렸습니다."; // 제목
+		String subject = "[ASKOS] 임시비밀번호를 발급해드렸습니다."; // 제목
 		String from = "ivsnoti@gmail.com"; // 보내는 메일
-		String fromName = "decoummunity-support"; // 보낸 사람 표기
+		String fromName = "askos-support-team"; // 보낸 사람 표기
 		String toMail = vo.getUseremail();
 		
 		System.out.println("email check=====> " +vo.getUseremail());
@@ -38,8 +38,8 @@ public class PostMail {
 			String content = "";
 
 
-			content +="<div width=\"100%\" style=\"margin:0;padding:0!important;background:#f3f3f5\">\n" + 
-					"	<center style=\"width:100%;background:#f3f3f5\">\n" + 
+			content +="<div width=\"100%\" style=\"margin:0;padding:0!important;background:#2d096a\">\n" + 
+					"	<center style=\"width:100%;background:#2d096a\">\n" + 
 					"	\n" + 
 					"		<div lang=\"en\" class=\"m_8620233955104042548email-container\" style=\"max-width:680px;margin:0 auto\">\n" + 
 					"			\n" + 
@@ -48,14 +48,13 @@ public class PostMail {
 					"            <tr>\n" + 
 					"              <td style=\"padding:20px 30px;text-align:left\">\n" + 
 					"                <a href=\"http://localhost:8080\" target=\"_blank\" data-saferedirecturl=\"https://www.google.com/url?http://localhost:8080\">\n" + 
-					"        			<img src=\"https://i.ibb.co/LJFGhB4/Hamoni-KR-logo600.png\" alt=\"DE-COMMUNITY\" border=\"0\" style=\"font-family:arial,sans-serif;font-size:15px;line-height:15px;\" height=\"30\" width=\"30\"> \n" + 					         
-					"					<img src=\"https://i.ibb.co/vD8NWMB/DE-COMMUNITY.png\" alt=\"DE-COMMUNITY-1\" border=\"0\" width=\"180\" height=\"25\">\n"+
+					"					<img src=\"https://i.ibb.co/1RkrgYC/logo.png\" alt=\"logo\" border=\"0\" style=height=\"\"30\" width=\"150\">\n"+
 					"                </a>\n" + 
 					"            </td>\n" + 
 					"          </tr>\n" + 
 					"				\n" + 
 					"          <tr>\n" + 
-					"            <td style=\"padding:30px;background-color:#ffffff;font-family:arial,sans-serif;font-size:15px;line-height:21px;text-align:left\" >\n" + 
+					"            <td style=\"padding:30px;background-color:#E6E6FA;font-family:arial,sans-serif;font-size:15px;line-height:21px;text-align:left\" >\n" + 
 					"              <p style=\"margin:0 0 24px 0\">\n" + 
 					"               비밀번호 재설정\n" + 
 					"              </p>\n" + 
@@ -77,7 +76,7 @@ public class PostMail {
 					" 				\n"+ 				
 					" 				\n"+ 	
 					"				<p style=\"margin:0 0 15px 0\">" +
-				    "				– DE-COMMUNITY 드림\n" + 										 
+				    "				– ASKOS팀 드림\n" + 										 
 					"         	    </p>\n" +	
 					"             </p>\n" + 
 				
@@ -103,8 +102,7 @@ public class PostMail {
 					"            </tr>\n" + 
 					"            <tr>\n" + 
 					"              <td style=\"padding-bottom:5px;text-align:left\">\n" + 
-					"                <img src=\"https://i.ibb.co/LJFGhB4/Hamoni-KR-logo600.png\" alt=\"DE-COMMUNITY\" border=\"0\" width=\"20\" height=\"20\">" + 
-					"					<img src=\"https://i.ibb.co/vD8NWMB/DE-COMMUNITY.png\" alt=\"DE-COMMUNITY-1\" border=\"0\" width=\"90\" height=\"12\">\n"+
+					"					<img src=\"https://i.ibb.co/1RkrgYC/logo.png\" alt=\"logo\" border=\"0\" style=height=\"\"15\" width=\"100\">\n"+
 					"              </td>\n" + 
 					"              </tr>\n" + 
 					"            <tr>\n" + 
