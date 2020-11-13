@@ -12,7 +12,9 @@ import com.de.wiki.WikiHistory;
 @Mapper
 public interface WikiMapper {
 
-	public List<Wiki> getWikiList(String section) throws Exception;
+	public List<Wiki> getWikiList(Wiki vo) throws Exception;
+
+	public int getWikiListCount(Wiki vo) throws Exception;
 
 	public Wiki getView(int wikino) throws Exception;
 

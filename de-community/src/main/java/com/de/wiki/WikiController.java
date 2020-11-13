@@ -3,19 +3,26 @@ package com.de.wiki;
 
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.de.cmmn.CmmnMap;
 import com.de.login.vo.LoginVO;
 import com.de.question.QuestionsService;
 import com.de.wiki.service.WikiService;
+
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 
 @Controller
@@ -37,18 +44,25 @@ public class WikiController {
 		}
 
 		// fna list
-		List<Wiki> fna_list = service.getWikiList("h");
+		vo.setSection("h");
+		vo.setFirstRecordIndex(0);
+		vo.setRecordCountPerPage(10);
+
+		List<Wiki> fna_list = service.getWikiList(vo);
 		model.addAttribute("result", fna_list);
 
 		// MENUAL list
-		List<Wiki> menual_list = service.getWikiList("m");
+		vo.setSection("m");
+		List<Wiki> menual_list = service.getWikiList(vo);
 		model.addAttribute("menual_result", menual_list);
 
 		// tag
-		List<Wiki> get_list = service.getWikiList("t");
+		vo.setSection("t");
+		List<Wiki> get_list = service.getWikiList(vo);
 
 		// wiki
-		List<Wiki> wiki_list = service.getWikiList("w");
+		vo.setSection("w");
+		List<Wiki> wiki_list = service.getWikiList(vo);
 		model.addAttribute("wiki_result", wiki_list);
 
 		int[] tagno_cnt = new int[get_list.size()];
@@ -64,17 +78,33 @@ public class WikiController {
 
 
 	@RequestMapping("/Help/{gubun}")
-	public String helplist(HttpServletRequest request, LoginVO user, Wiki vo, Model model,
-			@PathVariable("gubun") String gubun, HttpSession httpSession) throws Exception {
-		// System.out.println("---wiki view---");
-		user = (LoginVO) httpSession.getAttribute("userSession");
-		vo.setSection("h");
-		// fna list
-		List<Wiki> fna_list = service.getWikiList(gubun);
-		model.addAttribute("result", fna_list);
-		model.addAttribute("gubun", gubun);
+	public String helplist(@RequestParam Map<String, String> params, @PageableDefault Pageable pageable, Wiki vo,
+			Model model, @PathVariable("gubun") String gubun, HttpSession httpSession) throws Exception {
 
-		// etc list
+//		vo.setSection("h");
+
+		CmmnMap param = new CmmnMap();
+		param.putAll(params);
+
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(param.getInt("pageNo") > 0 ? param.getInt("pageNo") : 1); // 현재 페이지 번호
+		paginationInfo.setRecordCountPerPage(30); // 한 페이지에 게시되는 게시물 건수
+		paginationInfo.setPageSize(5); // 페이징 리스트의 사이즈
+
+		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
+		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
+
+		vo.setFirstRecordIndex(firstRecordIndex);
+		vo.setRecordCountPerPage(recordCountPerPage);
+		vo.setSection(gubun);
+		// fna list
+		List<Wiki> fna_list = service.getWikiList(vo);
+		int fna_cnt = service.getWikiListCount(vo);
+
+		model.addAttribute("result", fna_list);
+		model.addAttribute("fna_cnt", fna_cnt);
+		model.addAttribute("gubun", gubun);
+		model.addAttribute("paginationInfo", paginationInfo);
 
 		return "/wiki/HelpList";
 	}
@@ -83,16 +113,10 @@ public class WikiController {
 	@RequestMapping("/view/{wikino}")
 	public String view(HttpServletRequest request, @PathVariable("wikino") int wikino, LoginVO user, Model model,
 			HttpSession httpSession) throws Exception {
-		System.out.println("---wiki view---");
+
 		user = (LoginVO) httpSession.getAttribute("userSession");
-//		if(user!=null) {
-//			System.out.println("user id -->" +user.getUserid());
-//			System.out.println("user role -->" +user.getRole());
-//			System.out.println("wikino --->"  +wikino);
-//		}
 
 		Wiki wiki_view = service.getView(wikino);
-		System.out.println("section---?" + wiki_view.getSection());
 		model.addAttribute("result", wiki_view);
 
 		List<WikiHistory> history = service.getHistory(wikino);
@@ -102,10 +126,20 @@ public class WikiController {
 	}
 
 
+	@RequestMapping("/helpview/{wikino}/{gubun}")
+	public String helpview(HttpServletRequest request, @PathVariable("wikino") int wikino,
+			@PathVariable("gubun") String gubun, Model model, HttpSession httpSession) throws Exception {
+		System.out.println("gubun===" + gubun);
+		Wiki wiki_view = service.getView(wikino);
+		model.addAttribute("result", wiki_view);
+
+		return "/wiki/helpView";
+	}
+
+
 	@RequestMapping("/edit/{seq}")
 	public String historyView(HttpServletRequest request, @PathVariable("seq") int seq, LoginVO user, Model model,
 			HttpSession httpSession) throws Exception {
-		// System.out.println("---wiki view---");
 		user = (LoginVO) httpSession.getAttribute("userSession");
 		WikiHistory wiki_history_view = service.getHistoryView(seq);
 

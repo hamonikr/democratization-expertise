@@ -1,16 +1,22 @@
 package com.de.tag;
 
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.de.cmmn.CmmnMap;
 import com.de.wiki.Wiki;
 import com.de.wiki.service.WikiService;
+
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 
 @Controller
@@ -19,26 +25,41 @@ public class TagsController {
 
 	@Autowired
 	WikiService service;
-	
-	
+
 	@RequestMapping("/list")
-	public String tagslist(Wiki vo, Model model)throws Exception {
+	public String tagslist(@RequestParam Map<String, String> params, @PageableDefault Pageable pageable, Wiki vo,
+			Model model) throws Exception {
 		System.out.println("--------tag list 출력--------");
-		
-		List<Wiki> get_list = service.getWikiList("t");
-		//List <Integer> tagno_cnt= new ArrayList<>();
-		int [] tagno_cnt = new int[get_list.size()];
-		for(int i=0;i<get_list.size();i++) {
-			System.out.println(get_list.get(i).getWikino()+" : "+get_list.get(i).getTitle()+"\n : "+ get_list.get(i).getContents());			
+
+		CmmnMap param = new CmmnMap();
+		param.putAll(params);
+
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(param.getInt("pageNo") > 0 ? param.getInt("pageNo") : 1); // 현재 페이지 번호
+		paginationInfo.setRecordCountPerPage(30); // 한 페이지에 게시되는 게시물 건수
+		paginationInfo.setPageSize(5); // 페이징 리스트의 사이즈
+
+		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
+		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
+
+		System.out.println("firstRecordIndex==" + firstRecordIndex);
+		System.out.println("recordCountPerPage==" + recordCountPerPage);
+		vo.setFirstRecordIndex(firstRecordIndex);
+		vo.setRecordCountPerPage(recordCountPerPage);
+		vo.setSection("t");
+
+		List<Wiki> get_list = service.getWikiList(vo);
+
+		int[] tagno_cnt = new int[get_list.size()];
+		for (int i = 0; i < get_list.size(); i++) {
+			System.out.println(get_list.get(i).getWikino() + " : " + get_list.get(i).getTitle() + "\n : "
+					+ get_list.get(i).getContents());
 			tagno_cnt[i] = service.getWikiCount(get_list.get(i).getWikino());
-			System.out.println(get_list.get(i).getWikino()+" 번 태그가 포함된 질문 갯수-->" +tagno_cnt[i]);
-			System.out.println("-------------------------------------------------------------");
 			get_list.get(i).setRelatedcnt(tagno_cnt[i]);
 		}
-		
-		
+
 		model.addAttribute("result", get_list);
-		
+		model.addAttribute("paginationInfo", paginationInfo);
 		return "/tags/list";
 	}
 

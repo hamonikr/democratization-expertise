@@ -4,14 +4,22 @@
 <mapper namespace="com.de.wiki.mapper.WikiMapper">
 
 	<!-- 불러오기 -->
-	<select id="getWikiList" resultType="com.de.wiki.Wiki">
+	<select id="getWikiList" parameterType="com.de.wiki.Wiki" resultType="com.de.wiki.Wiki">
 		select *
 		from 
 			tb_wiki 
 		where
-			section=#{section} and deleteat=0 
-		order by registerdate asc
+			section=#{section} and deleteat=0
+		OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage} 
+	
 	</select>
+	
+	<select id="getWikiListCount"  parameterType="com.de.wiki.Wiki" resultType="java.lang.Integer">
+		select count(*) from tb_wiki
+		where
+			section=#{section} and deleteat=0
+	</select>
+	
 	
 	<select id="getView" parameterType="integer" resultType="com.de.wiki.Wiki">
 		select *
@@ -31,14 +39,27 @@
 	</select>
 	
 	<select id="getHistory" parameterType="integer" resultType="com.de.wiki.WikiHistory">
-		select
-			 a.*, b.username
-		from
-			 tb_wiki_history a left outer join tb_users b on a.userno = b.userno				
-		where
-			wikino = #{wikino}
-		
-	order by updatedate desc
+		SELECT
+		    ROW_NUMBER() OVER (
+		      PARTITION BY
+		        wikino
+		      ORDER BY
+		        seq asc
+		    ) as rowno
+		    ,b.seq
+		    ,b.wikino
+		    ,b.userno
+		    ,b.title
+		    ,b.contents
+		    ,b.registerdate
+		    ,b.updatedate
+		    , (select username from tb_users a where a.userno = b.userno  ) as usernm
+	  FROM
+	    public.tb_wiki_history b
+	  where
+	    b.wikino = #{wikino}
+	  order by
+	    rowno desc
 	
 	</select>
 	
