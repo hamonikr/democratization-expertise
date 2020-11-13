@@ -95,8 +95,6 @@ public class EnterprisesController {
 			}
 		}
 
-//		System.out.println("isUserNo=======+++" + loginUserData.getUserno());
-//		System.out.println("loginUserData.getUserno()=========+++++"+loginUserData.getEnterpriseno() );
 		Optional<Enterprises> enterprises = service.findByEnterpriseno(seq);
 		System.out.println("enterprises========+" + enterprises);
 		UsersDetail vo = new UsersDetail();
@@ -108,8 +106,6 @@ public class EnterprisesController {
 		if (score == null)
 			score = 0;
 
-		// 평판 그래프 데이터
-
 		// 질문
 		System.out.println("==========질문================");
 		Questions qVo = new Questions();
@@ -119,8 +115,6 @@ public class EnterprisesController {
 
 		// 답변
 		System.out.println("==========답변================");
-//		int aCnt = service.cntAnswerById(seq);
-//		Page<Answers> aList = service.findAnswerByUserno(seq);
 		Answers answVo = new Answers();
 		answVo.setUserno(seq);
 		List<Answers> answList = answService.getAnswerList(answVo);
@@ -131,21 +125,12 @@ public class EnterprisesController {
 		wVo.setUserno(seq);
 
 		// 태그
-		System.out.println("==========태그================");
 		wVo.setSection("t");
 		wVo.setUserno(seq);
 		int tCnt = wikiService.getWikiListCntFromCom(wVo);
 		List<Wiki> tList = wikiService.getWikiListFromCom(wVo);
 
-//		int tCnt = service.cntTagAndWikiById(wVo);
-//		List<Wiki> tList = service.findTagAndWikiByUserno(wVo);
-
 		// 위키
-		System.out.println("==========위키================");
-//		wVo.setSection("h");
-//		int wCnt = service.cntTagAndWikiById(wVo);
-//		List<Wiki> wList = service.findTagAndWikiByUserno(wVo);
-
 		wVo.setSection("w");
 		wVo.setUserno(seq);
 		int wCnt = wikiService.getWikiListCntFromCom(wVo);
@@ -154,16 +139,6 @@ public class EnterprisesController {
 		List<Users> usersAtStatus = service.getMembersList(vo); // 승인 대기 회원 목록
 		System.out.println("usersAtStatus=======+" + usersAtStatus);
 		model.addAttribute("usersAtStatus", usersAtStatus);
-
-		/*
-		 * vo.setUserat(0); // 승인 대기 List<Users> users = service.getMembersList(vo); // 승인 대기 회원 목록
-		 * model.addAttribute("users", users);
-		 * 
-		 * vo.setUserat(1); // 승인 users = service.getMembersList(vo); // 승인 회원 목록 model.addAttribute("atusers", users);
-		 * 
-		 * vo.setUserat(3); // 비활성 users = service.getMembersList(vo); // 비활성 회원 목록 model.addAttribute("unatusers",
-		 * users);
-		 */
 
 		model.addAttribute("enterprise", enterprises.orElse(null)); // 프로필 정보
 		model.addAttribute("isMypage", isUserNo); // 내 정보 유무
