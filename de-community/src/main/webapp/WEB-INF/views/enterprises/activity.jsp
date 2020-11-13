@@ -79,7 +79,7 @@
 		            	<p class="score">평판 : <span>${ score }</span></p>
 		                <p class="myinfo">현재레벨 : <span>1등</span> <br> 다음레벨 : <span>2등</span></p>
 		                <p class="myinfo"><span>+9999</span> <br> <span>-250</span> </p>
-		                <p class="myinfo">질문 : <span>456</span> <br> 답변 : <span>89</span></p>
+		                <p class="myinfo">질문 : <span>${ qCnt }</span> <br> 답변 : <span>${ aCnt }</span></p>
 					</li>
 				</ul>
 			</div>
