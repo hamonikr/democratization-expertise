@@ -44,14 +44,14 @@ WHERE
 </update>
 
 <update id="updateEnterprisePw" parameterType="com.de.enterprise.EnterprisePwVO">
-UPDATE
-	tb_enterprises
-SET
-	enterprisepassword = #{enterprisepasswordnew},
-	updatedate = now()
+UPDATE 
+    tb_users
+SET 
+    userpassword = #{enterprisepasswordnew},
+    updatedate = now()
 WHERE
-	enterpriseno = #{enterpriseno} and
-	enterprisepassword = #{enterprisepassword}
+    userno = (select userno from tb_users_detail where enterpriseno = #{enterpriseno})
+    AND userpassword = #{enterprisepassword}
 </update>
 
 <update id="updateEnterprisesimg" parameterType="com.de.enterprise.Enterprises">

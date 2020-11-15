@@ -59,10 +59,10 @@
 	<div class=" tab-pane fade active show con-box" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
 		<div class="profile-con">
 			<div class="profile-photo">
-				<c:if test="${user.userprofileimg != null}">
-					<img alt="profile" src="/upload/users/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
+				<c:if test="${enterprise.enterpriseimg != null && enterprise.enterpriseimg != ''}">
+					<img alt="profile" src="/upload/enterprises/${enterprise.enterpriseimg}" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
-				<c:if test="${user.userprofileimg == null}">
+				<c:if test="${enterprise.enterpriseimg == null || enterprise.enterpriseimg == ''}">
 					<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
 									
@@ -190,7 +190,7 @@
 				<input type="hidden" name="enterpriseno" value="${enterprise.enterpriseno}">
                 <div class="profile-photo">
                 	<c:if test="${enterprise.enterpriseimg != null && enterprise.enterpriseimg != ''}">
-						<img alt="profile" src="/upload/enterprise/${enterprise.enterpriseimg}" id="profileImg" class="img" width="100%"><br/>
+						<img alt="profile" src="/upload/enterprises/${enterprise.enterpriseimg}" id="profileImg" class="img" width="100%"><br/>
 					</c:if>
 					<c:if test="${enterprise.enterpriseimg == null || enterprise.enterpriseimg == ''}">
 						<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
@@ -262,10 +262,9 @@
 								</div>
 								<script class="code-js">
 									var editor = new toastui.Editor( { //new tui.Editor({
-										el: document.querySelector('#editSection'),
-										previewStyle: 'vertical',
-										height: '250px',
-										initialValue: content
+										el: document.querySelector('#editSection')
+										, previewStyle: 'vertical'
+										, height: '250px'
 									});
 								</script>
 							</c:if>
@@ -287,7 +286,7 @@
                   	</li>
 				</ul>
 				
-				<c:if test="${! isMypage }">
+				<c:if test="${ isMypage }">
 					<div class="mT30 txt-center"><button type="button" class="btn-blue">수정하기</button></div>
 				</c:if> 
                 
@@ -387,13 +386,13 @@
 
 		<div class="card-body" style="width:100%;">
 			<div class="input-group mb-3">
-				<input type="password" class="form-control" name="userpassword" placeholder="기존 비밀번호">
+				<input type="password" class="form-control" name="enterprisepassword" placeholder="기존 비밀번호">
 			</div>
 			<div class="input-group mb-3">
-				<input type="password" class="form-control" name="userpasswordnew" placeholder="새 비밀번호">
+				<input type="password" class="form-control" name="enterprisepasswordnew" placeholder="새 비밀번호">
 			</div>
 			<div class="input-group mb-3">
-				<input type="password" class="form-control" name="userpasswordnew2" placeholder="새 비밀번호 확인">
+				<input type="password" class="form-control" name="enterprisepasswordnew2" placeholder="새 비밀번호 확인">
 			</div>
 			<p id="popupPwAlter" class="popupPwAlter"></p>
 		</div>
@@ -421,7 +420,6 @@ $(function() {
 
 //비밀번호 팝업 열기/닫기
 function fnPopupPw(){
-  alert(1);
 	if('none' == $('#popupPw').css('display')) $('#popupPw').css('display', 'block');
 	else if('block' == $('#popupPw').css('display')) $('#popupPw').css('display', 'none');
 
