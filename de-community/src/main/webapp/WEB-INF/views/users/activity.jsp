@@ -95,14 +95,8 @@
 				연속로그인
 				<span class="level"><img src="/img/level_gold.png" alt=""></span>
 				</c:if>
-				<c:if test="${qCnt > 9 }">
-				질문왕
-				<span class="level"><img src="/img/level_gold.png" alt=""></span>
-				</c:if>
-				<c:if test="${aCnt > 5 }">
-				답변왕
-				<span class="level"><img src="/img/level_gold.png" alt=""></span>
-				</c:if>
+				<%@ include file="/WEB-INF/views/users/questioncount.jsp" %>
+				<%@ include file="/WEB-INF/views/users/answercount.jsp" %>
 				<span class="url">홈페이지:<a href="${user.userurl}" target="_blank">${user.userurl}</a></span>
 			</div>
 

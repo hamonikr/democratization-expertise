@@ -48,7 +48,7 @@ color: rgb(0,0,0);
 	<div class="list-right">
 		<div class="board-search inblock mR10 mT10">
 			<input type="text" name="searchtext" value="${vo.searchtext }" placeholder="Search">
-			<button type="button">
+			<button type="submit">
 				<i class="mdi mdi-magnify"></i>
 			</button>
 		</div>
