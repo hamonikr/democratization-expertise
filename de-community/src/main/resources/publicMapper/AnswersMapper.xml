@@ -99,6 +99,7 @@
 		end as is_accepted , body,0,answer_id::integer,ins_date,0,0,'A',0,0,0,0,0,'','','',0,'',score::integer 
 		FROM public.tbl_stack_answer) AA
 		where AA.questionno = #{questionno}
+		order by AA.registerdate desc
 	</select>
 	
 	<select id="getListCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">

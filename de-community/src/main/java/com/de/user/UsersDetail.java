@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -42,8 +43,27 @@ public class UsersDetail {
 	/* 회사 대표 계정 여부 : 일반:0, 대표:1, 하위:2 */
 	private Integer representat;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userno", insertable = false, updatable = false)
-	private Users users;
+	//@OneToOne(fetch = FetchType.LAZY)
+	//@MapsId
+	//@JoinColumn(name = "userno", insertable = false, updatable = false)
+//	@OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "userno", insertable = false, updatable = false)
+//	private Users users;
+	
+	
+	/* 연속 로그인 */
+	private Integer logindays;
+	
+	/* 등록 질문 */
+	private Integer questioncount;
+	
+	/* 등록 위키 */
+	private Integer wikicount;
+	
+	/* 등록 답변 */
+	private Integer answercount;
+	
+	/* 답변 채택 */
+	private Integer selectedcount;
 
 }

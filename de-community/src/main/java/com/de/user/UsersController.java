@@ -57,19 +57,20 @@ public class UsersController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/activity/{seq}")
-	public String dashboard(Model model, @PathVariable("seq") int seq, HttpSession session, LoginVO loginUserData,
+	@RequestMapping(value = "/activity/{userno}")
+	public String dashboard(Model model, @PathVariable("userno") int userno, HttpSession session, LoginVO loginUserData,
 			HttpServletRequest request, HttpSession sessionloginUser) throws Exception {
 		request.getSession(false);
 		loginUserData = (LoginVO) session.getAttribute("userSession");
 
 		if (LOG_URL)
-			logger.info(" -- url : /users/activity - seq : " + seq);
+			logger.info(" -- url : /users/activity - seq : " + userno);
 
 		boolean isUserNo = false;
 
-		Optional<Users> users = usersService.findByUserno(seq);
-		System.out.println("seq users--->" + users.get().getUserno());
+		//Optional<Users> users = usersService.findByUserno(seq);
+		Users users = usersService.getView(userno);
+		System.out.println("seq users--->" + users.getUserno());
 
 		// System.out.println("loginUserData.getUserno()==?" + loginUserData.getUserno());
 //		System.out.println("loginUserData>>>>> " +loginUserData.getUserno());
@@ -85,7 +86,7 @@ public class UsersController {
 			isUserNo = false;
 
 		} else {
-			if (loginUserData.getUserno() == users.get().getUserno()) {
+			if (loginUserData.getUserno() == users.getUserno()) {
 				isUserNo = true;
 			}
 		}
@@ -93,10 +94,10 @@ public class UsersController {
 		System.out.println("isUserNo : " + isUserNo);
 
 		// Optional<Enterprises> enterprise = usersService.findEnterpriseno(seq);
-		Enterprises enterprise = usersService.findEnterpriseno(seq);
+		Enterprises enterprise = usersService.findEnterpriseno(userno);
 
 		// 평판점수
-		Integer score = usersService.getScore(seq);
+		Integer score = usersService.getScore(userno);
 		logger.info(" ---- score : " + score);
 		if (score == null)
 			score = 0;
@@ -104,16 +105,16 @@ public class UsersController {
 		// 평판 그래프 데이터
 
 		// 질문
-		int qCnt = usersService.cntQuestionsById(seq);
-		Page<Questions> qList = usersService.findQuestionsByUserno(seq);
+		int qCnt = usersService.cntQuestionsById(userno);
+		Page<Questions> qList = usersService.findQuestionsByUserno(userno);
 
 		// 답변
-		int aCnt = usersService.cntAnswerById(seq);
-		Page<Answers> aList = usersService.findAnswerByUserno(seq);
+		int aCnt = usersService.cntAnswerById(userno);
+		Page<Answers> aList = usersService.findAnswerByUserno(userno);
 
 		// 태그 n 위키
 		Wiki vo = new Wiki();
-		vo.setUserno(seq);
+		vo.setUserno(userno);
 
 		// 태그
 		vo.setSection("t");
@@ -137,7 +138,7 @@ public class UsersController {
 		}
 
 		// System.out.println("1==========++"+ users.get().getUserprofileimg());
-		model.addAttribute("user", users.orElse(null)); // 프로필 정보
+		model.addAttribute("user", users); // 프로필 정보
 		model.addAttribute("isMypage", isUserNo); // 내 정보 유무
 		model.addAttribute("enterprise", enterprise); // 회사명 정보
 

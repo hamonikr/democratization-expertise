@@ -32,8 +32,8 @@ select a.* from (
 
 <select id="autoSearch" parameterType="com.de.cmmn.CmmnMap" resultType="com.de.cmmn.CmmnMap">
 
-select a.title from(select title from tb_questions union all 
-select title from tb_wiki) a where a.title is not null
+select a.title from(select title,contents from tb_questions union all 
+select title,contents from tb_wiki) a where upper(a.title) like '%' || upper(#{searchtxt}) || '%' or upper(a.contents) like '%' || upper(#{searchtxt}) || '%'
 
 </select>
 

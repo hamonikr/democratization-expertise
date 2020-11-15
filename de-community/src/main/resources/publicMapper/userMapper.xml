@@ -11,6 +11,13 @@
 	<result column="section" property="section"/>
 </resultMap>
 
+<resultMap type="com.de.user.UsersDetail" id="UsersDetail">
+	<result column="userat" property="userat"/>
+	<result column="activeat" property="activeat"/>
+	<result column="representat" property="representat"/>
+	<result column="logindays" property="logindays"/>
+</resultMap>
+
 <resultMap type="com.de.user.Users" id="Users">
 	<result column="userno" property="userno"/>
 	<result column="role" property="role"/>
@@ -31,6 +38,7 @@
 	<result column="firstRecordIndex" property="firstRecordIndex"/>
 	<result column="recordCountPerPage" property="recordCountPerPage"/>
 	<collection property="score" resultMap="Score"/>
+	<collection property="usersDetail" resultMap="UsersDetail"/>
 </resultMap>
 
 	<sql id="listWhere">
@@ -64,6 +72,16 @@
 		<include refid="listWhere" />
 		</where>
 		</if>
+	</select>
+	
+	<select id="getView" parameterType="com.de.user.Users" resultMap="Users">
+		select 
+		a.*
+		,b.*
+		from tb_users a left outer join tb_users_detail b on a.userno = b.userno
+		<where>
+		a.userno = #{userno}
+		</where>
 	</select>
 
 
@@ -208,7 +226,15 @@ SELECT COUNT(*) FROM tb_users where userid=#{userid}
 </select>
 
 <insert id="socialUserSave" parameterType="com.de.cmmn.CmmnMap">
-INSERT INTO tb_users (userid,username,picture,role) values(#{userid},#{username},#{picture},#{role})
+	<selectKey keyProperty="userno" resultType="Integer" order="AFTER">
+    select userno FROM tb_users WHERE userid = #{userid} and username = #{username}
+  </selectKey>
+  WITH rows AS (
+INSERT INTO tb_users (userid,username,picture,role,registerdate) values(#{userid},#{username},#{picture},#{role},now())
+RETURNING userno
+)
+insert into tb_users_detail (userno)
+select userno from rows
 </insert>
 
 <sql id="where_getScoregraph1">
@@ -284,5 +310,31 @@ SELECT
 		+ COALESCE(( SELECT count(*) * 8 FROM tb_answers WHERE <include refid="where_getScoregraph6"/> ), 0)
 	AS TEXT)
 </select>
+
+<select id="loginCheck" parameterType="com.de.cmmn.CmmnMap" resultType="Integer">
+select count(*) from tb_login_history where userid=#{userid} and logintime::date = now()::date -1
+</select>
+<update id="updateLoginDays" parameterType="com.de.cmmn.CmmnMap">
+update tb_users_detail set logindays = 
+<if test="lcnt > 0 ">
+logindays+1
+</if>
+<if test="lcnt == 0 ">
+1
+</if>
+where userno = #{userno}
+</update>
+<update id="updateQuestionCount" parameterType="com.de.cmmn.CmmnMap">
+update tb_users_detail set questioncount = questioncount +1 where userno = #{userno}
+</update>
+<update id="updateAnswerCount" parameterType="com.de.cmmn.CmmnMap">
+update tb_users_detail set answercount = answercount +1 where userno = #{userno}
+</update>
+<update id="updateSelectedCount" parameterType="com.de.cmmn.CmmnMap">
+update tb_users_detail set selectedcount = selectedcount +1 where userno = #{userno}
+</update>
+<update id="updateWikiCount" parameterType="com.de.cmmn.CmmnMap">
+update tb_users_detail set wikicount = wikicount +1 where userno = #{userno}
+</update>
 
 </mapper>
