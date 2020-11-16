@@ -51,7 +51,9 @@ SET
     updatedate = now()
 WHERE
     userno = (select userno from tb_users_detail where enterpriseno = #{enterpriseno})
-    AND userpassword = #{enterprisepassword}
+    /*+
+   AND userpassword = # {enterprisepassword}
+    */
 </update>
 
 <update id="updateEnterprisesimg" parameterType="com.de.enterprise.Enterprises">
@@ -169,33 +171,33 @@ LIMIT 5
 
 <sql id="where_getScoregraph1">
 userno = #{item.userno}
-and registerdate <![CDATA[ < ]]> to_date(to_char(now(), 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
-and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '1 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
+and registerdate <![CDATA[ < ]]> to_date(to_char(now(), 'YYYY-MM-01') || ' 00:00:00.000', 'YYYY-MM-31')
+and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '1 month'::interval, 'YYYY-MM-01') || ' 00:00:00.000', 'YYYY-MM-31')
 </sql>
 <sql id="where_getScoregraph2">
 userno = #{item.userno}
-and registerdate <![CDATA[ < ]]>  to_date(to_char(now() - '1 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
-and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '2 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
+and registerdate <![CDATA[ < ]]>  to_date(to_char(now() - '1 month'::interval, 'YYYY-MM-01') || ' 00:00:00.000', 'YYYY-MM-31')
+and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '2 month'::interval, 'YYYY-MM-01') || ' 00:00:00.000', 'YYYY-MM-31')
 </sql>
 <sql id="where_getScoregraph3">
 userno = #{item.userno}
-and registerdate <![CDATA[ < ]]>  to_date(to_char(now() - '2 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
-and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '3 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
+and registerdate <![CDATA[ < ]]>  to_date(to_char(now() - '2 month'::interval, 'YYYY-MM-01') || ' 00:00:00.000', 'YYYY-MM-31')
+and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '3 month'::interval, 'YYYY-MM-01') || ' 00:00:00.000', 'YYYY-MM-31')
 </sql>
 <sql id="where_getScoregraph4">
 userno = #{item.userno}
-and registerdate <![CDATA[ < ]]>  to_date(to_char(now() - '3 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
-and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '4 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
+and registerdate <![CDATA[ < ]]>  to_date(to_char(now() - '3 month'::interval, 'YYYY-MM-01') || ' 00:00:00.000', 'YYYY-MM-31')
+and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '4 month'::interval, 'YYYY-MM-01') || ' 00:00:00.000', 'YYYY-MM-31')
 </sql>
 <sql id="where_getScoregraph5">
 userno = #{item.userno}
-and registerdate <![CDATA[ < ]]>  to_date(to_char(now() - '4 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
-and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '5 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
+and registerdate <![CDATA[ < ]]>  to_date(to_char(now() - '4 month'::interval, 'YYYY-MM-01') || ' 00:00:00.000', 'YYYY-MM-31')
+and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '5 month'::interval, 'YYYY-MM-01') || ' 00:00:00.000', 'YYYY-MM-31')
 </sql>
 <sql id="where_getScoregraph6">
 userno = #{item.userno}
-and registerdate <![CDATA[ < ]]>  to_date(to_char(now() - '5 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
-and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '6 month'::interval, 'YYYY-MM-DD') || ' 00:00:00.000', 'YYYY-MM-DD')
+and registerdate <![CDATA[ < ]]>  to_date(to_char(now() - '5 month'::interval, 'YYYY-MM-01') || ' 00:00:00.000', 'YYYY-MM-31')
+and registerdate <![CDATA[ >= ]]>  to_date(to_char(now() - '6 month'::interval, 'YYYY-MM-01') || ' 00:00:00.000', 'YYYY-MM-31')
 </sql>
 
 <select id="getScoregraph" parameterType="com.de.user.Users" resultType="String">

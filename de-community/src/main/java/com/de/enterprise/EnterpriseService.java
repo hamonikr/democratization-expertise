@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -98,6 +99,10 @@ public class EnterpriseService {
 		Optional<Enterprises> e = er.findById(vo.getEnterpriseno());
 
 		if (e.isPresent()) {
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			//vo.setEnterprisepassword(passwordEncoder.encode(vo.getEnterprisepassword()));
+			vo.setEnterprisepasswordnew(passwordEncoder.encode(vo.getEnterprisepasswordnew()));
+			
 			int check = em.updateEnterprisePw(vo);
 			if (check == 1)
 				updateVal = true;

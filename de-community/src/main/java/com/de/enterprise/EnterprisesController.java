@@ -264,15 +264,6 @@ public class EnterprisesController {
 
 		vo.setEnterpriseno(loginUserData.getEnterpriseno());
 		
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		System.out.println(" ---- session pw : " + loginUserData.getUserpassword());
-		System.out.println(" ---- vo ---- pw : " + vo.getEnterprisepassword());
-		System.out.println(" ---- vo ---- pw : " + passwordEncoder.encode(vo.getEnterprisepassword()));
-		System.out.println(" ---- vo ---- pw : " + passwordEncoder.encode(vo.getEnterprisepasswordnew()));
-		
-		vo.setEnterprisepassword(passwordEncoder.encode(vo.getEnterprisepassword()));
-		vo.setEnterprisepasswordnew(passwordEncoder.encode(vo.getEnterprisepasswordnew()));
-
 		boolean updateVal = service.updateEnterprisePw(vo);
 
 		if (updateVal)

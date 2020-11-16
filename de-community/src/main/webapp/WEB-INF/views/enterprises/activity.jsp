@@ -42,15 +42,12 @@
 		<li class="nav-item">
 			<a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true">Activity</a>
 		</li>
-             	<li class="nav-item">
-             		<a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">Profile</a>
+		<li class="nav-item">
+			<a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">Profile</a>
 		</li>
 		<li class="nav-item">
 		   	<a class="nav-link" id="custom-tabs-three-members-tab" data-toggle="pill" href="#custom-tabs-three-members" role="tab" aria-controls="custom-tabs-three-members" aria-selected="false">Members</a>
-           		<c:if test="${ isMypage }">
-			   	<a class="nav-link" id="custom-tabs-three-members-tab" data-toggle="pill" href="#custom-tabs-three-members" role="tab" aria-controls="custom-tabs-three-members" aria-selected="false">Members</a>
-			</c:if>
-           	</li>
+		</li>
 	</ul>
 	
 	
@@ -287,7 +284,9 @@
 				</ul>
 				
 				<c:if test="${ isMypage }">
-					<div class="mT30 txt-center"><button type="button" class="btn-blue">수정하기</button></div>
+					<div class="mT30 txt-center">
+						<button type="button" id="btnUpdate" class="btn-blue">수정하기</button>
+					</div>
 				</c:if> 
                 
 			</form>
