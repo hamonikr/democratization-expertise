@@ -21,8 +21,8 @@
                     <div class="control-indicator"></div>
                   </label>
                 </li>
-                <li><label>아이디</label><input type="text" id="username" name="username" value="ryan" placeholder="아이디를 입력해주세요" maxlength="20" class="input-type1"></li>
-                <li><label>비밀번호</label><input type="password" id="password" name="password" value="exitem0*" placeholder="비밀번호를 입력해주세요" maxlength="20" class="input-type1"></li>
+                <li><label>아이디</label><input type="text" id="username" name="username" value="testCom" placeholder="아이디를 입력해주세요" maxlength="20" class="input-type1"></li>
+                <li><label>비밀번호</label><input type="password" id="password" name="password" value="test1234" placeholder="비밀번호를 입력해주세요" maxlength="20" class="input-type1"></li>
                 <li><button type="submit" class="btn-blue">로그인</button></li>
               </ul>
               <ul class="login-in2">

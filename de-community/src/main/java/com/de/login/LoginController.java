@@ -74,6 +74,7 @@ public class LoginController {
 		}else {
 			System.out.println("fail");
 		}
+		
 		//연속 로그인 체크
 		CmmnMap param = new CmmnMap();
 		param.put("userid", user.getUserid());
@@ -86,7 +87,8 @@ public class LoginController {
 		// 유저가 회사계정이냐 일반 유저이냐에 따라 프로필 페이지 변경
 		vo = service.getUserInfo(user.getUserid());
 		System.out.println("대표 유저 여부==?? "+vo.getRepresentat());
-		
+		System.out.println("회사이름 ==?? "+vo.getEnterprisename());
+
 		session.setAttribute("userSession", vo);
 		model.addAttribute("loginUser", user);
 		

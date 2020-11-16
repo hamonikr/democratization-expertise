@@ -108,8 +108,15 @@
 				</c:if>
 					<span class="alarm">알람</span> 
 					<span class="level"><img src="/img/level_gold.png" alt="" /></span>
-					<a href="/users/activity/${userSession.userno}">${userSession.username }</a></li>
-
+					<c:choose>
+						<c:when test="${userSession.representat == 1}">
+							<a href="/enterprises/activity/${userSession.enterpriseno}">${userSession.enterprisename }</a>
+						</c:when>
+						<c:otherwise>
+							<a href="/users/activity/${userSession.userno}">${userSession.username }</a>
+						</c:otherwise>
+					</c:choose>
+					
 				<li><a href="#">Help</a></li>
 
 				<li>
