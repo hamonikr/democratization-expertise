@@ -80,12 +80,9 @@ color: rgb(0,0,0);
 				
 			</ul>
 		</div>
-		
-		
-		
-
-
 	</form>
+	<!-- page number -->
+	<jsp:include page="/WEB-INF/views/include/paging.jsp" />
 </div>
 
 

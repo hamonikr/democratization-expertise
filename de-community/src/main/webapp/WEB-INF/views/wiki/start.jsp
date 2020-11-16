@@ -88,18 +88,18 @@ font-size: medium;
 		
 		<div class="mywrit-con" style="height: 220px;">
         	<div class="mytitle">
-            	Wiki<span class="more"><a href="/wiki/Help/h">+더보기</a></span>
+            	Wiki<span class="more"><a href="/wiki/Help/w">+더보기</a></span>
 			</div>
             <ul>
             	<c:forEach var="list" items="${wiki_result}" varStatus="status">
-		 			<li><a href="/wiki/view/${list.wikino}">${list.title}</a></li>
+		 			<li><a href="/wiki/view/${list.wikino}/w">${list.title}</a></li>
 				</c:forEach>
 			</ul>
 		</div>
 			
 		<div class="mywrit-con other" style="height: 220px;">
         	<div class="mytitle">
-            	Tags<span class="more"><a href="/wiki/Help/m">+더보기</a></span>
+            	Tags<span class="more"><a href="/tags/list">+더보기</a></span>
 			</div>
             <span class="ques-tag">
             	<c:forEach var="list" items="${ tagsResult }" varStatus="status">

@@ -32,8 +32,14 @@ public class WikiService {
 
 
 	// helps 불러오기
-	public List<Wiki> getWikiList(String section) throws Exception {
-		return mapper.getWikiList(section);
+	public List<Wiki> getWikiList(Wiki vo) throws Exception {
+		return mapper.getWikiList(vo);
+	}
+
+
+	// helps 불러오기
+	public int getWikiListCount(Wiki vo) throws Exception {
+		return mapper.getWikiListCount(vo);
 	}
 
 

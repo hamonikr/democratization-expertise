@@ -51,8 +51,8 @@
 					</c:if>
                   </a>
                   <span class="name"><a href="/enterprises/activity/${list.enterpriseno}">${list.enterprisename}</a></span>
-                  <span class="reputation">${list.enterpriseno }</span>
-                  <span class="tag">javascript, c#, debugging</span>
+<%--                   <span class="reputation">${list.enterpriseno }</span> --%>
+                  <span class="tag">활동지역 : ${list.enterprisearea }</span>
                 </li>
 				</c:forEach>
 			</ul>

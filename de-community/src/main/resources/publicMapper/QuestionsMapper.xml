@@ -170,7 +170,15 @@
 		<include refid="listWhere" />
 		</if>
 		</where>
-		union all select count(*) as cnt from tbl_stack_question) AA
+		union all select count(*) as cnt from tbl_stack_question
+		<where>
+		<if test="searchtext != null and searchtext != ''">
+		(title like '%' || #{searchtext} || '%' 
+		or
+		body like '%' || #{searchtext} || '%')
+		</if>
+		</where>
+		) AA
 	</select>
 	
 	<select id="getView" parameterType="integer" resultMap="Questions">

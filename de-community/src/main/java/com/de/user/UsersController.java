@@ -16,7 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,34 +57,36 @@ public class UsersController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/activity/{seq}")
-	public String dashboard(Model model, @PathVariable("seq") int seq, HttpSession session, LoginVO loginUserData , HttpServletRequest request,HttpSession sessionloginUser) throws Exception {
+	@RequestMapping(value = "/activity/{userno}")
+	public String dashboard(Model model, @PathVariable("userno") int userno, HttpSession session, LoginVO loginUserData,
+			HttpServletRequest request, HttpSession sessionloginUser) throws Exception {
 		request.getSession(false);
 		loginUserData = (LoginVO) session.getAttribute("userSession");
 
 		if (LOG_URL)
-			logger.info(" -- url : /users/activity - seq : " + seq);
+			logger.info(" -- url : /users/activity - seq : " + userno);
 
 		boolean isUserNo = false;
 
-		Optional<Users> users = usersService.findByUserno(seq);
-		System.out.println("seq users--->" + users.get().getUserno());
+		//Optional<Users> users = usersService.findByUserno(seq);
+		Users users = usersService.getView(userno);
+		System.out.println("seq users--->" + users.getUserno());
 
 		// System.out.println("loginUserData.getUserno()==?" + loginUserData.getUserno());
 //		System.out.println("loginUserData>>>>> " +loginUserData.getUserno());
 
 		System.out.println("sessionloginUser--> " + sessionloginUser.getAttribute("userSession"));
 
-		//LoginVO lvo = (LoginVO) sessionloginUser.getAttribute("userSession");
+		// LoginVO lvo = (LoginVO) sessionloginUser.getAttribute("userSession");
 
-		System.out.println("loginUserData : "+loginUserData);
-	//	System.out.println("loginUserData : "+loginUserData.getUserno());
-		
+		System.out.println("loginUserData : " + loginUserData);
+		// System.out.println("loginUserData : "+loginUserData.getUserno());
+
 		if (loginUserData == null) {
 			isUserNo = false;
 
 		} else {
-			if (loginUserData.getUserno() == users.get().getUserno()) {
+			if (loginUserData.getUserno() == users.getUserno()) {
 				isUserNo = true;
 			}
 		}
@@ -93,10 +94,10 @@ public class UsersController {
 		System.out.println("isUserNo : " + isUserNo);
 
 		// Optional<Enterprises> enterprise = usersService.findEnterpriseno(seq);
-		Enterprises enterprise = usersService.findEnterpriseno(seq);
+		Enterprises enterprise = usersService.findEnterpriseno(userno);
 
 		// 평판점수
-		Integer score = usersService.getScore(seq);
+		Integer score = usersService.getScore(userno);
 		logger.info(" ---- score : " + score);
 		if (score == null)
 			score = 0;
@@ -104,16 +105,16 @@ public class UsersController {
 		// 평판 그래프 데이터
 
 		// 질문
-		int qCnt = usersService.cntQuestionsById(seq);
-		Page<Questions> qList = usersService.findQuestionsByUserno(seq);
+		int qCnt = usersService.cntQuestionsById(userno);
+		Page<Questions> qList = usersService.findQuestionsByUserno(userno);
 
 		// 답변
-		int aCnt = usersService.cntAnswerById(seq);
-		Page<Answers> aList = usersService.findAnswerByUserno(seq);
+		int aCnt = usersService.cntAnswerById(userno);
+		Page<Answers> aList = usersService.findAnswerByUserno(userno);
 
 		// 태그 n 위키
 		Wiki vo = new Wiki();
-		vo.setUserno(seq);
+		vo.setUserno(userno);
 
 		// 태그
 		vo.setSection("t");
@@ -137,7 +138,7 @@ public class UsersController {
 		}
 
 		// System.out.println("1==========++"+ users.get().getUserprofileimg());
-		model.addAttribute("user", users.orElse(null)); // 프로필 정보
+		model.addAttribute("user", users); // 프로필 정보
 		model.addAttribute("isMypage", isUserNo); // 내 정보 유무
 		model.addAttribute("enterprise", enterprise); // 회사명 정보
 
@@ -158,24 +159,6 @@ public class UsersController {
 
 		return "/users/activity";
 	}
-
-//	/**
-//	 * 사용자 목록
-//	 * @param model
-//	 * @param pageable
-//	 * @return
-//	 * @throws Exception
-//	 */
-//	@RequestMapping(value="/list")
-//	public String userList(@RequestParam Map<String, String> params,  Model model, @PageableDefault Pageable pageable) throws Exception {
-//		if(LOG_URL) logger.info(" -- url : /users/list - pageable : " + pageable);
-//		Page<Users> list = usersService.findAll(pageable);
-//		
-//		model.addAttribute("paging", list);
-//		model.addAttribute("data", list.getContent());
-//		
-//		return "/users/list";
-//	}
 
 
 	/**
@@ -226,15 +209,14 @@ public class UsersController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/profile/{seq}", method = RequestMethod.GET)
-	public String modify(Model model, @PathVariable("seq") int seq, HttpSession session, LoginVO loginUserData) throws Exception {
+	public String modify(Model model, @PathVariable("seq") int seq, HttpSession session, LoginVO loginUserData)
+			throws Exception {
 		loginUserData = (LoginVO) session.getAttribute("userSession");
 		if (LOG_URL)
 			logger.info(" -- url : /users/profile - seq : " + seq);
 
 		boolean isUserNo = false;
-		
-		
-		
+
 		Optional<Users> user = usersService.findByUserno(seq);
 		// Optional<Enterprises> enterprise = usersService.findEnterpriseno(seq);
 		Enterprises enterprise = usersService.findEnterpriseno(seq);
@@ -288,7 +270,8 @@ public class UsersController {
 	 */
 	@RequestMapping(value = "/modifyPw", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> modifyPassword(Model model, UserPwVO vo, @AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
+	public HashMap<String, Object> modifyPassword(Model model, UserPwVO vo,
+			@AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
 		if (LOG_URL)
 			logger.info(" -- url : /users/modify - UserPwVO : " + vo);
 
@@ -300,11 +283,11 @@ public class UsersController {
 		System.out.println("pw? -- > newone : " + vo.getUserpasswordnew());
 
 		boolean updateVal = false;
-		
-		 updateVal = usersService.updateUserPw(vo);
-		 System.out.println("updateVal...?" + updateVal);
 
-		if (updateVal )
+		updateVal = usersService.updateUserPw(vo);
+		System.out.println("updateVal...?" + updateVal);
+
+		if (updateVal)
 			map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
 		else
 			map.put("message", CodeMessage.MSG_100009_비밀번호가_일치하지_않습니다__다시_확인해주세요_);

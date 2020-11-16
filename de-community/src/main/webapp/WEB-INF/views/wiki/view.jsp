@@ -1,192 +1,114 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
 
-<!-- tui editor-->
+<!-- tui chart -->
+<link rel="stylesheet" type="text/css" href="/tui-chart/tui-chart.css" />
+
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-<!-- Editor's Dependecy Style -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
-<!-- Editor's Style -->
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 
+
 <style>
-.tab-body{
-	background-color: #fff;
+.nav-tabs .nav-link.active {
+	font-weight: 500;
+    background: #2d096a;
+    color: #fff;
+    border: 1px solid #2d096a;
+    border-radius: 20px;
 }
 
-button {
-  background:none;
-  border:0;
-  outline:0;
-  cursor:pointer;
+.nav-tabs .nav-link {
+    border-radius: 20px;
 }
-.tab_menu_container {
-  display:flex;
+.nav-tabs {
+    border-bottom: 0;
 }
-.tab_menu_btn {
-  width:80px;
-  height:40px;
-  transition:0.3s all;
-}
-.tab_menu_btn.on {
-  border-top:2px solid #007bff;
-  font-weight:700;
-  color:#007bff;
-}
-.tab_menu_btn:hover {
-  color:#007bff;
-}
-.tab_box {
-  display:none;
-  padding:20px;
-}
-.tab_box.on {
-  display:block;
-}
-</style>
-<body>
-	<form id="frm" name="frm" method="post">
-		<!-- 스프링 시큐리티 form에 추가 해줘야함. -->
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-		<input type="hidden" name="wikino" id="wikino" value="${result.wikino}"/>					
-		<div class="col-12">       
-          	
-            <div class="card-primary card-outline card-outline-tabs" style="border-top: 0px solid #007bff;">             
-              <div class="card-header p-0 border-bottom-0">
-              		<br>
-              	<c:choose>
-              	 <c:when test="${empty history_view.title}">
-                   	<c:choose>
-              		 <c:when test="${result.section eq 't'}">
-              		    <div align="right">
-              		 		<a href="/tags/list">[목록으로 되돌아가기]</a>         		 		
-              		 	 </div>
-              		 </c:when>
-              		 <c:when test="${result.section eq 'h'}">
-              		    <div align="right">
-              		 		<a href="/wiki/Help/h">[목록으로 되돌아가기]</a>         		 		
-              		 	 </div>
-              		 </c:when>              		 
-              		 <c:when test="${result.section eq 'm'}">
-              		    <div align="right">
-              		 		<a href="/wiki/Help/m">[목록으로 되돌아가기]</a>         		 		
-              		 	 </div>
-              		 </c:when>
-              	 	<c:otherwise>
-	              	 	<div align="right">
-	              			<a href="/wiki/getStart">[위키 목록으로 되돌아가기]</a>
-	              		</div>
-              		</c:otherwise>
-              		</c:choose> 
-              	 	</c:when>
-              	
-              	<c:otherwise>
-              		<div align="right">
-              			<a href="/wiki/view/${history_view.wikino}">[되돌아가기]</a>
-              		</div>
-              	</c:otherwise>
-              	</c:choose>
-                  <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
-                  <li class="nav-item">
-                    <a class="nav-link active" id="" data-toggle="pill"
-                     href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home"
-                      aria-selected="true">읽기</a>
-                  </li>
-                  <c:if test="${empty history_view.title}">
-                  <li class="nav-item">
-                    <a class="nav-link" id="" data-toggle="pill"
-                     href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile" 
-                     aria-selected="false">편집</a>
-                  </li>
-             
-                   <li class="nav-item">
-                    <a class="nav-link" id="edit-tab" data-toggle="pill" 
-                    href="#custom-tabs-four-messages" role="tab" aria-controls="custom-tabs-four-messages"
-                     aria-selected="false">히스토리</a>
-                  </li>
-                  </c:if>     
-                </ul>
-              </div>
-              <div class="card-body" style="width:auto;">
-                <div class="tab-content" id="custom-tabs-four-tabContent">
-                <c:choose>
-                	<c:when test="${empty history_view.title}" >
-                  
-                  <!-- 읽기 tab -->
-                  <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
-						<div class="card-header">
-							<h3 class="card-title"><span >${result.title}</span><br>
-							</h3>
-						</div>
-					  <div class="form-group">
-								<label for="contents" class="col-form-label"></label>
-								 <div id="viewer">${result.contents }</div> 
-					</div>
-				     </div>
-				     </c:when>
-				     
-				     <c:otherwise>
-				     <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
-						<div class="card-header">
-							<h3 class="card-title"><span >${history_view.title}</span><br>
-							</h3>
-						</div>
-					  <div class="form-group">
-								<label for="contents" class="col-form-label"></label>
-								 <div id="viewer">${history_view.contents}</div> 
-						</div>
-				     </div>	
-				     </c:otherwise>
-				     </c:choose>
-				     
-				     
-			      	<!-- 편집 tab -->               
-                  <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
-          				<div align="right">
-          					<a class="" id="btnUpdate">[수정하기]</a>
-          					<a class="" id="btnDelete">[삭제하기]</a>
-          				</div>
-          				<div class="card-header">
-						<c:choose>
-						<c:when test="${result.section == 'h'}">
-							<h4><input class="form-control" type="text" name="title" value="${result.title}"></h4>
-						</c:when>
-						<c:otherwise>
-						<input type="hidden" name="title" value="${result.title}">
-							<h3><span>${result.title}</span></h3>
-						</c:otherwise>
-						</c:choose>	
-						</div>	
-						<br>
-          				<input type="hidden" name="contents" id="contents" value="">
-								<div id="editor">${result.contents }</div>	
-                  	</div>
+</style>		
 
-                 	<!-- 히스토리 tab -->
-                  <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">	
-          			    <div class="card-header">
-							<h3 class="card-title"><span class="">[${result.title}] 의 히스토리</span>
-							</h3>
-						</div>
-						<div><br>
-							<c:forEach var="list" items="${history}" varStatus="status">
-								<ul>
-									<li>
-									  <a href="/wiki/edit/${list.seq}">${list.title} </a>
-									  <fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd HH:mm:ss" />
-									  ${list.username}
-									</li>
-								</ul>
-							</c:forEach>
-						</div>	
-                  </div>
-                </div>
-              </div>
-				</div>
-							
-			</div>
+
+
+
+
+<div class="content-center">
+	<h2>태그(Tags)</h2>
+	<ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+		<li class="nav-item">
+        	<a class="nav-link active" id="" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home"aria-selected="true">읽기</a>
+		</li>
+      	<c:if test="${empty history_view.title}">
+      	<li class="nav-item">
+        	<a class="nav-link" id="" data-toggle="pill" href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">편집</a>
+      	</li>
+       	<li class="nav-item">
+        	<a class="nav-link" id="edit-tab" data-toggle="pill" href="#custom-tabs-four-messages" role="tab" aria-controls="custom-tabs-four-messages" aria-selected="false">히스토리</a>
+      	</li>
+		</c:if>     
+	</ul>
+	
+	<div class="tab-content" id="custom-tabs-three-tabContent">
+		<!-- 뷰 -->
+		<div class="tab-pane fade show active con-box" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
+			<p class="wiki-title">${result.title}</p>
+			<div id="viewer" class="mT30">${result.contents }</div>
+			<script>
+				var viewer = new toastui.Editor.factory( { 
+					el: document.querySelector('#viewer'),
+					viewer: true
+				});
+            </script>
 			
-	</form>
+		</div>
+		
+		<!-- 편집  -->
+		<div class="tab-pane fade con-box" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
+			<form id="frm" name="frm" method="post">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				<input type="hidden" name="wikino" id="wikino" value="${result.wikino}"/>
+	    		<p style="float:right">
+	    			<a class="" id="btnUpdate">[수정하기]</a>
+	    			<a class="" id="btnDelete">[삭제하기]</a>
+	    		</p>
+				<p class="wiki-title">${result.title}</p>
+		    	
+	    		<input type="hidden" name="title" value="${result.title}">
+				<input type="hidden" name="contents" id="contents" value="">
+				<div id="editSection" class="mT30">${result.contents }</div>
+				<script class="code-js">
+					var editor = new toastui.Editor( { 
+						el: document.querySelector('#editSection'),
+						initialEditType: 'wysiwyg',
+						previewStyle: 'vertical',
+						height: '100%'
+					});
+	            </script>
+            </form>
+		</div>
+		<!-- 히스토 -->
+		<div class="tab-pane fade con-box" style="height: 100%;" id="custom-tabs-four-messages" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">
+			<p class="wiki-title">[ ${result.title} ]Historys</p>
+				<div class="mywrit" style="width:100%">
+				<ul>
+					<c:forEach var="list" items="${history}" varStatus="status">
+					<li>
+						<span class="up" style="width: 50px;"><i class="mdi"></i>No_${ list.rowno}</span>
+					  	${list.usernm} 님이 수정....
+					  	<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd HH:mm:ss" />
+<%-- 					  	<a href="/wiki/edit/${list.seq}">${list.title} </a> --%>
+					</li>
+					</c:forEach>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	
+	           
+           
+</div>
+
+
+
 
 <script type="text/javascript">
 
@@ -228,5 +150,3 @@ var viewer = Editor.factory({
 });
 
 </script>
-</body>
-</html>

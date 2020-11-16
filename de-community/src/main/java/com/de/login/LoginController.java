@@ -13,8 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.de.cmmn.CmmnMap;
 import com.de.cmmn.service.CmmnService;
-import com.de.login.service.GoogleUser;
 import com.de.login.service.LoginService;
 import com.de.login.service.SecurityMember;
 import com.de.login.vo.LoginHistoryVO;
@@ -74,7 +74,15 @@ public class LoginController {
 		}else {
 			System.out.println("fail");
 		}
-		
+		//연속 로그인 체크
+		CmmnMap param = new CmmnMap();
+		param.put("userid", user.getUserid());
+		param.put("userno", user.getUserno());
+		int lCnt = cmmnService.selectCount("loginCheck", param);
+		param.put("lcnt", lCnt);
+		if(lCnt > 0) {
+			cmmnService.updateObject("updateLoginDays", param);
+		}
 		// 유저가 회사계정이냐 일반 유저이냐에 따라 프로필 페이지 변경
 		vo = service.getUserInfo(user.getUserid());
 		System.out.println("대표 유저 여부==?? "+vo.getRepresentat());
@@ -117,6 +125,13 @@ public class LoginController {
 			System.out.println("fail");
 		}
 		
+		//연속 로그인 체크
+		CmmnMap param = new CmmnMap();
+		param.put("userid", vo.getUserid());
+		param.put("userno", vo.getUserno());
+		int lCnt = cmmnService.selectCount("loginCheck", param);
+		param.put("lcnt", lCnt);
+		cmmnService.updateObject("updateLoginDays", param);
 		session.setAttribute("userSession", vo);
 		System.out.println("userno======"+vo.getUserno());
 		model.addAttribute("loginUser", session.getAttribute("userSession"));

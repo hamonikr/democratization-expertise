@@ -12,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -47,6 +49,8 @@ public class UsersService {
 	@Autowired
 	AnswersRepository ar;
 	
+	//@EntityGraph(attributePaths = "usersDetail")
+	//@Query("select * from tb_users a")
 	public Optional<Users> findByUserno(int seq) throws Exception {
 		return ur.findByUserno(seq);
 	}
@@ -260,5 +264,10 @@ public class UsersService {
 	// 게시물 카운트
 	public int getListCount(Users vo) throws Exception {
 		return um.getListCount(vo);
+	}
+	
+	// 게시물 상세
+	public Users getView(int userno) throws Exception {
+		return um.getView(userno);
 	}
 }

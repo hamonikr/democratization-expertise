@@ -100,22 +100,29 @@
 					<img alt="profile" src="${user.picture}" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
 				
+				<%-- <jsp:include page="/WEB-INF/views/users/level.jsp" flush="true"> --%>
+				<%@ include file="/WEB-INF/views/users/level.jsp" %>
+				<c:if test="${user.usersDetail.logindays > 9 }">
+				연속로그인
 				<span class="level"><img src="/img/level_gold.png" alt=""></span>
+				</c:if>
+				<%@ include file="/WEB-INF/views/users/questioncount.jsp" %>
+				<%@ include file="/WEB-INF/views/users/answercount.jsp" %>
 				<span class="url">홈페이지:<a href="${user.userurl}" target="_blank">${user.userurl}</a></span>
 			</div>
 
             <div class="profile-info">
             	<p class="myname">${user.username}</p>
-                <p class="myintro">${user.aboutme}</p>
                 <ul class="info-detail">
                 	<li class="graph2"><div id="chart-area"></div></li>
                     <li>
                     	<p class="score">평판 : <span>${score}</span></p>
                       	<p class="myinfo">현재레벨 : <span>1등</span> <br> 다음레벨 : <span>2등</span></p>
                       	<p class="myinfo"><span>+9999</span> <br> <span>-250</span> </p>
-                      	<p class="myinfo">질문 : <span>456</span> <br> 답변 : <span>89</span></p>
+                      	<p class="myinfo">질문 : <span>${ qCnt }</span> <br> 답변 : <span>${ aCnt }</span></p>
                     </li>
 				</ul>
+				<p class="myintro">${user.aboutme}</p>
 			</div>
 		</div><!-- //profile-con -->
 

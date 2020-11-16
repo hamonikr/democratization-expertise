@@ -25,4 +25,5 @@ public interface UsersMapper {
 	public String getScoregraph(int userno);
 	public List<Users> getList(Users vo) throws Exception;
 	public int getListCount(Users vo) throws Exception;
+	public Users getView(int userno) throws Exception;
 }
