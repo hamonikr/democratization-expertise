@@ -61,6 +61,9 @@ public class LoginController {
 		System.out.println("user id --->" + user.getUserid());
 		System.out.println("user pw --->" + user.getUserpassword());
 		System.out.println("user no --- >" + user.getUserno());
+		System.out.println("user no --- >" + user.getEnterprisename());
+		System.out.println("representat >> " +vo.getRepresentat());
+
 		}
 		
 		// 로그인 히스토리 저장
@@ -74,10 +77,11 @@ public class LoginController {
 		
 		// 유저가 회사계정이냐 일반 유저이냐에 따라 프로필 페이지 변경
 		vo = service.getUserInfo(user.getUserid());
+		System.out.println("대표 유저 여부==?? "+vo.getRepresentat());
 		
 		session.setAttribute("userSession", vo);
 		model.addAttribute("loginUser", user);
-		System.out.println("대표 유저 여부==?? "+vo.getRepresentat());
+		
 		Integer val = null;
 		String returnUrl = (String)session.getAttribute("referrer");
 		

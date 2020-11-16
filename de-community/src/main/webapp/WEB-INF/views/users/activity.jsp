@@ -11,6 +11,11 @@
 
 <!-- <script src=”https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js”></script> -->
 
+<!-- jquery-validation -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/plugins/jquery-validation/additional-methods.min.js"></script>
+<script src="/plugins/jquery-validation/jquery.validate.min.js"></script> 
+
 
 <link rel="stylesheet" href="/css/popup.css">
 
@@ -42,7 +47,13 @@
     height: 220px;
     margin-right: 20px;
 }
-</style>
+
+#popupPwAlter { 
+	width: 100%;
+	margin-top: -0.25rem;
+	font-size: 80%;
+	color: #da542e;
+}
 <body>
 
 <style>
@@ -242,11 +253,11 @@
 
             <ul class="my-modify">
             	<li><label>이름</label>
-            		<c:if test="${ isMypage }">${isMypage }
+            		<c:if test="${ isMypage }">
 						<input class="input-type1" id="userName" name="username" value="${user.username}" autocomplete="off">
 					</c:if>
 					<c:if test="${ ! isMypage }">
-						<input class="input-type1" id="userName" name="username" value="${user.username}" autocomplete="off" disabled="disabled">
+					${user.username}
 					</c:if>
             	</li>
                 <li><label>E-mail 주소</label>
@@ -254,7 +265,7 @@
 						<input class="input-type1" id="userEmail" name="useremail" value="${user.useremail}" autocomplete="off">
 					</c:if>
 					<c:if test="${ ! isMypage }">
-						<input class="input-type1" id="userEmail" name="useremail" value="${user.useremail}" autocomplete="off" disabled="disabled">
+						${user.useremail}
 					</c:if>
                 </li>
                 <li><label>Url</label>
@@ -262,7 +273,7 @@
 						<input class="input-type1" id="userUrl" name="userurl" value="${user.userurl}" autocomplete="off">
 					</c:if>
 					<c:if test="${ ! isMypage }">
-						<input class="input-type1" id="userUrl" name="userurl" value="${user.userurl}" autocomplete="off" disabled="disabled">
+						${user.userurl}
 					</c:if>
                 </li>
                 
@@ -284,10 +295,9 @@
 					<c:if test="${ ! isMypage }">
 						<c:choose>
 							<c:when test="${enterprise.userat == 1}">
-								<input class="input-type1" value="${enterprise.enterprisename}" autocomplete="off" disabled="disabled">
+								${enterprise.enterprisename}
 							</c:when>
 							<c:otherwise>
-								<input class="input-type1" value="" autocomplete="off" disabled="disabled">	
 							</c:otherwise>
 						</c:choose>
 					</c:if>
@@ -371,17 +381,17 @@
 		</div>
 
 		<div class="card-body" style="width:100%;">
-			<div class="input-group mb-3">
+			<div class="form-group mb-3">
 				<input type="password" class="form-control" name="userpasswordnew" placeholder="새 비밀번호">
 			</div>
-			<div class="input-group mb-3">
+			<div class="form-group mb-3 mb-3">
 				<input type="password" class="form-control" name="userpasswordnew2" placeholder="새 비밀번호 확인">
 			</div>
 			<p id="popupPwAlter" class="popupPwAlter"></p>
 		</div>
 		
 		<div class="card-footer cont_btn_div">
-			<button type="button" id="btnUpdatePw" class="btn btn-primary purple">수정</button>
+			<button type="submit" id="btnUpdatePw" class="btn btn-primary purple">수정</button>
 			<button type="button" id="btnUpdatePWCancle" class="btn btn-primary purple">취소</button>
 		</div>
 	</form>
@@ -410,9 +420,7 @@ var oldEnterName = $('#enterpriseNameSearch').val();
 
 
 $('#enterpriseNameSearch').on("propertychange change keyup paste input", function(){
- //alert(oldEnterName);
 //회사명 실시간 검색 기능
-//function fn_searchEnterpriseName() {
 	var enterpriseNameSearch = $('#enterpriseNameSearch').val();
 	if(enterpriseNameSearch == null) enterpriseNameSearch ='';
 	enterpriseNameSearch = $.trim(enterpriseNameSearch);
@@ -436,9 +444,9 @@ $('#enterpriseNameSearch').on("propertychange change keyup paste input", functio
 		data	: { 'enterName' : enterpriseNameSearch },
 		type	: 'post',
 		async	: false,
-// 		beforeSend : function(xhr) {
-// 			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-// 		},
+ 		 beforeSend : function(xhr) {
+ 			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+ 		}, 
 		success: function(data){
 			for(var i=0; i < data.list.length ; ++i){
 				$('#enterpriseListDiv').append('<p class="entElement" data-value="' + data.list[i].enterpriseno + '">' + data.list[i].enterprisename + '</p>');
@@ -486,43 +494,69 @@ function fnUpdate() {
 
 //사용자 비밀번호 변경
 function fnUpdatePw(){
-//	var uPw = $('input[name=userpassword]');
-	var uPwNew = $('input[name=userpasswordnew]');
-	var uPwNew2 = $('input[name=userpasswordnew2]');
-//	var uPwVal = $.trim($(uPw).val());
-	var uPwNewVal = $.trim($(uPwNew).val());
-	var uPwNew2Val = $.trim($(uPwNew2).val());
-	
-	$('#popupPwAlter').text('');
-	
-	// 유효성 검사
-	if(uPwNewVal.length == 0){
-		$('#popupPwAlter').text('새 비밀번호를 입력해 주세요.');
-		$(uPwNew).focus();
-		return;
-	}else if(uPwNew2Val.length == 0){
-		$('#popupPwAlter').text('새 비밀번호 확인을 입력해 주세요.');
-		$(uPwNew2).focus();
-		return;
-	}else if(uPwNewVal != uPwNew2Val){
-		$('#popupPwAlter').text('비밀번호가 일치하지 않습니다.');
-		$(uPwNew2).focus();
-		return;
-	}
+ 	$('#popupPwAlter').text('');
+	// 비밀번호는 영문+숫자 조합으로
+	 $.validator.addMethod("passwordCk",  function( value, element ) {
+		   return this.optional(element) ||  /^.*(?=.*\d)(?=.*[a-zA-Z]).*$/.test(value);
+		}, "Format invalide"
+	);
 
-	$.ajax({
-		url			: '/users/modifyPw',
-		data		: $("#frm1").serialize(),
-		type		: 'post',
-		beforeSend : function(xhr) {
-			xhr.setRequestHeader(header, token);
-		},
-		success	: function(data){
-			alert(data.message);
-			if(data.updateVal) location.reload(true);
-		}
-	});
-}
+	 $('#frm1').validate({
+		 rules: {
+			 userpasswordnew:{ required: true, minlength:6, passwordCk : true }
+		  }, 
+		  messages:{
+			  userpasswordnew: {
+		 			required : "비밀번호를 입력해주세요",
+		 			minlength : "최소 {0}자 입력해주세요",
+		 			passwordCk : "비밀번호는 영문, 숫자 조합으로 입력해주세요."
+		 			}	
+		 	 },
+		    errorElement: 'span',
+		    errorPlacement: function (error, element) {
+		   	  		error.addClass('invalid-feedback');
+		       	element.closest('.form-group').append(error);
+		 	},
+		 	highlight: function (element, errorClass, validClass) {
+		 	        $(element).addClass('is-invalid');
+		 	},
+		 	unhighlight: function (element, errorClass, validClass) {
+		 	   	     $(element).removeClass('is-invalid');
+		 	},
+		 	submitHandler: function (frm1) {
+		 		var uPwNew = $('input[name=userpasswordnew]');
+		 		var uPwNew2 = $('input[name=userpasswordnew2]');
+		 		var uPwNewVal = $.trim($(uPwNew).val());
+		 		var uPwNew2Val = $.trim($(uPwNew2).val());
+		 				 	
+			// 유효성 검사
+			if(uPwNewVal.length == 0){
+				$('#popupPwAlter').text('새 비밀번호를 입력해 주세요.');
+				$(uPwNew).focus();
+				return;
+			}else if(uPwNew2Val.length == 0){
+				$('#popupPwAlter').text('새 비밀번호 확인을 입력해 주세요.');
+				$(uPwNew2).focus();
+				return;
+			}else if(uPwNewVal != uPwNew2Val){
+				$('#popupPwAlter').text('비밀번호가 일치하지 않습니다.');
+				$(uPwNew2).focus();
+				return;
+			}
+			$.ajax({
+				url			: '/users/modifyPw',
+				data		: $("#frm1").serialize(),
+				type		: 'post',
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader(header, token);
+				},
+				success	: function(data){
+					alert(data.message);
+					if(data.updateVal) location.reload(true);
+				}
+			});
+	}
+});}
 
 //사용자 프로필 변경
 function fnProfileImg(){

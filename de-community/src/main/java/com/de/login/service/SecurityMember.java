@@ -27,7 +27,8 @@ public class SecurityMember extends User {
 	private int activeat; // 계정 활성상태 0:활성, 1:비활성
 	private int enterpriseno;
 	private int representat; // 대표계졍 여부 :1이면 대표,0이면 일반 
-
+	private String enterprisename;
+	
 	// session setter
 		public SecurityMember(LoginVO vo) {
 			super(vo.getUserid(), vo.getUserpassword(), makeGrantedAuthority(vo));	
@@ -40,7 +41,7 @@ public class SecurityMember extends User {
 			this.activeat = vo.getActiveat();
 			this.enterpriseno = vo.getEnterpriseno();
 			this.representat = vo.getRepresentat();
-
+			this.enterprisename = vo.getEnterprisename();
 		}
 		
 		private static Set<GrantedAuthority> makeGrantedAuthority(LoginVO vo) {
