@@ -19,7 +19,8 @@
 .ui-menu-item .ui-menu-item-wrapper:hover
 {
     border: none !important;
-    background-color: #7878FF;
+    /* background-color: #7878FF; */
+    background-color: #FFFFFF;
 }
 </style>
 <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
@@ -81,8 +82,8 @@
 		</div>
 
 		<div class="top-search">
-		<form name="sfrm" action="/search/list" method="post">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+		<form name="sfrm" action="/search/list" method="get">
+		<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />  --%>
 			<input type="text" name="searchtxt" id="searchtxt" placeholder="Search" value="${searchtxt }" autocomplete="off"/>
 			<%-- <input type="hidden" id="searchtxt" name="searchtxt" value="${searchtxt }"/> --%>
 			<button type="submit">
