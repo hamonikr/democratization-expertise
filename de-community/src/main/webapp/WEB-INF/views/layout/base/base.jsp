@@ -29,11 +29,12 @@
 
 <!-- jQuery -->
 <script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/jquery/jquery-ui.min.js"></script>
+<script src="/plugins/jquery/jquery-migrate-3.0.0.min.js"></script>
 <!-- jquery-validation -->
 <!--   <script src="/js/jquery.min.js"></script> -->
 <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="/plugins/jquery-validation/additional-methods.min.js"></script>
-
 
   <script src="/js/bootstrap.min.js"></script>
   <!-- Bootstrap tether Core JavaScript -->

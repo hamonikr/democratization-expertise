@@ -91,10 +91,6 @@ public class SearchController {
 
 		//List<Questions> list = qs.getList(questions);
 		List<CmmnMap> list = cs.selectList("totalSearch", param);
-		for(int i = 0;i < list.size();i++) {
-			System.out.println("asdasd====+"+list.get(i));
-		}
-		List<Wiki> tagList = qs.findAllTag();
 
 		int listCount = qs.getListCount(questions);
 		paginationInfo.setTotalRecordCount(listCount); // 전체 게시물 건 수

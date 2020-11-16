@@ -15,8 +15,8 @@ select a.* from (
 				select wikino as seq,title , contents , 'H' as status, COUNT(*)
 			OVER(PARTITION BY wikino) as cnt from tb_wiki where section = 'h'
 			union all 
-				select seq as seq,title , body as contents , 'Q' as status, COUNT(*)
-			OVER(PARTITION BY question_id) as cnt from tbl_stack_question_ko ) a 
+				select question_id::integer as seq,title , body as contents , 'Q' as status, COUNT(*)
+			OVER(PARTITION BY question_id) as cnt from tbl_stack_question ) a 
 		where upper(title) like '%' || upper(#{searchtxt}) || '%' or upper(contents) like '%' || upper(#{searchtxt}) || '%'
 </select>
 
@@ -33,8 +33,8 @@ select a.* from (
 <select id="autoSearch" parameterType="com.de.cmmn.CmmnMap" resultType="com.de.cmmn.CmmnMap">
 
 select a.title from(select title,contents from tb_questions union all 
-select title,contents from tb_wiki) a where upper(a.title) like '%' || upper(#{searchtxt}) || '%' or upper(a.contents) like '%' || upper(#{searchtxt}) || '%'
-
+select title,contents from tb_wiki union all select title,body from tbl_stack_question) a where upper(a.title) like '%' || upper(#{searchtxt}) || '%' or upper(a.contents) like '%' || upper(#{searchtxt}) || '%'
+limit 30
 </select>
 
 <select id="boardConfig" parameterType="com.de.cmmn.CmmnMap" resultType="com.de.cmmn.CmmnMap">

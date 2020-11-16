@@ -172,6 +172,11 @@ public class AnswersController {
 		// 답변 채택
 		int result = as.updateById(answerno,user);
 		if(result == 1) {
+			// 점수등록
+			CmmnMap param = new CmmnMap();
+			param.put("userno", user.getUserno());
+			param.put("score", 2);
+			cs.updateObject("saveScore", param);
 			request.setAttribute("message","답변이 채택되었습니다.");
 	    	request.setAttribute("url", referrer);
 	    	request.getRequestDispatcher("/login/message").forward(request, response);

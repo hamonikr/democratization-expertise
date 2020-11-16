@@ -71,11 +71,11 @@
 						</span>
 					</c:when>
 					<c:when test="${isMyQuestion eq true}">
-						<span> <input type="text" class="input-type1" id="title" name="title" placeholder="제목을 입력해주세요." value="${result.title }" />
+						<span> <input type="text" class="input-type1" id="title" name="title" placeholder="제목을 입력해주세요." value="${result.title }" autocomplete="off"/>
 						</span>
 					</c:when>
 					<c:otherwise>
-						<input type="text" class="input-type1" id="title" name="title" placeholder="제목을 입력해주세요." value="" />
+						<input type="text" class="input-type1" id="title" name="title" placeholder="제목을 입력해주세요." value="" autocomplete="off"/>
 					</c:otherwise>
 				</c:choose>
 

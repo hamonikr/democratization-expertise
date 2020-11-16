@@ -39,7 +39,7 @@
 	    			success: function (data) { 
 	    				$.each (data.list, function (index, el) {
 	    					availableTags[index] = {value:el.title};
-	    					console.log(availableTags[index]);
+	    					//console.log(availableTags[index]);
 	    					});
 	    				}, 
 	    				error: function (e) { 
@@ -83,7 +83,7 @@
 		<div class="top-search">
 		<form name="sfrm" action="/search/list" method="post">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
-			<input type="text" name="searchtxt" id="searchtxt" placeholder="Search" value="${searchtxt }"/>
+			<input type="text" name="searchtxt" id="searchtxt" placeholder="Search" value="${searchtxt }" autocomplete="off"/>
 			<%-- <input type="hidden" id="searchtxt" name="searchtxt" value="${searchtxt }"/> --%>
 			<button type="submit">
 				<i class="mdi mdi-magnify"></i>

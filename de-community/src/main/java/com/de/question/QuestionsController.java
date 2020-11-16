@@ -178,7 +178,7 @@ public class QuestionsController {
     	   vo = (LoginVO) httpSession.getAttribute("userSession");
     	   
     	   System.out.println("vo.getUserno() --- >> "+vo.getUserno());
-    	   System.out.println("qvo qno userno=== > " + qvo.getFirstuserno());
+    	   //System.out.println("qvo qno userno=== > " + qvo.getFirstuserno());
        
     	   // 쿠키가 있을 경우 
        if (cookies != null && cookies.length > 0) {

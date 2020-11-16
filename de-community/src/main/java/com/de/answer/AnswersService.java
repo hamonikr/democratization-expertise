@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.de.answer.mapper.AnswersMapper;
+import com.de.cmmn.CmmnMap;
+import com.de.cmmn.service.CmmnService;
 import com.de.login.vo.LoginVO;
 import com.de.question.mapper.QuestionsMapper;
 import com.de.tag.Tags;
@@ -41,6 +43,9 @@ public class AnswersService {
 
 	@Autowired
 	VoteRepository vr;
+	
+	@Autowired
+	CmmnService cs;
 
 	public List<Answers> getAnswerList(Answers vo) throws Exception {
 		return am.getAnswerList(vo);
@@ -139,6 +144,11 @@ public class AnswersService {
 				// e.get().setContents(e.get().getContents());
 				ar.save(e.get());
 				result = 1;
+				// 점수등록
+				CmmnMap param = new CmmnMap();
+				param.put("userno", e.get().getUserno());
+				param.put("score", 14);
+				cs.updateObject("saveScore", param);
 			}
 		}
 		return result;

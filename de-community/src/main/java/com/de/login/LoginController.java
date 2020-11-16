@@ -71,6 +71,11 @@ public class LoginController {
 		int ret = service.saveLoginHistory(hvo);
 		if(ret ==1) {
 			System.out.println("save history");
+			// 점수등록
+			CmmnMap param = new CmmnMap();
+			param.put("userno", user.getUserno());
+			param.put("score", 3);
+			cmmnService.updateObject("saveScore", param);
 		}else {
 			System.out.println("fail");
 		}
@@ -123,6 +128,11 @@ public class LoginController {
 		int ret = service.saveLoginHistory(hvo);
 		if(ret ==1) {
 			System.out.println("save history");
+			// 점수등록
+			CmmnMap param = new CmmnMap();
+			param.put("userno", vo.getUserno());
+			param.put("score", 3);
+			cmmnService.updateObject("saveScore", param);
 		}else {
 			System.out.println("fail");
 		}

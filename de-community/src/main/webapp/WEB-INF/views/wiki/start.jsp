@@ -92,7 +92,7 @@ font-size: medium;
 			</div>
             <ul>
             	<c:forEach var="list" items="${wiki_result}" varStatus="status">
-		 			<li><a href="/wiki/view/${list.wikino}/w">${list.title}</a></li>
+		 			<li><a href="/wiki/view/${list.wikino}">${list.title}</a></li>
 				</c:forEach>
 			</ul>
 		</div>
