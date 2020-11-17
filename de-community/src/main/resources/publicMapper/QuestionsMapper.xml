@@ -144,16 +144,15 @@
 		 ,0
 		 ,comment_count::INTEGER
 		 ,score::INTEGER
-		 from tbl_stack_question ) AA
+		 from tbl_stack_question 
 		 <where>
-		 AA.section = 'Q'
-		 and AA.deleteat = 0
 		<if test="searchtext != null and searchtext != ''">
-		and	(AA.title like '%' || #{searchtext} || '%' 
+		and	(upper(title) like '%' || upper(#{searchtext}) || '%' 
 		or
-		AA.contents like '%' || #{searchtext} || '%')
+		upper(body) like '%' || upper(#{searchtext}) || '%')
 		</if>
 		</where>
+		 ) AA
 		<if test="sort == null" >order by AA.registerdate desc</if>
 		<if test="sort == 1" >order by AA.registerdate desc</if>
 		<if test="sort == 2" >order by AA.commentcnt asc,AA.registerdate desc</if>
@@ -173,9 +172,9 @@
 		union all select count(*) as cnt from tbl_stack_question
 		<where>
 		<if test="searchtext != null and searchtext != ''">
-		(title like '%' || #{searchtext} || '%' 
+		(upper(title) like '%' || upper(#{searchtext}) || '%' 
 		or
-		body like '%' || #{searchtext} || '%')
+		upper(body) like '%' || upper(#{searchtext}) || '%')
 		</if>
 		</where>
 		) AA

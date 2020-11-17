@@ -116,7 +116,7 @@ public class EnterpriseService {
 		boolean updateVal = false;
 
 		String root_path = request.getSession().getServletContext().getRealPath("/");
-		String path = root_path.split("/webapp")[0] + "/resources/static/upload/enterprises/";
+		String path = root_path.split("webapp")[0] + "resources/static/upload/enterprises/";
 
 		List<MultipartFile> fileList = request.getFiles("profileImg");
 		File fileDir = new File(path);
