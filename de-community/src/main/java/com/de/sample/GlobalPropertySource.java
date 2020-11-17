@@ -8,8 +8,8 @@ import org.springframework.context.annotation.PropertySources;
 @Configuration
 @PropertySources({
    @PropertySource( value = "file:/home/hamonikr/git/etc/config.properties", ignoreResourceNotFound = true ),
-   @PropertySource( value = "file:C:/env/config.properties", ignoreResourceNotFound = true)
-})
+   @PropertySource( value = "file:${user.home}/env/config.properties", ignoreResourceNotFound = true)
+   })
 public class GlobalPropertySource {
 	//db
    @Value("${spring.datasource.driverClassName}")

@@ -23,7 +23,6 @@ import com.de.login.service.SecurityMember;
 import com.de.question.Questions;
 import com.de.question.QuestionsService;
 import com.de.vote.VoteService;
-import com.de.wiki.Wiki;
 
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
@@ -39,7 +38,7 @@ public class SearchController {
 
 	@Autowired
 	VoteService vs;
-	
+
 	@Autowired
 	AnswersService as;
 
@@ -89,18 +88,20 @@ public class SearchController {
 		questions.setFirstRecordIndex(firstRecordIndex);
 		questions.setRecordCountPerPage(recordCountPerPage);
 
-		//List<Questions> list = qs.getList(questions);
+		// List<Questions> list = qs.getList(questions);
 		List<CmmnMap> list = cs.selectList("totalSearch", param);
 
 		int listCount = qs.getListCount(questions);
 		paginationInfo.setTotalRecordCount(listCount); // 전체 게시물 건 수
 		model.addAttribute("list", list);
-		//model.addAttribute("tagList", tagList);
+		// model.addAttribute("tagList", tagList);
 		model.addAttribute("paginationInfo", paginationInfo);
-		//model.addAttribute("vo", param);
+
+		model.addAttribute("searchtxt", param.get("searchtxt"));
 		return "/search/list";
 	}
-	
+
+
 	@ResponseBody
 	@RequestMapping(value = "/data")
 	public CmmnMap searchData(@RequestParam Map<String, String> params, Model model, Questions questions,
@@ -115,15 +116,15 @@ public class SearchController {
 		logger.debug("");
 		logger.debug("----------excel param-----------------------");
 
-		//List<Questions> list = qs.getList(questions);
+		// List<Questions> list = qs.getList(questions);
 		List<CmmnMap> list = cs.selectList("preSearch", param);
-
 
 		param.put("list", list);
 
 		return param;
 	}
-	
+
+
 	@ResponseBody
 	@RequestMapping(value = "/auto")
 	public CmmnMap searchAuto(@RequestParam Map<String, String> params, Model model, Questions questions,
@@ -138,9 +139,8 @@ public class SearchController {
 		logger.debug("");
 		logger.debug("----------excel param-----------------------");
 
-		//List<Questions> list = qs.getList(questions);
+		// List<Questions> list = qs.getList(questions);
 		List<CmmnMap> list = cs.selectList("autoSearch", param);
-
 
 		param.put("list", list);
 		param.put("searchtxt", param.get("searchtxt"));

@@ -9,6 +9,28 @@
     overflow-x: hidden;
     /* add padding to account for vertical scrollbar */
     padding-right: 20px;
+    
+    
+    width: 500px; 
+    background: #fff;
+    border-radius: 0 0 6px 6px;
+    padding: 20px;
+    border: 1px solid #e5ecf2;
+    box-shadow: 0 2px 3px 0 rgba(0,1,3,.07);
+}
+.ui-autocomplete > li:hover {
+width: 500px; 
+    cursor: pointer;
+    box-sizing: border-box;
+    background: #f2f2f2;
+    border:1px solid #ccc;
+    white-space: nowrap;
+    &:nth-child(even) {
+       background: #eee;
+    }
+    &:hover {
+       opacity: 0.25
+    }
 }
 /* IE 6 doesn't support max-height
  * we use height instead, but this forces the menu to always be this tall
@@ -19,7 +41,7 @@
 .ui-menu-item .ui-menu-item-wrapper:hover
 {
     border: none !important;
-    /* background-color: #7878FF; */
+/*     background-color: #7878FF; */
     background-color: #FFFFFF;
 }
 </style>
@@ -38,9 +60,10 @@
 	    			data:{searchtxt:searchtxt},
 	    			//dataType: 'json', 
 	    			success: function (data) { 
+	    			  $("#searchtxt").val(data.searchtxt);
 	    				$.each (data.list, function (index, el) {
 	    					availableTags[index] = {value:el.title};
-	    					//console.log(availableTags[index]);
+// 	    					console.log(availableTags[index]);
 	    					});
 	    				}, 
 	    				error: function (e) { 
@@ -50,7 +73,7 @@
 	    		}
 		});
 			
-		    $( "#searchtxt" ).autocomplete({
+	    $( "#searchtxt" ).autocomplete({
 		      delay: 0,	
 		      //minLength: 2,
 		      source: availableTags,
@@ -59,13 +82,15 @@
 		        return false;
 		      },
 		      select: function( event, ui ) {
-		        $( "#searchtxt" ).val( ui.item.value );
+		        $( "#searchtxt" ).val(ui.item.value );
 		        //$( "#searchtxt" ).val( ui.item.key );
 		 
 		        return false;
 		      } 
-			  });
+		  });
 	});
+ 
+ 
  </script>
 <header class="topbar">
 	<nav class="navbar top-navbar navbar-expand-md">
@@ -84,8 +109,7 @@
 		<div class="top-search">
 		<form name="sfrm" action="/search/list" method="get">
 		<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />  --%>
-			<input type="text" name="searchtxt" id="searchtxt" placeholder="Search" value="${searchtxt }" autocomplete="off"/>
-			<%-- <input type="hidden" id="searchtxt" name="searchtxt" value="${searchtxt }"/> --%>
+		<input type="text" name="searchtxt" id="searchtxt" placeholder="Search" value="${searchtxt }" autocomplete="off"/>
 			<button type="submit">
 				<i class="mdi mdi-magnify"></i>
 			</button>

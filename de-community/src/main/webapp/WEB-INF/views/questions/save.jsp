@@ -81,6 +81,7 @@
 
 				<!-- 퍼블 필요 -->
 				<div id="preSearch"></div>
+				
 
 				<span>내용 <font class="red">*</font></span>
 				<div class="de-editro">
@@ -162,13 +163,15 @@
     			data:{searchtxt:$("#title").val()},
     			//dataType: 'json', 
     			success: function (data) { 
-    				var shtml = "";
+    				var shtml = "<ul  class='view-searh'>";
+    				shtml +="유사한 질문 목록";
     				$.each (data.list, function (index, el) {
     					  var txt = "";
-      					txt = "<a href='/questions/view/"+el.seq+"'>"+el.title+"</a><br/>";
+//       					txt = "<a href='/questions/view/"+el.seq+"'>"+el.title+"</a><br/>";
+      					txt = "<li><a href='/questions/view/"+el.seq+"'><span>"+el.title+"</span></a></li>";
       					shtml += txt;
     					});
-    				$("#preSearch").html(shtml);
+    				$("#preSearch").html(shtml+"</ul>");
     				}, 
     				error: function (e) { 
     					alert("fail"); 

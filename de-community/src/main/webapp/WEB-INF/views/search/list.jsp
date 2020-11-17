@@ -43,19 +43,16 @@ button {
   display:block;
 }
 </style>
-<body>
 
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1></h1>
-				</div>
-			</div>
-		</div>
-		<!-- /.container-fluid -->
-	</section>
-	
+<div class="content-center">
+
+	<h2>Stacked Q&amp;A</h2>
+	<div class="section-info">
+		각 메뉴 섹션 상단에 카피문구 넣어주세요. 2~3줄 나올수 있으면 예뻐요.<br> 문구가 나옵니다. 개발시 당신이 겪는 어려움에 대해 자유롭게 질문을 하고 답변을 받으세요. 그리고 그 지식을 커뮤니티의 회원들과 함께 공유해주세요. 모바일버전에서는 display:none.<br>
+	</div>
+
+
+</div>	
 	<section class="content" style="padding: 2px 12px 6px 19px;">
 	<form id="frm" name="frm" method="post">
 		<!-- 스프링 시큐리티 form에 추가 해줘야함. -->
@@ -64,9 +61,6 @@ button {
           	
             <div class="card-primary card-outline card-outline-tabs" style="border-top: 0px solid #007bff;">             
               <div class="card-header p-0 border-bottom-0">
-<!--               		<div align="right"> -->
-<!--               			<a href="/wiki/getStart">[목록으로 되돌아가기]</a> -->
-<!--               		</div> -->
                   <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
                   <li class="nav-item">
                     <a class="nav-link active" id="question" data-toggle="pill"
@@ -98,9 +92,9 @@ button {
 												<div class="col-9">
 													<div class="info-box-content">
 														<span class="info-box-text"><a href="/questions/view/${list.seq }">${list.title }</a></span>
-														<span class="info-box-number"> ${fn:substring(list.contents, 0, 50)}
-														<c:if test="${fn:length(list.contents) > 49}"> ... </c:if>
-														</span> 
+<%-- 														<span class="info-box-number"> ${fn:substring(list.contents, 0, 50)} --%>
+<%-- 														<c:if test="${fn:length(list.contents) > 49}"> ... </c:if> --%>
+<!-- 														</span>  -->
 													</div>
 												</div>
 											</div>
@@ -156,6 +150,3 @@ button {
 			</div>
 			
 	</form>
-</section>
-</body>
-</html>
