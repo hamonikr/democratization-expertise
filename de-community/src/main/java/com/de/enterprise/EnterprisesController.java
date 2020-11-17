@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +28,7 @@ import com.de.answer.Answers;
 import com.de.answer.AnswersService;
 import com.de.cmmn.util.CodeMessage;
 import com.de.login.service.SecurityMember;
+import com.de.login.vo.LoginVO;
 import com.de.question.Questions;
 import com.de.user.Users;
 import com.de.user.UsersDetail;
@@ -78,13 +81,15 @@ public class EnterprisesController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/activity/{seq}", method = RequestMethod.GET)
-	public String dashboard(Model model, @PathVariable("seq") int seq,
-			@AuthenticationPrincipal SecurityMember loginUserData) throws Exception {
+	public String dashboard(Model model, @PathVariable("seq") int seq, LoginVO loginUserData,
+			HttpServletRequest request, HttpSession session) throws Exception {
+		loginUserData = (LoginVO) session.getAttribute("userSession");
 		if (LOG_URL)
 			logger.info(" -- url : /enterprises/activity - seq : " + seq);
 
 		boolean isUserNo = false;
 
+		System.out.println(" ------ loginUserData : " + loginUserData);
 		if (loginUserData == null) {
 			isUserNo = false;
 		} else {
@@ -156,8 +161,6 @@ public class EnterprisesController {
 
 		model.addAttribute("wCnt", wCnt); // 위키 전체 수
 		model.addAttribute("wList", wList); // 위키 목록
-
-		model.addAttribute("isMypage", isUserNo); // 내 정보 유무
 
 		return "/enterprises/activity";
 	}
@@ -251,18 +254,16 @@ public class EnterprisesController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/modifyPw", method = RequestMethod.POST)
-	public HashMap<String, Object> modifyPassword(Model model, EnterprisePwVO vo) throws Exception {
+	public HashMap<String, Object> modifyPassword(Model model, EnterprisePwVO vo, LoginVO loginUserData,
+			HttpServletRequest request, HttpSession session) throws Exception {
+		loginUserData = (LoginVO) session.getAttribute("userSession");
 		if (LOG_URL)
-			logger.info(" -- url : /enterprises/modify - EnterprisePwVO : " + vo);
+			logger.info(" -- url : /enterprises/modify - EnterprisePwVO : " + vo + " // " + loginUserData);
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
-		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
-		// session 에서 seq 정보 추출
-		// 임시 - 기업회원 enterpriseno
-		int enterpriseno = 4;
-		vo.setEnterpriseno(enterpriseno);
-
+		vo.setEnterpriseno(loginUserData.getEnterpriseno());
+		
 		boolean updateVal = service.updateEnterprisePw(vo);
 
 		if (updateVal)
@@ -283,19 +284,15 @@ public class EnterprisesController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public HashMap<String, Object> upload(MultipartHttpServletRequest request) throws Exception {
+	public HashMap<String, Object> upload(MultipartHttpServletRequest request, HttpSession session, LoginVO loginUserData) throws Exception {
+		loginUserData = (LoginVO) session.getAttribute("userSession");
 		if (LOG_URL)
 			logger.info(" -- url : /enterprises/upload - request : " + request);
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
-
-		// 로그인 상태 확인 - 로그인 기능 구현 확인후 추가 예정
-		// session 에서 seq 정보 추출
-		// 임시 - 기업회원 enterpriseno
-		int enterpriseno = 4;
-
+		
 		Enterprises vo = new Enterprises();
-		vo.setEnterpriseno(enterpriseno);
+		vo.setEnterpriseno(loginUserData.getEnterpriseno());
 
 		boolean updateVal = service.upload(vo, request);
 
