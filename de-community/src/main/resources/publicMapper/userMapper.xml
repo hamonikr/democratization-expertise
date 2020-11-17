@@ -42,9 +42,9 @@
 </resultMap>
 
 	<sql id="listWhere">
-		and	(userid like '%' || #{searchtext} || '%' 
+		and	(upper(userid) like '%' || upper(#{searchtext}) || '%' 
 			or
-			username like '%' || #{searchtext} || '%')
+			upper(username) like '%' || upper(#{searchtext}) || '%')
 	</sql>
 	
 	<select id="getList" parameterType="com.de.user.Users" resultMap="Users">		 
@@ -53,9 +53,9 @@
 		,b.*
 		,(select (sum(likes) - sum(dislikes)) from  tb_vote where userno=a.userno
         group by userno)as total
-		from tb_users a left outer join tb_score b on a.userno = b.userno  left outer join  tb_users_detail c on a.userno = c.userno 
-		where c.representat is null or c.representat !=1 
+		from tb_users a left outer join tb_score b on a.userno = b.userno  left outer join  tb_users_detail c on a.userno = c.userno
 		<where>
+		(c.representat is null or c.representat !=1)
 		<if test="searchtext != null and searchtext != ''">
 		<include refid="listWhere" />
 		</if>

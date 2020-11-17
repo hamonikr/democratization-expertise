@@ -99,13 +99,14 @@ public class UsersService {
 			users.get().setUseremail(vo.getUseremail());
 			users.get().setAboutme(vo.getAboutme());
 			users.get().setUserurl(vo.getUserurl());
+			users.get().setNewslater(vo.getNewslater());
 			
-			vo.setUserid(users.get().getUserid());
-			vo.setUserpassword(users.get().getUserpassword());
-			vo.setUserstatus(users.get().getUserstatus());
-			vo.setRegisterdate(users.get().getRegisterdate());
+			//vo.setUserid(users.get().getUserid());
+			//vo.setUserpassword(users.get().getUserpassword());
+			//vo.setUserstatus(users.get().getUserstatus());
+			//vo.setRegisterdate(users.get().getRegisterdate());
 			
-			ur.save(vo);
+			ur.save(users.get());
 		}
 		
 		// update userDetail enterpriseNo

@@ -247,9 +247,10 @@
 				<c:if test="${user.userprofileimg == null and user.picture != null}">
 					<img alt="profile" src="${user.picture}" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
-				<c:if test="${ isMypage }">
+				<!-- sns로그인 사용자는 프로필 사진 및 비밀번호 변경 불가 -->
+				<c:if test="${ isMypage and user.role ne 2}">
 					<label class="leftbtn" >
-						<input type="hidden" name="userprofileimg" value="${user.userprofileimg}">
+						<%-- <input type="hidden" name="userprofileimg" value="${user.userprofileimg}"> --%>
 						<input id="iptProfileImg" name="profileImg" type="file" onchange="fnProfileImg()" style="display: none;">
 						<span style="cursor: pointer"><i class="mdi mdi-camera"></i>사진첨부</span><br/>
 					</label>
@@ -342,15 +343,8 @@
                 	<label class="control control-checkbox">
 	                    뉴스레터 구독하기
 	                    <c:if test="${ isMypage }">
-							<input type="hidden" name="newslater" value="${ user.newslater }">
-							<c:choose>
-								<c:when test="${user.newslater eq 'Y'}">
-									<input type="checkbox" class="" checked>
-								</c:when>
-								<c:otherwise>
-									<input type="checkbox" class="">
-								</c:otherwise>
-							</c:choose>
+							<input type="hidden" name="newslater" value="">
+							<input type="checkbox" name="newsCheck" class="" <c:if test="${user.newslater eq 'Y'}">checked</c:if>>
 						</c:if>
 <!-- 						<input type="checkbox" class="" checked> -->
 <!-- 	                    <input type="checkbox" checked="checked" name="" id=""> -->
@@ -489,11 +483,11 @@ function fnPopupPw(){
 
 //사용자 정보 변경
 function fnUpdate() {
-	if($('.newslater').eq(0).is(':checked')){
+	if ($( 'input:checkbox[name="newsCheck"]' ).is( ":checked" ) == true){
 		$('input[name=newslater]').val('Y');
-	}else{
-		$('input[name=newslater]').val('N');
-	}
+}else{
+    	  $('input[name=newslater]').val('N');
+}
 	document.frm.aboutMe.value = editor.getHtml();
 	document.frm.action = "/users/modify";
 	document.frm.submit();

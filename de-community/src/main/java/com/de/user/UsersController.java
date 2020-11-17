@@ -105,11 +105,11 @@ public class UsersController {
 		// 평판 그래프 데이터
 
 		// 질문
-		int qCnt = usersService.cntQuestionsById(userno);
+		//int qCnt = usersService.cntQuestionsById(userno);
 		Page<Questions> qList = usersService.findQuestionsByUserno(userno);
 
 		// 답변
-		int aCnt = usersService.cntAnswerById(userno);
+		//int aCnt = usersService.cntAnswerById(userno);
 		Page<Answers> aList = usersService.findAnswerByUserno(userno);
 
 		// 태그 n 위키
@@ -127,9 +127,11 @@ public class UsersController {
 		List<Wiki> wList = usersService.findTagAndWikiByUserno(vo);
 
 		if (LOG_URL) {
-			logger.info(" ------ qCnt : " + qCnt);
+			//logger.info(" ------ qCnt : " + qCnt);
+			logger.info(" ------ getTotalElements : " + qList.getTotalElements());
 			logger.info(" ------ qList Content : " + qList.getContent());
-			logger.info(" ------ aCnt : " + aCnt);
+			//logger.info(" ------ aCnt : " + aCnt);
+			logger.info(" ------ getTotalElements : " + aList.getTotalElements());
 			logger.info(" ------ aList Content : " + aList.getContent());
 			logger.info(" ------ tCnt : " + tCnt);
 			logger.info(" ------ tList Content : " + tList);
@@ -144,10 +146,10 @@ public class UsersController {
 
 		model.addAttribute("score", score); // 평판점수
 
-		model.addAttribute("qCnt", qCnt); // 질문 전체 수
+		model.addAttribute("qCnt", qList.getTotalElements()); // 질문 전체 수
 		model.addAttribute("qList", qList.getContent()); // 질문 목록
 
-		model.addAttribute("aCnt", aCnt); // 답변 전체 수
+		model.addAttribute("aCnt", aList.getTotalElements()); // 답변 전체 수
 		model.addAttribute("aList", aList.getContent()); // 답변 목록
 
 		model.addAttribute("tCnt", tCnt); // 태그 전체 수

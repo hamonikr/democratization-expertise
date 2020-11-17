@@ -39,7 +39,7 @@
 		<div class="list-right">
 			<div class="board-search inblock mR10 mT10">
 				<input type="text" name="searchtext" value="${vo.searchtext }" placeholder="Search">
-				<button type="button">
+				<button type="submit">
 					<i class="mdi mdi-magnify"></i>
 				</button>
 			</div>
@@ -57,7 +57,7 @@
 					</c:if>
                   </a>
                   <span class="name"><a href="/users/activity/${list.userno}"> ${list.username}</a></span>
-                  <span class="reputation">${list.userno }</span>
+                  <span class="reputation">${list.score.score }</span>
                 </li>
 			</c:forEach>
 			</ul>

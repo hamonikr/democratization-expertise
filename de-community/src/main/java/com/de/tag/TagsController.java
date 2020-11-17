@@ -50,13 +50,6 @@ public class TagsController {
 
 		List<Wiki> get_list = service.getWikiList(vo);
 
-		int[] tagno_cnt = new int[get_list.size()];
-		for (int i = 0; i < get_list.size(); i++) {
-			System.out.println(get_list.get(i).getWikino() + " : " + get_list.get(i).getTitle() + "\n : "
-					+ get_list.get(i).getContents());
-			tagno_cnt[i] = service.getWikiCount(get_list.get(i).getWikino());
-			get_list.get(i).setRelatedcnt(tagno_cnt[i]);
-		}
 
 		model.addAttribute("result", get_list);
 		model.addAttribute("paginationInfo", paginationInfo);
