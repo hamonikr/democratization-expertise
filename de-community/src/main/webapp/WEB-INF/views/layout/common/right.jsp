@@ -14,10 +14,10 @@ $(function() {
 		success: function (data) { 
 			
 			if (data != null){
-				
+
+// 			  right users
 				$.each (data.user, function (index, el) {
 					var userHtml = "";
-// 				  <li><a href="#"> <img src="../img/sample_profile3.png" alt=""> Company <span>(89)</span></a></li>	
 					userHtml += '<li><a href="/users/activity/'+el.userno+'">';			 
 					if(el.userprofileimg != null && el.picture == null)
 						userHtml += "<img src='/upload/users/"+el.userprofileimg+"' alt='' width='25px' height='25px'>";
@@ -29,23 +29,47 @@ $(function() {
 					userHtml += el.username+'<span>('+el.score+')</span></a></li>';
 					$("#userrightLayer").append(userHtml);
 				});
-				//console.log(userHtml);
 				
 				
+// 				right  tags
 				$.each (data.tag, function (index, el) {
-					var tagHtml = "";
-					  
+						var tagHtml = "";
 						tagHtml += '<li><a href="/wiki/view/'+el.wikino+'">'+el.title+'</li>';			 
 						$("#tagrightLayer").append(tagHtml);
 					});
+					
+					
 				$.each (data.board, function (index, el) {
-					var boardHtml = "";
-					  
-					boardHtml += '<li><a href="/board/'+el.boardid+'/list">'+el.boardname+'</li>';			 
+						var boardHtml = "";
+						boardHtml += '<li><a href="/board/'+el.boardid+'/list"><i class="mdi mdi-download"></i>'+el.boardname+'</li>';			 
 						$("#menu").append(boardHtml);
 					});
 				
-// 				$("#bodyrightLayer").append("<br/>");
+// 				right partners 
+				
+				$("#partnerRightLayer").append("<br/>");
+				
+				 for(y=0;y<data.partnerslist.length;y++){
+					var str = data.partnerslist[y].enterpriseabout;		
+					var entHtml = "";
+						
+					entHtml += '<li>';
+					
+					if(data.userprofileimg != null && data.picture == null){
+					  entHtml += "<img src='/upload/users/"+data.enterpriseimg+"' alt='' width='25px' height='25px'>";
+					} else if(data.enterpriseimg == null && data.picture != null) {
+					  entHtml += "<img src='"+data.picture+"' alt='' width='25px' height='25px'>";
+					} else {
+					  entHtml += "<img src='/img/noprofile.png' alt='' width='25px' height='25px'>";
+					}
+					entHtml += '<a href="/enterprises/activity/'+data.partnerslist[y].enterpriseno+'">  ';
+					entHtml += data.partnerslist[y].enterprisename+'</a></li>';
+					$("#partnerRightLayer").append(entHtml);
+          		
+				} 
+
+/* 기업 홍보  */
+// 				$("#partnerRightLayer").append("<br/>");
 				
 // 				 for(y=0;y<data.partnerslist.length;y++){
 // 					 var str = data.partnerslist[y].enterpriseabout;		
@@ -62,7 +86,7 @@ $(function() {
 // 					entHtml += '</div>';
 // 					entHtml += '</div>';
 // 					entHtml += '</div>';
-// 					$("#bodyrightLayer").append(entHtml);
+// 					$("#partnerRightLayer").append(entHtml);
           		
 // 				} 
 				}
@@ -72,43 +96,27 @@ $(function() {
 			} 
 			});
 });
-  function numberWithCommas(x) {
-    return x.toString().replace( /\B(?=(\d{3})+(?!\d))/g, "," );
-  }
+ 
 </script>
 
 <div class="content-right">
 
 	<div class="right-title">Tages</div>
-	<ul class="right-tags" id="tagrightLayer">
-		<!-- <li><a href="#">javascript</a>(234)</li>
-		<li><a href="#">hamonikr</a>(145)</li>
-		<li><a href="#">html</a>(99)</li>
-		<li><a href="#">javascript</a>(234)</li>
-		<li><a href="#">hamonikr</a>(145)</li>
-		<li><a href="#">html</a>(99)</li>
-		<li><a href="#">c++</a>(22)</li>
-		<li><a href="#">css</a>(15)</li>
-		<li><a href="#">javascript</a>(234)</li>
-		<li><a href="#">hamonikr</a>(145)</li> -->
-	</ul>
+	<ul class="right-tags" id="tagrightLayer"></ul>
 
 	<div class="right-title">활동순위</div>
 	<div class="ranking">
 		<div class="user-list">
 			<div class="user-title">유저</div>
-			<ul class="user" id="userrightLayer">
-				
-			</ul>
+			<ul class="user" id="userrightLayer"></ul>
 		</div>
 		<!-- //end user-list -->
 
 		<div class="part-list">
 			<div class="user-title">파트너사</div>
-			<ul class="user">
-
-				<li><a href="#"> <img src="/img/sample_profile3.png" alt=""> Company <span>(89)</span>
-				</a></li>
+			<ul class="user" id="partnerRightLayer" >
+<!-- 				<li><a href="#"> <img src="/img/sample_profile3.png" alt=""> Company <span>(89)</span> -->
+<!-- 				</a></li> -->
 			</ul>
 		</div>
 		<!-- //end user-list -->

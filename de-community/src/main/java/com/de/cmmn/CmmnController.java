@@ -1,6 +1,7 @@
 
 package com.de.cmmn;
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -26,54 +27,51 @@ import com.de.wiki.Wiki;
 import com.de.wiki.WikiRepository;
 import com.de.wiki.service.WikiService;
 
+
 @Controller
 @RequestMapping(value = "/cmmn")
 public class CmmnController {
-	
+
 	@Autowired
 	WikiService service;
-	
+
 	@Autowired
 	QuestionsService qs;
-	
+
 	@Autowired
 	UsersService usersService;
-	
+
 	@Autowired
 	CmmnService cs;
-	
+
 	@Autowired
 	EnterpriseService es;
-	
+
 	@Autowired
 	WikiRepository wr;
-	
+
 	@RequestMapping("/view")
 	@ResponseBody
-	 public Wiki view(HttpServletRequest request, Model model) throws Exception { 			
-		
+	public Wiki view(HttpServletRequest request, Model model) throws Exception {
 		Wiki wiki_view = service.getView(19);
-		//model.addAttribute("result", wiki_view);	
-		System.out.println(wiki_view);
 		return wiki_view;
-	 }
-	
-	@RequestMapping(value="/list")
+	}
+
+
+	@RequestMapping(value = "/list")
 	@ResponseBody
-	public CmmnMap userList(@RequestParam Map<String, String> params,  Model model, @PageableDefault Pageable pageable) throws Exception {
+	public CmmnMap userList(@RequestParam Map<String, String> params, Model model, @PageableDefault Pageable pageable)
+			throws Exception {
 		Page<Users> list = usersService.findAll(pageable);
-		
+
 		List<Enterprises> plist = es.getPromteList();
-		
-//		for(int i=0; i<plist.size() ;i++) {
-//			System.out.println(plist.get(i).getEnterprisename()+" : "+plist.get(i).getEnterpriseabout());
-//		}
-		
-		model.addAttribute("partners_list", plist);		
+
+		model.addAttribute("partners_list", plist);
 		model.addAttribute("paging", list);
 		model.addAttribute("data", list.getContent());
+
 		CmmnMap param = new CmmnMap();
-		//cs.selectList("getUserScore", param)
+
 		param.put("user", cs.selectList("getUserScore", param));
 		param.put("partner", cs.selectList("getPartnerScore", param));
 		param.put("partnerslist", cs.selectList("getPromteList", param));
