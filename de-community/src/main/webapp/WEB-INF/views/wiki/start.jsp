@@ -70,7 +70,7 @@ font-size: medium;
 			</div>
             <ul>
             	<c:forEach var="list" items="${result}" varStatus="status">
-		 			<li><a href="/wiki/view/${list.wikino}">${list.title}</a></li>
+		 			<li><a href="/wiki/helpview/${list.wikino}/h">${list.title}</a></li>
 				</c:forEach>
 			</ul>
 		</div>
@@ -81,7 +81,7 @@ font-size: medium;
 			</div>
             <ul>
             	<c:forEach var="list" items="${menual_result}" varStatus="status">
-		 			<li><a href="/wiki/view/${list.wikino}">${list.title}</a></li>
+		 			<li><a href="/wiki/helpview/${list.wikino}/m">${list.title}</a></li>
 				</c:forEach>
 			</ul>
 		</div>
@@ -92,7 +92,7 @@ font-size: medium;
 			</div>
             <ul>
             	<c:forEach var="list" items="${wiki_result}" varStatus="status">
-		 			<li><a href="/wiki/view/${list.wikino}">${list.title}</a></li>
+		 			<li><a href="/wiki/view/${list.wikino}/w">${list.title}</a></li>
 				</c:forEach>
 			</ul>
 		</div>
@@ -103,7 +103,7 @@ font-size: medium;
 			</div>
             <span class="ques-tag">
             	<c:forEach var="list" items="${ tagsResult }" varStatus="status">
-					<a href="/wiki/view/${list.wikino}">${list.title}</a>
+					<a href="/wiki/view/${list.wikino}/t">${list.title}</a>
 				</c:forEach>
 			</span>
 		</div>

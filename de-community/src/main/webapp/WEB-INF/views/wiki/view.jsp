@@ -30,7 +30,14 @@
 
 
 <div class="content-center">
-	<h2>위키(Wiki)</h2>
+	<h2>
+		<c:if test="${gubun == 'w' }">
+			AskOS-위키
+		</c:if>
+		<c:if test="${gubun == 't' }">
+			태그(Tags)
+		</c:if>
+	</h2>
 	<ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
 		<li class="nav-item">
         	<a class="nav-link active" id="" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home"aria-selected="true">읽기</a>
