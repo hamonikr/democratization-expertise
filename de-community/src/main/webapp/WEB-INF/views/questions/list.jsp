@@ -88,7 +88,7 @@ color: rgb(0,0,0);
 				<span class="ques-text">
 					<div id="ques-text" class="ellipsis">
 <%-- 					${fn:split(list.contents, '<img')[1]} --%>
-									${fn:substring(list.contents, 0, 150)}<c:if test="${fn:length(list.contents) gt 151}"> ... </c:if>
+						${fn:substring(list.contents, 0, 150)}<c:if test="${fn:length(list.contents) gt 151}"> ... </c:if>
 					</div> 
 					<script class="code-js">
 						var editor = new toastui.Editor.factory( {
