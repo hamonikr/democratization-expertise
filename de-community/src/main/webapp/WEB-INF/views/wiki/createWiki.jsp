@@ -34,16 +34,18 @@
 	<h2>Wiki 작성하기</h2>
 	<form id="frm" name="frm" method="post">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-		<input type="hidden" name="section" value="w" />		
+		<input type="hidden" id="section" name="section" value="w" />		
 			
 			
 		<div class="con-box">
 			<div class="form-list">
 				<span>이름 <font class="red">*</font></span>
+				<div id="form-group">
                 <input type="text" id="title" name="title" value="${result.title}" placeholder="태그 이름을 입력하세요" class="input-type1">
-
+				</div>
                 <span>설명 <font class="red">*</font></span>
                 <div class="de-editro" >
+                	<div id="form-group">
                   <input type="hidden" name="contents" id="contents" value="" >
 										<div class="code-html">
 											<div id="editor"></div>
@@ -63,6 +65,7 @@
 					                      color:''
 					                      });
 					                    </script>
+					 </div> 
                 </div>
 			</div>
 		</div>
@@ -77,24 +80,13 @@
 					<button type="button" id="btnDelete" class="btn-blue">삭제</button>
 				</c:otherwise>
 			</c:choose>
-			<button type="button" class="btn-gray" onclick="location.href='/tags/list'">목록</button>
+			<button type="button" class="btn-gray" onclick="location.href='/wiki/getStart'">목록</button>
 <!-- 			<button type="button" class="btn-gray" onclick="location.href='/wiki/getStart'">목록</button> -->
 		</div>
 		
 	</form>   
 </div>
 
-									
-							<%-- 		<div class="form-group" style="color:black;">
-										<label for="Tag">태그</label>
-										<select class="select2" multiple="multiple" name="tagno" id="tagno" data-placeholder="" style="width: 100%; background-color: #8056d6;">
-											<c:forEach var="item" items="${tagList}" varStatus="status">
-												<option value="${item.wikino}">${item.title}</option>
-											</c:forEach>
-										</select>
-									</div>
-									 --%>
-							
 				
 
 	<script type="text/javascript">

@@ -10,9 +10,10 @@
 			tb_wiki 
 		where
 			section=#{section} and deleteat=0
+    order by registerdate desc
+
 		OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage} 
-	
-	</select>
+ 	</select>
 	
 	<select id="getWikiListCount"  parameterType="com.de.wiki.Wiki" resultType="java.lang.Integer">
 		select count(*) from tb_wiki
@@ -182,6 +183,14 @@
 			 and deleteat=0 
 			 and userno in  ( select cast(userno as TEXT) from tb_users_detail where enterpriseno = #{userno} )
 	</select>	
+	
+	<select id="checkDuplication" parameterType="com.de.wiki.Wiki" resultType="Integer">
+		select count(*)
+		 from tb_wiki
+		where section = #{section}
+			 and title = #{title}
+			 and deleteat = 0 
+	</select>
 	
 </mapper>
  

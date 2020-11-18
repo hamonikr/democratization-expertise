@@ -27,11 +27,11 @@ public class CustomAccessDeniedHandler implements AuthenticationFailureHandler {
 		
 		if(exception instanceof BadCredentialsException) {
         	//request.setAttribute("url", "/");
-			request.setAttribute("message", messageSource.getMessage("com.test", null, Locale.getDefault()));
+			request.setAttribute("message", messageSource.getMessage("login.incorrect.pw", null, Locale.getDefault()));
         	request.setAttribute("url", "/login");
         	request.getRequestDispatcher("/login/message").forward(request, response);
         } else if(exception instanceof InternalAuthenticationServiceException) {
-			request.setAttribute("message", messageSource.getMessage("com.test", null, Locale.getDefault()));
+			request.setAttribute("message", messageSource.getMessage("login.incorrect.id", null, Locale.getDefault()));
 
         	request.setAttribute("url", "/login");
         	request.getRequestDispatcher("/login/message").forward(request, response);

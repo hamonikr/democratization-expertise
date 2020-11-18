@@ -3,12 +3,15 @@ package com.de.wiki;
 
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.de.cmmn.CmmnMap;
 import com.de.login.vo.LoginVO;
@@ -35,6 +40,9 @@ public class WikiController {
 	@Autowired
 	QuestionsService qs;
 
+	@Autowired
+	private MessageSource messageSource;
+	
 	@RequestMapping("/getStart")
 	public String accountRecovery(HttpServletRequest request, LoginVO user, Wiki vo, Model model,
 			HttpSession httpSession) throws Exception {
@@ -154,18 +162,13 @@ public class WikiController {
 	@RequestMapping("/saveHelp/{gubun}")
 	public String createHelp(HttpServletRequest request, LoginVO user, Wiki vo, Model model,
 			@PathVariable("gubun") String gubun, HttpSession httpSession) throws Exception {
-		// System.out.println("---wiki help create!---");
 		user = (LoginVO) httpSession.getAttribute("userSession");
 		if (user == null) {
-			// System.out.println("wiki 문서 작성/수정은 로그인시에만 가능합니다!");
 			model.addAttribute("ret", "wiki 문서 작성/수정은 로그인시에만 가능합니다!");
 			return "redirect:/login";
 
 		} else {
-//			System.out.println("== 현재로그인한 계정정보 ==");
-//			System.out.println("section ==>" +vo.getSection());
-//			System.out.println("user id ==>" + user.getUserid());
-//			System.out.println("userno ==>"+ user.getUserno());		
+		System.out.println("userno ==>"+ user.getUserno());		
 
 			model.addAttribute("gubun", gubun);
 			return "/wiki/createHelp";
@@ -173,47 +176,16 @@ public class WikiController {
 	}
 
 
-	@RequestMapping("/saveTag")
-	public String createTag(HttpServletRequest request, LoginVO user, Wiki vo, Model model, HttpSession httpSession)
-			throws Exception {
-		// System.out.println("---wiki tag create!---");
-		user = (LoginVO) httpSession.getAttribute("userSession");
-		if (user == null) {
-			// System.out.println("wiki 문서 작성/수정은 로그인시에만 가능합니다!");
-			model.addAttribute("ret", "wiki 문서 작성/수정은 로그인시에만 가능합니다!");
-			return "redirect:/login";
-
-		} else {
-//			System.out.println("== 현재로그인한 계정정보 ==");
-//			System.out.println("section ==>" +vo.getSection());
-//			System.out.println("user id ==>" + user.getUserid());
-//			System.out.println("userno ==>"+ user.getUserno());
-
-			List<Wiki> tagList = qs.findAllTag();
-			model.addAttribute("tagList", tagList);
-
-			return "/wiki/createTag";
-		}
-
-	}
-
 
 	@RequestMapping("/saveWiki")
 	public String saveWiki(HttpServletRequest request, LoginVO user, Wiki vo, Model model, HttpSession httpSession)
-			throws Exception {
-		// System.out.println("---wiki tag create!---");
+	throws Exception {
 		user = (LoginVO) httpSession.getAttribute("userSession");
 		if (user == null) {
-			// System.out.println("wiki 문서 작성/수정은 로그인시에만 가능합니다!");
 			model.addAttribute("ret", "wiki 문서 작성/수정은 로그인시에만 가능합니다!");
 			return "redirect:/login";
 
 		} else {
-//			System.out.println("== 현재로그인한 계정정보 ==");
-//			System.out.println("section ==>" +vo.getSection());
-//			System.out.println("user id ==>" + user.getUserid());
-//			System.out.println("userno ==>"+ user.getUserno());
-
 			List<Wiki> tagList = qs.findAllTag();
 			model.addAttribute("tagList", tagList);
 
@@ -224,38 +196,45 @@ public class WikiController {
 
 
 	@RequestMapping("/save.proc")
-	public String save(HttpServletRequest request, LoginVO user, Wiki vo, Model model, HttpSession httpSession)
-			throws Exception {
-		// System.out.println("---wiki create proc---");
+	public String save(HttpServletRequest request, LoginVO user, Wiki vo, RedirectAttributes model, HttpSession httpSession, HttpServletResponse response)
+	throws Exception {
 		user = (LoginVO) httpSession.getAttribute("userSession");
 		vo.setUserno(user.getUserno());
-		// System.out.println("section==?" + vo.getSection());
 
 		String retunUrl = "";
 		String gubun = request.getParameter("gubun");
+		System.out.println("section? "+vo.getSection());
 
 		if (vo.getSection().equals("h")) {
 			retunUrl = "/wiki/Help/h";
 		} else if (vo.getSection().equals("m")) {
 			retunUrl = "/wiki/Help/m";
+		} else if (vo.getSection().equals("t")) {
+			retunUrl = "/tags/list";
+		} else if (vo.getSection().equals("w")) {
+			retunUrl = "/wiki/Help/w";
 		} else {
 			retunUrl = "/wiki/getStart";
 		}
-		// wiki 문서 생성
-		// service.save(vo);
-		service.saveHistory(vo);
-		return "redirect:" + retunUrl;
-//		return "redirect:/wiki/getStart";
+		
+		int ret = service.checkDuplication(vo);
 
+		if(ret > 0) { // 중복된경우
+			model.addFlashAttribute("message", "중복된 정보입니다. 확인해보고 작성해주세요.");
+			return "redirect:" + retunUrl;
+
+		} else {	// 중복이 아닌 경우 문서 생성
+			service.saveHistory(vo);
+			return "redirect:" + retunUrl;
+		}
+		
 	}
 
 
 	@RequestMapping("/edit.proc")
 	public String edit(HttpServletRequest request, LoginVO user, Wiki vo, Model model, HttpSession httpSession)
-			throws Exception {
-		// System.out.println("---wiki edit proc---");
+	throws Exception {
 		user = (LoginVO) httpSession.getAttribute("userSession");
-		// System.out.println("수정할 wikino?-->"+ vo.getWikino());
 		if (user != null) {
 			vo.setUserno(user.getUserno());
 			service.updateWiki(vo);
@@ -263,31 +242,70 @@ public class WikiController {
 		} else {
 			return "redirect:/login";
 		}
+		String retunUrl = "";
 
-		return "redirect:/wiki/getStart";
+		
+		if (vo.getSection().equals("h")) {
+			retunUrl = "/wiki/Help/h";
+		} else if (vo.getSection().equals("m")) {
+			retunUrl = "/wiki/Help/m";
+		} else if (vo.getSection().equals("t")) {
+			retunUrl = "/tags/list";
+		} else if (vo.getSection().equals("w")) {
+			retunUrl = "/wiki/Help/w";
+		} else {
+			retunUrl = "/wiki/getStart";
+		}
+		return "redirect:" + retunUrl;
+		//return "redirect:/wiki/getStart";
 	}
 
 
 	@RequestMapping("/delete.proc")
-	public String delete(HttpServletRequest request, LoginVO user, Wiki vo, Model model, HttpSession httpSession)
-			throws Exception {
-		// System.out.println("---wiki delete proc---");
-		// System.out.println("---삭제할 wikino---" + vo.getWikino());
-		user = (LoginVO) httpSession.getAttribute("userSession");
-		int ret = 0;
-		vo.setUserno(user.getUserno());
-		ret = service.deleteWiki(vo.getWikino());
+	public String delete(HttpServletRequest request, LoginVO user, Wiki vo, Model model, HttpServletResponse response, HttpSession httpSession)
+	throws Exception {
+			user = (LoginVO) httpSession.getAttribute("userSession");
+			String retunUrl = "";
 
-		if (ret == 0) {
-			System.out.println("위키 문서 삭제 실패");
-		} else {
-			service.saveHistory(vo);
-			System.out.println("위키 문서 정상적으로 삭제");
+			if (user != null) {
+				vo.setUserno(user.getUserno());
+				service.updateWiki(vo);
+				
+				int ret = 0;
+				ret = service.deleteWiki(vo.getWikino());
+				System.out.println("section? "+vo.getSection());
+				
+				if (vo.getSection().equals("h")) {
+					retunUrl = "/wiki/Help/h";
+				} else if (vo.getSection().equals("m")) {
+					retunUrl = "/wiki/Help/m";
+				} else if (vo.getSection().equals("t")) {
+					retunUrl = "/tags/list";
+				} else if (vo.getSection().equals("w")) {
+					retunUrl = "/wiki/Help/w";
+				} else {
+					retunUrl = "/wiki/getStart";
+				}
+				
+				if (ret == 0) {
+					System.out.println("위키 문서 삭제 실패");
+					request.setAttribute("message", messageSource.getMessage("com.test", null, Locale.getDefault()));
+		        	request.setAttribute("url", retunUrl);
+		        	request.getRequestDispatcher("/login/message").forward(request, response);
+		        	
+				} else {
+					System.out.println("위키 문서 정상적으로 삭제");
+					request.setAttribute("message", messageSource.getMessage("delete.success", null, Locale.getDefault()));
+		        	request.setAttribute("url", retunUrl);
+		        	request.getRequestDispatcher("/login/message").forward(request, response);
 
-		}
-
-		return "redirect:/wiki/getStart";
-
+				}
+			} else {
+				retunUrl = "/login";
+			}
+		
+		return "redirect:" + retunUrl;
+	
 	}
 
 }

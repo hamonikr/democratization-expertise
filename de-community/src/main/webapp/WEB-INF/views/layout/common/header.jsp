@@ -142,16 +142,25 @@ width: 500px;
 						</c:otherwise>
 					</c:choose>
 					
-				<li><a href="#">Help</a></li>
+				<li><a href="/wiki/Help/m">Help</a></li>
 
 				<li>
-					<sec:authorize access="hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')">
+				<c:choose>				
+				<c:when test="${empty userSession}">
+					<a href="/login" style="margin-left:10px; width:100px;color: wheat;">Sign in</a>
+					<a href="/signup/signup" style="margin-left:10px; width:100px;color: wheat;">Sign up</a>	
+				</c:when>
+				<c:otherwise>
+					<a href="javascript:;" style="margin-left:10px; width:100px;color: wheat;" onClick="location.href='/login/logout'">Sign out </a>	
+				</c:otherwise>
+				</c:choose>
+				<%-- 	<sec:authorize access="hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')">
 						<a href="javascript:;" style="margin-left:10px; width:100px;color: wheat;" onClick="location.href='/login/logout'">Sign out </a>
 					</sec:authorize>
-					<sec:authorize access="!(hasRole('ROLE_USER') || hasRole('ROLE_ADMIN'))">
+					<sec:authorize access="!(hasRole('ROLE_USER') || !hasRole('ROLE_ADMIN'))">
 						<a href="/login" style="margin-left:10px; width:100px;color: wheat;">Sign in</a>
 						<a href="/signup/signup" style="margin-left:10px; width:100px;color: wheat;">Sign up</a>	
-					</sec:authorize>
+					</sec:authorize> --%>
 				</li>
 			</ul>
 		</div>
