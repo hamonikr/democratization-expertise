@@ -30,7 +30,7 @@
 
 
 <div class="content-center">
-	<h2>위키(Wiki)</h2>
+	<h2>태그(Tags)</h2>
 	<ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
 		<li class="nav-item">
         	<a class="nav-link active" id="" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home"aria-selected="true">읽기</a>
@@ -64,7 +64,7 @@
 			<form id="frm" name="frm" method="post">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<input type="hidden" name="wikino" id="wikino" value="${result.wikino}"/>
-				<input type="hidden" name ="section" id="section" value ='w' >
+				<input type="hidden" name ="section" id="section" value ='t' >
 				
 	    		<p style="float:right">
 	    			<a class="" id="btnUpdate">[수정하기]</a>

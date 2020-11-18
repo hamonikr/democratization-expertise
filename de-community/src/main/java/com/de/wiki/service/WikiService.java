@@ -98,4 +98,8 @@ public class WikiService {
 		return mapper.deleteWiki(wikino);
 	}
 
+	// 위키문서 삭제
+	public int checkDuplication(Wiki vo) throws Exception {
+		return mapper.checkDuplication(vo);
+	}
 }

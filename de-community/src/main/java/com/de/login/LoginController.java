@@ -57,14 +57,6 @@ public class LoginController {
 	 public String loginSuccess(Model model, @AuthenticationPrincipal SecurityMember user, LoginHistoryVO hvo , LoginVO vo, HttpSession session ) throws Exception{
 		System.out.println("<<--- controller for normal loginSuccess-->> ");
 	
-		if(user!=null) {
-		System.out.println("user id --->" + user.getUserid());
-		System.out.println("user pw --->" + user.getUserpassword());
-		System.out.println("user no --- >" + user.getUserno());
-		System.out.println("user no --- >" + user.getEnterprisename());
-		System.out.println("representat >> " +vo.getRepresentat());
-
-		}
 		
 		// 로그인 히스토리 저장
 		hvo.setUserid(user.getUserid());

@@ -57,7 +57,7 @@ font-size: medium;
      
     <div class="list-right">
     	<div class="inblock">
-        	<button type="button" class="btn-blue"  id="btnSave" onclick="location.href='/wiki/saveTag'"> Tag 작성하기</button>
+        	<button type="button" class="btn-blue"  id="btnSave" onclick="location.href='/tags/save'"> Tag 작성하기</button>
         	<button type="button" class="btn-blue"  id="btnWikiSave" onclick="location.href='/wiki/saveWiki'"> Wiki 작성하기</button>
 		</div>
 	</div>

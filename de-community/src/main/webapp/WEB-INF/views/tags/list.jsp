@@ -52,7 +52,7 @@ color: rgb(0,0,0);
     		<button type="button"><i class="mdi mdi-magnify"></i> </button>
 		</div>
 		<div class="inblock">
-			<button type="button" class="btn-blue" id="btnSave" onclick="location.href='/wiki/saveTag'">Tag 생성</button>
+			<button type="button" class="btn-blue" id="btnSave" onclick="location.href='/tags/save'">Tag 생성</button>
 		</div>
 	</div>
 	 
@@ -60,21 +60,20 @@ color: rgb(0,0,0);
 	<form id="frm" name="frm" method="post">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 		<input type="hidden" name="pageNo" value="${paginationInfo.currentPageNo }" />
-		<div class="con-box">
+		<input type="hidden" name="message" id ="message" value="${message}" />		
+      <div class="con-box">
 			<ul class="tag-con">
 				<c:forEach var="list" items="${result}" varStatus="status">
 					<li>
 						<div class="tag-title">
-							<em><a href="/wiki/view/${list.wikino}">${list.title}</a></em>
+							<%-- <em><a href="/wiki/view/${list.wikino}">${list.title}</a></em> --%>
+							<em><a href="/tags/view/${list.wikino}">${list.title}</a></em>
 		                   	<div class="qna"><font class="bold"><a href="/questions/list">${list.relatedcnt}</a> </font>개의 질문들</div>
 						</div>
 						${list.contents}
 						<div class="space">space</div>
 					</li>
 					
-<!-- 							<div class="card-body col-12 ellipsis"> -->
-<%-- 								<div>${list.contents}</div> --%>
-<!-- 							</div> -->
 				</c:forEach>
 				
 				
@@ -84,7 +83,15 @@ color: rgb(0,0,0);
 	<!-- page number -->
 	<jsp:include page="/WEB-INF/views/include/paging.jsp" />
 </div>
+<script type="text/javascript">
+$(function(){
+    var responseMessage = $('#message').val();
+    
+    if(responseMessage != ""){
+        alert(responseMessage)
+    }
+});
 
-
-
+    
+  </script>
 

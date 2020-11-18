@@ -37,5 +37,6 @@ public interface WikiMapper {
 	public List<Wiki> getWikiListFromCom(Wiki vo) throws Exception;
 
 	public int getWikiListCntFromCom(Wiki vo) throws Exception;
-
+	
+	public int checkDuplication(Wiki vo) throws Exception;
 }
