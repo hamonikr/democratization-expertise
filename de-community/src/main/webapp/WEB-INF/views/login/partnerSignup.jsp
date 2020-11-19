@@ -54,7 +54,6 @@
         <li><label>비밀번호확인</label><input type="password" name="userpassword2" id="userpassword2" class="input-type1"><font id="passDubChk" size="1"></font></li>
         <li><div class="g-recaptcha" data-sitekey="6LeS16wZAAAAADQYkYoSCaRt5wIb0YBSGGnnqVdH"></div></li>
         <li>
-<!--         	<input type="submit" id="create_account" value="계정 생성하기" class="btn btn-primary btn-block blue"> -->
         	<button type="submit" id="create_account"class="btn-blue">계정생성</button>
 		</li>
       </ul>
