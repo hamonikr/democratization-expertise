@@ -312,12 +312,12 @@ h2 {font-size:22px; color: #222; font-weight: 400!important; margin-bottom: 30px
 /*--------------------
 레이어팝업
 ----------------------*/
-#popup { position: absolute; left: 50%; top: 200px; z-index: 9998;  background: #fff; border-radius: 5px; padding: 20px}
+.popup { position: absolute; left: 50%; top: 200px; z-index: 9998;  background: #fff; border-radius: 5px; padding: 20px}
 .popa { width: 500px; margin-left: -250px; }
 
 .pop-content {padding:30px;text-align: center}
 
-#popup .page_num, #popup2 .page_num  {margin-top:10px; margin-bottom: 0}
+.popup .page_num, #popup2 .page_num  {margin-top:10px; margin-bottom: 0}
 #bg_fix { display: block; position: fixed; z-index: 9997; width: 100%; height: 100%; top: 0px; left: 0px; background: #000; opacity: 0.6; filter: opacity(60);}
 
 

@@ -15,7 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -235,10 +234,6 @@ public class EnterprisesController {
 		if (LOG_URL)
 			logger.info(" -- url : /enterprises/modify - Enterprises : " + vo);
 
-		System.out.println("loginuser enterpriseno ? " + loginUserData.getEnterpriseno());
-		System.out.println("area? " + vo.getEnterprisearea());
-		System.out.println("enterpriseabout" + vo.getEnterpriseabout());
-		System.out.println("vo--->" + vo.toString());
 		service.updateEnterprises(vo);
 
 		return "redirect:/enterprises/activity/" + vo.getEnterpriseno();
@@ -257,19 +252,17 @@ public class EnterprisesController {
 	public HashMap<String, Object> modifyPassword(Model model, EnterprisePwVO vo, LoginVO loginUserData,
 			HttpServletRequest request, HttpSession session) throws Exception {
 		loginUserData = (LoginVO) session.getAttribute("userSession");
-		if (LOG_URL)
-			logger.info(" -- url : /enterprises/modify - EnterprisePwVO : " + vo + " // " + loginUserData);
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		vo.setEnterpriseno(loginUserData.getEnterpriseno());
-		
+
 		boolean updateVal = service.updateEnterprisePw(vo);
 
 		if (updateVal)
-			map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
+			map.put("message", "변경되었습니다");
 		else
-			map.put("message", CodeMessage.MSG_100009_비밀번호가_일치하지_않습니다__다시_확인해주세요_);
+			map.put("message", "비밀번호가 일치하지않습니다 다시 확인해주세요");
 
 		map.put("updateVal", updateVal);
 		return map;
@@ -284,22 +277,23 @@ public class EnterprisesController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public HashMap<String, Object> upload(MultipartHttpServletRequest request, HttpSession session, LoginVO loginUserData) throws Exception {
+	public HashMap<String, Object> upload(MultipartHttpServletRequest request, HttpSession session,
+			LoginVO loginUserData) throws Exception {
 		loginUserData = (LoginVO) session.getAttribute("userSession");
 		if (LOG_URL)
 			logger.info(" -- url : /enterprises/upload - request : " + request);
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
+
 		Enterprises vo = new Enterprises();
 		vo.setEnterpriseno(loginUserData.getEnterpriseno());
 
 		boolean updateVal = service.upload(vo, request);
 
 		if (updateVal)
-			map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
+			map.put("message", "변경 되었습니다");
 		else
-			map.put("message", CodeMessage.MSG_000024_변경_중_오류가_발생하였습니다_);
+			map.put("message", "변경 중 오류가 발생하였습니다");
 
 		map.put("result", updateVal);
 		return map;
