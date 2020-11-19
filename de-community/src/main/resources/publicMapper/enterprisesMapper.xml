@@ -50,7 +50,7 @@ SET
     userpassword = #{enterprisepasswordnew},
     updatedate = now()
 WHERE
-    userno = (select userno from tb_users_detail where enterpriseno = #{enterpriseno})
+    userno = (select userno from tb_users_detail where enterpriseno = #{enterpriseno} and representat = '1' )
     /*+
    AND userpassword = # {enterprisepassword}
     */

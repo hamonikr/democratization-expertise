@@ -40,7 +40,7 @@
    font-family: 'Noto Sans KR';
    font-style: normal;
    font-weight: 700;
-   src: url(fonts/NotoSansKR-bold.woff2) format('woff2'),
-        url(fonts/NotoSansKR-bold.woff) format('woff'),
-        url(fonts/NotoSansKR-bold.otf) format('opentype');
+   src: url(fonts/NotoSansKR-Bold.woff2) format('woff2'),
+        url(fonts/NotoSansKR-Bold.woff) format('woff'),
+        url(fonts/NotoSansKR-Bold.otf) format('opentype');
  }

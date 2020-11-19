@@ -204,7 +204,7 @@
 
                 <ul class="my-modify">
                 	<li>
-                		<label>상호명</label>
+                		<label>상호명${ isMypage }</label>
                 		<c:if test="${ isMypage }">
 							<input class="input-type1" id="enterprisename" name="enterprisename" value="${enterprise.enterprisename}" autocomplete="off">
 						</c:if>
@@ -372,8 +372,27 @@
 								
 </div>
 
+    
+<div id="popupPw" class="popup popa "  style="display: none;">
+    <div class="pop-content">
+      
+      <form id="frm1" name="frm1" method="post">
+      	<input type="password" class="form-control" name="enterprisepassword" placeholder="기존 비밀번호">
+      	<input type="password" class="form-control" name="enterprisepasswordnew" placeholder="새 비밀번호">
+      	<input type="password" class="form-control" name="enterprisepasswordnew2" placeholder="새 비밀번호 확인">
+
+	      <div class="mT30 txt-center">
+	        <button type="button"  id="btnUpdatePw"  class="btn-blue">수정</button>
+	        <button type="button" id="btnUpdatePWCancle" class="btn-gray">취소</button>
+	      </div>
+      </form>
+      
+    </div>
+  </div>
+  <div id="bg_fix" style="display: none;" class="popup "></div>
+  
 <!-- 비밀번호 변경 팝업 -->
-<div id="popupPw" class="card card-primary pop-layer" style="display: none;">
+<div id="popupPwaaaa" class="card card-primary pop-layer" style="display: none;">
 	<form id="frm1" name="frm1" method="post">
 		<div class="dim-layer">
 			<div class="dimBg"></div>
@@ -419,8 +438,15 @@ $(function() {
 
 //비밀번호 팝업 열기/닫기
 function fnPopupPw(){
-	if('none' == $('#popupPw').css('display')) $('#popupPw').css('display', 'block');
-	else if('block' == $('#popupPw').css('display')) $('#popupPw').css('display', 'none');
+	if('none' == $('#popupPw').css('display')) {
+	  $('#popupPw').css('display', 'block');
+	  $('#bg_fix').css('display', 'block');
+	}else if('block' == $('.popupPw').css('display')) {
+	  $('#popupPw').css('display', 'none');
+	  $('#bg_fix').css('display', 'none');
+	  
+	}
+
 
 	$('input[name=enterprisepassword]').val('');
 	$('input[name=enterprisepasswordnew]').val('');
@@ -491,6 +517,9 @@ function fnProfileImg(){
 	form.append(img);
 
 	var fileData = new FormData($(form)[0]);
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	
 	
 	$.ajax({
 		enctype	: 'multipart/form-data',
@@ -501,7 +530,7 @@ function fnProfileImg(){
 		contentType: false,
 		cache		: false,
 		beforeSend : function(xhr) {
-			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+			xhr.setRequestHeader(header, token);
 		},
 		success	: function(data){
 			alert(data.message);
