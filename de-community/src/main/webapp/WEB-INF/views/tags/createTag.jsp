@@ -31,7 +31,7 @@
 		<span class="bold">새 태그를 만드는 방법<br></span>
  			 1. 질문에 새 태그를 입력하면 해당 태그가 만들어진다. 새 태그를 만들 때 해당 태그를 기억하십시오.<br>
 			 2. [tag] 이름은 20자 미만, 설명은 35자 이상이어야 한다.<br>
-			 3. 문자 집합 'a-z, 0-9, +, #, -' 내에서 사용해야 한다.<br>
+			 3. [tag] 이름은 문자 집합 'a-z, 0-9, +, #, -' 내에서 사용해야 한다.<br>
 	</div>
 	<form id="frm" name="frm" method="post">
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

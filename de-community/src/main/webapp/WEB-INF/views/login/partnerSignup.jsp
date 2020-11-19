@@ -35,21 +35,23 @@
       </ul>
       <ul class="login-in">
         <li><label>회사명</label>
-        	<input type="text"  id="username" name="username" value="testCompany" placeholder="회사명을 입력해주세요" class="input-type1">
+        	<div class="form-group"><input type="text" id="username" name="username" value="" placeholder="회사명을 입력해주세요" class="input-type1"></div>
 <!--         	<input type="text" class="form-control englishOnly" id="username" name="username" value="testCompany" placeholder="회사명을 입력해주세요"> -->
         </li>
         <li>
         	<label>아이디</label>
-		   	<input type="text" class="input-type1 englishOnly" id="userid" name="userid" value="testCom" placeholder="아이디를 입력해주세요">   
+		  <div class="form-group"><input type="text" class="input-type1 englishOnly" id="userid" name="userid" value="" placeholder="아이디를 입력해주세요"></div>
 		</li>
-        <li><label>E-mail 주소</label><input type="text" id="useremail" name="useremail" value="test@test.com"  placeholder="이메일을 입력해주세요" class="input-type1"></li>
+        <li><label>E-mail 주소</label><div class="form-group"><input type="text" id="useremail" name="useremail" value=""  placeholder="이메일을 입력해주세요" class="input-type1"></div></li>
         <li><label>사업자번호</label>
-        	<input type="text" class=" input-type1 numberOnly" maxlength=3 id="bizNo1" value="" name="bizNo1" style=" width:15%">-
- 	   		<input type="text" class=" input-type1 numberOnly" maxlength=2 id="bizNo2" value="" name="bizNo2" style="width:15%">  -     
-	   		<input type="text" class=" input-type1 numberOnly" maxlength=5 id="bizNo3" value="" name="bizNo3" style="width:30%">
+        	<div>
+	        	<span class="form-group"><input type="text" class=" input-type1 numberOnly" maxlength=3 id="bizNo1" value="" name="bizNo1" style=" width:15%"></span> -
+		 	   	<span class="form-group"><input type="text" class=" input-type1 numberOnly" maxlength=2 id="bizNo2" value="" name="bizNo2" style="width:15%"></span> -     
+			   	<span class="form-group"><input type="text" class=" input-type1 numberOnly" maxlength=5 id="bizNo3" value="" name="bizNo3" style="width:30%"></span>
+			</div>
         </li>
-        <li><label>비밀번호</label><input type="password" id="userpassword" name="userpassword" value="test1234" placeholder="비밀번호를 입력해주세요" class="input-type1"></li>
-        <li><label>비밀번호확인</label><input type="password" name="reuserpassword" id="reuserpassword" class="input-type1"></li>
+        <li><label>비밀번호</label><div class="form-group"><input type="password" id="userpassword" name="userpassword" value="" placeholder="비밀번호를 입력해주세요" class="input-type1"></div></li>
+        <li><label>비밀번호확인</label><input type="password" name="userpassword2" id="userpassword2" class="input-type1"><font id="passDubChk" size="1"></font></li>
         <li><div class="g-recaptcha" data-sitekey="6LeS16wZAAAAADQYkYoSCaRt5wIb0YBSGGnnqVdH"></div></li>
         <li>
 <!--         	<input type="submit" id="create_account" value="계정 생성하기" class="btn btn-primary btn-block blue"> -->
@@ -79,17 +81,12 @@
 		 $.validator.addMethod("passwordCk",  function( value, element ) {
 			   return this.optional(element) ||  /^.*(?=.*\d)(?=.*[a-zA-Z]).*$/.test(value);
 			});
-	    // 숫자만
- 		$(".numberOnly").on("keyup", function() {
- 		    $(this).val($(this).val().replace(/[^0-9]/g,""));
- 		});
 
-		// 영문, 숫자, 공백, 특수문자
-//  		$(".englishOnly").on("keyup", function() {
-//  		    $(this).val($(this).val().replace(/[^a-zA-Z\s|^0-9|^~!@#$%^&*()_+|<>?:{}(.),]+$/gi,""));
-//  		});
+		// 숫자만
+		$(".numberOnly").on("keyup", function() {
+		    $(this).val($(this).val().replace(/[^0-9]/g,""));
+		});
 
-		//validation check	 
 		 $('#frm').validate({
 			 rules: {
 					username : { required: true },
@@ -97,11 +94,14 @@
                  useremail : { required: true, email: true },
                  userpassword : { required: true, minlength:6, passwordCk : true },
                  reuserpassword : { required: true, minlength:6, passwordCk : true },
-                 bizNo1 : { required: true },
-                 bizNo2 : { required: true },
-                 bizNo3 : { required: true }
+                 bizNo1 : { required:true },
+                 bizNo2 : { required:true },
+                 bizNo3 : { required:true }
 			  }, 
 			  messages:{
+				  username:{
+			 			required : "회사명을 입력해주세요",
+					  },
 			 		userid:{
 			 			required : "아이디를 입력해주세요",
 			 			minlength : "최소 {0}자 입력해주세요"
@@ -121,13 +121,13 @@
 			 			passwordCk : "비밀번호는 영문, 숫자 조합으로 입력해주세요"
 			 			},
 			 		bizNo1: {
-				 		required : "" 
+			 			required: ""
 					 	},
 			 		bizNo2: { 
-				 		required : "" 
+			 			required: ""
 					 	},
 			 		bizNo3: { 
-				 		required : "사업자 번호를 확인하세요" 
+			 			required : "<div>사업자 번호를 입력해주세요</div>"	
 					 	}	
 			 	 },
 			    errorElement: 'span',
@@ -164,7 +164,6 @@
 			 					             contentType: "application/json; charset=UTF-8",
 			 					             success : function(chkBiz) {
 			 					            	 if (chkBiz == 1) {                       
-			 					                       //alert(chkBiz);
 			 					                      $.ajax({
 						 						             url: '/signup/VerifyRecaptcha',
 						 						             type: 'post',
@@ -174,7 +173,6 @@
 						 						             success: function(data) {
 						 						                 switch (data) {
 						 						                     case 0:
-						 						                         //alert("자동 가입 방지 봇 통과");
 						 						                         signUpProc();
 						 						                         break;			 
 						 						                     case 1:
@@ -204,7 +202,28 @@
 			 });
 
 	 });
-	 
+
+ 	// 비밀번호 재확인 
+	$(function(){
+	    $('#userpassword').keyup(function(){
+	      $('#passDubChk').html('');
+	    });
+	
+	    $('#userpassword2').keyup(function(){
+	
+	        if($('#userpassword').val() != $('#userpassword2').val()){
+	          $('#passDubChk').html('비밀번호 일치하지 않음<br><br>');
+	          $('#passDubChk').attr('color', '#da542e');
+	          $('#create_account').attr('disabled', 'disabled');
+	        } else{
+	          $('#passDubChk').html('비밀번호 일치함<br><br>');
+	          $('#passDubChk').attr('color', '#199894b3');         
+	          $('#create_account').removeAttr('disabled');
+	        }
+	
+	    });
+
+	});  
 
 	// 사업자 번호 유효성 체크 
 	function checkBizNo(bizno){
@@ -219,7 +238,7 @@
 		 }
 		return (10 - ((sum + Math.floor(key[8] * Number(bizno[8]) / 10)) % 10)) == Number(bizno[9]);
 	}
-	
+
 
 	function signUpProc(){
 		var enterprisebizno = ($("#bizNo1").val() + $("#bizNo2").val() + $("#bizNo3").val());

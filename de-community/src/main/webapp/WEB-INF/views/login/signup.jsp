@@ -34,11 +34,12 @@
                 <li><a href="/signup/partnerSignup">파트너사 가입</a></li>
 			</ul>
             <ul class="login-in">
-            	<li><label>아이디</label><input type="text"  id="userid" name="userid" maxlength="20"  placeholder="아이디를 입력해주세요" class="input-type1"></li>
-                <li><label>이름</label><input type="text" id="username" value="이영은" name="username" maxlength="30" placeholder="이름을 입력해주세요"class="input-type1"></li>
-                <li><label>E-mail 주소</label><input type="text" id="useremail" value="lee@invesume.com" name="useremail"  placeholder="이메일을 입력해주세요" class="input-type1"></li>
-                <li><label>비밀번호</label><input type="password" id="userpassword" value="lee1234" name="userpassword"  placeholder="비밀번호를 입력해주세요"class="input-type1"></li>
-                <li><label>비밀번호확인</label><input type="password" name="" id="" class="input-type1"></li>
+            	<li><label>아이디</label><div class="form-group"><input type="text"  id="userid" name="userid" maxlength="20"  placeholder="아이디를 입력해주세요" class="input-type1"></div></li>
+                <li><label>이름</label><div class="form-group"><input type="text" id="username" value="이영은" name="username" maxlength="30" placeholder="이름을 입력해주세요"class="input-type1"></div></li>
+                <li><label>E-mail 주소</label><div class="form-group"><input type="text" id="useremail" value="lee@invesume.com" name="useremail"  placeholder="이메일을 입력해주세요" class="input-type1"></div></li>
+                <li><label>비밀번호</label><div class="form-group"><input type="password" id="userpassword" value="lee1234" name="userpassword"  placeholder="비밀번호를 입력해주세요"class="input-type1"></div></li>
+                <li><label>비밀번호확인</label><div class="form-group"><input type="password" name="userpassword2" id="userpassword2" class="input-type1"><font id="passDubChk" size="1"></font>
+                </div></li>
                 <li><div class="g-recaptcha" data-sitekey="6LeS16wZAAAAADQYkYoSCaRt5wIb0YBSGGnnqVdH"></div></li>
                 <li><input type="submit" id="create_account" value="계정 생성하기" class="btn-blue"></li>
 			</ul>
@@ -65,19 +66,15 @@
 	 $.validator.addMethod("passwordCk",  function( value, element ) {
 		   return this.optional(element) ||  /^.*(?=.*\d)(?=.*[a-zA-Z]).*$/.test(value);
 		});
-		
-	// 영문, 숫자, 공백, 특수문자
-		$(".englishOnly").on("keyup", function() {
-		    $(this).val($(this).val().replace(/[^a-zA-Z\s|^0-9|^~!@#$%^&*()_+|<>?:{}(.),]+$/gi,""));
-		});	
 
-	 
+	
 	 $('#frm').validate({
 		 rules: {
 		 	  userid:{ required: true, minlength: 3 },
 		 	  username:{ required: true, minlength: 1 },
 		 	  useremail:{ required: true, email: true },
 		     userpassword:{ required: true, minlength:6, passwordCk : true }
+			     
 		  }, 
 		  messages:{
 		 		userid:{
@@ -117,10 +114,8 @@
 		                  data: {userid},
 		                  success: function(retVal) {		 							
 		 						if(retVal == "S"){
-		 							//alert(retVal);
 		 							var useremail = $("#useremail").val();
-			 						//alert(useremail);
-		 							$.ajax({
+			 						$.ajax({
 		 				       			 url: '/signup/checkEmailDuplication',
 		 				                  type: 'post',
 		 				                  data: {useremail},
@@ -138,7 +133,6 @@
 			 						             success: function(data) {
 			 						                 switch (data) {
 			 						                     case 0:
-			 						                         //alert("자동 가입 방지 봇 통과");
 			 						                         signUpProc();
 			 						                         break;			 
 			 						                     case 1:
@@ -162,7 +156,29 @@
 		 });
 
  });
- 
+
+
+// 비밀번호 재확인
+$(function(){
+    $('#userpassword').keyup(function(){
+      $('#passDubChk').html('');
+    });
+
+    $('#userpassword2').keyup(function(){
+
+        if($('#userpassword').val() != $('#userpassword2').val()){
+          $('#passDubChk').html('비밀번호 일치하지 않음<br><br>');
+          $('#passDubChk').attr('color', '#da542e');
+          $('#create_account').attr('disabled', 'disabled');
+        } else{
+          $('#passDubChk').html('비밀번호 일치함<br><br>');
+          $('#passDubChk').attr('color', '#199894b3');         
+          $('#create_account').removeAttr('disabled');
+        }
+
+    });
+});  
+
 function signUpProc(){
 	if(confirm("가입하시겠습니까?")==true){
 		document.frm.action = "/signup/signup.proc";
