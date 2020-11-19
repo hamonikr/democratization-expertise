@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -48,6 +49,7 @@ public class UsersService {
 	
 	@Autowired
 	AnswersRepository ar;
+	
 	
 	//@EntityGraph(attributePaths = "usersDetail")
 	//@Query("select * from tb_users a")
@@ -159,7 +161,7 @@ public class UsersService {
 		
 		String root_path = request.getSession().getServletContext().getRealPath("/");
 		String path = root_path.split("webapp")[0] + "resources/static/upload/users/";
-
+		path = "/home/de/de/WEB-INF/classes/static/upload/users";
 		System.out.println(" ------ root_path : " + root_path);
 		System.out.println(" ------ path : " + path);
 		

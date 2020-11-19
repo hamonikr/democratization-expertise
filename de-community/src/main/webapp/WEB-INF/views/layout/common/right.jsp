@@ -34,7 +34,7 @@ $(function() {
 // 				right  tags
 				$.each (data.tag, function (index, el) {
 						var tagHtml = "";
-						tagHtml += '<li><a href="/wiki/view/'+el.wikino+'">'+el.title+'</li>';			 
+						tagHtml += '<li><a href="/wiki/view/'+el.wikino+'/t">'+el.title+'</li>';			 
 						$("#tagrightLayer").append(tagHtml);
 					});
 					

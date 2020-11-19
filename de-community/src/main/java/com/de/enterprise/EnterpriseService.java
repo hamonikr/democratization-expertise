@@ -117,7 +117,7 @@ public class EnterpriseService {
 
 		String root_path = request.getSession().getServletContext().getRealPath("/");
 		String path = root_path.split("webapp")[0] + "resources/static/upload/enterprises/";
-
+		path = "/home/de/de/WEB-INF/classes/static/upload/enterprises";
 		List<MultipartFile> fileList = request.getFiles("profileImg");
 		File fileDir = new File(path);
 

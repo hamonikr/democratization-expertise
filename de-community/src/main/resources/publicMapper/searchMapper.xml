@@ -71,7 +71,7 @@ select a.* from (
 
 <select id="autoSearch" parameterType="com.de.cmmn.CmmnMap" resultType="com.de.cmmn.CmmnMap">
 
-select a.title from(select title,contents from tb_questions union all 
+select distinct a.title from(select title,contents from tb_questions union all 
 select title,contents from tb_wiki union all select title,body from tbl_stack_question) a where upper(a.title) like '%' || upper(#{searchtxt}) || '%' or upper(a.contents) like '%' || upper(#{searchtxt}) || '%'
 limit 30
 </select>
