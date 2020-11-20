@@ -50,7 +50,7 @@ font-size: medium;
 
 
 <div class="content-center">
-	<h2>DE-위키</h2>
+	<h2>AskOS-위키</h2>
 	<div class="section-info">
       활동적인 유저의 공헌 목록은 다음과 같습니다.<br> 커뮤니티에 지식을 제공하여 더 많은 사람들이 성장할 수 있도록 합니다.
     </div>

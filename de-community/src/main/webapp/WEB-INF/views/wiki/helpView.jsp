@@ -9,7 +9,7 @@
 <%-- 	<input type="hidden" name="boardno" value="${result.boardno}" /> --%>
 		<h2>
 		<c:if test="${gubun == 'm'}">
-		How to DE-Community
+		How to AskOS
 		</c:if>
 		<c:if test="${gubun == 'h'}">
 		자주하는 질문들...
