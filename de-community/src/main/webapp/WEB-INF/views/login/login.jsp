@@ -2,15 +2,14 @@
 <%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
 
  <!-- jquery-validation -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
   <script src="/plugins/jquery-validation/additional-methods.min.js"></script>
   <script src="/plugins/jquery-validation/jquery.validate.min.js"></script> 
 
 
 <div class="content-center">
-	<h2>로그인</h2>
 	
-	<div class="con-box">
+	<div class="con-box" style="height:100%">
 
 
 	<form id="frm" name="frm" method="post" autocomplete="off" style="width: 95%;">

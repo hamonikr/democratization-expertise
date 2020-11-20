@@ -18,10 +18,9 @@
 
 
 <div class="content-center">
-<h2>회원가입</h2>
 
-
-	<div class="con-box">
+ 
+	<div class="con-box" style="height:100%">
 	<form id ="frm" name="frm" method="post">      
    		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <div class="login bg2">

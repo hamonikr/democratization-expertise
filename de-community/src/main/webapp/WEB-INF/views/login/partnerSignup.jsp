@@ -18,7 +18,6 @@
 
 
 <div class="content-center">
-<!-- <h2>회원가입</h2> -->
  
 <div class="con-box">
 <form id ="frm" name="frm" method="post">      
