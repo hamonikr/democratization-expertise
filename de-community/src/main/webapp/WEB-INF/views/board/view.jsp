@@ -43,7 +43,6 @@
 	<form id="frm" name="frm" method="post">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 	<input type="hidden" name="boardno" value="${result.boardno}" />
-		<h2>Stacked Q&amp;A</h2>
 
 		<div class="con-box">
 			<div class="form-view">
