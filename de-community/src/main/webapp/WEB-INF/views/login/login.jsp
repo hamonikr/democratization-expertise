@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
 
+ <!-- jquery-validation -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="/plugins/jquery-validation/additional-methods.min.js"></script>
+  <script src="/plugins/jquery-validation/jquery.validate.min.js"></script> 
+
+
 <div class="content-center">
 	<h2>로그인</h2>
 	
@@ -21,8 +27,8 @@
                     <div class="control-indicator"></div>
                   </label>
                 </li>
-                <li><label>아이디</label><input type="text" id="username" name="username" value="testCom" placeholder="아이디를 입력해주세요" maxlength="20" class="input-type1"></li>
-                <li><label>비밀번호</label><input type="password" id="password" name="password" value="test1234" placeholder="비밀번호를 입력해주세요" maxlength="20" class="input-type1"></li>
+                <li><label>아이디</label><div class="form-group"><input type="text" id="username" name="username" value="" placeholder="아이디를 입력해주세요" maxlength="20" class="input-type1"></div></li>
+                <li><label>비밀번호</label><div class="form-group"><input type="password" id="password" name="password" value="" placeholder="비밀번호를 입력해주세요" maxlength="20" class="input-type1"></div></li>
                 <li><button type="submit" class="btn-blue">로그인</button></li>
               </ul>
               <ul class="login-in2">
@@ -42,31 +48,6 @@
           </div>
 
 </div>
-<!-- 깃헙 -->
-<!-- <div class="col-2">
-	<a href="/login/github" class="btn_social" data-social="github"> <img src="/img/google-plus.png" style="height: 30px; margin-left: 0px;"></a>
-</div> -->
-
-<!-- 구글 -->
-<!-- <div class="col-2" style="margin-left: 20px;">
-	<a href="/login/google" class="btn_social"> <img src="/img/google-plus.png" style="height: 30px;"></a>
-</div> -->
-
-<!-- 네이버 -->
-<!-- <div class="col-2" style="margin-left:20px;">	        	
-       	<a href="javascript:;" class="btn_social" data-social="naver">
-				<img src="/img/naver_login.png" style="height:30px;">
-			</a>		
-        </div>
-        
-        카카오
-        <div class="col-2" style="margin-left:20px;">
-	      <a href="javascript:;" class="btn_social" data-social="kakao">
-			<img src="/img/kakaolink_btn_medium_ov.png" style="height:30px;">	
-			</a>
-        </div> -->
-
-
 
 
 <script type="text/javascript">
@@ -80,8 +61,39 @@
     	})
 	}
 
-
+   $(document).ready(function() {
    
-
+   $('#frm').validate({
+		 rules: {
+			 username:{ required: true },
+			 password:{ required: true}			     
+		  }, 
+		  messages:{
+			  username:{
+		 			required : "아이디를 입력해주세요.",
+		 		},
+		 		password:{
+		 			required : "비밀번호를 입력해주세요.",
+		 		}
+		 	 },
+		    errorElement: 'span',
+		    errorPlacement: function (error, element) {
+		   	  		error.addClass('invalid-feedback');
+		       	element.closest('.form-group').append(error);
+		 	},
+		 	highlight: function (element, errorClass, validClass) {
+		 	        $(element).addClass('is-invalid');
+		 	},
+		 	unhighlight: function (element, errorClass, validClass) {
+		 	   	     $(element).removeClass('is-invalid');
+		 	},
+		 	submitHandler: function (frm) {
+					document.frm.submit();
+			 	
+			 	}
+   		});
+   });
+  
+	 
   </script>
 
