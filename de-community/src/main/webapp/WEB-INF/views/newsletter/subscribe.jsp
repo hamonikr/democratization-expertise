@@ -6,39 +6,11 @@
   <script src="/plugins/jquery-validation/jquery.validate.min.js"></script> 
 
  
-<style>
-/* .card{ */
-/*     background: #fff; */
-/*     border-top: 0; */
-/*     color: #666; */
-/*     padding: 10px; */
-/* } */
-
-/* .login-page{ */
-/* 	max-width: 100%; */
-/* 	width: auto !important; */
-/* } */
-
-/* .algin-center{ */
-/* 	margin : 10% 10% 10% 10%; */
-/* } */
-
-/* strong{ */
-/* 	margin-left:5%; */
-/* 	font-weight:20px; */
-/* 	font-weight:bold; */
-/* } */
-
-/* .login-page{ */
-/*  background-color: transparent !important; */
-/* } */
-
-</style>
 
 
 
 <div class="content-center">
-	<h2>뉴스레터</h2>
+<!-- 	<h2>뉴스레터</h2> -->
 	<div class="con-box">
   <form id ="frm" name="frm" method="post">   
 		<div class="news">

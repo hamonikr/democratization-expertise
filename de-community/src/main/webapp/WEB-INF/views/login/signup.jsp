@@ -44,13 +44,13 @@
                 <li><input type="submit" id="create_account" value="계정 생성하기" class="btn-blue"></li>
 			</ul>
 
-            <div class="mT20 mB10">- SNS 계정으로 회원가입하기 -</div>
-            	<ul class="login-in3">
-                	<li><a href="#"><img src="../img/join_kakao.png" alt="kakao"></a></li>
-                  	<li><a href="#"><img src="../img/join_google.png" alt="google"></a></li>
-                  	<li><a href="#"><img src="../img/join_naver.png" alt="naver"></a></li>
-                  	<li><a href="#"><img src="../img/join_github.png" alt="github"></a></li>
-				</ul>
+<!--             <div class="mT20 mB10">- SNS 계정으로 회원가입하기 -</div> -->
+<!--             	<ul class="login-in3"> -->
+<!--                 	<li><a href="#"><img src="../img/join_kakao.png" alt="kakao"></a></li> -->
+<!--                   	<li><a href="#"><img src="../img/join_google.png" alt="google"></a></li> -->
+<!--                   	<li><a href="#"><img src="../img/join_naver.png" alt="naver"></a></li> -->
+<!--                   	<li><a href="#"><img src="../img/join_github.png" alt="github"></a></li> -->
+<!-- 				</ul> -->
 			</div>
 	</form>
     </div>

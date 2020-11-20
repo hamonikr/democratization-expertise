@@ -16,6 +16,13 @@
   margin: 0.25rem;
   cursor: pointer;
 }
+button[type=submit] {
+    width: 4em;  height: 2em;
+    cursor:pointer;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+}
 </style>
 
 <div class="content-center">
@@ -46,10 +53,10 @@
 		</div>
 
 		<div class="con-box">
-			<ul class="user-con">
+			<ul class="company-user">
 			<c:forEach var="list" items="${data}" varStatus="status">
 				<li>
-                  <a href="#">
+                  <a href="/users/activity/${list.userno}">
                   <c:if test="${list.userprofileimg != null}">
 						<img src="/upload/users/${list.userprofileimg}">
 					</c:if> <c:if test="${list.userprofileimg == null}">

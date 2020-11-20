@@ -315,6 +315,7 @@
 			        	,qstn.tagno
 			        	,qstn.updatedate
 			        	,qstn.userno
+			        	,qstn.firstuserno
 			        FROM 
 			        	tb_answers ansr
 			        	LEFT JOIN tb_questions qstn

@@ -33,6 +33,13 @@
 .nav-tabs {
     border-bottom: 0;
 }
+ input[type=submit] {
+    width: 4em;  height: 2em;
+    cursor:pointer;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+}
 </style>	
 
 <div class="content-center">
@@ -91,7 +98,8 @@
 							<form action="/questions/myList">
 								<input type="hidden" name="userno" value="${ user.userno }">
 								<input type="hidden" name="section" value="Q">
-								<button type="submit" class="btn-primary btn-xs" >+더보기</button>
+<!-- 								<button type="submit" class="btn-primary btn-xs" >+더보기</button> -->
+								<input type="submit" id="search" value="+더보기" class="" />
 							</form>
 						</c:if>
                     	</span>
@@ -115,7 +123,8 @@
 							<form action="/questions/myList">
 								<input type="hidden" name="userno" value="${ user.userno }">
 								<input type="hidden" name="section" value="A">
-								<button type="submit" class="btn-primary btn-xs" >+더보기</button>
+<!-- 								<button type="submit" class="btn-primary btn-xs" >+더보기</button> -->
+								<input type="submit" id="search" value="+더보기" class="" />
 							</form>
 							</c:if>
                     	</span>
@@ -140,7 +149,8 @@
 						<form action="/questions/myList">
 							<input type="hidden" name="userno" value="${ user.userno }">
 							<input type="hidden" name="type" value="A">
-							<button type="submit" class="btn" >+더보기</button>
+<!-- 							<button type="submit" class="btn" >+더보기</button> -->
+							<input type="submit" id="search" value="+더보기" class="" />
 						</form>
 						</c:if>
                   	</div>
@@ -161,7 +171,8 @@
 								<form action="/questions/myList">
 									<input type="hidden" name="userno" value="${ user.userno }">
 									<input type="hidden" name="type" value="A">
-									<button type="submit" class="btn" >더보기</button>
+<!-- 									<button type="submit" class="btn" >더보기</button> -->
+									<input type="submit" id="search" value="+더보기" class="" />
 								</form>
 							</c:if>
                     	</span>
@@ -204,7 +215,7 @@
 
                 <ul class="my-modify">
                 	<li>
-                		<label>상호명${ isMypage }</label>
+                		<label>상호명</label>
                 		<c:if test="${ isMypage }">
 							<input class="input-type1" id="enterprisename" name="enterprisename" value="${enterprise.enterprisename}" autocomplete="off">
 						</c:if>
@@ -316,12 +327,12 @@
 							</a>
 							<div class="active">
 								<c:if test="${ useratCompy.usersDetail.activeat == 0 }">
-                    				<a href="javascript:fnt_activeatUser('not','${mem.userno}');">활성</a>
-                    				<a href="javascript:fnt_activeatUser('userat','${mem.userno}');" class="off">비활성</a>
+                    				<a href="javascript:fnt_activeatUser('userat','${useratCompy.userno}');">활성</a>
+                    				<a href="javascript:fnt_activeatUser('not','${useratCompy.userno}');" class="off">비활성</a>
 								</c:if>
 								<c:if test="${ useratCompy.usersDetail.activeat == 1 }">
-                    				<a href="javascript:fnt_activeatUser('not','${mem.userno}');" class="off">활성</a>
-                    				<a href="javascript:fnt_activeatUser('userat','${mem.userno}');" >비활성</a>
+                    				<a href="javascript:fnt_activeatUser('userat','${useratCompy.userno}');" class="off">활성</a>
+                    				<a href="javascript:fnt_activeatUser('not','${useratCompy.userno}');" >비활성</a>
 								</c:if>
 							</div>
 						</li>
@@ -349,12 +360,12 @@
 								</a>
 								<div class="active">
 									<c:if test="${ useratCompy.usersDetail.activeat == 0 }">
-				                    	<a href="javascript:fnt_activeatUser('not','${mem.userno}');">승인</a>
-				                    	<a href="javascript:fnt_activeatUser('userat','${mem.userno}');" class="off">거절</a>
+				                    	<a href="javascript:fnt_activeatUser('userat','${useratCompy.userno}');">승인</a>
+				                    	<a href="javascript:fnt_activeatUser('not','${useratCompy.userno}');" class="off">거절</a>
 									</c:if>
 									<c:if test="${ useratCompy.usersDetail.activeat == 1 }">
-				                    	<a href="javascript:fnt_activeatUser('not','${mem.userno}');" class="off">승인</a>
-				                    	<a href="javascript:fnt_activeatUser('userat','${mem.userno}');" >거절</a>
+				                    	<a href="javascript:fnt_activeatUser('userat','${useratCompy.userno}');" class="off">승인</a>
+				                    	<a href="javascript:fnt_activeatUser('not','${useratCompy.userno}');" >거절</a>
 									</c:if>
 <%-- 					<input type="button" class="btn btn-primary" onclick="fnt_useratUser('userat','${mem.userno}');" value="승인"><br>  --%>
 <%-- 					<input type="button" class="btn btn-primary" onclick="fnt_useratUser('not','${mem.userno}');" value="거절">													 --%>
@@ -391,36 +402,6 @@
   </div>
   <div id="bg_fix" style="display: none;" class="popup "></div>
   
-<!-- 비밀번호 변경 팝업 -->
-<div id="popupPwaaaa" class="card card-primary pop-layer" style="display: none;">
-	<form id="frm1" name="frm1" method="post">
-		<div class="dim-layer">
-			<div class="dimBg"></div>
-		</div>
-		
-		<div class="card-header">
-			<h3 class="card-title">비밀번호 변경</h3>
-		</div>
-
-		<div class="card-body" style="width:100%;">
-			<div class="input-group mb-3">
-				<input type="password" class="form-control" name="enterprisepassword" placeholder="기존 비밀번호">
-			</div>
-			<div class="input-group mb-3">
-				<input type="password" class="form-control" name="enterprisepasswordnew" placeholder="새 비밀번호">
-			</div>
-			<div class="input-group mb-3">
-				<input type="password" class="form-control" name="enterprisepasswordnew2" placeholder="새 비밀번호 확인">
-			</div>
-			<p id="popupPwAlter" class="popupPwAlter"></p>
-		</div>
-		
-		<div class="card-footer cont_btn_div">
-			<button type="button" id="btnUpdatePw" class="btn btn-primary purple">수정</button>
-			<button type="button" id="btnUpdatePWCancle" class="btn btn-primary purple">취소</button>
-		</div>
-	</form>
-</div>
 
 
 <script type="text/javascript">

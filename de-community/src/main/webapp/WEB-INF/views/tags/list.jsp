@@ -36,14 +36,14 @@ color: rgb(0,0,0);
        	올바른 태그를 사용하면 다른 사람이 사용자의 질문을 쉽게 찾아 답변할 수 있습니다.
 	</div>
 	
-	<div class="list-left"> !!개발영역
-		<div class="pagenum">현재페이지 1/10 (총 50건)</div>
-       	<ul class="sort-align">
-       		<li><a href="#" class="current">인기순</a></li>
-         	<li><a href="#">이름순</a></li>
-         	<li><a href="#">새로운순</a></li>
-		</ul>
-	</div>
+<!-- 	<div class="list-left"> !!개발영역 -->
+<!-- 		<div class="pagenum">현재페이지 1/10 (총 50건)</div> -->
+<!--        	<ul class="sort-align"> -->
+<!--        		<li><a href="#" class="current">인기순</a></li> -->
+<!--          	<li><a href="#">이름순</a></li> -->
+<!--          	<li><a href="#">새로운순</a></li> -->
+<!-- 		</ul> -->
+<!-- 	</div> -->
     
     <div class="list-right">
     	<div class="board-search inblock mR10 mT10">

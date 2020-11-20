@@ -42,7 +42,7 @@
 			<ul class="company-user">
 				<c:forEach var="list" items="${data}" varStatus="status">
 				<li>
-                  <a href="#">
+                  <a href="/enterprises/activity/${list.enterpriseno}">
 	                  <c:if test="${list.enterpriseimg != null}">
 						<img src="/upload/enterprises/${list.enterpriseimg}">
 					</c:if>

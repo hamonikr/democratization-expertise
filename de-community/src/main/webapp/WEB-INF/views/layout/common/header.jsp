@@ -5,12 +5,8 @@
 .ui-autocomplete {
     max-height: 200px;
     overflow-y: auto;
-    /* prevent horizontal scrollbar */
     overflow-x: hidden;
-    /* add padding to account for vertical scrollbar */
     padding-right: 20px;
-    
-    
     width: 500px; 
     background: #fff;
     border-radius: 0 0 6px 6px;
@@ -108,7 +104,6 @@ width: 500px;
 
 		<div class="top-search">
 		<form name="sfrm" action="/search/list" method="get">
-		<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />  --%>
 		<input type="text" name="searchtxt" id="searchtxt" placeholder="Search" value="${searchtxt }" autocomplete="off"/>
 			<button type="submit">
 				<i class="mdi mdi-magnify"></i>
@@ -121,18 +116,28 @@ width: 500px;
 			<ul class="navbar-nav  userinfo">
 				<li class="profile">
 				<c:if test="${not empty userSession}">
-					<c:if test="${userSession.userprofileimg ne null}">
-					<span class="photo"><img src="/upload/users/${userSession.userprofileimg}" alt="" /></span> 
+<%-- 					<c:if test="${userSession.userprofileimg ne null}"> --%>
+<%-- 						<span class="photo"><img src="/upload/users/${userSession.userprofileimg}" alt="" /></span>  --%>
+<%-- 					</c:if> --%>
+<%-- 					<c:if test="${userSession.userprofileimg eq null and userSession.picture eq null}" > --%>
+<!-- 						<span class="photo"><img src="/img/sample_profile.png" alt="" /></span>  -->
+<%-- 					</c:if> --%>
+<%-- 					<c:if test="${userSession.picture ne null and userSession.userprofileimg eq null}"> --%>
+<%-- 						<span class="photo"><img src="${userSession.picture}" alt="" /></span>  --%>
+<%-- 					</c:if> --%>
+					
+					<c:if test="${ userSession.userprofileimg != null}">
+						<img alt="photo" src="/upload/users/${userSession.userprofileimg}" id="profileImg" class="img" width="25px" height="25px">
+					</c:if>
+					<c:if test="${userSession.userprofileimg == null and userSession.picture == null}">
+						<img alt="photo" src="/img/user_over.png" id="profileImg" class="img" width="25px" height="25px">
+					</c:if>
+					<c:if test="${userSession.userprofileimg == null and userSession.picture != null}">
+						<img alt="photo" src="${userSession.picture}" id="profileImg" class="img" width="25px" height="25px">
+					</c:if>
 				</c:if>
-				<c:if test="${userSession.userprofileimg eq null and userSession.picture eq null}" >
-					<span class="photo"><img src="/img/sample_profile.png" alt="" /></span> 
-				</c:if>
-				<c:if test="${userSession.picture ne null and userSession.userprofileimg eq null}">
-					<span class="photo"><img src="${userSession.picture}" alt="" /></span> 
-				</c:if>
-				</c:if>
-					<span class="alarm">알람</span> 
-					<span class="level"><img src="/img/level_gold.png" alt="" /></span>
+<!-- 					<span class="alarm">알람</span>  -->
+<!-- 					<span class="level"><img src="/img/level_gold.png" alt="" /></span> -->
 					<c:choose>
 						<c:when test="${userSession.representat == 1}">
 							<a href="/enterprises/activity/${userSession.enterpriseno}">${userSession.enterprisename }</a>
@@ -142,7 +147,7 @@ width: 500px;
 						</c:otherwise>
 					</c:choose>
 					
-				<li><a href="/wiki/Help/m">Help</a></li>
+				<li><a href="/wiki/Help/h">Help</a></li>
 
 				<li>
 				<c:choose>				
