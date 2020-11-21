@@ -57,11 +57,11 @@ button[type=submit] {
 			<c:forEach var="list" items="${data}" varStatus="status">
 				<li>
                   <a href="/users/activity/${list.userno}">
-                  <c:if test="${list.userprofileimg != null}">
+                  <c:if test="${list.userprofileimg != null and list.userprofileimg != ''}">
 						<img src="/upload/users/${list.userprofileimg}">
 					</c:if> 
 					<c:if test="${list.userprofileimg == null and list.picture == null}">
-						<img src="/img/noprofile.png">
+						<img class="profileImg">
 					</c:if>
 					<c:if test="${list.userprofileimg == null and list.picture != null}">
 						<img src="${list.picture}">
@@ -92,6 +92,14 @@ button[type=submit] {
 
 
 <script type="text/javascript">
+$(function() {	
+	//랜덤 이미지 생성
+    var objImg=document.getElementsByClassName("profileImg");
+    $.each (objImg, function (index) {
+    	var imgNum=Math.round(Math.random()*8)+1;
+    	objImg[index].src = "/img/profile_0"+imgNum+".png";
+	});	
+});
 function linkPage(pageNo){
 	location.href = "users/list?page="+pageNo;
 }

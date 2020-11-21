@@ -32,7 +32,7 @@
 
 .select2-container--default.select2-container--focus .select2-selection--multiple
 	{
-	height: 40px;
+	height: 55px;
 }
 -->
 </style>
@@ -101,7 +101,7 @@
 				</div>
 
 				<span>태그</span>
-				<select class="select2" multiple="multiple" name="tagno" id="tagno" data-placeholder="" style="width: 100%; background-color: #8056d6;">
+				<select class="select2" multiple="multiple" name="tagno" id="tagno" style="width: 100%">
 					<c:forEach var="item" items="${tagList}" varStatus="status">
 						<option value="${item.wikino }">${item.title }</option>
 					</c:forEach>
@@ -154,7 +154,6 @@
     	$("#title").on("propertychange change keyup paste input", function() {
     		var searchtxt = $(this).val();
     		var url = window.location.pathname;
-    		console.log("searchtxt===="+searchtxt.length);
     		if(searchtxt.length > 1){
     		$.ajax({ 
     			//type: "POST", 
@@ -167,7 +166,6 @@
     				shtml +="유사한 질문 목록";
     				$.each (data.list, function (index, el) {
     					  var txt = "";
-//       					txt = "<a href='/questions/view/"+el.seq+"'>"+el.title+"</a><br/>";
       					txt = "<li><a href='/questions/view/"+el.seq+"'><span>"+el.title+"</span></a></li>";
       					shtml += txt;
     					});
@@ -187,15 +185,15 @@
       } );
       //Initialize Select2 Elements
       $( '.select2' ).select2({
-			width: 'resolve'
+			width: 'resolve',
+			placeholder: "연관된 태그를 선택 할 수 있습니다",
+		    allowClear: true
 			//language: 'ko',
 			//minimumInputLength: 2
 		});
       var tagno = $('form[name=frm] input[name=tags]').val();
-      //alert("tags==="+tagno);
       //$('form[name=frm] input[name=tag]').val();
       var tagnoArr = tagno.split(',');
-      //alert("tagnoArr===="+tagnoArr[1]);
       for ( var i in tagnoArr) {
         $( "#tagno option" ).each( function() {
           //if ($( this ).val() == tagnoArr[i]) {

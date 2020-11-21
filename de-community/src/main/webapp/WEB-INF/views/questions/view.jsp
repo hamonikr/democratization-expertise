@@ -54,14 +54,15 @@
 				<ul class="qna-list">
 					<li class="person">
 						<a href="/users/activity/${result.userno}"> 
-							<c:if test="${result.users.userprofileimg != null}">
-								<img src="/upload/users/${result.users.userprofileimg}">
-							</c:if> 
-							<c:if test="${result.users.userprofileimg == null and result.users.picture == null}">
-								<img src="/img/noprofile.png">
-							</c:if> 
+							<c:if test="${result.users.userprofileimg != null and result.users.userprofileimg != ''}">
+								<img src="/upload/users/${result.users.userprofileimg}" width="63px" height="63px">
+							</c:if>
+							<c:if test="${(result.users.userprofileimg == null or result.users.userprofileimg == '') 
+							and (result.users.picture == null or result.users.picture == '')}" >
+								<img class="profileImg"  width="63px" height="63px">
+							</c:if>
 							<c:if test="${result.users.picture != null and result.users.userprofileimg == null}">
-								<img alt="profile" src="${result.users.picture}" id="profileImg" class="img" width="63px" height="63px">
+								<img alt="profile" src="${result.users.picture}" id="profileImg" class="img" width="63px" height="63px"><br/>
 							</c:if>
 						</a> 
 						
@@ -79,11 +80,11 @@
 						
 						<p>
 						<div class="code-html">
-								<div id="aaaa">${result.contents}</div> 
+								<div id="contents">${result.contents}</div> 
 							</div>
 							<script class="code-js">
 								var editor = new toastui.Editor.factory( {
-				                el : document.querySelector( '#aaaa' ),
+				                el : document.querySelector( '#contents' ),
 				                initialEditType : 'wysiwyg',
 				                //			                    initialEditType: 'markdown',
 				                previewStyle : 'vertical',
@@ -158,7 +159,16 @@
 
 						<ul class="qna-list">
 							<li class="person">
-								<img src="/img/sample_profile3.png" alt="">
+								<c:if test="${list.users.userprofileimg != null and list.users.userprofileimg != ''}">
+									<img src="/upload/users/${list.users.userprofileimg}" width="63px" height="63px">
+								</c:if>
+								<c:if test="${(list.users.userprofileimg == null or list.users.userprofileimg == '') 
+								and (list.users.picture == null or list.users.picture == '')}" >
+									<img class="profileImg"  width="63px" height="63px">
+								</c:if>
+								<c:if test="${list.users.picture != null and list.users.userprofileimg == null}">
+									<img alt="profile" src="${list.users.picture}" id="profileImg" class="img" width="63px" height="63px"><br/>
+								</c:if>
 								<span class="name">${list.users.username }</span> 
 								<span class="reputation">${list.scores }</span> 
 								<span class="voting"><img src="/img/level_gold.png" alt=""> voting</span>
@@ -167,7 +177,19 @@
 								<p>
 									답변일: <fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd HH:mm" />
 								</p> 
-								${list.contents }
+								<div class="code-html">
+								<div id="answer">${list.contents}</div> 
+							</div>
+							<script class="code-js">
+								var editor = new toastui.Editor.factory( {
+				                el : document.querySelector( '#answer' ),
+				                initialEditType : 'wysiwyg',
+				                //initialEditType: 'markdown',
+				                previewStyle : 'vertical',
+				                height : '400px',
+				                viewer : true
+				                } );
+ 				            </script>
 							</li>
 							<li class="subinfo">
 								<span class="up" onclick="fnLike('${list.answerno}','${list.userno}','A','${list.vote.likes }','${stat.count }')">
@@ -215,7 +237,14 @@
     $( "#btnAnswer" ).on( "click", fnAnswer );
     //$( "#btnUpdate" ).on( "click", fnUpdate );
     //$( "#btnSale" ).on( "click", fnSale );
-  } );
+    
+    	//랜덤 이미지 생성
+        var objImg=document.getElementsByClassName("profileImg");
+        $.each (objImg, function (index) {
+        	var imgNum=Math.round(Math.random()*8)+1;
+        	objImg[index].src = "/img/profile_0"+imgNum+".png";
+    	});
+  });
 
   function fnAnswer() {
     document.frm.contents.value = editor.getHtml();

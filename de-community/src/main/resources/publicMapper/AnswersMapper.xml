@@ -28,6 +28,7 @@
 	<result column="useremail" property="useremail"/>
 	<result column="userstatus" property="userstatus"/>
 	<result column="userprofileimg" property="userprofileimg"/>
+	<result column="picture" property="picture"/>
 </resultMap>
 
 <resultMap type="com.de.tag.Tags" id="Tags">
@@ -85,7 +86,8 @@
 		c.username,
 		c.useremail,
 		c.userstatus,
-		c.userprofileimg
+		c.userprofileimg,
+		c.picture
 		,(select score from tb_score e where a.userno = e.userno) as scores
 			from 
 		tb_answers a left outer join tb_vote b 
@@ -96,7 +98,7 @@
 		SELECT question_id::integer, 
 		case when is_accepted = 'true' then 1
 		     else 0
-		end as is_accepted , body,0,answer_id::integer,ins_date,0,0,'A',0,0,0,0,0,'','','',0,'',score::integer 
+		end as is_accepted , body,0,answer_id::integer,ins_date,0,0,'A',0,0,0,0,0,'','','',0,'','',score::integer 
 		FROM public.tbl_stack_answer) AA
 		where AA.questionno = #{questionno}
 		order by AA.registerdate desc

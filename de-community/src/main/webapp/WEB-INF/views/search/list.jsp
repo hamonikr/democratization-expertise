@@ -63,7 +63,7 @@
 						<li class="question">
 							<span class="ques-title"> <a href="/questions/view/${list.seq }">${list.title }</a></span>
 							<div id="ques-text" >
-							${list.contents }
+							${fn:substring(list.contents, 0, 300)}<c:if test="${fn:length(list.contents) gt 301}"> ... </c:if>
 							</div> 
 							<script class="code-js">
 								var editor = new toastui.Editor.factory( {
@@ -89,9 +89,9 @@
 					<c:if test="${list.status eq 'T' }">
 		            <ul class="qna-list">
 						<li class="question">
-							<span class="ques-title"> <a href="/questions/view/${list.seq }">${list.title }</a></span>
+							<span class="ques-title"> <a href="/wiki/view/${list.seq }/t">${list.title }</a></span>
 							<div id="tags-text" >
-							${list.contents }
+							${fn:substring(list.contents, 0, 300)}<c:if test="${fn:length(list.contents) gt 301}"> ... </c:if>
 							</div> 
 							<script class="code-js">
 								var editor = new toastui.Editor.factory( {
@@ -117,9 +117,9 @@
 					<c:if test="${list.status eq 'H' }">
 		            <ul class="qna-list">
 						<li class="question">
-							<span class="ques-title"> <a href="/questions/view/${list.seq }">${list.title }</a></span>
+							<span class="ques-title"> <a href="/wiki/view/${list.seq }/w">${list.title }</a></span>
 							<div id="wikis-text" >
-							${list.contents }
+							${fn:substring(list.contents, 0, 300)}<c:if test="${fn:length(list.contents) gt 301}"> ... </c:if>
 							</div> 
 							<script class="code-js">
 								var editor = new toastui.Editor.factory( {
