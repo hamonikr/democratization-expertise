@@ -48,18 +48,18 @@ width: 500px;
 		var availableTags = new Array();
 		$("#searchtxt").on("propertychange change keyup paste input", function() {
 			var searchtxt = $(this).val();
-			if(searchtxt.length > 1){
+			if((searchtxt.length % 2) == 0){
 	    		$.ajax({ 
 	    			//type: "POST", 
 	    			//contentType: "application/json", 
 	    			url: "/search/auto",
 	    			data:{searchtxt:searchtxt},
+	    			async:false,
 	    			//dataType: 'json', 
 	    			success: function (data) { 
 	    			  $("#searchtxt").val(data.searchtxt);
 	    				$.each (data.list, function (index, el) {
 	    					availableTags[index] = {value:el.title};
-// 	    					console.log(availableTags[index]);
 	    					});
 	    				}, 
 	    				error: function (e) { 
@@ -70,8 +70,8 @@ width: 500px;
 		});
 			
 	    $( "#searchtxt" ).autocomplete({
-		      delay: 0,	
-		      //minLength: 2,
+		      delay: 2,	
+		      minLength: 2,
 		      source: availableTags,
 		      focus: function( event, ui ) {
 		        $( "#searchtxt" ).val( ui.item.value );

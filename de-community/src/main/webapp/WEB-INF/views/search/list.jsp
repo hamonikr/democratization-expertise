@@ -112,7 +112,7 @@
 
         <!-- 히스토리 tab -->
         <div class="tab-pane fade con-box" id="custom-tabs-three-members" role="tabpanel" aria-labelledby="custom-tabs-three-members-tab">
-        	<div class="mytitle">Tags <span class="more"></span></div>
+        	<div class="mytitle">Wikis <span class="more"></span></div>
 		    	<c:forEach var="list" items="${list}" varStatus="stat">
 					<c:if test="${list.status eq 'H' }">
 		            <ul class="qna-list">

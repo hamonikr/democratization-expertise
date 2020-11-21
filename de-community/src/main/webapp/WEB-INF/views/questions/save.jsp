@@ -166,7 +166,11 @@
     				shtml +="유사한 질문 목록";
     				$.each (data.list, function (index, el) {
     					  var txt = "";
-      					txt = "<li><a href='/questions/view/"+el.seq+"'><span>"+el.title+"</span></a></li>";
+    					  if(el.status=="Q"){
+      						  txt = "<li><a href='/questions/view/"+el.seq+"'><span>"+el.title+"</span></a></li>";
+    					  }else if(el.status=="W"){
+    						  txt = "<li><a href='/wiki/view/"+el.seq+"/w'><span>"+el.title+"</span></a></li>";
+    					  }
       					shtml += txt;
     					});
     				$("#preSearch").html(shtml+"</ul>");
