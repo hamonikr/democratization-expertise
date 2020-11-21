@@ -102,7 +102,7 @@ $(function() {
 		  speed: 500,
 		  fade: true,
 		  autoplay: true,
-		  autoplaySpeed: 5000,
+		  autoplaySpeed: 4000,
 		  cssEase: 'linear'
 		
 	});
@@ -137,11 +137,16 @@ $(function() {
 
 	<div class="partner-banner">
 		<div class="slide-banner" style="height:150px;">
-			<div><iframe width="560" height="315" src="https://www.youtube.com/embed/f-SThrXkP5M" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+			<div><a href="https://youtu.be/f-SThrXkP5M" target="_blank"><img src="https://img.youtube.com/vi/f-SThrXkP5M/0.jpg" /></a></div>
+			<div><a href="https://youtu.be/BoLZER533Vc" target="_blank"><img src="https://img.youtube.com/vi/BoLZER533Vc/0.jpg" /></a></div>
+			<div><a href="https://youtu.be/xQ343U1hmNU" target="_blank"><img src="https://img.youtube.com/vi/xQ343U1hmNU/0.jpg" /></a></div>
+			<div><a href="https://youtu.be/dM4IpabRc1w" target="_blank"><img src="https://img.youtube.com/vi/dM4IpabRc1w/0.jpg" /></a></div>
+			<div><a href="https://youtu.be/3Aw7yGUN5xo" target="_blank"><img src="https://img.youtube.com/vi/3Aw7yGUN5xo/0.jpg" /></a></div>
+			<!-- <div><iframe width="560" height="315" src="https://www.youtube.com/embed/f-SThrXkP5M" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 			<div><iframe width="560" height="315" src="https://www.youtube.com/embed/BoLZER533Vc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 			<div><iframe width="560" height="315" src="https://www.youtube.com/embed/xQ343U1hmNU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 			<div><iframe width="560" height="315" src="https://www.youtube.com/embed/CwBM-WO9bIM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-			<div><iframe width="560" height="315" src="https://www.youtube.com/embed/KAmOQTdIKDI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+			<div><iframe width="560" height="315" src="https://www.youtube.com/embed/KAmOQTdIKDI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div> -->
 		</div>
 		<ul class="list-banner">
 			<li><img src="/img/sample_part2.png" alt=""></li>
