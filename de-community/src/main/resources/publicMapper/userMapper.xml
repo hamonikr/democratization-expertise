@@ -316,14 +316,18 @@ SELECT
 select count(*) from tb_login_history where userid=#{userid} and logintime::date = now()::date -1
 </select>
 <update id="updateLoginDays" parameterType="com.de.cmmn.CmmnMap">
-update tb_users_detail set logindays = 
+update tb_users_detail set 
 <if test="lcnt > 0 ">
-logindays+1
+logindays = logindays+1
 </if>
 <if test="lcnt == 0 ">
-1
+logindays = 1
 </if>
 where userno = #{userno}
+</update>
+<update id="updateMaxLoginDay" parameterType="com.de.cmmn.CmmnMap">
+update tb_users_detail set maxloginday = logindays
+where userno = #{userno} and logindays > maxloginday
 </update>
 <update id="updateQuestionCount" parameterType="com.de.cmmn.CmmnMap">
 update tb_users_detail set questioncount = questioncount +1 where userno = #{userno}
@@ -337,5 +341,9 @@ update tb_users_detail set selectedcount = selectedcount +1 where userno = #{use
 <update id="updateWikiCount" parameterType="com.de.cmmn.CmmnMap">
 update tb_users_detail set wikicount = wikicount +1 where userno = #{userno}
 </update>
+
+<select id="loginCheckToday" parameterType="com.de.cmmn.CmmnMap" resultType="Integer">
+select count(*) from tb_login_history where userid=#{userid} and logintime::date = now()::date
+</select>
 
 </mapper>

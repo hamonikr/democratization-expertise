@@ -1,15 +1,13 @@
 package com.de.user;
 
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -53,6 +51,7 @@ public class UsersDetail {
 	
 	/* 연속 로그인 */
 	private Integer logindays;
+	private Integer maxloginday;
 	
 	/* 등록 질문 */
 	private Integer questioncount;

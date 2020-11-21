@@ -91,11 +91,11 @@ public class SearchController {
 //		List<Questions> list = qs.getList(questions);
 		List<CmmnMap> list = cs.selectList("totalSearch", param);
 
-		int listCount = qs.getListCount(questions);
-		paginationInfo.setTotalRecordCount(listCount); // 전체 게시물 건 수
+		//int listCount = qs.getListCount(questions);
+		//paginationInfo.setTotalRecordCount(listCount); // 전체 게시물 건 수
 		model.addAttribute("list", list);
 		// model.addAttribute("tagList", tagList);
-		model.addAttribute("paginationInfo", paginationInfo);
+		//model.addAttribute("paginationInfo", paginationInfo);
 
 		model.addAttribute("searchtxt", param.get("searchtxt"));
 		return "/search/list";

@@ -10,14 +10,14 @@
 
 
 <style>
-.profile-info .graph2 {
+/* .profile-info .graph2 {
     border: 1px solid #e3ebf4;
     border-radius: 3px;
-    /* padding: 15px; */
-    /* width: 50%; */
+    /* padding: 15px;
+    /* width: 50%;
     height: 220px;
     margin-right: 20px;
-}
+} */
 .nav-tabs .nav-link.active {
 	font-weight: 500;
     background: #2d096a;
