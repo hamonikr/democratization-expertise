@@ -26,7 +26,8 @@
   
 
 <!-- css -->
-
+<link href="/slick/slick.css" rel="stylesheet">
+<link href="/slick/slick-theme.css" rel="stylesheet">
 <!-- jQuery -->
 <script src="/plugins/jquery/jquery.min.js"></script>
 <script src="/plugins/jquery/jquery-ui.min.js"></script>
@@ -47,6 +48,8 @@
   <script src="/js/custom.min.js"></script>
   <!--farmcontent JavaScript -->
   <script src="/js/content.js"></script>
+  <!--Slick -->
+  <script src="/slick/slick.min.js"></script>
 
   <!-- 달력 -->
   <script src="/js/calendar.js"></script>

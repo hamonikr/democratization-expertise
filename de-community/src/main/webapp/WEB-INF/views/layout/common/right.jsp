@@ -95,6 +95,17 @@ $(function() {
 				alert("fail"); 
 			} 
 			});
+	
+	$('.slide-banner').slick({
+		dots: true,
+		  infinite: true,
+		  speed: 500,
+		  fade: true,
+		  autoplay: true,
+		  autoplaySpeed: 5000,
+		  cssEase: 'linear'
+		
+	});
 });
  
 </script>
@@ -125,8 +136,12 @@ $(function() {
 
 
 	<div class="partner-banner">
-		<div class="slide-banner">
-			<img src="/img/sample_part1.png" alt="">
+		<div class="slide-banner" style="height:150px;">
+			<div><iframe width="560" height="315" src="https://www.youtube.com/embed/f-SThrXkP5M" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+			<div><iframe width="560" height="315" src="https://www.youtube.com/embed/BoLZER533Vc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+			<div><iframe width="560" height="315" src="https://www.youtube.com/embed/xQ343U1hmNU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+			<div><iframe width="560" height="315" src="https://www.youtube.com/embed/CwBM-WO9bIM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+			<div><iframe width="560" height="315" src="https://www.youtube.com/embed/KAmOQTdIKDI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 		</div>
 		<ul class="list-banner">
 			<li><img src="/img/sample_part2.png" alt=""></li>
