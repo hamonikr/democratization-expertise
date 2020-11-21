@@ -42,7 +42,7 @@ $(function() {
 				$.each (data.board, function (index, el) {
 						var boardHtml = "";
 						boardHtml += '<li><a href="/board/'+el.boardid+'/list"><i class="mdi mdi-download"></i>'+el.boardname+'</li>';			 
-						$("#menu").append(boardHtml);
+						$("#sidebarnav").append(boardHtml);
 					});
 				
 // 				right partners 

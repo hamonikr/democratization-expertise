@@ -18,9 +18,9 @@ $(function() {
         {
             if($(this).is("li") && $(this).children("a").length !== 0)
             {
-                $(this).children("a").addClass("active");
+                $(this).children("a").addClass("current");
                 $(this).parent("ul#sidebarnav").length === 0
-                    ? $(this).addClass("active")
+                    ? $(this).addClass("current")
                     : $(this).addClass("selected");
             }
             else if(!$(this).is("ul") && $(this).children("a").length === 0)
@@ -34,22 +34,22 @@ $(function() {
             
         });
 
-    element.addClass("active"); 
+    element.addClass("current"); 
     $('#sidebarnav a').on('click', function (e) {
         
-            if (!$(this).hasClass("active")) {
+            if (!$(this).hasClass("current")) {
                 // hide any open menus and remove all other classes
                 $("ul", $(this).parents("ul:first")).removeClass("in");
-                $("a", $(this).parents("ul:first")).removeClass("active");
+                $("a", $(this).parents("ul:first")).removeClass("current");
                 
                 // open our new menu and add the open class
                 $(this).next("ul").addClass("in");
-                $(this).addClass("active");
+                $(this).addClass("current");
                 
             }
-            else if ($(this).hasClass("active")) {
-                $(this).removeClass("active");
-                $(this).parents("ul:first").removeClass("active");
+            else if ($(this).hasClass("current")) {
+                $(this).removeClass("current");
+                $(this).parents("ul:first").removeClass("current");
                 $(this).next("ul").removeClass("in");
             }
     })
