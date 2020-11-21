@@ -72,10 +72,11 @@ color: rgb(0,0,0);
 		
 		<ul class="qna-list">
 			<li class="person">
-				<c:if test="${list.users.userprofileimg != null}">
+				<c:if test="${list.users.userprofileimg != null and list.users.userprofileimg != ''}">
 					<img src="/upload/users/${list.users.userprofileimg}" width="63px" height="63px">
 				</c:if>
-				<c:if test="${list.users.userprofileimg == null and list.users.picture == null}" >
+				<c:if test="${(list.users.userprofileimg == null or list.users.userprofileimg == '') 
+				and (list.users.picture == null or list.users.picture == '')}" >
 					<img src="/img/noprofile.png"  width="63px" height="63px">
 				</c:if>
 				<c:if test="${list.users.picture != null and list.users.userprofileimg == null}">

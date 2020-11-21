@@ -242,10 +242,6 @@
     title : {
       required : "제목을 입력 해주세요."
     },
-    tag : {
-    required : "가격을 입력 해주세요.",
-    number : "숫자만 입력 가능합니다."
-    },
     contents : {
       required : "내용을 입력 해주세요."
     }

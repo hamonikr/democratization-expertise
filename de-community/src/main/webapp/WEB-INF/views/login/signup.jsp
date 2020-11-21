@@ -34,9 +34,9 @@
 			</ul>
             <ul class="login-in">
             	<li><label>아이디</label><div class="form-group"><input type="text"  id="userid" name="userid" maxlength="20"  placeholder="아이디를 입력해주세요" class="input-type1"></div></li>
-                <li><label>이름</label><div class="form-group"><input type="text" id="username" value="이영은" name="username" maxlength="30" placeholder="이름을 입력해주세요"class="input-type1"></div></li>
-                <li><label>E-mail 주소</label><div class="form-group"><input type="text" id="useremail" value="lee@invesume.com" name="useremail"  placeholder="이메일을 입력해주세요" class="input-type1"></div></li>
-                <li><label>비밀번호</label><div class="form-group"><input type="password" id="userpassword" value="lee1234" name="userpassword"  placeholder="비밀번호를 입력해주세요"class="input-type1"></div></li>
+                <li><label>이름</label><div class="form-group"><input type="text" id="username" value="" name="username" maxlength="30" placeholder="이름을 입력해주세요"class="input-type1"></div></li>
+                <li><label>E-mail 주소</label><div class="form-group"><input type="text" id="useremail" value="" name="useremail"  placeholder="이메일을 입력해주세요" class="input-type1"></div></li>
+                <li><label>비밀번호</label><div class="form-group"><input type="password" id="userpassword" value="" name="userpassword"  placeholder="비밀번호를 입력해주세요"class="input-type1"></div></li>
                 <li><label>비밀번호확인</label><div class="form-group"><input type="password" name="userpassword2" id="userpassword2" class="input-type1"><font id="passDubChk" size="1"></font>
                 </div></li>
                 <li><div class="g-recaptcha" data-sitekey="6LeS16wZAAAAADQYkYoSCaRt5wIb0YBSGGnnqVdH"></div></li>

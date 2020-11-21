@@ -59,8 +59,12 @@ button[type=submit] {
                   <a href="/users/activity/${list.userno}">
                   <c:if test="${list.userprofileimg != null}">
 						<img src="/upload/users/${list.userprofileimg}">
-					</c:if> <c:if test="${list.userprofileimg == null}">
+					</c:if> 
+					<c:if test="${list.userprofileimg == null and list.picture == null}">
 						<img src="/img/noprofile.png">
+					</c:if>
+					<c:if test="${list.userprofileimg == null and list.picture != null}">
+						<img src="${list.picture}">
 					</c:if>
                   </a>
                   <span class="name"><a href="/users/activity/${list.userno}"> ${list.username}</a></span>
