@@ -213,6 +213,7 @@ left outer join tb_score b on a.userno = b.userno
 left outer join tb_users_detail c on a.userno = c.userno
 where b.score is not null and (c.representat = 0 or c.representat is null)
 order by b.score desc
+limit 10
 </select>
 
 <select id="getPartnerScore" resultType="com.de.cmmn.CmmnMap">
@@ -222,6 +223,7 @@ left outer join tb_enterprises d on a.userno = d.enterpriseno
 left outer join tb_score b on d.enterpriseno = b.userno
 where b.score is not null
 order by b.score desc
+limit 10
 </select>
 
 <select id="getScore" parameterType="Integer" resultType="Integer">

@@ -4,6 +4,17 @@
 <script type="text/javascript">
 
 $(function() {
+	
+	$('.slide-banner').slick({
+		dots: true,
+		  infinite: true,
+		  speed: 500,
+		  fade: true,
+		  autoplay: true,
+		  autoplaySpeed: 4000,
+		  cssEase: 'linear'
+		
+	});
 	 
 	$.ajax({ 
 		//type: "POST", 
@@ -95,17 +106,7 @@ $(function() {
 				alert("fail"); 
 			} 
 			});
-	
-	$('.slide-banner').slick({
-		dots: true,
-		  infinite: true,
-		  speed: 500,
-		  fade: true,
-		  autoplay: true,
-		  autoplaySpeed: 4000,
-		  cssEase: 'linear'
-		
-	});
+
 });
  
 </script>

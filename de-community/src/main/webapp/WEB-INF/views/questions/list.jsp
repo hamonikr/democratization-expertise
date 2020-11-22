@@ -111,7 +111,7 @@ color: rgb(0,0,0);
 				<span class="ques-tag">
 					<c:forEach var="tagName2" items="${tag }" varStatus="status">
 						<c:forEach var="tagName1" items="${tagList }" varStatus="status">
-							<c:if test="${tagName1.wikino == tagName2}"><a href="/wiki/view/${tagName1.wikino }">${tagName1.title}</a></c:if>
+							<c:if test="${tagName1.wikino == tagName2}"><a href="/wiki/view/${tagName1.wikino }/t">${tagName1.title}</a></c:if>
 						</c:forEach>
 					</c:forEach>
 				</span>
