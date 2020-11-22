@@ -126,7 +126,7 @@ width: 100%;
 	<div class=" tab-pane fade active show con-box" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
 		<div class="profile-con">
 			<div class="profile-photo">
-				<c:if test="${ user.userprofileimg != null}">
+				<c:if test="${ user.userprofileimg != null and user.userprofileimg != ''}">
 					<img alt="profile" src="/upload/users/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
 				<c:if test="${user.userprofileimg == null and user.picture == null}">
@@ -135,16 +135,8 @@ width: 100%;
 				<c:if test="${user.userprofileimg == null and user.picture != null}">
 					<img alt="profile" src="${user.picture}" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
-				
 				<%@ include file="/WEB-INF/views/users/level.jsp" %>
-				<c:if test="${user.usersDetail.logindays > 9 }">
-					<h4 style="width: 110px;"> 
-					    <div style="float:left;"><span class="level"><img src="/img/level_gold.png" alt="" width="25px" height="25px"></span></div>
-					    <div style="float:right;">연속로그인</div>
-					    <div style="clear: left;"/>
-					</h4>
-					
-				</c:if>
+				<%@ include file="/WEB-INF/views/users/logindays.jsp" %>
 				<%@ include file="/WEB-INF/views/users/questioncount.jsp" %>
 				<%@ include file="/WEB-INF/views/users/answercount.jsp" %>
 				<span class="url">홈페이지:<a href="${user.userurl}" target="_blank">${user.userurl}</a></span>
@@ -157,8 +149,9 @@ width: 100%;
                 	<li class="graph2"><div id="chart-area"></div></li>
                     <li>
                     	<p class="score">평판 : <span>${score}</span></p>
-                      	<p class="myinfo">현재레벨 : <span>1등</span> <br> 다음레벨 : <span>2등</span></p>
-                      	<p class="myinfo"><span>+9999</span> <br> <span>-250</span> </p>
+                      	<!-- <p class="myinfo">현재레벨 : <span>1등</span> <br> 다음레벨 : <span>2등</span></p> -->
+                      	<p class="myinfo">좋아요 : <br> 싫어요 : </p>
+                      	<p class="myinfo"><span>+${user.vote.likes}</span> <br> <span>-${user.vote.dislikes}</span> </p>
                       	<p class="myinfo">질문 : <span>${ qCnt }</span> <br> 답변 : <span>${ aCnt }</span></p>
                     </li>
 				</ul>

@@ -11,11 +11,17 @@
 	<result column="section" property="section"/>
 </resultMap>
 
+<resultMap type="com.de.vote.Vote" id="Vote">
+	<result column="likes" property="likes"/>
+	<result column="dislikes" property="dislikes"/>
+</resultMap>
+
 <resultMap type="com.de.user.UsersDetail" id="UsersDetail">
 	<result column="userat" property="userat"/>
 	<result column="activeat" property="activeat"/>
 	<result column="representat" property="representat"/>
 	<result column="logindays" property="logindays"/>
+	<result column="maxloginday" property="maxloginday"/>
 </resultMap>
 
 <resultMap type="com.de.user.Users" id="Users">
@@ -39,6 +45,7 @@
 	<result column="recordCountPerPage" property="recordCountPerPage"/>
 	<collection property="score" resultMap="Score"/>
 	<collection property="usersDetail" resultMap="UsersDetail"/>
+	<collection property="vote" resultMap="Vote"/>
 </resultMap>
 
 	<sql id="listWhere">
@@ -79,6 +86,8 @@
 		select 
 		a.*
 		,b.*
+		,(select sum(c.likes) from tb_vote c where a.userno = c.userno)as likes
+		,(select sum(c.dislikes) from tb_vote c where a.userno = c.userno)as dislikes
 		from tb_users a left outer join tb_users_detail b on a.userno = b.userno
 		<where>
 		a.userno = #{userno}

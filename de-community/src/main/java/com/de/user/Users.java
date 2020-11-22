@@ -17,6 +17,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.de.score.Score;
+import com.de.vote.Vote;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -89,6 +90,9 @@ public class Users implements Serializable {
 
 	@Transient
 	private Score score;
+	
+	@Transient
+	private Vote vote;
 
 //	@OneToOne
 //	@JoinTable(name = "tb_score", //조인테이블명
