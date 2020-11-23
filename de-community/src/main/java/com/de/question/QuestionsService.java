@@ -178,7 +178,10 @@ public class QuestionsService {
 
 	// 내 질문/답변 목록
 	public List<Questions> getMyList(Questions vo) throws Exception {
-		return qm.getMyList(vo);
+		List<Questions> list = null;
+		if("A".equals(vo.getSection())) list = qm.getMyAnswerList(vo);
+		else if("Q".equals(vo.getSection())) list = qm.getMyQuestionList(vo);
+		return list;
 	}
 
 

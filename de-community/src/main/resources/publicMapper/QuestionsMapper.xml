@@ -275,7 +275,7 @@
 	</select>
 
 
-	<select id="getMyList" parameterType="com.de.question.Questions" resultMap="Questions">
+	<select id="getMyQuestionList" parameterType="com.de.question.Questions" resultMap="Questions">
 		SELECT
 			a.questionno
 			,a.title
@@ -297,39 +297,24 @@
 				WHERE 
 					a.questionno = d.questionno) AS commentcnt
 		FROM 
-			<if test='section == "Q"'>
-				tb_questions a LEFT OUTER JOIN tb_users b ON a.firstuserno = b.userno
-				LEFT OUTER JOIN tb_vote c ON a.questionno = c.pno
-			</if>
-			<if test='section == "A"'>
-				(
-				    SELECT 
-			        	qstn.questionno
-			        	,qstn.title
-			        	,qstn.contents
-			        	,qstn.section
-			        	,qstn.deleteat
-			        	,qstn.editauth
-			        	,qstn.readcnt
-			        	,qstn.registerdate
-			        	,qstn.tagno
-			        	,qstn.updatedate
-			        	,qstn.userno
-			        	,qstn.firstuserno
-			        FROM 
-			        	tb_answers ansr
-			        	LEFT JOIN tb_questions qstn
-			        	ON ansr.questionno = qstn.questionno
-			        WHERE
-			        	ansr.userno = #{userno}
-				) a LEFT OUTER JOIN tb_users b ON a.userno = b.userno
-				LEFT OUTER JOIN tb_vote c ON a.questionno = c.pno
-			</if>
+			tb_questions a LEFT OUTER JOIN tb_users b ON a.firstuserno = b.userno
+			LEFT OUTER JOIN tb_vote c ON a.questionno = c.pno
 		WHERE
-			a.userno = #{userno}
+			a.userno in ( select userno from tb_users_detail where enterpriseno = #{userno} )
 			AND c.section = #{section}
 		ORDER BY a.registerdate DESC
 		OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage}
+	</select>
+	
+	<select id="getMyAnswerList" parameterType="com.de.question.Questions" resultMap="Questions">
+		SELECT 
+			* 
+		FROM 
+			tb_answers 
+		WHERE 
+	        userno IN ( SELECT userno FROM tb_users_detail WHERE enterpriseno = #{userno} )
+     ORDER BY registerdate desc
+     OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage}
 	</select>
 	
 	
