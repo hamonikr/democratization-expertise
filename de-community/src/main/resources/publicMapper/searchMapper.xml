@@ -43,20 +43,23 @@
 
 
 </select>
-<!-- <select id="totalSearch" parameterType="com.de.cmmn.CmmnMap" resultType="com.de.cmmn.CmmnMap">
-select a.* from (
+<!--<select id="totalSearch" parameterType="com.de.cmmn.CmmnMap" resultType="com.de.cmmn.CmmnMap">
+ select a.* from (
 	select questionno as seq,title , contents , 'Q' as status, COUNT(*)
 		OVER(PARTITION BY questionno) as cnt from tb_questions 
+		where upper(title) like '%' || upper(#{searchtxt}) || '%' or upper(contents) like '%' || upper(#{searchtxt}) || '%'
 			union all 
 				select wikino as seq,title , contents , 'T' as status, COUNT(*)
-			OVER(PARTITION BY wikino) as cnt from tb_wiki where section = 't'
+			OVER(PARTITION BY wikino) as cnt from tb_wiki where section = 't' and upper(title) like '%' || upper(#{searchtxt}) || '%' or upper(contents) like '%' || upper(#{searchtxt}) || '%'
 			union all 
 				select wikino as seq,title , contents , 'H' as status, COUNT(*)
-			OVER(PARTITION BY wikino) as cnt from tb_wiki where section = 'h'
+			OVER(PARTITION BY wikino) as cnt from tb_wiki where section = 'h' and upper(title) like '%' || upper(#{searchtxt}) || '%' or upper(contents) like '%' || upper(#{searchtxt}) || '%'
 			union all 
 				select question_id::integer as seq,title , body as contents , 'Q' as status, COUNT(*)
-			OVER(PARTITION BY question_id) as cnt from tbl_stack_question ) a 
-		where upper(title) like '%' || upper(#{searchtxt}) || '%' or upper(contents) like '%' || upper(#{searchtxt}) || '%'
+			OVER(PARTITION BY question_id) as cnt from tbl_stack_question
+			where upper(title) like '%' || upper(#{searchtxt}) || '%' or upper(body) like '%' || upper(#{searchtxt}) || '%'
+			 ) a 
+			limit 40
 </select> -->
 
 <select id="preSearch" parameterType="com.de.cmmn.CmmnMap" resultType="com.de.cmmn.CmmnMap">
