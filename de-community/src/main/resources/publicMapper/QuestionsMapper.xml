@@ -344,7 +344,6 @@
 		from tb_questions a left outer join tb_users b on a.userno = b.userno left outer join tb_vote c on a.questionno = c.pno
 		where b.location = ( select enterprisearea from tb_enterprises where userno = (select userno from tb_users where uuiduser = #{useruuid}) )
 			and (select count(d.answerno) from tb_answers d where a.questionno = d.questionno)  = '0'
-			and to_char(a.registerdate, 'YYYY-MM-DD') >= '2020-10-15'
 	</select>
 <!-- 	and to_char(a.registerdate, 'YYYY-MM-DD') >= to_char(now(), 'YYYY-MM-DD') -->
 	

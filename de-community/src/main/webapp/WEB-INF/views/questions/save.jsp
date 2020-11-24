@@ -211,7 +211,12 @@
     //저장 버튼
     //$("#btnSave").on("click",fnSave);	
     //$("#btnUpdate").on("click",fnUpdate);
-
+    
+     //공백체크
+    $.validator.addMethod("trimCheck",  function( value, element ) {
+		   return this.optional(element) ||  $.trim(value);
+		});
+    
     $.validator.setDefaults( {
       submitHandler : function() {
         if ($( 'input:checkbox[name="editcheck"]' ).is( ":checked" ) == true)
@@ -219,6 +224,8 @@
         else
           document.frm.editauth.value = 0;
         var vv = $( "input[name=btnSubmit]" ).val();
+        var titleCheck = $.trim($("#title").val());
+        console.log("length===="+titleCheck.length);
         document.frm.contents.value = editor.getHtml();
         if (vv == "c")
           document.frm.action = "/questions/save.proc";
@@ -231,27 +238,28 @@
     $( '#frm' ).validate( {
     rules : {
     title : {
-      required : true
-    },
-    tag : {
-      required : true
+      required : true,
+      trimCheck: true
     },
     contents : {
-      required : true
+      required : true,
+      trimCheck: true
     }
     },
     messages : {
     title : {
-      required : "제목을 입력 해주세요."
+      required : "제목을 입력 해주세요.",
+      trimCheck : "공백만 입력 할 수 없습니다."
     },
     contents : {
-      required : "내용을 입력 해주세요."
+      required : "내용을 입력 해주세요.",
+      trimCheck : "공백만 입력 할 수 없습니다."
     }
     },
     errorElement : 'span',
     errorPlacement : function(error, element) {
       error.addClass( 'invalid-feedback' );
-      element.closest( '.form-group' ).append( error );
+      element.closest( '.form-list' ).append( error );
     },
     highlight : function(element, errorClass, validClass) {
       $( element ).addClass( 'is-invalid' );
@@ -259,7 +267,7 @@
     unhighlight : function(element, errorClass, validClass) {
       $( element ).removeClass( 'is-invalid' );
     }
-    } );
+    });
 
   } );
 
