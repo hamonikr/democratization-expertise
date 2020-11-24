@@ -23,6 +23,10 @@ public interface QuestionsMapper {
 	
 	public List<Questions> getMyQuestionList(Questions vo) throws Exception;
 
+	public List<Questions> getMyAnswerListEnter(Questions vo) throws Exception;
+	
+	public List<Questions> getMyQuestionListEnter(Questions vo) throws Exception;
+	
 	public List<Questions> getCompQuestionList(String useruuid) throws Exception;
 
 	public int getCompQuestionListCount(String useruuid) throws Exception;

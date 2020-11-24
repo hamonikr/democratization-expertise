@@ -300,13 +300,56 @@
 			tb_questions a LEFT OUTER JOIN tb_users b ON a.firstuserno = b.userno
 			LEFT OUTER JOIN tb_vote c ON a.questionno = c.pno
 		WHERE
-			a.userno in ( select userno from tb_users_detail where enterpriseno = #{userno} )
+			a.userno = ( select userno from tb_users_detail where userno = #{userno} )
 			AND c.section = #{section}
 		ORDER BY a.registerdate DESC
 		OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage}
 	</select>
 	
 	<select id="getMyAnswerList" parameterType="com.de.question.Questions" resultMap="Questions">
+		SELECT 
+			* 
+		FROM 
+			tb_answers 
+		WHERE 
+	        userno = ( SELECT userno FROM tb_users_detail WHERE userno = #{userno} )
+     ORDER BY registerdate desc
+     OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage}
+	</select>
+	
+	
+	<select id="getMyQuestionListEnter" parameterType="com.de.question.Questions" resultMap="Questions">
+		SELECT
+			a.questionno
+			,a.title
+			,a.contents
+			,a.section
+			,a.deleteat
+			,a.editauth
+			,a.readcnt
+			,a.registerdate
+			,a.tagno
+			,a.updatedate
+			,a.firstuserno
+			,a.userno
+			,b.*,c.*
+			,(SELECT 
+					count(d.answerno) 
+				FROM 
+					tb_answers d 
+				WHERE 
+					a.questionno = d.questionno) AS commentcnt
+		FROM 
+			tb_questions a LEFT OUTER JOIN tb_users b ON a.firstuserno = b.userno
+			LEFT OUTER JOIN tb_vote c ON a.questionno = c.pno
+		WHERE
+			a.userno in ( select userno from tb_users_detail where enterpriseno = #{userno} )
+			AND c.section = #{section}
+		ORDER BY a.registerdate DESC
+		OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage}
+	</select>
+	
+	<select id="getMyAnswerListEnter" parameterType="com.de.question.Questions" resultMap="Questions">
 		SELECT 
 			* 
 		FROM 

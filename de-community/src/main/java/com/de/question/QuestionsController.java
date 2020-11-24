@@ -292,10 +292,9 @@ public class QuestionsController {
 		return "";
 	}
 
-
-	// 내 답변 목록
+	// 내 답변 목록 - 회원
 	@RequestMapping(value = "/myList")
-	public String getMyQList(@RequestParam Map<String, String> params, Model model, Questions questions,
+	public String getMyList(@RequestParam Map<String, String> params, Model model, Questions questions,
 			@AuthenticationPrincipal SecurityMember user, @PageableDefault Pageable pageable) throws Exception {
 
 		CmmnMap param = new CmmnMap();
@@ -317,6 +316,43 @@ public class QuestionsController {
 		questions.setRecordCountPerPage(recordCountPerPage);
 
 		List<Questions> list = qs.getMyList(questions);
+		// List<Tags> tagList = qs.tagList();
+		List<Wiki> tagList = qs.findAllTag();
+
+//		int listCount = qs.getMyListCount(questions);
+		int listCount = list.size();
+		paginationInfo.setTotalRecordCount(listCount); // 전체 게시물 건 수
+		model.addAttribute("list", list);
+		model.addAttribute("tagList", tagList);
+		model.addAttribute("paginationInfo", paginationInfo);
+		model.addAttribute("vo", param);
+		return "/questions/list";
+	}
+
+	// 내 답변 목록 - 기업
+	@RequestMapping(value = "/myListEnter")
+	public String getMyListEnter(@RequestParam Map<String, String> params, Model model, Questions questions,
+			@AuthenticationPrincipal SecurityMember user, @PageableDefault Pageable pageable) throws Exception {
+
+		CmmnMap param = new CmmnMap();
+		param.putAll(params);
+
+		logger.info("----------excel param-----------------------");
+		logger.debug("");
+		logger.debug(param.toString());
+		logger.debug("");
+		logger.debug("----------excel param-----------------------");
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(param.getInt("pageNo") > 0 ? param.getInt("pageNo") : 1); // 현재 페이지 번호
+		paginationInfo.setRecordCountPerPage(100); // 한 페이지에 게시되는 게시물 건수
+		paginationInfo.setPageSize(5); // 페이징 리스트의 사이즈
+
+		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
+		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
+		questions.setFirstRecordIndex(firstRecordIndex);
+		questions.setRecordCountPerPage(recordCountPerPage);
+
+		List<Questions> list = qs.getMyListEnter(questions);
 		// List<Tags> tagList = qs.tagList();
 		List<Wiki> tagList = qs.findAllTag();
 

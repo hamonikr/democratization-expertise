@@ -95,7 +95,7 @@
                     	질문 (${ qCnt })
                     	<span class="more">
                     	<c:if test="${ qCnt > 5 }">
-							<form action="/questions/myList">
+							<form action="/questions/myListEnter">
 								<input type="hidden" name="userno" value="${ enterprise.enterpriseno }">
 								<input type="hidden" name="section" value="Q">
 								<!--<button type="submit" class="btn-primary btn-xs" >+더보기</button> -->
@@ -120,7 +120,7 @@
                     	답변 (${ aCnt })
                     	<span class="more">
                     		<c:if test="${ aCnt > 5 }">
-							<form action="/questions/myList">
+							<form action="/questions/myListEnter">
 								<input type="hidden" name="userno" value="${ enterprise.enterpriseno }">
 								<input type="hidden" name="section" value="A">
 <!-- 								<button type="submit" class="btn-primary btn-xs" >+더보기</button> -->
