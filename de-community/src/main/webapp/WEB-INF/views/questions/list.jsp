@@ -40,7 +40,6 @@ color: rgb(0,0,0);
 		답변을 통해 알고 있는 지식과 경험으로 어려움을 겪는 사람들을 도와주고 좋은 명성을 쌓으세요. <br>
 	</div>
 
-
 	<div class="list-left">
 		<div class="pagenum">현재페이지 ${paginationInfo.currentPageNo}/${paginationInfo.totalPageCount} (총 <c:out value="${paginationInfo.totalRecordCount}" />건)</div>
 		<ul class="sort-align">
