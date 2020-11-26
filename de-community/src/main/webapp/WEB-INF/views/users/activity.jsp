@@ -136,9 +136,6 @@ width: 100%;
 					<img alt="profile" src="${user.picture}" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
 				<%@ include file="/WEB-INF/views/users/level.jsp" %>
-				<%@ include file="/WEB-INF/views/users/logindays.jsp" %>
-				<%@ include file="/WEB-INF/views/users/questioncount.jsp" %>
-				<%@ include file="/WEB-INF/views/users/answercount.jsp" %>
 				<span class="url">홈페이지:<a href="${user.userurl}" target="_blank">${user.userurl}</a></span>
 			</div>
 
@@ -153,6 +150,12 @@ width: 100%;
                       	<p class="myinfo">좋아요 : <br> 싫어요 : </p>
                       	<p class="myinfo"><span>+${user.vote.likes}</span> <br> <span>-${user.vote.dislikes}</span> </p>
                       	<p class="myinfo">질문 : <span>${ qCnt }</span> <br> 답변 : <span>${ aCnt }</span></p>
+                      	<p class="myicon">
+                      	<%@ include file="/WEB-INF/views/users/logindays.jsp" %>
+                      	<%@ include file="/WEB-INF/views/users/questioncount.jsp" %>
+						<%@ include file="/WEB-INF/views/users/answercount.jsp" %>
+						<%@ include file="/WEB-INF/views/users/selectedanswercount.jsp" %>
+                      	</p>
                     </li>
 				</ul>
 			</div>

@@ -87,7 +87,7 @@ public class QuestionsController {
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(param.getInt("pageNo") > 0 ? param.getInt("pageNo") : 1); // 현재 페이지 번호
 		paginationInfo.setRecordCountPerPage(5); // 한 페이지에 게시되는 게시물 건수
-		paginationInfo.setPageSize(5); // 페이징 리스트의 사이즈
+		paginationInfo.setPageSize(10); // 페이징 리스트의 사이즈
 
 		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
 		int recordCountPerPage = paginationInfo.getRecordCountPerPage();

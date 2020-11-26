@@ -182,6 +182,7 @@ FROM
 	tb_answers
 WHERE
 	userno = #{seq}
+	and selected = 1
 </select>
 
 <select id="cntTagAndWikiById" parameterType="com.de.wiki.Wiki" resultType="Integer">

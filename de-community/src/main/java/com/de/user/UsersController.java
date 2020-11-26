@@ -109,8 +109,10 @@ public class UsersController {
 		Page<Questions> qList = usersService.findQuestionsByUserno(userno);
 
 		// 답변
-		//int aCnt = usersService.cntAnswerById(userno);
 		Page<Answers> aList = usersService.findAnswerByUserno(userno);
+		
+		//채택된 답변 카운트
+		int aSelCnt = usersService.cntAnswerById(userno);
 
 		// 태그 n 위키
 		Wiki vo = new Wiki();
@@ -158,6 +160,8 @@ public class UsersController {
 		model.addAttribute("wCnt", wCnt); // 위키 전체 수
 		model.addAttribute("wList", wList); // 위키 목록
 //		model.addAttribute("tab", tab);
+		
+		model.addAttribute("selectedCnt", aSelCnt);
 
 		return "/users/activity";
 	}
