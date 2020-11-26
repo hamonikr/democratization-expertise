@@ -145,7 +145,7 @@ width: 100%;
                 <ul class="info-detail">
                 	<li class="graph2"><div id="chart-area"></div></li>
                     <li>
-                    	<p class="score">평판 : <span>${score}</span></p>
+                    	<p class="score">평판 : <span>${score}</span> <a href="/wiki/helpview/140/h"><i class="mdi mdi-information"></i></a></p>
                       	<!-- <p class="myinfo">현재레벨 : <span>1등</span> <br> 다음레벨 : <span>2등</span></p> -->
                       	<p class="myinfo">좋아요 : <br> 싫어요 : </p>
                       	<p class="myinfo"><span>+${user.vote.likes}</span> <br> <span>-${user.vote.dislikes}</span> </p>
