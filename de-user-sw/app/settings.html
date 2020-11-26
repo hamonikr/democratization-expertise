@@ -13,6 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/common_old.css">
     <link rel="stylesheet" type="text/css" href="assets/css/common.css">
     
     <body class="">
@@ -20,51 +21,66 @@
 
   
   <div class="container dragLayer try_type2">
-    <!-- left layer -->
-    <!-- <div class="leftbox"  >
-      <nav id='navLayer'>
-        <a href="javascript:;" id="search" class="active noneDragLayer" style="background: #8059D7;height: 80px;"><i class="fa fa-search" style="margin-top: 6px;">&nbsp;검색&nbsp;</i></a>
-        <a href="javascript:;" id="profile" class="noshow noneDragLayer" style="display:none;"><i class="fa fa-user">정보설정</i></a>
-      </nav>
-    </div> -->
     
     <!-- right layer -->
     <div class="rightbox">
-    <div id="BodyId" class="" > </div>
-
-
-      <h1><img src="assets/images/h1_logo2.png" alt="HamoniKR"/> OS </h1>
-      <div class="info_01">
-        커뮤니키 어쩌구...저쩌구.... <br />하모니카 ~~~
-      </div>
+    <div class="support"><h1>Community</h1></div>
+    <div class="supp_con">
+      우리는 코드를 가진 모든 사람을 위한 열린 커뮤니티입니다<br>
+      당신이 겪는 코딩에 대한 어려움을 질문을 통해 답을 얻고,
+      다른 사람들과 그 지식을 공유하고, 당신의 능력을 향상시킬수 있도록 돕습니다
+    </div>
+    
+    <div class="con_wrap text_center " style="    float: right;">
+      <a href="javascript:;" class="btn_comm noneDragLayer">Askos Community </a>
+      <a href="javascript:;"  id="questionBtn" class="btn_comm noneDragLayer" style="display: none;">질문하기</a>
+      <a href="javascript:;"  id="settings" class="btn_comm noneDragLayer" >Sign In</a>
+    </div>
+    <span class='w3-right' id='searchUserInfoLayer'> </span>
       
     
 		<div id="searchBodyId" class="search" >
-			<p style="padding: 5px 10px;" id="searchInputLayer">
+			<p style="padding: 10px 10px;" id="searchInputLayer">
         <input type="text" id="searchInput" placeholder="Enter Search Keyword" class="noneDragLayer input_type3" ></input>
-        
-        <a id="settings" class="active search w3-right noneDragLayer" style="color:#3FB6A8;"><i class="fa fa-gear fa-spin" style="font-size:24px"></i></a>
       </p>
-      <span class='w3-right noneDragLayer' id='questionBtn' style='display:none;' ><a href="javascript:;" id="questionWrite">질문하기</a> </span>
-      <span class='w3-right' id='searchUserInfoLayer'> </span>
-			<div id="esSearchResultTbody" style="display:none; overflow-x:hidden; overflow-y:scroll; width:400; height:430px;" class="noneDragLayer"></div>
+      <div id="esSearchResultTbody" style="display:none; overflow-x:hidden; overflow-y:scroll; " class="noneDragLayer table_type1">
+        <table  >
+          <colgroup>
+            <col style="width:60%;" />
+            <col style="width:20%;" />
+            <col />
+          </colgroup>
+          <tbody id="retDataResultTbody">
+           
+          </tbody>
+        </table>
+      </div>
+			<!-- <div id="esSearchResultTbody" style="display:none; overflow-x:hidden; overflow-y:scroll; width:400; height:430px; width:490px;" class="noneDragLayer"></div> -->
     </div>
 
-
-
+    <p></p>
     <div class="profile noshow" style="display:none;">
       <div id="signBefore" style="display:none;">
-        <h1 style="background:#e6e6e6; height: 50px; margin-left: -6%; margin-top: 0%; padding: 15px 12px;color:black;" >정보설정</h1>
-        <h2>사용자명 </h2>
-        <p><input type="text" id="userId" name="userId"  value="ryan" placeholder="Enter user name or user id" class="noneDragLayer"></input></p>
-        <br>
-        <h2>그룹명 </h2>
-        <p><input type="text" id="userPw" name="userPw" value="exitem0*" placeholder="Enter Group Name" class="noneDragLayer"></input></p>
-        <input type="text" id="userIpAddress"></input>
-        <span><button class="w3-btn noneDragLayer" onClick="setProfile();">확인</button></span>
+        <ul class="login">
+          <li>
+            <label for=""  >User ID</label>
+            <input type="text" name="userId" id="userId" value="invesume" class="input_type2 noneDragLayer" placeholder="Enter user name or user id"  />
+          </li>
+          <li>
+            <label for="" >Password</label>
+            <input type="password" name="userPw" id="userPw" value="exitem08" class="input_type2 noneDragLayer" placeholder="비밀번호를 입력해주세요"  />
+            <input type="hidden"" id="userIpAddress"></input>
+          </li>
+          <li>
+              <button type="button" onClick="setProfile();" class="noneDragLayer">확인</button>
+              <button type="button" onClick="cancleProfile();" class="noneDragLayer">취소</button>
+          </li>
+        </ul>
+
+       
       </div>
 
-      <div id="signAfter" style="display:none;">
+      <div id="signAfter-Protected" style="display:none;">
         <h1 style="background:#e6e6e6; height: 50px; margin-left: -6%; margin-top: 0%; padding: 15px 12px;color:black;" >정보설정</h1>
         <h2><span id="singAfterInfo"></span> </h2>
         <input type="hidden" name="loginGubun" id="loginGubun" value="">
@@ -82,7 +98,7 @@
       
       <br>
       <label for="" class="labelzero">제목</label>
-      <input type="text" name="subject" id="subject" class="input_type2" placeholder="제목이나 제안 또는 문제를 입력하십시오." />
+      <input type="text" name="subject" id="subject" class="input_type2" placeholder="질문내용을......" />
       <br>
       <label for="" class="labelzero" >내용</label>
       <textarea id="contents" name="contents" placeholder="하모니카 OS 또는 우분투, 리눅스등 사용시 궁굼한 사항이 있을경우 커뮤니티에 문의해 보세요."></textarea>
@@ -102,13 +118,13 @@ fn_appInit();
 // 
 
 $('#questionBtn').click(function(e) {
- 
-  ipcRenderer.send('resize-me-please', "viewLayer");
+  ipcRenderer.send('resize-me-please', "questLayer");
+  $('.try_type2').height('600px');
   // $('.container').fadeOut(300);
   // $('.container').fadeIn(300);
   $('.leftbox').css('top','0%');
-  $('.container').height('100%');
-  $('.container').width('100%');
+  // $('.container').height('100%');
+  // $('.container').width('100%');
   $('#navLayer').css('margin-top','20px');
 
   $('#searchUserInfoLayer').hide();
@@ -138,8 +154,8 @@ $('nav a').click(function(e) {
     // fn_load_profile();
     
   }else if(this.id === 'search') {
-    
-		ipcRenderer.send('resize-me-please', "initLayer");
+    alert(1);
+		ipcRenderer.send('resize-me-please', "questLayer");
     
     $('#search').css('overflow-x', 'hidden');
     $('#search').css('overflow-y', 'hidden');
@@ -153,16 +169,16 @@ $('nav a').click(function(e) {
 		$('#search').css('margin-top','0px');
     $('.search').removeClass('noshow');
 
-  	$('.container').height('70px');
-    $('.container').width('100%');
+  	// $('.container').height('70px');
+    // $('.container').width('100%');
     
-		$('.rightbox').css('margin-left','25%');
+		// $('.rightbox').css('margin-left','25%');
     $('.rightbox').children().not('.search').addClass('noshow');
 
     $('#signBefore').hide();
     $('#signAfter').hide();
-		$('#searchBodyId').css('height', '');
-		$('#searchBodyId').css('width', '370px');
+		// $('#searchBodyId').css('height', '');
+		// $('#searchBodyId').css('width', '370px');
 		$('#esSearchResultTbody').addClass('noshow');
 	  $('#esSearchResultTbody').hide();
     $('#BodyId').removeClass('noshow');
@@ -178,19 +194,12 @@ $('nav a').click(function(e) {
 });
 
 $('#settings').click(function(e) {
-	layerChange();
-		
-  $('#profile').css('background','#8059D7');
-  $('#search').css('background','#333333');
-  $('#search').removeClass('noshow active');
-	$('#profile').addClass('active');
-  $('.rightbox').children().not('.profile').addClass('noshow');
+  ipcRenderer.send('resize-me-please', "viewLayer");
+  $('.try_type2').height('576px');
+  $('.profile').css('margin-left','15%');
+  $('.profile').removeClass('noshow');
+	$('#searchBodyId').hide();
   $('.profile').show();
-  $('#searchBodyId').height("1px");
-	$('#esSearchResultTbody').addClass('noshow');
-  $('#esSearchResultTbody').hide();
-  $('#BodyId').removeClass('noshow');
-  $('#navLayer').css('margin-top','20px');
 
   if( $('#loginGubun').val() == 'Y'){
     $('#signBefore').hide();
@@ -202,35 +211,25 @@ $('#settings').click(function(e) {
 
 });
 
+function is_valid_date(date_str)
+{
+    var yyyyMMdd = String(date_str);
+    var year = yyyyMMdd.substring(0,4);
+    var month = yyyyMMdd.substring(5,7);
+    var day = yyyyMMdd.substring(8,10);
 
-
-
-function layerChange(){
-	ipcRenderer.send('resize-me-please', "viewLayer");
-  $('.container').height('500px');
-  $('.container').width('100%');
-  $('.rightbox').css('margin-left','15%');
-  $('#profile').removeClass('noshow');
-	$('#searchBodyId').css('height', '');
-  $('#profile').show();
-  $('.profile').removeClass('noshow');
+    return year+"-"+month+"-"+ day;
 }
 
 $("#searchInput").keydown(function(key) {
     if (key.keyCode == 13) {
-			ipcRenderer.send('resize-me-please', "viewLayer");
+			ipcRenderer.send('resize-me-please', "questLayer");
 			$('.container').fadeOut(300);
       $('.container').fadeIn(300);
-			$('.container').height('100%');
-      $('.container').width('100%');
-      $('.leftbox').css('top','0%');
-      
-      // $('#searchBodyId').width('400px');
+			$('.try_type2').height('600px');
 			$('#esSearchResultTbody').removeClass('noshow');
 			$('#esSearchResultTbody').show();
-      $('#search').css('margin-top','7px');
-      $('#questionBtn').css('margin','-64px 13px');
-      $('#searchUserInfoLayer').hide();
+      $('#searchUserInfoLayer').show();
 
 
 			var fs = require("fs");
@@ -241,14 +240,14 @@ $("#searchInput").keydown(function(key) {
       var st = getDateTime();
       console.log("[검색 시간 측정]");
 	    console.log("startTime is : " + getDateTime() );
-      unirest.post('http://127.0.0.1:8080/api/list')
+      unirest.post('http://askos.co.kr/api/list')
         .header('Accept', 'application/json')
         .send({ "searchtext": $("#searchInput").val() })
         .end(function (response) {
           var innerData = "";
           var esResultObj = response.body;
-
-          $("#esSearchResultTbody").empty();
+          
+          $("#retDataResultTbody").empty();
         
           if( typeof esResultObj == "undefined" ){
             innerData += '<div class="w3-panel w3-border-left w3-pale-red w3-border-red" style="margin: 10px 0;">';
@@ -263,33 +262,30 @@ $("#searchInput").keydown(function(key) {
               innerData += '</div>';
             } 
             else {
-
-
               var cusorVal = "";
               var jsontext = esResultObj.list;
               var contact = jsontext; //JSON.parse(jsontext);
               innerData += '<div class="table">';
               if( contact.length > 0 ){
-              	$("#esSearchResult").show();
+              	// $("#esSearchResult").show();
 								var fileSharing = "";
                 for (var i = 0; i < contact.length; i++) {
                   
-                  console.log("contact[i].questionno==========++"+contact[i].questionno);
-                  
-                  // innerData += '<div   class="w3-panel w3-border-bottom w3-padding-16" style="margin: 10px 0;">';
-                    // innerData += '<span class="openFileTag" onclick="folderOpen(this);" data-value="'+contact[i].questionno+'">'+contact[i].title;
+                  var fromDate = new Date(contact[i].regdt );
+                  var date = new Date(fromDate).toDateString("yyyy-MM-dd");
 
-                    innerData += '<div class="row ">';
-                  innerData += '<span class="cell col1" onclick="rowView(this);" data-value="'+contact[i].questionno+'">'+contact[i].title +'</span>';
-                  innerData += '<span class="cell col2" >'+contact[i].userno +'</span>';
-                  innerData += '<span class="cell col3">'+contact[i].regdt +'</span>';
-            		  innerData += '<input type="hidden" name="owner_uuid" id="owner_uuid" value="'+contact[i].questionno+'"></input>';
-                  innerData += '</div>';
+                  innerData += '<tr>';
+                  innerData += '<td onclick="rowView(this);" data-value="'+contact[i].questionno+'">' + contact[i].title + '</td>';
+                  innerData += '<td>' + contact[i].userno + '</td>';
+                  innerData += '<td>' + is_valid_date(contact[i].regdt )
+                    + '<input type="hidden" name="owner_uuid" id="owner_uuid" value="'+contact[i].questionno+'"></input></td>';
+                  innerData += '</tr>';
+
                 }
               }
             }
-            innerData += '</div>';
-            $("#esSearchResultTbody").append(innerData);
+            
+            $("#retDataResultTbody").html(innerData);
             console.log("end time is : " + getDateTime());
           }
         });
@@ -523,39 +519,36 @@ function rowView(val){
   var rowno = val.getAttribute("data-value");
   console.log(rowno);
   var unirest = require('unirest');
-  unirest.post('http://127.0.0.1:8080/api/view')
+  unirest.post('http://askos.co.kr/api/view')
         .header('Accept', 'application/json')
         .send({ "questionno": rowno})
         .end(function (response) {
           var innerData = "";
           var esResultObj = response.body;
-          console.log("esResultObj=========+++"+JSON.stringify(esResultObj));
-          console.log("esResultObj=========+++"+JSON.stringify(esResultObj.title));
 
-          $("#esSearchResultTbody").empty();
+          $("#retDataResultTbody").empty();
 
-          var cusorVal = "";
+              var cusorVal = "";
               var contact = esResultObj;
-              console.log("contact=="+JSON.stringify(contact));
-              
               	$("#esSearchResult").show();
-                  innerData += '<div class="table">';    
-                  innerData += '<div class="row ">';
-                  // innerData += '<span class="cell col1" >'+contact.title +'</span>';
-                  // innerData += '<span class="cell col2" >'+contact.userno +'</span>';
-                  // innerData += '<span class="cell col3">'+contact.regdt +'</span>';
+                  // innerData += '<div class="table">';    
+                  // innerData += '<div class="row ">';
 
-                  innerData += '<span class="cell col4" > Q.'+contact.title +  '</span>';
+                  // innerData += '<span class="cell col4" > Q.'+contact.title +  '</span>';
+                  // innerData += '</div>';
+                  // innerData += '<div class="row"><p>Answer.<p></div>';
+                  // innerData += '<div class="row ">'+contact.contents +'</div>';
+                  //   innerData += '<div class="text_center">';
+                  //     innerData += '<button type="button" class="btn_list noneDragLayer w3-right"  onClick="golist();" >목록</button>';
+                  //   innerData += '</div>';
+                  // innerData += '</div>';
 
+                  innerData += '<div class="con_wrap">';
+                  innerData += '<input type="text" name="" id="" class="input_type3" value=" Q.'+contact.title +  '">';
+                  innerData += '<br><code>'+contact.contents +'</code>';
                   innerData += '</div>';
-                  innerData += '<div class="row"><p>Answer.<p></div>';
-                  innerData += '<div class="row ">'+contact.contents +'</div>';
-                  innerData += '<div class="row">';
-                    innerData += '<div><button class="w3-btn noneDragLayer" onClick="golist();">목록</button></div>';
-                    innerData += '</div>';  
-                  innerData += '</div>';
 
-            $("#esSearchResultTbody").append(innerData);
+            $("#retDataResultTbody").append(innerData);
             console.log("end time is : " + getDateTime());
         });
 
@@ -598,9 +591,9 @@ ipcRenderer.on('initAppProc', (event, data,userUuid) => {
     $('#signAfter').show();
     $('#settings').hide();
     $('#questionBtn').show();
+    $('#questionWrite').show();
     $('#loginGubun').val('Y');
   }else{
-    console.log("NNNNNNNNNNNNNN");
     $('#loginGubun').val('N');
     $('#searchInputLayer').css("padding", "10px 10px");
     $('#settings').show();

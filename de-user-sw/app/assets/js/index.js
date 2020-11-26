@@ -12,26 +12,40 @@
 
 
 // 개인정보 설정 버튼 클릭  =====================================================
+function cancleProfile(){
+    location.reload();
+    ipcRenderer.send('resize-me-please', "initLayer");
+}
+
 function setProfile(){
     var unirest = require('unirest');
     var fs = require("fs");
     var osType = require('os');
     
-    unirest.post('http://127.0.0.1:8080/api/signproc')
+    unirest.post('http://askos.co.kr/api/signproc')
         .header('Accept', 'application/json')
         .send({ "userid": $("#userId").val(), "userpassword": $("#userPw").val(), "userIp": $("#userIpAddress").val() })
         .end(function (response) { 
             console.log(response.body);
             var retval = response.body;
-  
+  console.log(retval.output +"===========");
             if( retval.output == "Y" ){
                 const {ipcRenderer} = require('electron');
                 ipcRenderer.send('saveUserInfo',  $("#userId").val(), $("#userPw").val());
     
                 $('#signBefore').hide();
-                $('#signAfter').show();
+                // $('#signAfter').show();
+
                 $('#singAfterInfo').text(retval.usernm+"님 접속을 환영합니다.");
-                location.reload();
+                // location.reload();
+                ipcRenderer.send('resize-me-please', "initLayer");
+
+                $('#settings').hide();
+                $('#questionWrite').show();
+                $('#searchBodyId').show();
+                
+                $('.try_type2').height('300px');
+                console.log("chk===============");
             }else{
                 fn_alert("로그인 정보가 틀립니다.");
             }
@@ -60,7 +74,8 @@ ipcRenderer.on('isQuestWriteProc', (event, isProcYN, ) => {
 					$(".banner-text").css({
 							"z-index": "1000000000"
 					});
-					location.reload();
+                    location.reload();
+                    ipcRenderer.send('resize-me-please', "initLayer");
 			});
 	}else{
 			fn_alert("기술지원 요청 등록중 오류가 발생하였습니다. ");

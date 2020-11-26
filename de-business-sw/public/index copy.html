@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <title>Hamonikr Stacked </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/common_old.css">    
+    <link rel="stylesheet" type="text/css" href="assets/css/common.css">    
+    <link rel="stylesheet" type="text/css" href="assets/fontawesome-free/css/all.min.css">     
+    <link rel="stylesheet" type="text/css" href="assets/css/adminlte.min.css">    
+  
+                   
+    <style>
+      .dragLayer {
+        -webkit-app-region:drag;
+      }
+      .noneDragLayer {-webkit-app-region: no-drag;}
+
+    </style>
+
+</head>
+<body>
+
+<div class="support ">
+
+    <h1 class="dragLayer">Hamonikr Stacked</h1>
+
+    <div class="license" id="license_base" style="margin-top: -10px;" class="dragLayer">
+            <div id="licenseInfoLayer" class="text-center orange">커뮤니티 기업 활동을 위해서는 기업 로그인이 필요합니다. </div>
+            <div id="licenseAddLayer">
+            <input type="text" id="enterId" name="enterId"  placeholder="아이디를  입력해주세요." value="testComy1" class="input_type1" style="margin-top: 0px;"/>
+            <input type="password" id="enterPw" name="enterPw" placeholder="비밀번호를 입력해주세요" value="test1234" class="input_type1" style="margin-top: 0px;"/>
+            <button type="button" class="btn_checked" id="licenseSubmit">OK</button>
+        </div>
+    </div>
+    <div class="licenseok" id="licenseok" style="display:none; margin-top: -9px;" >
+        <p id="licenseInfoLayerDescription"><p>
+    </div>
+
+    <!-- 공지사항  -->
+    <!-- <div id="slideshow"> </div> -->
+    
+    <!-- 기술지원 메인  -->
+    <div id="mainLayer">
+        <div class="supp_con dragLayer">
+          우리는 코드를 가진 모든 사람을 위한 열린 커뮤니티입니다<br>
+          당신이 겪는 코딩에 대한 어려움을 질문을 통해 답을 얻고,<br>
+          다른 사람들과 그 지식을 공유하고,<br>
+          당신의 능력을 향상시킬수 있도록 돕습니다<br>
+        </div>
+
+        <div class="supp_btn noneDragLayer">
+            <button type="button" class="btn_comm" id="footeropenCmmrlct" name="openCmmrlct">하모니카 커뮤니티</button>
+            <!-- <button type="button" class="btn_contact" id="feedBack" name="feedBack">기술지원 요청하기</button> -->
+        </div>
+
+        <section class="content noneDragLayer" >
+            <div class="container-fluid">
+                <h5 class="mt-4 mb-2"></h5>
+                <div class="row" style="cursor: pointer">
+                    <div class="col-md-3 col-sm-6 col-9" style="margin-left: 31px; padding-left: 0;" id="qnaLayer" style="display:none;">
+                        <div class="info-box">
+                            <span class="info-box-icon "><img src="assets/images/iconsfaq.png"></span>
+                            <div class="info-box-content">
+                                <span class="info-box-number" >총 질문 수 : <p id="tcTot" style="display: inline;"></p>건</span>
+                                <span class="info-box-text" >미답변 질문 : <p id="tcIng" style="display: inline;"></p>건 <br> 답변 완료 :  <p id="tcDone" style="display: inline;"></p>건</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="bottom_bg dragLayer"></div>
+
+    </div>
+
+
+    <div class="dim-layer noneDragLayer">
+        <div class="dimBg"></div>
+        <div id="layer2" class="pop-layer">
+            <div class="pop-container">
+                <div class="pop-conts">
+                    <!--content //-->
+                    <p class="ctxt mb20">Thank you.<br>
+                        더 만족스러운 HamoniKR OS가 되기 위해 솔직한 의견을 듣고자 합니다.
+                        <br><br>
+                    </p>
+                    <div class='starrr' id='star2'></div>
+                    <input type="hidden" name="ansSeq" id="ansSeq" value="">
+                    <br />
+                    <input type='hidden' name='rating'  value='7' id='star2_input' />
+                    <div class="form-group">
+                        <label></label>
+                        <textarea id="survey_content" class="form-control" rows="3" placeholder="HamoniKR 이용시 느끼셧던 점이나 개선 사항등을 적어주시면 보다 나은 HamoniKR로 찾아뵙겠습니다.  ..." spellcheck="false"></textarea>
+                      </div>
+                    <div class="btn-r">
+                        <a href="#" class="btn-layerSubmit" >확인</a>
+                        <a href="#" class="btn-layerClose">닫기</a>
+                    </div>
+                    <!--// content-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 공지사항목록 -->
+    <div class="intext" id="noticeLayer"  style="display:none; margin: 10px;">
+        <div id="noticedata_list"></div>
+        <div class="text_center">
+            <button type="button" class="btn_cancel" id="btn_notice"  name="btn_notice">메인으로</button>
+        </div>
+    </div>
+
+    <!-- 기술문의내역 -->
+    <div class="intext" id="tchnlgyLayer"  style="display:none; margin: 10px;">
+        <div id="character_list"></div>
+        <div class="text_center">
+            <button type="button" class="btn_cancel" id="btn_main"  name="btn_main">메인으로</button>
+        </div>
+    </div>
+
+    <!-- 기술지원 레이아웃 -->
+    <div class="intext" id="supportLayer"  style="display:none; margin: 10px;">
+        <label for="" class="labelzero">작성자</label>
+        <input type="text" name="tsUser" id="tsUser" class="input_type2" placeholder="작성자 명을 입력해주세요." />
+
+        <label for="" class="labelzero">제목</label>
+        <input type="text" name="subject" id="subject" class="input_type2" placeholder="제목이나 제안 또는 문제를 입력하십시오." />
+  
+        <label for="" class="labelzero" >내용</label>
+        <textarea id="contents" name="contents" placeholder="제안이나 문제에 대한 자세한 설명을 입력해주세요.
+        관련 스크린샷 또는 파일을 업로드해 주시면 요청하신 사항에 도움이 됩니다.
+        업로드 용량은 15M입니다."></textarea>
+  
+        
+        <!-- <input type="file" id=""> -->
+            <div >
+            * 기술 지원에 대한 시스템의 로그 파일을 첨부해주시면 디버깅을 통해 시스템의 문제를 더 잘 해결할수가 있습니다.
+            <b>- 시스템의 로그 파일 첨부시 루트 권한이 필요합니다. </b>
+            </div>
+            <div style="display: inline-flex;">
+                <!-- <button type="button" class="btn_contact" id="logFileAttachment" name="logFileAttachment">로그파일 첨부하기</button>
+                <input type="file" name="filename" id="filename" class="tts" title="첨부파일" value=""><br /> -->
+
+                <!-- <input type="text" class="input_type1" id="input_type1" name="input-fake" title="파일명" style="width:calc(100% - 40%);" readonly> -->
+                
+                <!-- <div id="logFileDes" style="display: contents;"></div> -->
+
+                <div class="checks"> 
+                    <input type="checkbox" id="logFileAttachment"> 
+                    <label for="logFileAttachment">System Log File Upload</label> 
+                    <span id="logFileDes"></span>
+                </div>
+
+
+
+            </div>
+        
+            <!-- <div class="" style="display: inline-flex;">
+                <button type="button" class="" id="logFileAttachment" name="logFileAttachment">Upload System Log</button>
+                <input type="file" name="filename" id="filename" class="tts" title="첨부파일" value="" ><br />
+                <input type="text" class="input_type1" id="input_type1" name="input-fake" title="파일명" style="width:calc(100% - 40%);" readonly>
+                <button type="button" class="">첨부파일</button>
+            </div> -->
+
+
+        <div class="text_center">
+            <button type="button" class="btn_ok" id="tchnlgySubmit" name="tchnlgySubmit" >작성하기</button>
+            <button type="button" class="btn_cancel" id="btn_cancel" name="btn_cancel">취소하기</button>
+        </div>
+  
+    </div>
+
+
+</div>
+      
+<input type="hidden"  id="hiddenLIcenChkVal" name="hiddenLIcenChkVal" value="">
+
+
+<script type="text/javascript" src="assets/js/index.js"></script>
+<!-- 
+<script src="assets/js/modernizr-3.5.0.min.js"></script>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/fontawesome.js"></script>
+
+
+
+<script src="assets/js/adminlte.js"> </script>
+<script src="assets/js/starrr.js"> </script> -->
+<style>
+.tts {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+.btn {
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	white-space: nowrap;
+	text-decoration: none !important;
+}
+.character {
+    float: left;
+    padding: 25px;
+    max-width: 100px;
+}
+#character_list .character img {
+    width: 100px;
+}
+.direct-chat-messages2 {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+    /* height: 250px; */
+    overflow: auto;
+    padding: 10px;
+}
+#slideshow { 
+    /* margin: 50px auto;  */
+    position: relative; 
+    width: 100%; 
+    height: 40px; 
+    padding: 10px; 
+    box-shadow: 0 0 10px rgba(0,0,0,0.4); 
+}
+
+#slideshow > div { 
+    position: absolute; 
+    top: 10px; 
+    left: 10px; 
+    right: 10px; 
+    bottom: 10px; 
+}
+.pop-layer .pop-container {
+  padding: 20px 25px;
+}
+
+.pop-layer p.ctxt {
+  color: #666;
+  line-height: 25px;
+}
+
+.pop-layer .btn-r {
+  width: 100%;
+  margin: 10px 0 20px;
+  padding-top: 10px;
+  border-top: 1px solid #DDD;
+  text-align: right;
+}
+
+.pop-layer {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 410px;
+  height: auto;
+  background-color: #fff;
+  border: 5px solid #3571B5;
+  z-index: 10;
+}
+
+.dim-layer {
+  display: none;
+  position: fixed;
+  _position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+
+.dim-layer .dimBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: .5;
+  filter: alpha(opacity=50);
+}
+
+.dim-layer .pop-layer {
+  display: block;
+}
+
+a.btn-layerClose {
+  display: inline-block;
+  height: 25px;
+  padding: 0 14px 0;
+  border: 1px solid #304a8a;
+  background-color: #3f5a9d;
+  font-size: 13px;
+  color: #fff;
+  line-height: 25px;
+}
+a.btn-layerSubmit {
+  display: inline-block;
+  height: 25px;
+  padding: 0 14px 0;
+  border: 1px solid #304a8a;
+  background-color: #3c8dbc;
+  font-size: 13px;
+  color: #fff;
+  line-height: 25px;
+}
+
+a.btn-layerClose:hover {
+  border: 1px solid #091940;
+  background-color: #1f326a;
+  color: #fff;
+}
+</style>
+
+
+<script>
+    $('#star1').starrr({
+      change: function(e, value){
+        if (value) {
+          $('.your-choice-was').show();
+          $('.choice').text(value);
+        } else {
+          $('.your-choice-was').hide();
+        }
+      }
+    });
+
+    var $s2input = $('#star2_input');
+    $('#star2').starrr({
+      max: 10,
+      rating: $s2input.val(),
+      change: function(e, value){
+        $s2input.val(value).trigger('input');
+      }
+    });
+  </script>
+
+</body>
+</html>

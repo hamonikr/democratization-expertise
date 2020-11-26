@@ -35,28 +35,24 @@ licenseSubmitBtn.addEventListener('click', function (event) {
 	
 	// ipcRenderer.send('osMachineIdProc');
 
-	unirest.post('http://127.0.0.1:8080/api/signproc')
+	unirest.post('http://askos.co.kr/api/signproc')
 		.header('Accept', 'application/json')
 		.send({ "userid": enterIdVal.value, "userpassword": enterPwVal.value })
 		.end(function (response) { 
 			console.log(response.body);
 			var retval = response.body;
-			
-
 			if( retval.output == "Y" ){
 				const {ipcRenderer} = require('electron');
-				console.log("response.body.trim()=dddddddddddddddddd==========+"+ JSON.stringify(response.body));
 				ipcRenderer.send('userLoginSuccess', retval.userid);
 			}else{
 				fn_alert("로그인 정보가 틀립니다.");
 			}
-
 		});
 
 });
 
 ipcRenderer.on('isOsMachineId', (event, machineIdVal) => {
-	unirest.post('http://127.0.0.1:8080/api/signproc')
+	unirest.post('http://askos.co.kr/api/signproc')
 		.header('Accept', 'application/json')
 		.send({ "userid": enterIdVal.value, "userpassword": enterPwVal.value })
 		.end(function (response) { 
@@ -76,39 +72,50 @@ ipcRenderer.on('isOsMachineId', (event, machineIdVal) => {
 
 
 ipcRenderer.on('isUserLoginSuccess', (event, usedYN, usernm, totalCnt, answerCnt) => {
-	var licenseInfoLayer = document.getElementById("licenseInfoLayerDescription");
-	licenseInfoLayer.innerHTML= usernm + "님 접속하셨습니다." ;
+	// var licenseInfoLayer = document.getElementById("licenseInfoLayerDescription");
+	// licenseInfoLayer.innerHTML= usernm + "님 접속하셨습니다." ;
 
+	$("#licenseok").text( usernm + "님 접속하셨습니다.");
+	$("#licenseok").show();
 	$("#loginFormLayer").hide();
 	$("#questionLayer").show();
 	
+	ipcRenderer.send('loginSuccessLayerChange');
 
 });
 // 로그인  체크
 ipcRenderer.send('licenseChkProc');
 ipcRenderer.on('isChkLicense', (event, usedYN, usernm, totalCnt, answerCnt) => {
 
-	var licenseInfoLayer = document.getElementById("licenseInfoLayerDescription");
-	console.log("usedYN==="+ usedYN);
+	// var licenseInfoLayer = document.getElementById("licenseInfoLayerDescription");
 	hiddenLIcenChkVal.value = usedYN;
-console.log("usedYN==="+usedYN);
+console.log("usedYN===========++"+usedYN);
 	if( usedYN == 'Y' ){
 
 		$("#loginFormLayer").hide();
 		$("#questionLayer").show();
+		$("#licenseok").show();
+		// licenseInfoLayer.innerHTML= usernm + "님 접속하셨습니다." ;
+		$("#licenseok").text( usernm + "님 접속하셨습니다.");
 
-		licenseInfoLayer.innerHTML= usernm + "님 접속하셨습니다." ;
-		
-		document.getElementById("tcIng").innerText= (totalCnt-answerCnt);
-		document.getElementById("tcDone").innerText=answerCnt;
-		document.getElementById("tcTot").innerText=totalCnt;
+		// document.getElementById("tcIng").innerText= (totalCnt-answerCnt);
+		// document.getElementById("tcDone").innerText=answerCnt;
+		// document.getElementById("tcTot").innerText=totalCnt;
+		$("#tcIng").text((totalCnt-answerCnt));
+		$("#tcDone").text(answerCnt);
+		$("#tcTot").text(totalCnt);
+
+		ipcRenderer.send('loginSuccessLayerChange');
 
 	}else if( usedYN == 'isNet' ){
 
 		// $("#slideshow").hide();
-		document.getElementById("tcIng").innerText=0;
-		document.getElementById("tcDone").innerText=0;
-		document.getElementById("tcTot").innerText=0;
+		// document.getElementById("tcIng").innerText=0;
+		// document.getElementById("tcDone").innerText=0;
+		// document.getElementById("tcTot").innerText=0;
+		$("#tcIng").text(0);
+		$("#tcDone").text(0);
+		$("#tcTot").text(0);
 		fn_alert("기술지원 서비스접속이 원활하지않습니다. 네트워크를 확인해주시기바랍니다.");
 	}else{
 		$("#license_base").show();
@@ -538,7 +545,7 @@ ipcRenderer.on('isTchnlgyIngryProc', (event, isProcYN, ) => {
 		 }
 	  };
 	  var handleNotification = function(event) {
-		  var title ="DE-Community",
+		  var title ="Ask-Community",
 			  message = "미등록된 답변이 있습니다.";
 		  createNotification(title, message)
 	  };

@@ -32,8 +32,6 @@ const dirPath = osType.homedir() + '/.config/support/feedback';
 
 
 
-// server url 
-let restUrl = "http://192.168.0.2:8090";
 
 let mainWindow, settingWindow;
 
@@ -48,23 +46,23 @@ function createWindow () {
 		skipTaskbar: false,
 		'x': mainWindowState.x,
 		'y': mainWindowState.y,
-		'width': 310, 
-		'height': 460, 
-		// 'width': 427, 
-		// 'height': 544, 
+		// 'width': 310, 
+		// 'height': 460, 
+		'width': 520, 
+		'height': 520, 
 		 frame:false,
 		 alwaysOnTop: false,
 		//  resizable: false,
 		 transparent: true,
-		 show: true
-		 ,webPreferences: {
-			// defaultEncoding: 'utf8',
-			// defaultFontFamily: 'cursive',
-			// focusable: true,
+		//  show: true,
+		 webPreferences: {
+			defaultEncoding: 'utf8',
+			defaultFontFamily: 'cursive',
+			focusable: true,
 			// webviewTag: true,
-			nodeIntegration: true
-			// nodeIntegrationInWorker: true,
-			// nodeIntegrationInSubFrames: true,
+			nodeIntegration: true,
+			nodeIntegrationInWorker: true,
+			nodeIntegrationInSubFrames: true,
 			//  sandbox: true
 //			webgl: true
 		}
@@ -201,14 +199,14 @@ ipcMain.on('shutdown', (event,path) => {
 ipcMain.on('openBrowser', (event) => {
 	// opn('https://hamonikr.org/');
 	(async () => {
-		await open('http://192.168.0.116:8080/');
+		await open('http://askos.co.kr');
 	})();
 });
 
 ipcMain.on('openbrowserCommunity', (event) => {
 	(async () => {
 		var getCompyUUID = await readUuidFileOnlyData("licenseChk");
-		await open('http://127.0.0.1:8080/api/loginWithoutForm/'+ getCompyUUID);
+		await open('http://askos.co.kr/api/loginWithoutForm/'+ getCompyUUID);
 		// await open('https://sindresorhus.com', {app: ['google chrome', '--incognito']});
 	})();
 });
@@ -325,8 +323,9 @@ ipcMain.on('tchnlgyDataCall', (event) => {
 //== License chk =============================================================
 //========================================================================
 ipcMain.on('licenseChkProc', (event) => {
+	console.log("####################3server connection chk");
 	// server connection chk
-	unirest.post('http://127.0.0.1:8080/api/connt')
+	unirest.post('http://askos.co.kr/api/connt')
 	  	.header('Accept', 'application/json')
 	  	.send({ "id": "connect" })
 	  	.end(function (response) {
@@ -335,24 +334,31 @@ ipcMain.on('licenseChkProc', (event) => {
 				event.sender.send('isChkLicense', 'isNet', '','' );
 			  }else {
 				var jsontext = JSON.stringify(esResultObj);
-				console.log("jsontext=222222222222==="+ jsontext);
 				var accountObj = JSON.parse(jsontext);
 				chkLIcenseFileAsync(event);
 			  }
 	 	});
 
 });
+
+
+ipcMain.on('loginSuccessLayerChange', (event, arg) => {
+	console.log("==========================++>"+ arg);
+		mainWindow.setResizable(true);
+		mainWindow.setSize(520,320);
+		console.log("init layer size 550:80");
+})
 // license number sync chk proc =======================
 const chkLIcenseFileAsync = async(event) => {
 	try{
 		var chkLicFileVal = await readUuidFile("licenseChk");
 		var jsonData = JSON.parse(chkLicFileVal);
-		
 		var usedYN = jsonData.output;
 		var usernm = jsonData.usernm;
 		var questionTotalCnt = jsonData.totalCnt;
 		var answerCnt = jsonData.ansComplete;
 
+	
 		event.sender.send('isChkLicense', usedYN, usernm, questionTotalCnt, answerCnt );
 	}
 	catch(err){
@@ -378,11 +384,12 @@ function readUuidFile(arg){
 function uuid_db_chk(arg, gubun){
 	return new Promise((resolve, reject) => {
 		const formData = { 'uuiduser':  arg.trim()  };
+		console.log("gubun@@@@@@@@@@@@@" + gubun);
 	  if( gubun == "licenseChk" ){
-		request.post({url: "http://127.0.0.1:8080/api/getUserCheck", formData: formData}, async (err, response, body) => {
+		request.post({url: "http://askos.co.kr/api/getUserCheck", formData: formData}, async (err, response, body) => {
 	    	if (err) return reject(err);
 				const result = body.trim(); // JSON.parse(body);
-				console.log("result=======+++"+ result);
+				console.log("result====222222222222===+++"+ result);
 				resolve(result);
 		});
 	}
@@ -496,7 +503,7 @@ const userInfoFileAsync = async(event,dir, userid) => {
 	console.log("aa==="+ userid+"==="+ retUUIDVal);
 	request({
 			method:'POST',
-			url:'http://127.0.0.1:8080/api/userUUID?${_csrf.parameterName}=${_csrf.token}',
+			url:'http://askos.co.kr/api/userUUID?${_csrf.parameterName}=${_csrf.token}',
 			form: {'uuiduser':  retUUIDVal, 'userid' : userid},
 
 			headers: headersOpt,
@@ -910,7 +917,7 @@ function getQuestionDataCall(retUUIDVal){
 		};
 		request({
 				method:'POST',
-				url:'http://127.0.0.1:8080/api/getCompQuestion?${_csrf.parameterName}=${_csrf.token}',
+				url:'http://askos.co.kr/api/getCompQuestion?${_csrf.parameterName}=${_csrf.token}',
 				form: {'uuiduser':  retUUIDVal},
 	
 				headers: headersOpt,
