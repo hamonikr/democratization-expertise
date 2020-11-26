@@ -5,18 +5,25 @@
 <script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <!-- Select2 -->
 <script src="/plugins/select2/js/select2.full.min.js"></script>
-<link rel="stylesheet" href="/tui-editor/tui-editor/dist/tui-editor.css">
+<!-- <link rel="stylesheet" href="/tui-editor/tui-editor/dist/tui-editor.css">
 <link rel="stylesheet" href="/tui-editor/tui-editor/dist/tui-editor-contents.css">
 <link rel="stylesheet" href="/tui-editor/codemirror/lib/codemirror.css">
-<link rel="stylesheet" href="/tui-editor/highlightjs/styles/github.css">
+<link rel="stylesheet" href="/tui-editor/highlightjs/styles/github.css"> -->
 <!-- Select2 -->
 <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
 <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<!-- tuideditor -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css" />
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.js"></script>
+ -->
 <!-- tuideditor -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css" />
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.js"></script>
+
 
 <style>
 .rcorners1 {
@@ -134,7 +141,7 @@
 								<div id="editSection"></div>
 							</div>
 							<script class="code-js">
-				                var editor = new toastui.Editor( {
+				                var editorAnswer = new toastui.Editor( {
 				                el : document.querySelector( '#editSection' ),
 				                initialEditType : 'wysiwyg',
 				                //			                    initialEditType: 'markdown',
@@ -170,7 +177,7 @@
 									<img alt="profile" src="${list.users.picture}" id="profileImg" class="img" width="63px" height="63px"><br/>
 								</c:if>
 								<span class="name">${list.users.username }</span> 
-								<span class="reputation">${list.scores }</span> 
+<%-- 								<span class="reputation">${list.scores }</span>  --%>
 								<span class="voting"><img src="/img/level_gold.png" alt=""> voting</span>
 							</li>
 							<li class="question">
@@ -202,8 +209,9 @@
 									<c:if test="${list.selected eq 1 }">채택된 답변</c:if> 퍼블 채택!
 								</span> 
 								<c:if test="${(list.users.userno eq user.userno)}">
-									<span><a href="#" onclick="location.href='/answers/edit/${list.answerno}'">수정</a></span>
-									<span><a href="#">삭제</a></span>
+									<span onclick="location.href='/answers/edit/5'">수정</span>
+                                    <!-- <a href="#" onclick="location.href='/answers/edit/${list.answerno}'">수정</a>--> 
+                                    <!--<span><a href="#">삭제</a></span>-->
 								</c:if>
 						</ul>
 					</c:forEach>
@@ -247,7 +255,7 @@
   });
 
   function fnAnswer() {
-    document.frm.contents.value = editor.getHtml();
+    document.frm.contents.value = editorAnswer.getHtml();
     document.frm.action = "/answers/save.proc";
     document.frm.submit();
   }

@@ -6,31 +6,25 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="./assets/css/common.css">    
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/common_old.css">     -->
     <!-- <link rel="stylesheet" type="text/css" href="public/assets/css/adminlte.min.css">     -->
     <style>
-*{margin: 0; padding: 0; box-sizing: border-box;}
-body{display: flex; align-items: center; justify-content: center; height: 100vh; background: #060c21; font-family: Arial, Helvetica, sans-serif; color: #fff; }
-/* .box{ position: relative; width: 300px; height: 450px; display: flex; justify-content: center; align-content: center;  padding:25px;}  */
-/* .box::before{ content: ''; position: absolute; top: -2px; bottom: -2px; left: -2px; right: -2px; z-index: -1;}
+/**{margin: 0; padding: 0; box-sizing: border-box;}
+body{display: flex; align-items: center; justify-content: center; height: 100vh; background: #060c21; color: #fff; }*/
+ .box{ position: relative; width: 300px; height: 450px; display: flex; justify-content: center; align-content: center;  padding:25px;} 
+.box::before{ content: ''; position: absolute; top: -2px; bottom: -2px; left: -2px; right: -2px; z-index: -1;}
 .box::after{ content: ''; position: absolute; top: -2px; bottom: -2px; left: -2px; right: -2px;  z-index: -1; filter: blur(40px);}
-.box::before, .box::after{ background: linear-gradient(235deg, #89ff00, #060c21, #00bcd4); } */
-.box{ position: relative; width: 300px; height: 450px; display: flex; justify-content: center; align-content: center; background: #060c21; padding:25px;} 
-.box::before{ content: ''; position: absolute; top: -2px; bottom: -2px; left: -2px; right: -2px; background: #fff; z-index: -1;}
-.box::after{ content: ''; position: absolute; top: -2px; bottom: -2px; left: -2px; right: -2px; background: #fff; z-index: -1; filter: blur(40px);}
-/* .box::before, .box::after{ background: linear-gradient(235deg, #89ff00, #343f69, #00bcd4);} */
-.box::before, .box::after{ background: linear-gradient(235deg, #a200ff, #060c21, #00bcd4);}
+.box::before, .box::after{ background: linear-gradient(235deg, #a200ff, #060c21, #00bcd4);}  
 
-h1{ margin-bottom: 20px;}
-p{line-height: 24px;}
-.dragLayer {
+/* h1{ margin-bottom: 20px;}
+p{line-height: 24px;} */
+      .dragLayer {
         -webkit-app-region:drag;
       }
       .noneDragLayer {-webkit-app-region: no-drag;}
 
       .bottom_bg2 {
         background: url(./assets/images/con_bg1.png ) right bottom no-repeat;
-        /* width: 250px;
-        height: 430px; */
         background-size: 200px;  
       }
     </style>
@@ -40,76 +34,45 @@ p{line-height: 24px;}
 </head>
 <body>
     
-  <div class="box bottom_bg2">
-    
-    <div class=" dragLayer " >
-      <h1>HamoniKR OS</h1>
-      <div class="license" id="license_base" style="margin-top: -10px;" class="dragLayer">
-        <br>
-        <p id="licenseInfoLayer" class="text-center orange ">
-          우리는 코드를 가진 모든 사람을 위한 열린 커뮤니티입니다<br>
-          당신이 겪는 코딩에 대한 어려움을 질문을 통해 답을 얻고,<br>
-          <span class="noneDragLayer">다른 사람들과 그 지식을 공유하고, </span>
-          당신의 능력을 향상시킬수 있도록 돕습니다
-          <!-- <img src="https://hdclipartall.com/images/login-button-clipart-new-login-button-clip-art-600x210.png" width="70px"> -->
-          
-        </p>
+    <!-- <p id="licenseInfoLayerDescription"><p> -->
 
+  <div class="support">
+    <h1 class="dragLayer">Community</h1>
+    <div class="userbox dragLayer" id="licenseok" style="display:none;">
+     </div>
 
-        <div class="row">
-          <button type="button" class="btn_comm noneDragLayer"  style="color:white" id="footeropenCmmrlct" name="openCmmrlct">개방형 리눅스 커뮤니티 가기..</button>
-        </div>
-
-
-        <h1></h1>
-
-        <div id="loginFormLayer" class="">
-              <div class="login-html noneDragLayer">
-                <div class="login-form">
-                  <div class="sign-in-htm">
-                    <div class="group noneDragLayer">
-                      <label for="enterId" class="label">Userid</label>
-                      <input id="enterId"  name="enterId" type="text" class="input"  placeholder="아이디를  입력해주세요."  value="testComy1" >
-                    </div>
-                    <div class="group noneDragLayer">
-                      <label for="pass" class="enterPw">Password</label>
-                      <input id="enterPw" name="enterPw" type="password" class="input" data-type="password" placeholder="비밀번호를 입력해주세요" value="test1234">
-                    </div>
-                    <div class="group noneDragLayer">
-                      <input type="submit" class="button"  id="licenseSubmit"value="Sign In">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            
-          </div>
-        </div>
-        
-        <div class="licenseok" id="licenseok" style="display:none; margin-top: -9px;" >
-          <p id="licenseInfoLayerDescription"><p>
-        </div>
-
-        <section class="content noneDragLayer" >
-          <div class="container-fluid">
-              <h5 class="mt-4 mb-2"></h5>
-              <div class="row" style="cursor: pointer">
-                  <div class="col-md-3 col-sm-6 col-9" id="questionLayer" style="display:none;">
-                      <div class="info-box">
-                          <span class="info-box-icon "><img src="assets/images/iconsfaq.png"></span>
-                          <div class="info-box-content">
-                              <span class="info-box-number" >총 질문 수 : <p id="tcTot" style="display: inline;"></p>건</span>
-                              <span class="info-box-text" >미답변 질문 : <p id="tcIng" style="display: inline;"></p>건 <br> 답변 완료 :  <p id="tcDone" style="display: inline;"></p>건</span>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </section>
-
-
-      </div>
+    <div class="supp_con dragLayer ">
+      우리는 코드를 가진 모든 사람을 위한 열림 커뮤니티입니다.<br />
+      당신이 겪는 코딩에 대한 어려움을 질문을 통해 답을 얻고, 다른 사람들과 그 지식을 공유하고, 당신의 능력을 향상시킬수 있도록 돕습니다.
     </div>
+    <div class="con_wrap text_center noneDragLayer">
+      <a href="#" class="btn_comm2"  id="footeropenCmmrlct" name="openCmmrlct">Askos Community</a>
+    </div>
+
+    <!-- 로그인 후  -->
+    
+    <ul class="list_type1 icon_bg1 noneDragLayer"  id="questionLayer" style="display:none;">
+      <li>총 질문수 : <span id="tcTot"></span>건 , 미답변수: <span id="tcIng"></span>건,  답변완료 : <span id="tcDone"></span>건</li>
+      <!-- <li>답변완료 : <span id="tcDone"></span>건</li> -->
+    </ul>
+  
+    <!-- 로그인전 -->
+    <div id="loginFormLayer" class="">
+    <ul class="login">
+      <li>
+        <label for=""  >User ID</label>
+        <input type="text" name="enterId" id="enterId"  placeholder="아이디를  입력해주세요." value="invesume" />
+      </li>
+      <li>
+        <label for="" >Password</label>
+        <input type="password" name="enterPw" id="enterPw"  placeholder="비밀번호를 입력해주세요" value="exitem08" />
+      </li>
+      <li><button type="button"  id="licenseSubmit">SIGN IN</button>
+      </li>
+    </ul>
+  </div>
+    
+  </div>
  
     
 <input type="hidden"  id="hiddenLIcenChkVal" name="hiddenLIcenChkVal" value="">

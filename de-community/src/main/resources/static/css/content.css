@@ -75,7 +75,7 @@ h2 {font-size:22px; color: #222; font-weight: 400!important; margin-bottom: 30px
 
 
 .qna-list li.subinfo {width:100px; text-align: right; padding-top: 15px; font-weight: 300; letter-spacing: 0}
-.qna-list li.subinfo span {display: block; width: 60px; height:25px;  background:#152546; color:#fff; font-size: 11px; border-radius: 3px; text-align: left; float: right; margin-bottom: 2px; padding-left: 7px }
+.qna-list li.subinfo span {cursor:pointer; display: block; width: 60px; height:25px;  background:#152546; color:#fff; font-size: 11px; border-radius: 3px; text-align: left; float: right; margin-bottom: 2px; padding-left: 7px }
 .qna-list li.subinfo span i {padding-right:2px; font-size: 12px}
 .qna-list li.subinfo span.up {background:#444e64;}
 .qna-list li.subinfo span.down {background:#6a7386;}

@@ -39,8 +39,8 @@ function createWindow () {
 	//	resizable: false,
 		'x': mainWindowState.x,
 		'y': mainWindowState.y,
-		'width': 520, 
-		'height': 320,
+		'width': 527, 
+		'height': 340,
 		//'height': mainWindowState.height,
 		 frame:false,
 		 alwaysOnTop: true,
@@ -164,7 +164,7 @@ const userInfoFileAsync = async(dir, usernm) => {
 	console.log("aa==="+ usernm+"==="+ userUUIDVal);
 	request({
 		method:'POST',
-		url:'http://127.0.0.1:8080/api/userUUID?${_csrf.parameterName}=${_csrf.token}',
+		url:'http://askos.co.kr/api/userUUID?${_csrf.parameterName}=${_csrf.token}',
 		form: {'uuiduser':  userUUIDVal, 'userid' : usernm},
 		
 		headers: headersOpt,
@@ -223,7 +223,7 @@ ipcMain.on('initApp', (event, path) => {
 			};
 			request({
 				method:'post',
-				url:'http://127.0.0.1:8080/api/getUserInfo',
+				url:'http://askos.co.kr/api/getUserInfo',
 				form: {'uuiduser':  userUuidStr.trim()},
 				headers: headersOpt,
 				json: true,
@@ -258,7 +258,7 @@ ipcMain.on('initApp', (event, path) => {
 //	질문 등록 
 ipcMain.on('questWriteProc', (event, sub, cont, tsUser, tsUserUuidId) => {
 
-	const  questionURL = 'http://127.0.0.1:8080/api/questWrite?_csrf=${_csrf.token}';
+	const  questionURL = 'http://askos.co.kr/api/questWrite?_csrf=${_csrf.token}';
 	var req = request.post(questionURL, function (err, resp, body) {
 			if (err) {
 					console.log("request tech error is :"+ err);
@@ -285,14 +285,18 @@ ipcMain.on('resize-me-please', (event, arg) => {
 	console.log("==========================++>"+ arg);
 	if(arg == "initLayer"){
 		mainWindow.setResizable(true);
-		mainWindow.setSize(520,320);
+		mainWindow.setSize(520,340);
 		console.log("init layer size 550:80");
 	}else if( arg == "viewLayer"){
-		  mainWindow.setSize(520, 700);
+		  mainWindow.setSize(520, 627);
 		 // esRequest();
-	}else{
+	}else if( arg == "questLayer"){
+		console.log("questLayer=========");
+		mainWindow.setSize(520, 670);
+	   // esRequest();
+  	}else{
 		createWindow();
-		mainWindow.setSize(520,320);
+		mainWindow.setSize(520,340);
 	}		
 })
 

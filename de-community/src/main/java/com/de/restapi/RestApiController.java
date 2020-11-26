@@ -266,11 +266,11 @@ public class RestApiController {
 				jsonObject.put("output", "Y");
 				jsonObject.put("userid", retVO.getUserid());
 				jsonObject.put("usernm", retVO.getUsername());
-				if (retVO.getRepresentat() == 1) {
-					Questions ansComplete = qs.getAnswerComplete();
-					jsonObject.put("totalCnt", ansComplete.getQuestiontotalcnt());
-					jsonObject.put("ansComplete", ansComplete.getAnswercompletecnt());
-				}
+//				if (retVO.getRepresentat() == 1) {
+				Questions ansComplete = qs.getAnswerComplete();
+				jsonObject.put("totalCnt", ansComplete.getQuestiontotalcnt());
+				jsonObject.put("ansComplete", ansComplete.getAnswercompletecnt());
+//				}
 			} else {
 				jsonObject.put("output", "N");
 			}

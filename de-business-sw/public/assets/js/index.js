@@ -35,7 +35,7 @@ licenseSubmitBtn.addEventListener('click', function (event) {
 });
 
 ipcRenderer.on('isOsMachineId', (event, machineIdVal) => {
-	unirest.post('http://127.0.0.1:8080/api/signproc')
+	unirest.post('http://askos.co.kr/api/signproc')
 	
 		.header('Accept', 'application/json')
 		.send({ "userid": enterIdVal.value, "userpassword": enterPwVal.value })
