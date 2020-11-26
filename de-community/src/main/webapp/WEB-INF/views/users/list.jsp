@@ -28,7 +28,7 @@ button[type=submit] {
 <div class="content-center">
 	<h2>커뮤니티 사람들</h2>
 	<div class="section-info">
-		활동적인 유저의 공헌 목록은 다음과 같습니다. 커뮤니티에 지식을 제공하여 더 많은 사람들이 성장할 수 있도록 합니다.
+		커뮤니티에 활동하는 유저의 목록은 다음과 같습니다.
 	</div>
 
 

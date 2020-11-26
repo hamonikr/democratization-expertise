@@ -9,7 +9,7 @@
     <li><a href="/tags/list"><i class="mdi mdi-console"></i>태그(Tags)</a></li>
     <li><a href="/users/list"><i class="mdi mdi-account-box-outline"></i>커뮤니티 사람들</a></li>
     <li><a href="/enterprises/list"><i class="mdi mdi-apps"></i>커뮤니티 참여기업 </a></li>
-    <li><a href="/wiki/getStart"><i class="mdi mdi-file-word-box"></i>AskOS-위키</a></li>
+    <li><a href="/wiki/getStart"><i class="mdi mdi-file-word-box"></i>ASKOS-위키</a></li>
     <li><a href="/newsletters/subscribe"><i class="mdi mdi-format-page-break"></i>뉴스레터</a></li>
   </ul>
 

@@ -50,11 +50,10 @@ font-size: medium;
 
 
 <div class="content-center">
-	<h2>AskOS-위키</h2>
+	<h2>ASKOS-위키</h2>
 	<div class="section-info">
-      활동적인 유저의 공헌 목록은 다음과 같습니다.<br> 커뮤니티에 지식을 제공하여 더 많은 사람들이 성장할 수 있도록 합니다.
-    </div>
-     
+	     누구나 알고있는 다양한 정보를 공유해주세요. 그리고 지속적인 수정과 덧붙임을 통해 더욱 깊이있는 지식을 만들어가주세요.
+	</div>
     <div class="list-right">
     	<div class="inblock">
         	<button type="button" class="btn-blue"  id="btnSave" onclick="location.href='/tags/save'"> Tag 작성하기</button>
@@ -77,7 +76,7 @@ font-size: medium;
 			
 		<div class="mywrit other" style="height: 220px;">
         	<div class="mytitle">
-            	How to DE-Community<span class="more"><a href="/wiki/Help/m">+더보기</a></span>
+            	AsKOS 커뮤니티 가이드<span class="more"><a href="/wiki/Help/m">+더보기</a></span>
 			</div>
             <ul>
             	<c:forEach var="list" items="${menual_result}" varStatus="status">

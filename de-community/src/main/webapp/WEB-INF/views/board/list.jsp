@@ -8,7 +8,7 @@
 
 	<h2>${boardinfo.boardname }</h2>
 	<div class="section-info">
-		개방형 os를 다운로드 해보세요<br/> 향상된 퍼포먼스를 느낄 수 있습니다.<br>
+		다양한 개방형 os를 다운로드 해보세요<br/> 향상된 퍼포먼스를 느낄 수 있습니다.<br>
 	</div>
 
 

@@ -34,9 +34,10 @@ color: rgb(0,0,0);
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 <input type="hidden" name="pageNo" value="${paginationInfo.currentPageNo }" />
 
-	<h2>Stacked Q&amp;A</h2>
+	<h2>질문과 답변</h2>
 	<div class="section-info">
-		개발시 당신이 겪는 어려움에 대해 자유롭게 질문을 하고 답변을 받으세요.<br/> 그리고 그 지식을 커뮤니티의 회원들과 함께 공유해주세요.<br>
+		자유롭게 사용하고 있는 개방형 OS에서 발생하는 문제에 대해 질문해 주세요.<br/> 
+		답변을 통해 알고 있는 지식과 경험으로 어려움을 겪는 사람들을 도와주고 좋은 명성을 쌓으세요. <br>
 	</div>
 
 
