@@ -43,10 +43,10 @@
 				<c:forEach var="list" items="${data}" varStatus="status">
 				<li>
                   <a href="/enterprises/activity/${list.enterpriseno}">
-	                  <c:if test="${list.enterpriseimg != null}">
+	                  <c:if test="${list.enterpriseimg != null and list.enterpriseimg != ''}">
 						<img src="/upload/enterprises/${list.enterpriseimg}">
 					</c:if>
-					<c:if test="${list.enterpriseimg == null}">
+					<c:if test="${list.enterpriseimg == null and list.enterpriseimg == ''}">
 						<img src="/img/noprofile.png">
 					</c:if>
                   </a>

@@ -32,7 +32,7 @@
 
 .select2-container--default.select2-container--focus .select2-selection--multiple
 	{
-	height: 40px;
+	height: 55px;
 }
 -->
 </style>
@@ -101,7 +101,7 @@
 				</div>
 
 				<span>태그</span>
-				<select class="select2" multiple="multiple" name="tagno" id="tagno" data-placeholder="" style="width: 100%; background-color: #8056d6;">
+				<select class="select2" multiple="multiple" name="tagno" id="tagno" style="width: 100%">
 					<c:forEach var="item" items="${tagList}" varStatus="status">
 						<option value="${item.wikino }">${item.title }</option>
 					</c:forEach>
@@ -154,7 +154,6 @@
     	$("#title").on("propertychange change keyup paste input", function() {
     		var searchtxt = $(this).val();
     		var url = window.location.pathname;
-    		console.log("searchtxt===="+searchtxt.length);
     		if(searchtxt.length > 1){
     		$.ajax({ 
     			//type: "POST", 
@@ -167,8 +166,11 @@
     				shtml +="유사한 질문 목록";
     				$.each (data.list, function (index, el) {
     					  var txt = "";
-//       					txt = "<a href='/questions/view/"+el.seq+"'>"+el.title+"</a><br/>";
-      					txt = "<li><a href='/questions/view/"+el.seq+"'><span>"+el.title+"</span></a></li>";
+    					  if(el.status=="Q"){
+      						  txt = "<li><a href='/questions/view/"+el.seq+"'><span>"+el.title+"</span></a></li>";
+    					  }else if(el.status=="W"){
+    						  txt = "<li><a href='/wiki/view/"+el.seq+"/w'><span>"+el.title+"</span></a></li>";
+    					  }
       					shtml += txt;
     					});
     				$("#preSearch").html(shtml+"</ul>");
@@ -187,15 +189,15 @@
       } );
       //Initialize Select2 Elements
       $( '.select2' ).select2({
-			width: 'resolve'
+			width: 'resolve',
+			placeholder: "연관된 태그를 선택 할 수 있습니다",
+		    allowClear: true
 			//language: 'ko',
 			//minimumInputLength: 2
 		});
       var tagno = $('form[name=frm] input[name=tags]').val();
-      //alert("tags==="+tagno);
       //$('form[name=frm] input[name=tag]').val();
       var tagnoArr = tagno.split(',');
-      //alert("tagnoArr===="+tagnoArr[1]);
       for ( var i in tagnoArr) {
         $( "#tagno option" ).each( function() {
           //if ($( this ).val() == tagnoArr[i]) {
@@ -209,7 +211,12 @@
     //저장 버튼
     //$("#btnSave").on("click",fnSave);	
     //$("#btnUpdate").on("click",fnUpdate);
-
+    
+     //공백체크
+    $.validator.addMethod("trimCheck",  function( value, element ) {
+		   return this.optional(element) ||  $.trim(value);
+		});
+    
     $.validator.setDefaults( {
       submitHandler : function() {
         if ($( 'input:checkbox[name="editcheck"]' ).is( ":checked" ) == true)
@@ -217,6 +224,8 @@
         else
           document.frm.editauth.value = 0;
         var vv = $( "input[name=btnSubmit]" ).val();
+        var titleCheck = $.trim($("#title").val());
+        console.log("length===="+titleCheck.length);
         document.frm.contents.value = editor.getHtml();
         if (vv == "c")
           document.frm.action = "/questions/save.proc";
@@ -229,31 +238,28 @@
     $( '#frm' ).validate( {
     rules : {
     title : {
-      required : true
-    },
-    tag : {
-      required : true
+      required : true,
+      trimCheck: true
     },
     contents : {
-      required : true
+      required : true,
+      trimCheck: true
     }
     },
     messages : {
     title : {
-      required : "제목을 입력 해주세요."
-    },
-    tag : {
-    required : "가격을 입력 해주세요.",
-    number : "숫자만 입력 가능합니다."
+      required : "제목을 입력 해주세요.",
+      trimCheck : "공백만 입력 할 수 없습니다."
     },
     contents : {
-      required : "내용을 입력 해주세요."
+      required : "내용을 입력 해주세요.",
+      trimCheck : "공백만 입력 할 수 없습니다."
     }
     },
     errorElement : 'span',
     errorPlacement : function(error, element) {
       error.addClass( 'invalid-feedback' );
-      element.closest( '.form-group' ).append( error );
+      element.closest( '.form-list' ).append( error );
     },
     highlight : function(element, errorClass, validClass) {
       $( element ).addClass( 'is-invalid' );
@@ -261,7 +267,7 @@
     unhighlight : function(element, errorClass, validClass) {
       $( element ).removeClass( 'is-invalid' );
     }
-    } );
+    });
 
   } );
 

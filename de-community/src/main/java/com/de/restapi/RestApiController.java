@@ -205,7 +205,6 @@ public class RestApiController {
 		jsonObject.put("list", dataArray);
 
 		output = jsonObject.toJSONString();
-		System.out.println("output===+" + output);
 //		return output;
 		return ResponseEntity.ok(output);
 
@@ -225,9 +224,6 @@ public class RestApiController {
 		List<Answers> answerList = as.findAllByquestionno(questions.getQuestionno());
 //		model.addAttribute("tagList", tagList);
 //		model.addAttribute("answerList", answerList);
-		for (int i = 0; i < answerList.size(); i++) {
-			System.out.println("answerList=====" + answerList.get(i));
-		}
 
 		// 조회수 증가
 		qs.updateReanCnt(questions.getQuestionno());

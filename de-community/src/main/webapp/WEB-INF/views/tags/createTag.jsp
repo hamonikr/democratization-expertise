@@ -19,7 +19,9 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.css"/>
 
 <style>
-
+.invalid-feedback{
+	padding:-10px;
+}
 </style>
 <body>
 
@@ -40,12 +42,12 @@
 		<div class="con-box">
 			<div class="form-list">
 				<span>이름 <font class="red">*</font></span>
-				<div id="form-group">
-                <input type="text" id="title" name="title" value="${result.title}" placeholder="태그 이름을 입력하세요" class="input-type1" maxlength="20">
-				</div>
+				<font class="form-group">
+				  <input type="text" id="title" name="title" placeholder="태그 이름을 입력하세요" class="input-type1" maxlength="20">
+				</font>
                 <span>설명 <font class="red">*</font></span>
                 <div class="de-editro" >
-               	<div id="form-group">
+               	<div class ="form-group">
                     <input type="hidden" name="contents" id="contents" >
                   </div>                   
 						<div class="code-html">
@@ -65,12 +67,14 @@
 	                      color:''
 	                      });
 	                    </script>
+	                 
                 </div>
+                   <div id="passDubChk"></div>
 			</div>
 		</div>
 		
 		<div class="mT30 txt-center">
-			<button type="submit" name="btnSubmit" class="btn-blue" value="c">등록</button>
+			<button type="submit" id="btnSubmit" class="btn-blue">등록</button>
 		 	<button type="button" class="btn-gray" onclick="location.href='/tags/list'">목록</button>
 		</div>
 		
@@ -81,37 +85,57 @@
 
 <script type="text/javascript">
 $( function() {
-
 	 $.validator.addMethod("tagRules",  function( value, element ) {
 		   return this.optional(element) || /([a-z0-9]).*$/.test(value);
-		});
-		
-      $.validator.setDefaults( {
-       submitHandler : function() {
-       		fnSave();
-           }
-     } );
+		}
+	);
+				
+    $.validator.setDefaults({ 
+     submitHandler : function() {
+     		fnSave();
+     }
+    });
 
-   $( '#frm' ).validate( {
-     rules : {
+
+	var contents = $('contents').val();
+	contents = editor.getHtml();
+
+/*
+	$("#editor").on("propertychange change keyup paste input", function(){ 
+  		$('#btnSubmit').removeAttr('disabled');
+       });
+     
+ 	$("#btnSubmit").on('click' ,function(){ 
+	 	if(contents == "" || contents == null || contents=="<p></p>"){
+		   $('#passDubChk').html('설명을 입력해주세요<br><br>');
+          $('#passDubChk').attr('color', '#DA542E');
+          $('#btnSubmit').attr('disabled', 'disabled');
+         
+        } else if(contents.length < 35){
+    		alert(contents);
+            $('#passDubChk').html('설명은 35자 이상 입력해주세요<br><br>');
+            $('#passDubChk').attr('color', '#DA542E');
+            $('#btnSubmit').attr('disabled', 'disabled');
+          
+          } else{
+              $('#btnSubmit').removeAttr('disabled');
+	        }
+	});
+ */    
+   $( '#frm' ).validate( {   
+   rules : {
       title : {
         required : true,
         tagRules : true
-      },
-      contents : {
-        required : true
-      	}
+   	   }
      },
      messages : {
       title : {
         required : "제목을 입력 해주세요.",
         tagRules : "문자 집합 'a-z 0-9 + # -' 으로 구성된 태그를 만들어주세요."
-      },
-      contents : {
-        required : "내용을 입력 해주세요."
-      	}
+      }
      },
-     errorElement : 'span',
+     errorElement : 'font',
      errorPlacement : function(error, element) {
        error.addClass( 'invalid-feedback' );
        element.closest( '.form-group' ).append( error );

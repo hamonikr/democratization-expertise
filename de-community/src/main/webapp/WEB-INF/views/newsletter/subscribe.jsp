@@ -20,8 +20,8 @@
                   </p>
 
                 <ul class="news-in">
-                  <li><label>이름</label><input type="text" id="name" name="name"  class="input-type1 " placeholder="이메일을 입력해주세요"></li>
-                  <li><label>E-mail 주소</label><input type="text" id="email" name="email"  placeholder="이름을 입력해주세요" class="input-type1 englishOnly"></li>
+                  <li><label>이름</label><div class="form-group"><input type="text" id="name" name="name"  class="input-type1 " placeholder="이메일을 입력해주세요"></div></li>
+                  <li><label>E-mail 주소</label><div class="form-group"><input type="text" id="email" name="email"  placeholder="이름을 입력해주세요" class="input-type1 englishOnly"></div></li>
 <!--                   <li> <input type="submit" value="구독하기" class="btn btn-primary btn-block blue"></li> -->
                   <li><button type="submit" class="btn-blue">구독 신청하기</button></li>
                 </ul>
@@ -55,21 +55,26 @@
 // 		    $(this).val($(this).val().replace(/[^a-zA-Z\s|^0-9|^~!@#$%^&*()_+|<>?:{}(.),]+$/gi,""));
 // 		});	
 		
-	 
+	 //공백체크
+    $.validator.addMethod("trimCheck",  function( value, element ) {
+		   return this.optional(element) ||  $.trim(value);
+		});
 	 $('#frm').validate({
 		 rules: {
 		 	 
-		 	 email:{ required: true, email: true },
-		 	 name:{ required: true }
+		 	 email:{ required: true, email: true,trimCheck: true },
+		 	 name:{ required: true ,trimCheck: true}
 		    		  }, 
 		  messages:{
 		 								
 			  email: {
 		 			required : "이메일은 필수값 입니다.",
-		 			email : "이메일 형식을 확인해주세요"
+		 			email : "이메일 형식을 확인해주세요",
+		 			trimCheck : "공백만 입력 할 수 없습니다."
 		 			},
  			  name: {
-		 			required : "이름을 입력해주세요."
+		 			required : "이름을 입력해주세요.",
+		 			trimCheck : "공백만 입력 할 수 없습니다."
 		 			}
 		 	 },
 		    errorElement: 'span',

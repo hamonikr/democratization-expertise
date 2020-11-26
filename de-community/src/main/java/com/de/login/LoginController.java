@@ -57,30 +57,31 @@ public class LoginController {
 	 public String loginSuccess(Model model, @AuthenticationPrincipal SecurityMember user, LoginHistoryVO hvo , LoginVO vo, HttpSession session ) throws Exception{
 		System.out.println("<<--- controller for normal loginSuccess-->> ");
 	
-		
+		CmmnMap param = new CmmnMap();
 		// 로그인 히스토리 저장
 		hvo.setUserid(user.getUserid());
 		int ret = service.saveLoginHistory(hvo);
 		if(ret ==1) {
 			System.out.println("save history");
-			// 점수등록
-			CmmnMap param = new CmmnMap();
+			
+			param.put("userid", user.getUserid());
 			param.put("userno", user.getUserno());
-			param.put("score", 3);
-			cmmnService.updateObject("saveScore", param);
+			int tlCnt = cmmnService.selectCount("loginCheckToday", param);
+			if(tlCnt == 1) {
+				// 점수등록
+				param.put("userno", user.getUserno());
+				param.put("score", 3);
+				cmmnService.updateObject("saveScore", param);
+				//연속 로그인 체크
+				int ylCnt = cmmnService.selectCount("loginCheck", param);
+				param.put("lcnt", ylCnt);
+				cmmnService.updateObject("updateLoginDays", param);
+				cmmnService.updateObject("updateMaxLoginDay", param);
+			}
 		}else {
 			System.out.println("fail");
 		}
 		
-		//연속 로그인 체크
-		CmmnMap param = new CmmnMap();
-		param.put("userid", user.getUserid());
-		param.put("userno", user.getUserno());
-		int lCnt = cmmnService.selectCount("loginCheck", param);
-		param.put("lcnt", lCnt);
-		if(lCnt > 0) {
-			cmmnService.updateObject("updateLoginDays", param);
-		}
 		// 유저가 회사계정이냐 일반 유저이냐에 따라 프로필 페이지 변경
 		vo = service.getUserInfo(user.getUserid());
 		System.out.println("대표 유저 여부==?? "+vo.getRepresentat());
@@ -89,7 +90,6 @@ public class LoginController {
 		session.setAttribute("userSession", vo);
 		model.addAttribute("loginUser", user);
 		
-		Integer val = null;
 		String returnUrl = (String)session.getAttribute("referrer");
 		
 		System.out.println("returnUrl======>>>> " +returnUrl);
@@ -106,7 +106,7 @@ public class LoginController {
 	@RequestMapping("/socialLogin")
 	 public String socialLogin(Model model, HttpSession session , LoginHistoryVO hvo, LoginVO vo,HttpServletRequest request) throws Exception{
 		System.out.println("<<--- controller for sns loginSuccess-->> ");
-		
+		CmmnMap param = new CmmnMap();
 		String returnUrl = (String)session.getAttribute("referrer");
 		session.removeAttribute("referrer");
 		
@@ -121,21 +121,23 @@ public class LoginController {
 		if(ret ==1) {
 			System.out.println("save history");
 			// 점수등록
-			CmmnMap param = new CmmnMap();
+			param.put("userid", vo.getUserid());
 			param.put("userno", vo.getUserno());
-			param.put("score", 3);
-			cmmnService.updateObject("saveScore", param);
+			int tlCnt = cmmnService.selectCount("loginCheckToday", param);
+			if(tlCnt == 1) {
+				param.put("userno", vo.getUserno());
+				param.put("score", 3);
+				cmmnService.updateObject("saveScore", param);
+			//연속 로그인 체크
+				int ylCnt = cmmnService.selectCount("loginCheck", param);
+				param.put("lcnt", ylCnt);
+				cmmnService.updateObject("updateLoginDays", param);
+				cmmnService.updateObject("updateMaxLoginDay", param);
+			}
 		}else {
 			System.out.println("fail");
 		}
 		
-		//연속 로그인 체크
-		CmmnMap param = new CmmnMap();
-		param.put("userid", vo.getUserid());
-		param.put("userno", vo.getUserno());
-		int lCnt = cmmnService.selectCount("loginCheck", param);
-		param.put("lcnt", lCnt);
-		cmmnService.updateObject("updateLoginDays", param);
 		session.setAttribute("userSession", vo);
 		System.out.println("userno======"+vo.getUserno());
 		model.addAttribute("loginUser", session.getAttribute("userSession"));

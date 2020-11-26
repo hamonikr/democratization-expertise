@@ -10,14 +10,14 @@
 
 
 <style>
-.profile-info .graph2 {
+/* .profile-info .graph2 {
     border: 1px solid #e3ebf4;
     border-radius: 3px;
-    /* padding: 15px; */
-    /* width: 50%; */
+    /* padding: 15px;
+    /* width: 50%;
     height: 220px;
     margin-right: 20px;
-}
+} */
 .nav-tabs .nav-link.active {
 	font-weight: 500;
     background: #2d096a;
@@ -63,7 +63,7 @@
 						<li class="question">
 							<span class="ques-title"> <a href="/questions/view/${list.seq }">${list.title }</a></span>
 							<div id="ques-text" >
-							${list.contents }
+							${fn:substring(list.contents, 0, 300)}<c:if test="${fn:length(list.contents) gt 301}"> ... </c:if>
 							</div> 
 							<script class="code-js">
 								var editor = new toastui.Editor.factory( {
@@ -89,9 +89,9 @@
 					<c:if test="${list.status eq 'T' }">
 		            <ul class="qna-list">
 						<li class="question">
-							<span class="ques-title"> <a href="/questions/view/${list.seq }">${list.title }</a></span>
+							<span class="ques-title"> <a href="/wiki/view/${list.seq }/t">${list.title }</a></span>
 							<div id="tags-text" >
-							${list.contents }
+							${fn:substring(list.contents, 0, 300)}<c:if test="${fn:length(list.contents) gt 301}"> ... </c:if>
 							</div> 
 							<script class="code-js">
 								var editor = new toastui.Editor.factory( {
@@ -112,14 +112,14 @@
 
         <!-- 히스토리 tab -->
         <div class="tab-pane fade con-box" id="custom-tabs-three-members" role="tabpanel" aria-labelledby="custom-tabs-three-members-tab">
-        	<div class="mytitle">Tags <span class="more"></span></div>
+        	<div class="mytitle">Wikis <span class="more"></span></div>
 		    	<c:forEach var="list" items="${list}" varStatus="stat">
 					<c:if test="${list.status eq 'H' }">
 		            <ul class="qna-list">
 						<li class="question">
-							<span class="ques-title"> <a href="/questions/view/${list.seq }">${list.title }</a></span>
+							<span class="ques-title"> <a href="/wiki/view/${list.seq }/w">${list.title }</a></span>
 							<div id="wikis-text" >
-							${list.contents }
+							${fn:substring(list.contents, 0, 300)}<c:if test="${fn:length(list.contents) gt 301}"> ... </c:if>
 							</div> 
 							<script class="code-js">
 								var editor = new toastui.Editor.factory( {

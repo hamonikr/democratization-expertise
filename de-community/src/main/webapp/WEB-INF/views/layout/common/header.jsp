@@ -42,52 +42,6 @@ width: 500px;
 }
 </style>
 <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
-<script type="text/javascript">
- $(function() {	
-	
-		var availableTags = new Array();
-		$("#searchtxt").on("propertychange change keyup paste input", function() {
-			var searchtxt = $(this).val();
-			if(searchtxt.length > 1){
-	    		$.ajax({ 
-	    			//type: "POST", 
-	    			//contentType: "application/json", 
-	    			url: "/search/auto",
-	    			data:{searchtxt:searchtxt},
-	    			//dataType: 'json', 
-	    			success: function (data) { 
-	    			  $("#searchtxt").val(data.searchtxt);
-	    				$.each (data.list, function (index, el) {
-	    					availableTags[index] = {value:el.title};
-// 	    					console.log(availableTags[index]);
-	    					});
-	    				}, 
-	    				error: function (e) { 
-	    					alert("fail"); 
-	    				} 
-	    				});
-	    		}
-		});
-			
-	    $( "#searchtxt" ).autocomplete({
-		      delay: 0,	
-		      //minLength: 2,
-		      source: availableTags,
-		      focus: function( event, ui ) {
-		        $( "#searchtxt" ).val( ui.item.value );
-		        return false;
-		      },
-		      select: function( event, ui ) {
-		        $( "#searchtxt" ).val(ui.item.value );
-		        //$( "#searchtxt" ).val( ui.item.key );
-		 
-		        return false;
-		      } 
-		  });
-	});
- 
- 
- </script>
 <header class="topbar">
 	<nav class="navbar top-navbar navbar-expand-md">
 
@@ -103,8 +57,8 @@ width: 500px;
 		</div>
 
 		<div class="top-search">
-		<form name="sfrm" action="/search/list" method="get">
-		<input type="text" name="searchtxt" id="searchtxt" placeholder="Search" value="${searchtxt }" autocomplete="off"/>
+		<form id="sfrm" name="sfrm" action="/search/list" method="get">
+		<div class="form-group"><input type="text" name="searchtxt" id="searchtxt" placeholder="Search" value="${searchtxt }" autocomplete="off"/></div>
 			<button type="submit">
 				<i class="mdi mdi-magnify"></i>
 			</button>
@@ -171,4 +125,86 @@ width: 500px;
 		</div>
 
 	</nav>
+	<script type="text/javascript">
+ $(function() {	
+	
+		var availableTags = new Array();
+		$("#searchtxt").on("propertychange change keyup paste input", function() {
+			var searchtxt = $(this).val();
+			if((searchtxt.length % 2) == 0){
+	    		$.ajax({ 
+	    			//type: "POST", 
+	    			//contentType: "application/json", 
+	    			url: "/search/auto",
+	    			data:{searchtxt:searchtxt},
+	    			async:false,
+	    			//dataType: 'json', 
+	    			success: function (data) { 
+	    			  $("#searchtxt").val(data.searchtxt);
+	    				$.each (data.list, function (index, el) {
+	    					availableTags[index] = {value:el.title};
+	    					});
+	    				}, 
+	    				error: function (e) { 
+	    					alert("fail"); 
+	    				} 
+	    				});
+	    		}
+		});
+			
+	    $( "#searchtxt" ).autocomplete({
+		      delay: 2,	
+		      minLength: 2,
+		      source: availableTags,
+		      focus: function( event, ui ) {
+		        $( "#searchtxt" ).val( ui.item.value );
+		        return false;
+		      },
+		      select: function( event, ui ) {
+		        $( "#searchtxt" ).val(ui.item.value );
+		        //$( "#searchtxt" ).val( ui.item.key );
+		 
+		        return false;
+		      } 
+		  });
+
+	  //공백체크
+	    $.validator.addMethod("trimCheck",  function( value, element ) {
+			   return this.optional(element) ||  $.trim(value);
+			});
+	    
+	    $.validator.setDefaults( {
+	      submitHandler : function() {
+	        document.sfrm.submit();
+	      }
+	    } );
+	    $( '#sfrm' ).validate( {
+	    rules : {
+	    searchtxt : {
+	      required : true,
+	      trimCheck: true
+	    }
+	    },
+	    messages : {
+	    searchtxt : {
+	      required : "검색어를 입력해주세요.",
+	      trimCheck : "공백만 입력 할 수 없습니다."
+	    }
+	    },
+	    errorElement : 'span',
+	    errorPlacement : function(error, element) {
+	      error.addClass( 'invalid-feedback' );
+	      element.closest( '.form-group' ).append( error );
+	    },
+	    highlight : function(element, errorClass, validClass) {
+	      $( element ).addClass( 'is-invalid' );
+	    },
+	    unhighlight : function(element, errorClass, validClass) {
+	      $( element ).removeClass( 'is-invalid' );
+	    }
+	    });
+	});
+ 
+ 
+ </script>
 </header>

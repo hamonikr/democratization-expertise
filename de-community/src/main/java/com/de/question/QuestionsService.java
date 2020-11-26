@@ -175,12 +175,21 @@ public class QuestionsService {
 
 	}
 
-
-	// 내 질문/답변 목록
+	// 내 질문/답변 목록 - 회원
 	public List<Questions> getMyList(Questions vo) throws Exception {
-		return qm.getMyList(vo);
+		List<Questions> list = null;
+		if("A".equals(vo.getSection())) list = qm.getMyAnswerList(vo);
+		else if("Q".equals(vo.getSection())) list = qm.getMyQuestionList(vo);
+		return list;
 	}
 
+	// 내 질문/답변 목록 - 기업
+	public List<Questions> getMyListEnter(Questions vo) throws Exception {
+		List<Questions> list = null;
+		if("A".equals(vo.getSection())) list = qm.getMyAnswerListEnter(vo);
+		else if("Q".equals(vo.getSection())) list = qm.getMyQuestionListEnter(vo);
+		return list;
+	}
 
 	// 게시물 목록
 	public List<Questions> getCompQuestionList(String useruuid) throws Exception {

@@ -11,11 +11,17 @@
 	<result column="section" property="section"/>
 </resultMap>
 
+<resultMap type="com.de.vote.Vote" id="Vote">
+	<result column="likes" property="likes"/>
+	<result column="dislikes" property="dislikes"/>
+</resultMap>
+
 <resultMap type="com.de.user.UsersDetail" id="UsersDetail">
 	<result column="userat" property="userat"/>
 	<result column="activeat" property="activeat"/>
 	<result column="representat" property="representat"/>
 	<result column="logindays" property="logindays"/>
+	<result column="maxloginday" property="maxloginday"/>
 </resultMap>
 
 <resultMap type="com.de.user.Users" id="Users">
@@ -39,6 +45,7 @@
 	<result column="recordCountPerPage" property="recordCountPerPage"/>
 	<collection property="score" resultMap="Score"/>
 	<collection property="usersDetail" resultMap="UsersDetail"/>
+	<collection property="vote" resultMap="Vote"/>
 </resultMap>
 
 	<sql id="listWhere">
@@ -79,6 +86,8 @@
 		select 
 		a.*
 		,b.*
+		,(select sum(c.likes) from tb_vote c where a.userno = c.userno)as likes
+		,(select sum(c.dislikes) from tb_vote c where a.userno = c.userno)as dislikes
 		from tb_users a left outer join tb_users_detail b on a.userno = b.userno
 		<where>
 		a.userno = #{userno}
@@ -204,6 +213,7 @@ left outer join tb_score b on a.userno = b.userno
 left outer join tb_users_detail c on a.userno = c.userno
 where b.score is not null and (c.representat = 0 or c.representat is null)
 order by b.score desc
+limit 10
 </select>
 
 <select id="getPartnerScore" resultType="com.de.cmmn.CmmnMap">
@@ -213,6 +223,7 @@ left outer join tb_enterprises d on a.userno = d.enterpriseno
 left outer join tb_score b on d.enterpriseno = b.userno
 where b.score is not null
 order by b.score desc
+limit 10
 </select>
 
 <select id="getScore" parameterType="Integer" resultType="Integer">
@@ -316,14 +327,18 @@ SELECT
 select count(*) from tb_login_history where userid=#{userid} and logintime::date = now()::date -1
 </select>
 <update id="updateLoginDays" parameterType="com.de.cmmn.CmmnMap">
-update tb_users_detail set logindays = 
+update tb_users_detail set 
 <if test="lcnt > 0 ">
-logindays+1
+logindays = logindays+1
 </if>
 <if test="lcnt == 0 ">
-1
+logindays = 1
 </if>
 where userno = #{userno}
+</update>
+<update id="updateMaxLoginDay" parameterType="com.de.cmmn.CmmnMap">
+update tb_users_detail set maxloginday = logindays
+where userno = #{userno} and logindays > maxloginday
 </update>
 <update id="updateQuestionCount" parameterType="com.de.cmmn.CmmnMap">
 update tb_users_detail set questioncount = questioncount +1 where userno = #{userno}
@@ -337,5 +352,9 @@ update tb_users_detail set selectedcount = selectedcount +1 where userno = #{use
 <update id="updateWikiCount" parameterType="com.de.cmmn.CmmnMap">
 update tb_users_detail set wikicount = wikicount +1 where userno = #{userno}
 </update>
+
+<select id="loginCheckToday" parameterType="com.de.cmmn.CmmnMap" resultType="Integer">
+select count(*) from tb_login_history where userid=#{userid} and logintime::date = now()::date
+</select>
 
 </mapper>

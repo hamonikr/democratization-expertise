@@ -36,7 +36,7 @@ color: rgb(0,0,0);
 
 	<h2>Stacked Q&amp;A</h2>
 	<div class="section-info">
-		각 메뉴 섹션 상단에 카피문구 넣어주세요. 2~3줄 나올수 있으면 예뻐요.<br> 문구가 나옵니다. 개발시 당신이 겪는 어려움에 대해 자유롭게 질문을 하고 답변을 받으세요. 그리고 그 지식을 커뮤니티의 회원들과 함께 공유해주세요. 모바일버전에서는 display:none.<br>
+		개발시 당신이 겪는 어려움에 대해 자유롭게 질문을 하고 답변을 받으세요.<br/> 그리고 그 지식을 커뮤니티의 회원들과 함께 공유해주세요.<br>
 	</div>
 
 
@@ -72,11 +72,12 @@ color: rgb(0,0,0);
 		
 		<ul class="qna-list">
 			<li class="person">
-				<c:if test="${list.users.userprofileimg != null}">
+				<c:if test="${list.users.userprofileimg != null and list.users.userprofileimg != ''}">
 					<img src="/upload/users/${list.users.userprofileimg}" width="63px" height="63px">
 				</c:if>
-				<c:if test="${list.users.userprofileimg == null and list.users.picture == null}" >
-					<img src="/img/noprofile.png"  width="63px" height="63px">
+				<c:if test="${(list.users.userprofileimg == null or list.users.userprofileimg == '') 
+				and (list.users.picture == null or list.users.picture == '')}" >
+					<img class="profileImg" width="63px" height="63px">
 				</c:if>
 				<c:if test="${list.users.picture != null and list.users.userprofileimg == null}">
 					<img alt="profile" src="${list.users.picture}" id="profileImg" class="img" width="63px" height="63px"><br/>
@@ -110,7 +111,7 @@ color: rgb(0,0,0);
 				<span class="ques-tag">
 					<c:forEach var="tagName2" items="${tag }" varStatus="status">
 						<c:forEach var="tagName1" items="${tagList }" varStatus="status">
-							<c:if test="${tagName1.wikino == tagName2}"><a href="/wiki/view/${tagName1.wikino }">${tagName1.title}</a></c:if>
+							<c:if test="${tagName1.wikino == tagName2}"><a href="/wiki/view/${tagName1.wikino }/t">${tagName1.title}</a></c:if>
 						</c:forEach>
 					</c:forEach>
 				</span>
@@ -135,6 +136,15 @@ color: rgb(0,0,0);
 
 
 <script type="text/javascript">
+
+$(function() {	
+	//랜덤 이미지 생성
+    var objImg=document.getElementsByClassName("profileImg");
+    $.each (objImg, function (index) {
+    	var imgNum=Math.round(Math.random()*8)+1;
+    	objImg[index].src = "/img/profile_0"+imgNum+".png";
+	});	
+});
 
 
 function linkPage(pageNo){
