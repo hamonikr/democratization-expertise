@@ -42,7 +42,7 @@ function createWindow () {
 	});
 
 	mainWindow = new BrowserWindow({
-		icon:'icons/icon16.png',
+		icon:'res/icons/icon18.png',
 		skipTaskbar: false,
 		'x': mainWindowState.x,
 		'y': mainWindowState.y,
@@ -50,7 +50,7 @@ function createWindow () {
 		// 'height': 460, 
 		'width': 520, 
 		'height': 520, 
-		 frame:false,
+		 frame:true,
 		 alwaysOnTop: false,
 		//  resizable: false,
 		 transparent: true,
@@ -79,7 +79,7 @@ function createWindow () {
   	mainWindow.setMenu(null);
 	mainWindow.setMenuBarVisibility(false);	
 	// Open the DevTools.
-  	mainWindow.webContents.openDevTools(); 
+  	// mainWindow.webContents.openDevTools(); 
 
 	mainWindow.on('closed', function () {
 		mainWindow = null;
@@ -115,30 +115,30 @@ const getWindowPosition = () => {
     return {x: x, y: y}
 }
 const createTray = () => {
-	trayIcon  = new Tray(__dirname + '/icons/icon16.png');
+	trayIcon  = new Tray(__dirname + '/icons/icon18.png');
 	//tray.setTitle('hello world');
 	const trayMenuTemplate = [
 		{
-		   label: 'Hamonikr-finder',
+		   label: 'askos-support',
 		   //enabled: false
 			click: function (){
 				toggleWindow();
 		   }
 		},
-		{
-		   label: 'Settings',
-		   click: function () {
-			  log.info("Clicked on settings");
-			  settingWindow.show();
-			  log.info("Clicked on settings222");
-		   }
-		},
-		{
-		   label: 'Help',
-		   click: function () {
-			  log.info("Clicked on Help")
-		   }
-		},
+		// {
+		//    label: 'Settings',
+		//    click: function () {
+		// 	  log.info("Clicked on settings");
+		// 	  settingWindow.show();
+		// 	  log.info("Clicked on settings222");
+		//    }
+		// },
+		// {
+		//    label: 'Help',
+		//    click: function () {
+		// 	  log.info("Clicked on Help")
+		//    }
+		// },
 		{ label: 'Quit', click: () => { app.quit(); } }
 	 ]
 	 
@@ -150,7 +150,7 @@ let trayIcon  = null;
 
 
 app.on('ready', () => {
-	createTray();
+	// createTray();
 	setTimeout(createWindow, 500);
 	
 });

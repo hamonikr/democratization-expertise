@@ -30,11 +30,12 @@ let mainWindow, settingWindow;
 function createWindow () {
 
 	let mainWindowState = windowStateKeeper({
-		defaultWidth: 520,
-		defaultHeight: 70
+		defaultWidth: 100,
+		defaultHeight: 100
 	});
 
 	mainWindow = new BrowserWindow({
+		icon:'icons/icon18.png',
 		skipTaskbar: false,
 	//	resizable: false,
 		'x': mainWindowState.x,
@@ -43,11 +44,21 @@ function createWindow () {
 		'height': 340,
 		//'height': mainWindowState.height,
 		 frame:false,
-		 alwaysOnTop: true,
-//		 resizable: false,
-		  transparent: true
-		//  titleBarStyle: 'hidden'
-		// ,titleBarStyle: 'hiddenInset' 
+		 alwaysOnTop: false,
+		 resizable: true,
+		  transparent: true,
+		  webPreferences: {
+				defaultEncoding: 'utf8',
+				defaultFontFamily: 'cursive',
+				focusable: true,
+				// webviewTag: true,
+				nodeIntegration: true,
+				nodeIntegrationInWorker: true,
+				nodeIntegrationInSubFrames: true,
+				//  sandbox: true
+	//                      webgl: true
+		}
+		  
 	});
 
   	mainWindowState.manage(mainWindow);
@@ -57,7 +68,7 @@ function createWindow () {
   	mainWindow.setMenu(null);
 		mainWindow.setMenuBarVisibility(false);	
   // Open the DevTools.
-  	mainWindow.webContents.openDevTools(); 
+  	// mainWindow.webContents.openDevTools(); 
 
 		mainWindow.on('closed', function () {
 		mainWindowState.saveState(mainWindow);

@@ -1,8 +1,8 @@
 {
-  "name": "hamonikr-support",
+  "name": "askos-support",
   "version": "1.0.6",
-  "description": "AMT Manager for HamoniKR",
-  "homepage": "https://hamonikr.org/",
+  "description": "askos support Manager for HamoniKR",
+  "homepage": "http://askos.co.kr/",
   "author": "HamoniKR Team <hamonikr-packages@googlegroups.com>",
   "license": "Apache-2.0",
   "readme": "readme.txt",
@@ -94,13 +94,13 @@
   },
   "build": {
     "icon": "./build/icons",
-    "productName": "hamonikr-support",
-    "appId": "hamonikr.sts.support",
+    "productName": "askos-support",
+    "appId": "hamonikr.askos.support",
     "asar": true,
     "protocols": {
-      "name": "hamonikr-support",
+      "name": "askos-support",
       "schemes": [
-        "hamonikr-support"
+        "askos-support"
       ]
     },
     "win": {
