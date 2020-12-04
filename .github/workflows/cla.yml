@@ -1,0 +1,29 @@
+name: CLA assistant lite
+  # You may pin to the exact commit or the version.
+  # uses: cla-assistant/github-action@5a4ef1e1a1f75bceafd9b12704f8a6da576bcf14
+  uses: cla-assistant/github-action@v2.0.2-alpha
+  with:
+    # Give a path for storing CLAs in a json file 
+    path-to-signatures: # optional, default is ./signatures/cla.json
+    # provide a branch where all the CLAs are stored
+    branch: # optional, default is master
+    # users in the allow list don't have to sign the CLA document
+    allowlist: # optional, default is 
+    # provide the remote repository name where all the signatures should be stored
+    remote-repository-name: # optional
+    # provide the remote organization name where all the signatures should be stored
+    remote-organization-name: # optional
+    # Fully qualified web link to the document - example: https://github.com/cla-assistant/github-action/blob/master/SAPCLA.md
+    path-to-document: # optional
+    # Commit message when a new contributor signs the CLA in a PR
+    signed-commit-message: # optional
+    # Commit message when a new contributor signs the CLA (empty)
+    signed-empty-commit-message: # optional
+    # Commit message when a new file is created
+    create-file-commit-message: # optional
+    # Introductory message to ask new contributors to sign
+    custom-notsigned-prcomment: # optional
+    # pull request comment when everyone has signed, defaults to **CLA Assistant Lite** All Contributors have signed the CLA.
+    custom-allsigned-prcomment: # optional
+    # Set this to true if you want to use a dco instead of a cla
+    use-dco-flag: # optional
