@@ -136,7 +136,8 @@ This project follows the [all-contributors](https://github.com/all-contributors/
     누구나 열람할 수 있게 공개하고, 사용자가 활동한 내역을 근거로 명성을 확보할
     수 있게 하여 적극적인 활발한 참여자가 명성을 획득할 수 있는 기능. 향후
     e-포트폴리오가 되어 공개SW 전문인력 수급의 기초자료로 사용될 수 있음
-
+    
+    
 <hr/>
 
 ## 다운로드
