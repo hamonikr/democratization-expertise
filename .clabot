@@ -1,6 +1,5 @@
 {
 "contributors": ["jullee96"],
 "message": "먼저 저희의 프로젝트에 참여해주셔서 감사합니다! 저희는 참여해주신 모든 컨트리뷰터들에게 컨트리뷰터 라이센스 동의에(CLA:Contributor Licence Agreements)서명을 해주시는 것으로 간주하고 있습니다 .",
-"label": "cla-signed",
-"recheckComment":"CLA에 동의해주셔서 감사합니다"
+"label": "cla-signed"
 }
