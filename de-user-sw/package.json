@@ -1,25 +1,33 @@
 {
-  "name": "hamonikr-finder",
+  "name": "askos-user",
   "version": "1.1.2",
-  "productName": "hamonikr-finer",
-  "description": "Simple todo and project manage application.",
-  "author": "ivs",
+  "productName": "askos-user",
+  "description": "askos 사용자 앱",
+  "homepage": "https://hamonikr.org/",
+  "author": "HamoniKR Team <hamonikr-packages@googlegroups.com>",
   "keywords": [
-    "Phresh",
-    "Electron",
-    "w3",
-    "todo",
-    "project",
-    "manage",
-    "reminder",
-    "timetrack"
+    "askos",
+    "hamonikr",
+    "hamonikros"
   ],
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "pack": "build --dir",
-    "dist": "build"
+    "cache-clean": "rm -rf ~/.electron",
+    "start": "electron main.js --no-sandbox",
+    "test": "electron ./testJquery/test.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "build:linux64": "electron-builder --linux --x64",
+    "build:win64": "electron-builder --win  --x64"
   },
+  "files": [
+    "*.js",
+    "license.txt",
+    "readme.txt",
+    "app",
+    "bin",
+    "build"
+  ],
   "dependencies": {
     "archiver": "3.0.0",
     "auto-launch": "5.0.5",
@@ -48,26 +56,53 @@
     "uniqid": "^5.1.0",
     "unirest": "^0.6.0",
     "unzipper": "0.9.3",
-    "uuid": "^3.3.3",
-    "vue-js-modal": "^1.3.31",
-    "vuejs-dialog": "^1.4.1"
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
-    "electron": "4.0.0",
-    "electron-packager": "13.0.1",
-    "electron-builder": "20.38.4"
+    "electron": "^7.0.2",
+    "electron-builder": "^22.3.2",
+    "pkg": "^4.4.0"
   },
   "build": {
-    "appId": "com.phreshistant",
-    "productName": "Phreshistant",
-    "copyright": "© 2018, Phresh-IT",
+    "icon": "./build/icons",
+    "productName": "askos-user",
+    "appId": "askos.user.application",
     "asar": true,
-    "linux": {
-      "icon": "build/icons/",
-      "description": "Electron finder",
-      "target": [
-        "AppImage"
+    "protocols": {
+      "name": "askos-user",
+      "schemes": [
+        "askos-user"
       ]
+    },
+    "win": {
+      "target": [
+        "zip",
+        "nsis"
+      ],
+      "icon": "res/bin/icon.ico"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "res/bin/iconshm/",
+      "desktop": {
+        "Encoding": "UTF-8"
+      }
+    },
+    "deb": {
+      "afterInstall": "res/linux/after-install.tpl",
+      "afterRemove": "res/linux/after-remove.tpl"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "directories": {
+      "buildResources": "resources/installer/",
+      "output": "dist/",
+      "app": "."
     }
   }
 }
