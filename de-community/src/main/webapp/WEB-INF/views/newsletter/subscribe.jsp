@@ -20,8 +20,8 @@
                   </p>
 
                 <ul class="news-in">
-                  <li><label>이름</label><div class="form-group"><input type="text" id="name" name="name"  class="input-type1 " placeholder="이메일을 입력해주세요"></div></li>
-                  <li><label>E-mail 주소</label><div class="form-group"><input type="text" id="email" name="email"  placeholder="이름을 입력해주세요" class="input-type1 englishOnly"></div></li>
+                  <li><label>이름</label><div class="form-group"><input type="text" id="name" name="name"  class="input-type1 " placeholder="이름을 입력해주세요"></div></li>
+                  <li><label>E-mail 주소</label><div class="form-group"><input type="text" id="email" name="email"  placeholder="이메일을 입력해주세요" class="input-type1 englishOnly"></div></li>
 <!--                   <li> <input type="submit" value="구독하기" class="btn btn-primary btn-block blue"></li> -->
                   <li><button type="submit" class="btn-blue">구독 신청하기</button></li>
                 </ul>
