@@ -209,9 +209,9 @@
 									<c:if test="${list.selected eq 1 }">채택된 답변</c:if> 퍼블 채택!
 								</span> 
 								<c:if test="${(list.users.userno eq user.userno)}">
-									<span onclick="location.href='/answers/edit/5'">수정</span>
-                                    <!-- <a href="#" onclick="location.href='/answers/edit/${list.answerno}'">수정</a>--> 
-                                    <!--<span><a href="#">삭제</a></span>-->
+									<!-- <span onclick="location.href='/answers/edit/5'">수정</span> -->
+                                    <span onclick="location.href='/answers/edit/${list.answerno}'">수정</span>
+                                    <!-- <span><a href="#">삭제</a></span> -->
 								</c:if>
 						</ul>
 					</c:forEach>
