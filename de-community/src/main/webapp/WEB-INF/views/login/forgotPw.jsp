@@ -13,7 +13,7 @@
 			</div>
               <ul class="login-in">
               	<li><label>아이디</label><div class="form-group"><input type="text" id="userid" name="userid" value="" placeholder="아이디를 입력해주세요" maxlength="20" class="input-type1"></div></li>
-                <li><label>비밀번호</label><div class="form-group"><input type="text" id="useremail" name="useremail" value="" placeholder="이메일을 입력해주세요" maxlength="20" class="input-type1"></div></li>
+                <li><label>이메일</label><div class="form-group"><input type="text" id="useremail" name="useremail" value="" placeholder="이메일을 입력해주세요" maxlength="20" class="input-type1"></div></li>
                 <li><button type="submit" class="btn-blue">확인</button></li>
               </ul>
 		</form>
