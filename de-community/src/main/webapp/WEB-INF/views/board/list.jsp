@@ -45,22 +45,11 @@
 		
 			<li class="question">
 				<p><fmt:formatDate value="${list.registerdate}" pattern="yyyy-MM-dd HH:mm" /></p> 
-				<span class="ques-title"> <a href="view/${list.boardno }">${list.title }</a></span> 
-				${fn:substring(list.contents, 0, 50)}<c:if test="${fn:length(list.contents) > 49}"> ... </c:if>
-														
-				<%-- <span class="ques-tag">
-					<c:forEach var="tagName2" items="${tag }" varStatus="status">
-						<c:forEach var="tagName1" items="${tagList }" varStatus="status">
-							<c:if test="${tagName1.wikino == tagName2}"><a href="/wiki/view/${tagName1.wikino }">${tagName1.title}</a></c:if>
-						</c:forEach>
-					</c:forEach>
-				</span> --%>
+				<span class="ques-title"> <a href="view/${list.boardno }">${list.title}</a></span> 
+<%-- 			${fn:substring(list.contents, 0, 50)}<c:if test="${fn:length(list.contents) > 49}"> ... </c:if>
+ --%>		
 			</li>
-			<li class="subinfo">
-				<%-- <span><i class="mdi mdi-message-processing"></i> ${list.commentcnt }</span>  --%>
-				<%-- <span><i class="mdi mdi-eye-outline"></i>${list.readcnt }</span>  --%>
-				<%-- <span class="up" onclick="fnLike('${list.questionno}','${list.userno}','Q','${stat.count }','${list.vote.likes }')"><i class="mdi mdi-arrow-up" id="like${stat.count }" >${list.vote.likes }</i></span>
-				<span class="down" onclick="fnDisLike('${list.questionno}','${list.userno}','Q','${stat.count }','${list.vote.dislikes }')"><i class="mdi mdi-arrow-down" id="dislike${stat.count }">${list.vote.dislikes }</i></span> --%></li>
+			
 		</ul>
 		</c:forEach>
 
