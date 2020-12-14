@@ -64,8 +64,7 @@
 						<div>
 						<c:if test="${result.youtube ne null}">
 						<br><br>
-							<iframe width="580" height="450" src="https://www.youtube.com/embed/${result.youtube}" 
-							frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+							<iframe width="580" height="450" src="https://www.youtube.com/embed/${result.youtube}" 	frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 							</iframe>	
 						</c:if>
 						</div>
