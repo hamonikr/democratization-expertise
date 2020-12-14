@@ -61,10 +61,18 @@
 						<p>
 							<fmt:formatDate value="${result.registerdate}" pattern="yyyy-MM-dd HH:mm" />
 						</p> 
+						<div>
+						<c:if test="${result.youtube ne null}">
+						<br><br>
+							<iframe width="580" height="450" src="https://www.youtube.com/embed/${result.youtube}" 
+							frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+							</iframe>	
+						</c:if>
+						</div>
 						<code>
-							<p>${result.contents }</p>
+								<br><p>${result.contents}</p>
 						</code> 
-						<%-- <span class="ques-tag"> 
+							<%-- <span class="ques-tag"> 
 							<c:set var="tag" value="${fn:split(result.tagno,',')}" /> 
 							<c:forEach var="tagName2" items="${tag }" varStatus="status">
 								<c:forEach var="tagName1" items="${tagList }" varStatus="status">
