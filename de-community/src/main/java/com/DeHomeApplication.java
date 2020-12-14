@@ -18,7 +18,6 @@ public class DeHomeApplication extends SpringBootServletInitializer{
 //	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 //		return builder.sources(DeHomeApplication.class);
 //	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(DeHomeApplication.class, args);
 	}

@@ -136,6 +136,7 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 		</dependency>
+		
 		<!-- 운영반영시 주석해제 -->
 		<!-- <dependency>
      		<groupId>org.springframework.boot</groupId>
@@ -143,6 +144,7 @@
     		<scope>provided</scope>
 	  </dependency> -->	
 	  <!-- 운영반영시 주석 -->
+	  
 	  <dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
