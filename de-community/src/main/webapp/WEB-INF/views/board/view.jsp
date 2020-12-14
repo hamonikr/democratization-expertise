@@ -13,15 +13,10 @@
 <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
 <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 <!-- tuideditor -->
-<!-- Styles -->
-<link rel="stylesheet" href="https://uicdn.toast.com/tui-editor/latest/tui-editor.css"></link>
-<link rel="stylesheet" href="https://uicdn.toast.com/tui-editor/latest/tui-editor-contents.css"></link>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css"></link>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css"></link>
-<!-- Scripts -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css" />
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.js"></script>
-
 
 <style>
 .rcorners1 {
@@ -66,18 +61,9 @@
 						<p>
 							<fmt:formatDate value="${result.registerdate}" pattern="yyyy-MM-dd HH:mm" />
 						</p> 
-						<div>
-						<c:if test="${result.youtube ne null}">
-						<br><br>
-							<iframe width="580" height="450" src="https://www.youtube.com/embed/${result.youtube}" 
-							frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-							</iframe>	
-						</c:if>
-						</div>
 						<code>
-								<br><p>${result.contents}</p>
+							<p>${result.contents }</p>
 						</code> 
-						
 						<%-- <span class="ques-tag"> 
 							<c:set var="tag" value="${fn:split(result.tagno,',')}" /> 
 							<c:forEach var="tagName2" items="${tag }" varStatus="status">

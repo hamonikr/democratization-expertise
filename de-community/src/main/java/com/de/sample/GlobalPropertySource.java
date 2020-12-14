@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySources;
 
 @Configuration
 @PropertySources({
-   @PropertySource( value = "file:/home/lee/git/env/config.properties", ignoreResourceNotFound = true ),
+   @PropertySource( value = "file:/home/hamonikr/git/etc/config.properties", ignoreResourceNotFound = true ),
    @PropertySource( value = "file:${user.home}/env/config.properties", ignoreResourceNotFound = true)
    })
 public class GlobalPropertySource {

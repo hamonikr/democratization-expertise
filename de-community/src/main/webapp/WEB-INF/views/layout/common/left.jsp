@@ -5,7 +5,7 @@
 
 <div class="left-sidebar">
   <ul class="sidebar-nav" id="sidebarnav">
-    <li><a href="/questions/list"><i class="mdi mdi-comment-question-outline"></i>개방형OS 질문과 답변</a></li>
+    <li><a href="/questions/list"><i class="mdi mdi-comment-question-outline"></i>개방형OS관련 질문&답변</a></li>
     <li><a href="/tags/list"><i class="mdi mdi-console"></i>태그(Tags)</a></li>
     <li><a href="/users/list"><i class="mdi mdi-account-box-outline"></i>커뮤니티 사람들</a></li>
     <li><a href="/enterprises/list"><i class="mdi mdi-apps"></i>커뮤니티 참여기업 </a></li>

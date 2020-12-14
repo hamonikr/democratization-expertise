@@ -46,10 +46,7 @@ public class Board {
 	private Integer readcnt = 0;
 	/* 삭제여부 1-삭제 0-활성 */
 	private Integer deleteat = 0;
-	
-	/* youtube url */
-	private String youtube;
-	
+
 	/* 등록 일시 */
 	@CreationTimestamp
 	@Column(name = "registerdate", updatable = false)

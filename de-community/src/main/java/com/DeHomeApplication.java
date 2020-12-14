@@ -14,10 +14,10 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 public class DeHomeApplication extends SpringBootServletInitializer{
 	
 	//운영 반영시 주석 해제
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(DeHomeApplication.class);
-	}
+//	@Override
+//	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+//		return builder.sources(DeHomeApplication.class);
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(DeHomeApplication.class, args);
