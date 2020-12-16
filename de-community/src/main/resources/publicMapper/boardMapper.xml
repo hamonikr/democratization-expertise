@@ -81,7 +81,7 @@
 	</select>
 	
 	<select id="getListCount" parameterType="com.de.board.Board" resultType="java.lang.Integer">
-		select count(*) from tb_questions
+		select count(*) from tb_boards
 		<where>
 		section = #{section}
 		and deleteat = 0

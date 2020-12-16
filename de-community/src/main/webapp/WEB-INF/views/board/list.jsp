@@ -7,11 +7,6 @@
 <input type="hidden" name="pageNo" value="${paginationInfo.currentPageNo }" />
 
 	<h2>${boardinfo.boardname }</h2>
-	<div class="section-info">
-		다양한 개방형 os를 다운로드 해보세요<br/> 향상된 퍼포먼스를 느낄 수 있습니다.<br>
-	</div>
-
-
 	<div class="list-left">
 		<div class="pagenum">현재페이지 ${paginationInfo.currentPageNo}/${paginationInfo.totalPageCount} (총 <c:out value="${paginationInfo.totalRecordCount}" />건)</div>									
 	</div>
@@ -28,7 +23,6 @@
 			</c:if>
 		</div>
 	</div>
-
 
 
 
