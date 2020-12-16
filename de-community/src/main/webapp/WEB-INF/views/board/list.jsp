@@ -25,7 +25,6 @@
 	</div>
 
 
-
 	<div class="con-box">
 		<c:forEach var="list" items="${list}" varStatus="stat">
 		
