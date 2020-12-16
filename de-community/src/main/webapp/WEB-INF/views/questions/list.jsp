@@ -85,7 +85,7 @@ color: rgb(0,0,0);
 				
 				<span class="name"><a href="/users/activity/${list.users.userno}">${list.users.username}</a></span> 
 				<span class="reputation">${list.scores}</span> 
-				<span class="voting"><img src="../img/level_gold.png" alt="" > 25</span>
+				<span class="voting"><img src="../img/level_gold.png" alt="" > </span>
 			</li>
 			
 		

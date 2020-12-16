@@ -178,7 +178,7 @@
 								</c:if>
 								<span class="name">${list.users.username }</span> 
 <%-- 								<span class="reputation">${list.scores }</span>  --%>
-								<span class="voting"><img src="/img/level_gold.png" alt=""> voting</span>
+								<span class="voting"><img src="/img/level_gold.png" alt=""> </span>
 							</li>
 							<li class="question">
 								<p>
