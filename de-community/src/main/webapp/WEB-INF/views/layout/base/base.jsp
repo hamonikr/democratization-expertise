@@ -19,17 +19,24 @@
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta charset="utf-8">
+	<meta property="og:url" content="http://www.askos.co.kr">
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="ASKOS">
+   <meta property="og:description" content="ASKOS, 하모니카OS와 개방형OS 관련 질문과 답변" />
+   <meta property="og:image" content="/img/mobile_view.png">
+  
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
-	<meta name="description" content="" />
-	<meta name="author" content="" />
+	<meta name="description" content="ASKOS, 하모니카OS와 개방형OS 관련 질문과 답변" />
+   <meta name="author" content="ASKOS, 하모니카OS와 개방형OS 관련 질문과 답변" />
+   <link rel="shortcut icon" href="/img/askos_favicon.ico" />
+	
 	<meta id="_csrf" name="_csrf" content="${_csrf.token}" />
-    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
+   <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
     
     
 	<link rel="icon" type="image/png" sizes="16x16" href="">
-	<meta property="og:image" content="">
 	<!--- 모바일전용이미지 -->
 	<link href="/css/common.css" rel="stylesheet">
   
