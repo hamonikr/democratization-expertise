@@ -245,8 +245,7 @@
     $( "#btnAnswer" ).on( "click", fnAnswer );
     //$( "#btnUpdate" ).on( "click", fnUpdate );
     //$( "#btnSale" ).on( "click", fnSale );
-    
-    	//랜덤 이미지 생성
+	    	//랜덤 이미지 생성
         var objImg=document.getElementsByClassName("profileImg");
         $.each (objImg, function (index) {
         	var imgNum=Math.round(Math.random()*8)+1;
@@ -255,9 +254,14 @@
   });
 
   function fnAnswer() {
-    document.frm.contents.value = editorAnswer.getHtml();
-    document.frm.action = "/answers/save.proc";
-    document.frm.submit();
+  answer = editorAnswer.getHtml();
+  if(answer.length != 0){
+		document.frm.contents.value = answer;
+  		document.frm.action = "/answers/save.proc";
+   		document.frm.submit();
+	} else{
+			alert("댓글을 입력해주세요");
+		  }
   }
 
     function fnLike(p, su, s, l, i) {
