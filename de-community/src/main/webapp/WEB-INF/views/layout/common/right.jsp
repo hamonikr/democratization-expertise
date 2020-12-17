@@ -6,7 +6,7 @@
 $(function() {
 	
 	$('.slide-banner').slick({
-		dots: true,
+		  dots: true,
 		  infinite: true,
 		  speed: 500,
 		  fade: true,
@@ -137,7 +137,7 @@ $(function() {
 
 
 	<div class="partner-banner">
-		<div class="slide-banner" style="height:150px;">
+		<div class="slide-banner" style="height:190px;">
 			<div><a href="https://youtu.be/f-SThrXkP5M" target="_blank"><img src="https://img.youtube.com/vi/f-SThrXkP5M/0.jpg" /></a></div>
 			<div><a href="https://youtu.be/BoLZER533Vc" target="_blank"><img src="https://img.youtube.com/vi/BoLZER533Vc/0.jpg" /></a></div>
 			<div><a href="https://youtu.be/xQ343U1hmNU" target="_blank"><img src="https://img.youtube.com/vi/xQ343U1hmNU/0.jpg" /></a></div>
@@ -150,8 +150,8 @@ $(function() {
 			<div><iframe width="560" height="315" src="https://www.youtube.com/embed/KAmOQTdIKDI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div> -->
 		</div>
 		<ul class="list-banner">
-			<li><img src="/img/sample_part2.png" alt=""></li>
-			<li><img src="/img/sample_part3.png" alt=""></li>
+			<li><a href="https://www.iwinv.kr/server/vdi.html" target="_blank"><img src="/img/sample_part2.png" alt=""></a></li>
+			<li><a href="http://www.sigma-delta.tech/" target="_blank"><img src="/img/sample_part3.png" alt=""></a></li>
 		</ul>
 	</div>
 
