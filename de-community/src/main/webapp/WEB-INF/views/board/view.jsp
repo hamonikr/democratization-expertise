@@ -62,7 +62,8 @@
 							<fmt:formatDate value="${result.registerdate}" pattern="yyyy-MM-dd HH:mm" />
 						</p> 
 						<div>
-						<c:if test="${result.youtube ne null}">
+						
+						<c:if test="${result.youtube ne null and result.youtube ne ''}">
 						<br><br>
 							<iframe width="580" height="450" src="https://www.youtube.com/embed/${result.youtube}" 	frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 							</iframe>	
