@@ -129,9 +129,15 @@
     } );
 
     function fnSave() {
-        document.frm.action = "/wiki/save.proc";
-        document.frm.contents.value = editor.getHtml();
-        document.frm.submit();
+        var contents = editor.getHtml();
+
+        if(contents.length !=0 ){
+	        document.frm.action = "/wiki/save.proc";
+	        document.frm.contents.value = contents;
+	        document.frm.submit();
+        } else{
+				alert("내용을 입력해주세요");
+            }
         
       }
 

@@ -119,9 +119,14 @@ $(function() {
 });
 
 function fnUpdate() {
-	document.frm.action = "/wiki/edit.proc";
-	document.frm.contents.value = editor.getHtml();
-	document.frm.submit();
+	var contents = editor.getHtml();
+	if(contents.length !=0){
+		document.frm.action = "/wiki/edit.proc";
+		document.frm.contents.value = contents;
+		document.frm.submit();
+	} else{
+			alert("내용을 입력해주세요");
+		}
 }
 
 function fnDelete() {

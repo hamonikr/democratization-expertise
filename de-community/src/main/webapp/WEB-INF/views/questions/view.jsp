@@ -254,14 +254,15 @@
   });
 
   function fnAnswer() {
-  answer = editorAnswer.getHtml();
-  if(answer.length != 0){
-		document.frm.contents.value = answer;
-  		document.frm.action = "/answers/save.proc";
-   		document.frm.submit();
-	} else{
-			alert("댓글을 입력해주세요");
-		  }
+	  answer = editorAnswer.getHtml();
+
+	  if(answer.length != 0){
+			document.frm.contents.value = answer;
+	  		document.frm.action = "/answers/save.proc";
+	   		document.frm.submit();
+		} else{
+				alert("댓글을 입력해주세요");
+			  }
   }
 
     function fnLike(p, su, s, l, i) {

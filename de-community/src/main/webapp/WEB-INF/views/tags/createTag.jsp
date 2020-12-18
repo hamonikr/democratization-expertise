@@ -97,10 +97,10 @@ $( function() {
     });
 
 
-	var contents = $('contents').val();
-	contents = editor.getHtml();
-
+   
 /*
+	 contents = editor.getHtml();
+	
 	$("#editor").on("propertychange change keyup paste input", function(){ 
   		$('#btnSubmit').removeAttr('disabled');
        });
@@ -151,10 +151,15 @@ $( function() {
 } );
 
 function fnSave() {
-    document.frm.action = "/wiki/save.proc";
-    document.frm.contents.value = editor.getHtml();
-    document.frm.submit();
-    
+    contents = editor.getHtml();
+
+    if(contents.length != 0){
+		document.frm.action = "/wiki/save.proc";
+	    document.frm.contents.value = editor.getHtml();
+	    document.frm.submit();
+    } else{
+			alert("내용을 입력해주세요");
+        }
  }
 
 
