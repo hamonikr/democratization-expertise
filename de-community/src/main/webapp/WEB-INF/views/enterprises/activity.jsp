@@ -324,23 +324,26 @@
 								<span class="name"><a href="/users/activity/${useratCompy.userno}">${useratCompy.username}</a></span>
                   				<span class="reputation">평판</span>
 	<%--                   <span>${useratCompy.representat }ss</span> --%>
-							</a>
-							<div class="active">
-								<c:if test="${ useratCompy.usersDetail.activeat == 0 }">
-                    				<a href="javascript:fnt_activeatUser('userat','${useratCompy.userno}');">활성</a>
-                    				<a href="javascript:fnt_activeatUser('not','${useratCompy.userno}');" class="off">비활성</a>
-								</c:if>
-								<c:if test="${ useratCompy.usersDetail.activeat == 1 }">
-                    				<a href="javascript:fnt_activeatUser('userat','${useratCompy.userno}');" class="off">활성</a>
-                    				<a href="javascript:fnt_activeatUser('not','${useratCompy.userno}');" >비활성</a>
-								</c:if>
-							</div>
+								</a>
+							<c:if test="${isMypage == true}">
+								<div class="active">
+									<c:if test="${ useratCompy.usersDetail.activeat == 0 }">
+	                    				<a href="javascript:fnt_activeatUser('userat','${useratCompy.userno}');">활성</a>
+	                    				<a href="javascript:fnt_activeatUser('not','${useratCompy.userno}');" class="off">비활성</a>
+									</c:if>
+									<c:if test="${ useratCompy.usersDetail.activeat == 1 }">
+	                    				<a href="javascript:fnt_activeatUser('userat','${useratCompy.userno}');" class="off">활성</a>
+	                    				<a href="javascript:fnt_activeatUser('not','${useratCompy.userno}');" >비활성</a>
+									</c:if>
+								</div>
+							</c:if>
 						</li>
          				</c:if>
 					</c:forEach>	            
 		      	</ul>
-		      
-              	<div class="mytitle mT30"> 요청한 사람들</div>
+		      	<div class="mT30">
+		      		<c:if test="${isMypage == true}">
+		      		<div class="mytitle"> 요청한 사람들</div>
               		<ul class="company-user">
               			<c:forEach var="useratCompy" items="${ usersAtStatus }" varStatus="status">
          					<c:if test="${ useratCompy.usersDetail.userat == 0 }">
@@ -367,14 +370,13 @@
 				                    	<a href="javascript:fnt_activeatUser('userat','${useratCompy.userno}');" class="off">승인</a>
 				                    	<a href="javascript:fnt_activeatUser('not','${useratCompy.userno}');" >거절</a>
 									</c:if>
-<%-- 					<input type="button" class="btn btn-primary" onclick="fnt_useratUser('userat','${mem.userno}');" value="승인"><br>  --%>
-<%-- 					<input type="button" class="btn btn-primary" onclick="fnt_useratUser('not','${mem.userno}');" value="거절">													 --%>
-												
                   				</div>
 							</li>
          				</c:if>
 					</c:forEach>	 
 				</ul>
+				</c:if>
+			  </div>
 			</div>
 		</div>
 </div>

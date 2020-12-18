@@ -71,16 +71,9 @@ public class UsersController {
 		//Optional<Users> users = usersService.findByUserno(seq);
 		Users users = usersService.getView(userno);
 		System.out.println("seq users--->" + users.getUserno());
-
-		// System.out.println("loginUserData.getUserno()==?" + loginUserData.getUserno());
-//		System.out.println("loginUserData>>>>> " +loginUserData.getUserno());
-
 		System.out.println("sessionloginUser--> " + sessionloginUser.getAttribute("userSession"));
 
-		// LoginVO lvo = (LoginVO) sessionloginUser.getAttribute("userSession");
-
 		System.out.println("loginUserData : " + loginUserData);
-		// System.out.println("loginUserData : "+loginUserData.getUserno());
 
 		if (loginUserData == null) {
 			isUserNo = false;
