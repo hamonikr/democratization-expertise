@@ -162,9 +162,8 @@ LIMIT 5
 </select>
 
 <select id="getPromteList" resultType="com.de.enterprise.Enterprises">
-SELECT enterprisename, enterpriseno, enterpriseabout
+SELECT enterprisename, enterpriseno, enterpriseabout, enterpriseimg
 FROM public.tb_enterprises
-WHERE enterpriseabout is  not null 
 ORDER BY registerdate DESC
 LIMIT 5
 </select>

@@ -32,7 +32,7 @@ $(function() {
 					userHtml += '<li><a href="/users/activity/'+el.userno+'">';			 
 					if(el.userprofileimg != null && el.picture == null)
 						userHtml += "<img src='/upload/users/"+el.userprofileimg+"' alt='' width='25px' height='25px'>";
-					else if(el.userprofileimg == null && el.picture != null)
+					else if(el.picture != null)
 						userHtml += "<img src='"+el.picture+"' alt='' width='25px' height='25px'>";
 					else
 						userHtml += "<img src='/img/noprofile.png' alt='' width='25px' height='25px'>";
@@ -65,10 +65,13 @@ $(function() {
 					var entHtml = "";
 						
 					entHtml += '<li>';
+
+					alert(data.partnerslist[y].enterpriseimg);
 					
-					if(data.userprofileimg != null && data.picture == null){
-					  entHtml += "<img src='/upload/users/"+data.enterpriseimg+"' alt='' width='25px' height='25px'>";
-					} else if(data.enterpriseimg == null && data.picture != null) {
+					if(data.partnerslist[y].enterpriseimg != null && data.partnerslist[y].picture == null){
+						
+					  entHtml += "<img src='/upload/users/"+data.partnerslist[y].enterpriseimg+"' alt='' width='25px' height='25px'>";
+					} else if(data.partnerslist[y].picture != null) {
 					  entHtml += "<img src='"+data.picture+"' alt='' width='25px' height='25px'>";
 					} else {
 					  entHtml += "<img src='/img/noprofile.png' alt='' width='25px' height='25px'>";
