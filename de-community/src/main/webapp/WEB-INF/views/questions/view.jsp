@@ -64,11 +64,12 @@
 							<c:if test="${result.users.userprofileimg != null and result.users.userprofileimg != ''}">
 								<img src="/upload/users/${result.users.userprofileimg}" width="63px" height="63px">
 							</c:if>
-							<c:if test="${(result.users.userprofileimg == null or result.users.userprofileimg == '') 
+							<%-- <c:if test="${(result.users.userprofileimg == null or result.users.userprofileimg == '') 
 							and (result.users.picture == null or result.users.picture == '')}" >
 								<img class="profileImg"  width="63px" height="63px">
 							</c:if>
-							<c:if test="${result.users.picture != null and result.users.userprofileimg == null}">
+							 --%>
+							 <c:if test="${result.users.picture != null and result.users.userprofileimg == null}">
 								<img alt="profile" src="${result.users.picture}" id="profileImg" class="img" width="63px" height="63px"><br/>
 							</c:if>
 						</a> 
@@ -169,10 +170,10 @@
 								<c:if test="${list.users.userprofileimg != null and list.users.userprofileimg != ''}">
 									<img src="/upload/users/${list.users.userprofileimg}" width="63px" height="63px">
 								</c:if>
-								<c:if test="${(list.users.userprofileimg == null or list.users.userprofileimg == '') 
+								<%-- <c:if test="${(list.users.userprofileimg == null or list.users.userprofileimg == '') 
 								and (list.users.picture == null or list.users.picture == '')}" >
 									<img class="profileImg"  width="63px" height="63px">
-								</c:if>
+								</c:if> --%>
 								<c:if test="${list.users.picture != null and list.users.userprofileimg == null}">
 									<img alt="profile" src="${list.users.picture}" id="profileImg" class="img" width="63px" height="63px"><br/>
 								</c:if>

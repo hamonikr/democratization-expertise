@@ -130,7 +130,7 @@ width: 100%;
 					<img alt="profile" src="/upload/users/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
 				<c:if test="${user.userprofileimg == null and user.picture == null}">
-					<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
+					<img alt="profile" src="/img/profile_01.png" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
 				<c:if test="${user.userprofileimg == null and user.picture != null}">
 					<img alt="profile" src="${user.picture}" id="profileImg" class="img" width="100%"><br/>
@@ -281,7 +281,7 @@ width: 100%;
 					<img alt="profile" src="/upload/users/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
 				<c:if test="${user.userprofileimg == null and user.picture == null}">
-					<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
+					<img alt="profile" src="/img/profile_01.png" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
 				<c:if test="${user.userprofileimg == null and user.picture != null}">
 					<img alt="profile" src="${user.picture}" id="profileImg" class="img" width="100%"><br/>

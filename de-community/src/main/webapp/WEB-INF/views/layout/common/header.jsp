@@ -83,10 +83,10 @@ width: 500px;
 					<c:if test="${ userSession.userprofileimg != null}">
 						<img alt="photo" src="/upload/users/${userSession.userprofileimg}" id="profileImg" class="img" width="25px" height="25px">
 					</c:if>
-					<c:if test="${userSession.userprofileimg == null and userSession.picture == null}">
+					<%-- <c:if test="${userSession.userprofileimg == null and userSession.picture == null}">
 						<img alt="photo" src="/img/user_over.png" id="profileImg" class="img" width="25px" height="25px">
-					</c:if>
-					<c:if test="${userSession.userprofileimg == null and userSession.picture != null}">
+					</c:if> --%>
+					<c:if test="${userSession.picture != null}">
 						<img alt="photo" src="${userSession.picture}" id="profileImg" class="img" width="25px" height="25px">
 					</c:if>
 				</c:if>

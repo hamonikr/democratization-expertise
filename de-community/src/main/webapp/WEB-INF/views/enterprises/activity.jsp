@@ -66,9 +66,9 @@
 				<c:if test="${enterprise.enterpriseimg != null && enterprise.enterpriseimg != ''}">
 					<img alt="profile" src="/upload/enterprises/${enterprise.enterpriseimg}" id="profileImg" class="img" width="100%"><br/>
 				</c:if>
-				<c:if test="${enterprise.enterpriseimg == null || enterprise.enterpriseimg == ''}">
+				<%-- <c:if test="${enterprise.enterpriseimg == null || enterprise.enterpriseimg == ''}">
 					<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
-				</c:if>
+				</c:if> --%>
 									
 	            <span class="level"><img src="/img/level_gold.png" alt=""></span>
 	            <span class="url">홈페이지:<a href="${enterprise.enterpriseurl }" target="_blank">${enterprise.enterpriseurl }</a></span>

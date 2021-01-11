@@ -75,10 +75,10 @@ color: rgb(0,0,0);
 				<c:if test="${list.users.userprofileimg != null and list.users.userprofileimg != ''}">
 					<img src="/upload/users/${list.users.userprofileimg}" width="63px" height="63px">
 				</c:if>
-				<c:if test="${(list.users.userprofileimg == null or list.users.userprofileimg == '') 
+			<%-- 	<c:if test="${(list.users.userprofileimg == null or list.users.userprofileimg == '') 
 				and (list.users.picture == null or list.users.picture == '')}" >
 					<img class="profileImg" width="63px" height="63px">
-				</c:if>
+				</c:if> --%>
 				<c:if test="${list.users.picture != null and list.users.userprofileimg == null}">
 					<img alt="profile" src="${list.users.picture}" id="profileImg" class="img" width="63px" height="63px"><br/>
 				</c:if>
@@ -137,14 +137,14 @@ color: rgb(0,0,0);
 
 <script type="text/javascript">
 
-$(function() {	
+/* $(function() {	
 	//랜덤 이미지 생성
     var objImg=document.getElementsByClassName("profileImg");
     $.each (objImg, function (index) {
     	var imgNum=Math.round(Math.random()*8)+1;
     	objImg[index].src = "/img/profile_0"+imgNum+".png";
 	});	
-});
+}); */
 
 
 function linkPage(pageNo){

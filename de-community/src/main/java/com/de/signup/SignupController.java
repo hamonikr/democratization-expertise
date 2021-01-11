@@ -131,6 +131,13 @@ public class SignupController {
 		String email = vo.getUseremail();
 		String pw = vo.getUserpassword();
 		
+		String userprofileimg = "";
+		
+		int imgNum = (int)((Math.random()*10)+1);
+		
+		userprofileimg = "profile_0"+imgNum+".png";		
+		vo.setUserprofileimg(userprofileimg);
+		
 			try {
 				 service.save(vo);
 				 if(vo.getUserid() != null) {
@@ -160,6 +167,13 @@ public class SignupController {
 		System.out.println("vo pw==>" + vo.getUserpassword());	
 		System.out.println("enterprisebizno-->" +evo.getEnterprisebizno());
 		System.out.println("username----" + vo.getUsername());
+		
+		String enterpriseimg = "";
+
+		int imgNum = (int)((Math.random()*10)+1);
+		
+		enterpriseimg = "profile_0"+imgNum+".png";		
+		evo.setEnterpriseimg(enterpriseimg);
 		
 		if(evo.getEnterprisebizno() != null) {
 			try {
