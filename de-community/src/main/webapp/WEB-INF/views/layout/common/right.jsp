@@ -63,7 +63,6 @@ $(function() {
 				 for(y=0;y<data.partnerslist.length;y++){
 					var str = data.partnerslist[y].enterpriseabout;		
 					var entHtml = "";
-						
 					entHtml += '<li>';
 		
 					if(data.partnerslist[y].enterpriseimg != null && data.partnerslist[y].picture == null){
