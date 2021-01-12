@@ -65,9 +65,7 @@ $(function() {
 					var entHtml = "";
 						
 					entHtml += '<li>';
-
-					alert(data.partnerslist[y].enterpriseimg);
-					
+		
 					if(data.partnerslist[y].enterpriseimg != null && data.partnerslist[y].picture == null){
 						
 					  entHtml += "<img src='/upload/users/"+data.partnerslist[y].enterpriseimg+"' alt='' width='25px' height='25px'>";
