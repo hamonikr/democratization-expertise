@@ -67,7 +67,7 @@ $(function() {
 		
 					if(data.partnerslist[y].enterpriseimg != null && data.partnerslist[y].picture == null){
 						
-					  entHtml += "<img src='/upload/users/"+data.partnerslist[y].enterpriseimg+"' alt='' width='25px' height='25px'>";
+					  entHtml += "<img src='/upload/enterprises/"+data.partnerslist[y].enterpriseimg+"' alt='' width='25px' height='25px'>";
 					} else if(data.partnerslist[y].picture != null) {
 					  entHtml += "<img src='"+data.picture+"' alt='' width='25px' height='25px'>";
 					} else {
