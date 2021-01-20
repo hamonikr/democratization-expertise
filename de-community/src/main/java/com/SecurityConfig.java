@@ -69,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		System.out.println("security config-----------!!!");
 		log.info("security config log===>");
 
-		http.csrf().ignoringAntMatchers("/api/**", "/signup/**", "/login/**", "/wiki/**", "/accountRecovery/**",
+		http.csrf().ignoringAntMatchers("/api/**", "/signup/**", "/login/**", "/applogin/**", "/wiki/**", "/accountRecovery/**",
 				"/newsletters/**", "/cmmn/**");
 
 		http.authorizeRequests().antMatchers("/users/userInfo").hasRole("USER").antMatchers("/**").permitAll().and()
@@ -90,6 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public Filter ssoFilter() {
+		System.out.println("fil2222222222222222==="+ filter.ssoFilter());
 		return filter.ssoFilter();
 	}
 

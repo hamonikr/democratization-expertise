@@ -70,13 +70,12 @@ public class OAuth2Filter {
 		CompositeFilter filter = new CompositeFilter();
 		List<Filter> filters = new ArrayList<>();
 		
-		OAuth2ClientAuthenticationProcessingFilter googleFilter = new OAuth2ClientAuthenticationProcessingFilter(
-				"/login/google");
-		OAuth2ClientAuthenticationProcessingFilter githubFilter = new OAuth2ClientAuthenticationProcessingFilter(
-				"/login/github");
-		OAuth2ClientAuthenticationProcessingFilter facebookFilter = new OAuth2ClientAuthenticationProcessingFilter(
-				"/login/g");
+		OAuth2ClientAuthenticationProcessingFilter googleFilter = new OAuth2ClientAuthenticationProcessingFilter("/login/google");
+		OAuth2ClientAuthenticationProcessingFilter githubFilter = new OAuth2ClientAuthenticationProcessingFilter("/login/github");
+		OAuth2ClientAuthenticationProcessingFilter facebookFilter = new OAuth2ClientAuthenticationProcessingFilter("/login/g");
 
+		
+		
 		filters.add(ssoFilter("/login/google", googleFilter));
 		filters.add(ssoFilter("/login/github", githubFilter));
 		filters.add(ssoFilter("/login/facebook", facebookFilter));
@@ -99,11 +98,11 @@ public class OAuth2Filter {
 			resource = facebookResource();
 			client = facebookclient();
 		}
+		
 
 		OAuth2RestTemplate Template = new OAuth2RestTemplate(client, oauth2ClientContext);
 		Filter.setRestTemplate(Template);
-		Filter.setTokenServices(
-				new UserInfoTokenServices(resource.getUserInfoUri(), client.getClientId()));
+		Filter.setTokenServices(new UserInfoTokenServices(resource.getUserInfoUri(), client.getClientId()));
 		Filter.setAuthenticationSuccessHandler(oAuth2SuccessHandler);
 		
 		return Filter;

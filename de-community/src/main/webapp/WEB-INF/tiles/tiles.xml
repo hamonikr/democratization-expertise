@@ -32,16 +32,33 @@
        <put-attribute name="footer" value="/WEB-INF/views/layout/common/footer.jsp" />
    </definition>
    
+   <definition name="social-layout" template="/WEB-INF/views/layout/base/social_base.jsp">
+       <put-attribute name="body" value="" />
+   </definition>
+   
 
   <definition name="/login/*" extends="login-layout">
        <put-attribute name="header" value="/WEB-INF/views/layout/common/header.jsp" />
        <put-attribute name="left" value="/WEB-INF/views/layout/common/left.jsp" />
      <put-attribute name="body" value="/WEB-INF/views/login/{1}.jsp" />  
+   </definition>
+   
+   <definition name="/login/socialDataPage" extends="social-layout">
+     <put-attribute name="body" value="/WEB-INF/views/login/socialDataPage.jsp" />  
+   </definition>
+   <definition name="/login/restSocial" extends="social-layout">
+     <put-attribute name="body" value="/WEB-INF/views/login/restSocial.jsp" />  
+   </definition>  	
+    <definition name="/login/form" extends="social-layout">
+     <put-attribute name="body" value="/WEB-INF/views/login/form.jsp" />  
    </definition>  	
 
   <definition name="/*" extends="one-layout">
      <put-attribute name="body" value="/WEB-INF/views/index.jsp" />  
    </definition> 
+   
+   
+   
 
    <definition name="/*/*" extends="sub-layout">
         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />

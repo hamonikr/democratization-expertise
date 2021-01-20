@@ -23,6 +23,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -418,4 +419,21 @@ public class RestApiController {
 		return ResponseEntity.ok(output);
 	}
 
+	
+
+	@RequestMapping(value = "/social")
+	public String social(Model model, @ModelAttribute(value="socialDataMap") JSONObject jsonObject  ) {
+		
+		String output = "";
+		
+		System.out.println("=aaaaaaaaaa==="+ jsonObject);
+		
+		output = jsonObject.toJSONString();
+		model.addAttribute("output", output);
+		
+		return "/login/restSocial";
+		
+		
+	}
+	
 }
