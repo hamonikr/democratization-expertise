@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
  
-<mapper namespace="com.de.file.service.mapper.FileMapper">
+<mapper namespace="com.de.file.mapper.FileMapper">
 	
 	<insert id="saveFile" parameterType="java.util.HashMap">
+	
 	<selectKey resultType="int" keyProperty="file_seq" order="BEFORE">
 		select COALESCE(max(fileseq),0)+1 as fileseq from tb_file
 		where
@@ -12,7 +13,7 @@
 		</selectKey>
         INSERT INTO tb_file
         (
-        	SEQ, FILE_SEQ, SECTION, FILEREALNAME, FILEMAKENAME, FILEPATH , FILESIZE , REGISTERDATE
+        	seq, fileseq, section, filerealname, filemakename, filepath , filesize , registerdate
         )
         VALUES
         (

@@ -18,14 +18,14 @@ public class FileService {
 	
 	public int saveFile(Map<String, Object> dataMap,List<FileVO> fileList) {
 		int result = 0;
-		System.out.println("seq===="+dataMap.get("seq"));
 		// 2. 파일 정보 저장
-				if(fileList !=  null && fileList.size() == 1) {
+			if(fileList !=  null && fileList.size() == 1) {
 					for (FileVO fileVO : fileList) {
 						dataMap.put("filemakename", fileVO.getFilename());
 						dataMap.put("filerealname", fileVO.getRealname());
 						dataMap.put("filesize", fileVO.getFilesize());
 						dataMap.put("filepath", fileVO.getFilepath());
+						
 						System.out.println("f1=="+dataMap.get("filemakename"));
 						System.out.println("f2=="+dataMap.get("filerealname"));
 						System.out.println("f3=="+dataMap.get("filesize"));
@@ -36,6 +36,7 @@ public class FileService {
 					}
 					// 1. 게시글 정보 저장
 				}
+			
 				fm.saveFile(dataMap);
 				result = 1;
 		return result;
@@ -44,7 +45,6 @@ public class FileService {
 	
 	public int updateFile(Map<String, Object> dataMap,List<FileVO> fileList) {
 		int result = 0;
-		System.out.println("seq===="+dataMap.get("seq"));
 		// 2. 파일 정보 저장
 				if(fileList !=  null && fileList.size() == 1) {
 					for (FileVO fileVO : fileList) {

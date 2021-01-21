@@ -50,7 +50,9 @@ public class FileUtil {
 				realName += "." + fileExt;
 				if (fileExt.equals("jpg") || fileExt.equals("png") || fileExt.equals("gif") || fileExt.equals("jpeg")
 						|| fileExt.equals("json") || fileExt.equals("tar") || fileExt.equals("pdf") || fileExt.equals("doc")
-						|| fileExt.equals("xls") || fileExt.equals("hwp") || fileExt.equals("xlsx")) {
+						|| fileExt.equals("xls") || fileExt.equals("hwp") || fileExt.equals("xlsx") || fileExt.equals("tar") || fileExt.equals("tar.gz")
+						|| fileExt.equals("zip")) {
+					
 					saveFile(uploadfile, filePath + "/", realName, fileExt);
 
 					FileVO filedo = new FileVO();
