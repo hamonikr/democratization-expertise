@@ -35,6 +35,12 @@ public class SlackMessage {
 	}
 	
 	
+	public SlackMessage(String text, String channel, String botName) { 
+		this.text = text; 
+		this.channel = channel; 
+		this.botName = botName; 
+	}
+
 	public String getText() {
 		return text;
 	} 

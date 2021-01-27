@@ -151,6 +151,11 @@ public class QuestionsController {
 		nu.setSeq(vo.getQuestionno());
 		nu.setUrl("http://askos.co.kr/" + nu.getSection() + nu.getSeq());
 		
+//		nu.setUrl("http://askos.co.kr/" + nu.getSection() + nu.getSeq());
+		
+		System.out.println("url : " + nu.getUrl());
+		System.out.println("title : " + nu.getTitle());
+		
 		nm.sendNotification(nu);
 		
 		// 질문등록
