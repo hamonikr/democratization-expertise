@@ -39,6 +39,7 @@ import com.de.answer.Answers;
 import com.de.answer.AnswersService;
 import com.de.cmmn.CmmnMap;
 import com.de.cmmn.service.CmmnService;
+import com.de.cmmn.util.EgovStringUtil;
 import com.de.file.FileService;
 import com.de.file.FileUtil;
 import com.de.file.FileVO;
@@ -188,6 +189,7 @@ public class RestApiController {
 		questions.setRecordCountPerPage(recordCountPerPage);
 
 		List<Questions> listData = qs.getList(questions);
+//		System.out.println("listData=="+ listData);
 		// List<Tags> tagList = qs.tagList();
 		List<Wiki> tagList = qs.findAllTag();
 
@@ -202,11 +204,12 @@ public class RestApiController {
 		if (listData != null) {
 			for (int i = 0; i < listData.size(); i++) {
 				JSONObject inData = new JSONObject();
+				
 				inData.put("questionno", listData.get(i).getQuestionno());
-				inData.put("title", listData.get(i).getTitle());
-				inData.put("contents", listData.get(i).getContents());
-				inData.put("userno", listData.get(i).getUsers().getUsername());
-				inData.put("regdt", listData.get(i).getRegisterdate().toString());
+				inData.put("title", isEmptyToString(listData.get(i).getTitle()));
+				inData.put("contents", isEmptyToString(listData.get(i).getContents()));
+				inData.put("userno", isEmptyToString(listData.get(i).getUsers().getUsername()));
+				inData.put("regdt", isEmptyToString(listData.get(i).getRegisterdate().toString()));
 				dataArray.add(inData);
 			}
 
@@ -218,6 +221,64 @@ public class RestApiController {
 
 	}
 
+		
+
+
+	@RequestMapping(value = "/mylist")
+	@ResponseBody
+	public ResponseEntity mylist(@RequestParam Map<String, String> params, Questions questions,LoginVO lvo, @PageableDefault Pageable pageable) throws Exception {
+		String output = "";
+		JSONObject jsonObject = new JSONObject();
+
+		CmmnMap param = new CmmnMap();
+		param.putAll(params);
+
+		LoginVO retVO = loginMapper.getUserUUIDInfo(lvo);
+		
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(param.getInt("pageNo") > 0 ? param.getInt("pageNo") : 1); // 현재 페이지 번호
+		paginationInfo.setRecordCountPerPage(100); // 한 페이지에 게시되는 게시물 건수
+		paginationInfo.setPageSize(5); // 페이징 리스트의 사이즈
+
+		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
+		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
+		questions.setFirstRecordIndex(firstRecordIndex);
+		questions.setRecordCountPerPage(recordCountPerPage);
+		questions.setSection("Q");
+		questions.setUserno(retVO.getUserno());
+		
+		
+		List<Questions> listData = qs.getMyList(questions);
+		System.out.println("ll==="+ listData);
+		
+		JSONArray dataArray = new JSONArray();
+		if (listData != null) {
+			for (int i = 0; i < listData.size(); i++) {
+				JSONObject inData = new JSONObject();
+				
+				inData.put("questionno", listData.get(i).getQuestionno());
+				inData.put("title", isEmptyToString(listData.get(i).getTitle()));
+				inData.put("contents", isEmptyToString(listData.get(i).getContents()));
+				inData.put("userno", isEmptyToString(listData.get(i).getUsers().getUsername()));
+				inData.put("regdt", isEmptyToString(listData.get(i).getRegisterdate().toString()));
+				dataArray.add(inData);
+			}
+
+		}
+		jsonObject.put("list", dataArray);
+		
+		
+		output = jsonObject.toJSONString();
+		return ResponseEntity.ok(output);
+
+	}
+	
+	public String isEmptyToString(String data) {
+		String str = "";
+		str = EgovStringUtil.isNullToString(data);
+		return str;
+		
+	}
 
 	@RequestMapping("/view")
 	@ResponseBody
@@ -414,6 +475,9 @@ public class RestApiController {
 		CmmnMap param = new CmmnMap();
 		LoginVO retVO = loginMapper.getUserUUIDInfo(lvo);
 		vo.setQuestionno(Integer.parseInt(cs.selectObject("selectQNO", param).getString("questionno")));
+		vo.setUserno(retVO.getUserno());
+		vo.setFirstuserno(retVO.getUserno());
+		
 		vvo.setPno(vo.getQuestionno());
 		vvo.setSection(vo.getSection());
 		vvo.setUserno(retVO.getUserno());
