@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import com.de.cmmn.CmmnMap;
 import com.de.login.vo.LoginVO;
+import com.de.notification.NoticeUser;
+import com.de.notification.NotificationManager;
 import com.de.question.mapper.QuestionsMapper;
 import com.de.tag.Tags;
 import com.de.tag.TagsRepository;
@@ -42,6 +44,10 @@ public class QuestionsService {
 
 	@Autowired
 	VoteRepository vr;
+
+	@Autowired
+	NotificationManager slacknoti;
+
 
 	public Page<Questions> findAll(Pageable pageable) {
 		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
@@ -82,7 +88,10 @@ public class QuestionsService {
 
 
 	public Questions save(Questions vo) throws Exception {
-
+//		Questions nu = new Questions();
+//		nu = qm.getView(vo.getUserno());
+//		slacknoti.sendNotification(nu);
+		
 		return qr.save(vo);
 	}
 

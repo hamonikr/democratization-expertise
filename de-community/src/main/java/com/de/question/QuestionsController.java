@@ -27,6 +27,8 @@ import com.de.cmmn.CmmnMap;
 import com.de.cmmn.service.CmmnService;
 import com.de.login.service.SecurityMember;
 import com.de.login.vo.LoginVO;
+import com.de.notification.NoticeUser;
+import com.de.notification.NotificationManager;
 import com.de.tag.Tags;
 import com.de.vote.Vote;
 import com.de.vote.VoteService;
@@ -52,6 +54,9 @@ public class QuestionsController {
 
 	@Autowired
 	CmmnService cs;
+
+	@Autowired
+	NotificationManager nm;
 
 //	@RequestMapping(value = "/list")
 //	public String getList(Model model, @PageableDefault Pageable pageable) {
@@ -128,7 +133,7 @@ public class QuestionsController {
 
 
 	@RequestMapping(value = "/save.proc")
-	public String saveproc(HttpServletRequest request, Model model, Questions vo, Vote vvo) throws Exception {
+	public String saveproc(@AuthenticationPrincipal SecurityMember user, HttpServletRequest request, Model model, NoticeUser nu, Questions vo, Vote vvo) throws Exception {
 
 		System.out.println("aaaaaaaa=q vo === " + vo.toString());
 		CmmnMap param = new CmmnMap();
@@ -137,10 +142,27 @@ public class QuestionsController {
 		vvo.setSection(vo.getSection());
 		vvo.setUserno(vo.getUserno());
 		System.out.println("editauth--?" + vo.getEditauth());
+		
+		
+		// slack 연동 추가
+		nu.setUsername(user.getUsername());
+		nu.setSection("questions/view/");
+		nu.setTitle(vo.getTitle());
+		nu.setSeq(vo.getQuestionno());
+		nu.setUrl("http://askos.co.kr/" + nu.getSection() + nu.getSeq());
+		
+//		nu.setUrl("http://askos.co.kr/" + nu.getSection() + nu.getSeq());
+		
+		System.out.println("url : " + nu.getUrl());
+		System.out.println("title : " + nu.getTitle());
+		
+		nm.sendNotification(nu);
+		
 		// 질문등록
 		qs.save(vo);
 		// 투표등록
 		vs.save(vvo);
+		
 		param.put("userno", vo.getUserno());
 		param.put("score", 5);
 		// 점수등록
