@@ -180,10 +180,20 @@ public class QuestionsController {
 		//List<Answers> answerList = as.findAllByquestionno(questionno);
 		List<Answers> answerList = as.getList(questionno);
 		int cnt = as.getListCount(questionno);
+		param.put("section", "Q");
+		param.put("seq", questionno);
+
+//		List <CmmnMap> fi = cs.selectList("viewFile", param);
+//		System.out.println("file  -- > "+ fi);
+//		fo
+//		System.out.println(fi.get("filerealname"));
+
 		model.addAttribute("tagList", tagList);
 		model.addAttribute("answerList", answerList);
 		model.addAttribute("answerSelectedCount", cnt);
+		model.addAttribute("file", cs.selectList("viewFile", param));
 
+		
 //		// 조회수 증가
     	Questions qvo = new Questions();
 		qvo = qs.getView(questionno);

@@ -42,6 +42,11 @@
 	width: 200px;
 	height: 150px;
 }
+
+.view-attach{
+padding-bottom: 15px;
+}
+
 </style>
 
 
@@ -121,11 +126,16 @@
 						<span class="down" onclick="fnDisLike('${result.questionno}','${result.userno}','Q','${result.vote.dislikes }')">
 							<i class="mdi mdi-arrow-down" id="dislike">${result.vote.dislikes }</i>
 						</span>
-					</li>
+				    </li>	
 				</ul>
 
-
-
+				<div class="view-attach">
+				 <div for="filename" class="bold">첨부 파일</div>
+					<c:forEach var="list" items="${file}" varStatus="stat">
+						<a style="color:#355d80;" href="/fileDownload?fm=${list.filemakename}&fom=${list.filerealname}"><img src="/img/down_img.png" style="width:15px;height:15px;"> ${list.filerealname}</a>
+					</c:forEach>
+				  </div>
+	
 				<div class="view-replay">
 					<!-- 답변등록   -->
 					<c:if test="${historyCnt > 0}">
@@ -199,6 +209,8 @@
 				                } );
  				            </script>
 							</li>
+							
+						
 							<li class="subinfo">
 								<span class="up" onclick="fnLike('${list.answerno}','${list.userno}','A','${list.vote.likes }','${stat.count }')">
 									<i class="mdi mdi-arrow-up" id="like${stat.count }">${list.vote.likes }</i>

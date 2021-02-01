@@ -150,9 +150,11 @@ public class FileDownloadController {
         request.setCharacterEncoding("UTF-8");
         String filename = request.getParameter("fm");
         String fileoriname = request.getParameter("fom");
-        
+              
         //파일 업로드된 경로 
         try{
+        	 System.out.println("path : "+path);
+        	
             String fileUrl = path;
             fileUrl += "/";
             String savePath = fileUrl;
@@ -165,9 +167,12 @@ public class FileDownloadController {
             File file = null;
             boolean skip = false;
             String client = "";
-            
+
+            System.out.println("File path--> "+ savePath +fileName);
+	
             //파일을 읽어 스트림에 담기  
             try{
+ 
                 file = new File(savePath, fileName);
                 in = new FileInputStream(file);
             } catch (FileNotFoundException fe) {
@@ -181,6 +186,7 @@ public class FileDownloadController {
             response.setContentType("application/octet-stream");
             response.setHeader("Content-Description", "JSP Generated Data");
             
+            System.out.println("skip? ==" +skip);
             if (!skip) {
                 // IE
                 if (client.indexOf("MSIE") != -1) {
