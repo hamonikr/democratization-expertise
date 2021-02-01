@@ -47,9 +47,11 @@ public class SlackSender {
 			if (slackEnabled) { 
 				try {
 					System.out.println("=======bbbSlackSender working=======");
-//					String payload = "{\"channel\": \"#askos_alarm\", \"username\": \"webhookbot\", \"text\": \"This is posted to #askos_alarm and comes from a bot named webhookbot.\", \"icon_emoji\": \":ghost:\"}";
-					String url = "https://hooks.slack.com/services/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";
-//					
+//					String payload = "{\"channel\": \"#askos_alarm\", \"username\": \"askos-bot\", \"text\": \"This is posted to #askos_alarm and comes from a bot named webhookbot.\", \"icon_emoji\": \":ghost:\"}";
+//					String url = "https://hooks.slack.com/services/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";
+					
+					String url = "https://hooks.slack.com/services/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";
+					
 					// create slack Message
 					SlackMessage slackMessage = new SlackMessage(contents, channel, botName, iconEmoji, iconUrl); 
 					String payload = new Gson().toJson(slackMessage); 

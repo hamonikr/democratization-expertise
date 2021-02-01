@@ -33,7 +33,7 @@ import org.springframework.stereotype.Component;
     private String generatedMessage(NoticeUser vo) {
           StringBuilder sb = new StringBuilder();
           
-          sb.append(vo.getUsername()).append("님이 ").append("새글을 등록했습니다")
+          sb.append("*").append(vo.getUsername()).append("* 님이 ").append("새글을 등록했습니다")
           .append(System.getProperty("line.separator")).append("<").append(vo.getUrl()).append("|").append(vo.getTitle()).append(">"); 
          
          return sb.toString(); 
