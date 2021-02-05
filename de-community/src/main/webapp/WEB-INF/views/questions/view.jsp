@@ -130,10 +130,15 @@ padding-bottom: 15px;
 				</ul>
 
 				<div class="view-attach">
-				 <div for="filename" class="bold">첨부 파일</div>
+				 <div class="bold">첨부 파일</div>
 					<c:forEach var="list" items="${file}" varStatus="stat">
-						<a style="color:#355d80;" href="/fileDownload?fm=${list.filemakename}&fom=${list.filerealname}"><img src="/img/down_img.png" style="width:15px;height:15px;"> ${list.filerealname}</a>
-					</c:forEach>
+						<%-- <a style="color:#355d80;" href="/fileDownload?fm=${list.filemakename}&fom=${list.filerealname}"><img src="/img/down_img.png" style="width:15px;height:15px;"> ${list.filerealname}</a> --%>
+						<input type="hidden" name="filename" id="filename" value="${list.filemakename}">
+						<input type="hidden" name="filerealname" id="filerealname" value="${list.filerealname}">
+						<a style="color:#355d80;"onclick="fnDownload()"><img src="/img/down_img.png" style="width:15px;height:15px;"> ${list.filerealname}</a>
+						
+<%-- 						<a style="color:#355d80;"onclick="fnDownload('${list.filemakename}', '${list.filerealname}')"><img src="/img/down_img.png" style="width:15px;height:15px;"> ${list.filerealname}</a>
+ --%>					</c:forEach>
 				  </div>
 	
 				<div class="view-replay">
@@ -175,6 +180,7 @@ padding-bottom: 15px;
 						</c:if>
 
 
+						<%-- <a style="color:#355d80;" href="/fileDownload?fm=${list.filemakename}&fom=${list.filerealname}"><img src="/img/down_img.png" style="width:15px;height:15px;"> ${list.filerealname
 						<ul class="qna-list">
 							<li class="person">
 								<c:if test="${list.users.userprofileimg != null and list.users.userprofileimg != ''}">
@@ -264,8 +270,19 @@ padding-bottom: 15px;
         	var imgNum=Math.round(Math.random()*8)+1;
         	objImg[index].src = "/img/profile_0"+imgNum+".png";
     	});
+
   });
 
+  
+	function fnDownload(){
+		var filename = $("#filename").val();
+		var filerealname = $("#filerealname").val();
+		
+		console.log(filename +' / '+ filerealname);
+  		document.frm.action = "/fileDownload";
+   		document.frm.submit();
+ }
+  
   function fnAnswer() {
 	  answer = editorAnswer.getHtml();
 

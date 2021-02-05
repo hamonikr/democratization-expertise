@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -145,23 +147,27 @@ public class FileDownloadController {
         }
     }
     
-    @RequestMapping("/fileDownload")
-    private void fileDown(HttpServletRequest request, HttpServletResponse response) throws Exception{
-        request.setCharacterEncoding("UTF-8");
-        String filename = request.getParameter("fm");
-        String fileoriname = request.getParameter("fom");
-              
-        //파일 업로드된 경로 
+    @RequestMapping(value = "/fileDownload")
+    @ResponseBody
+    private void fileDown(HttpServletRequest request, HttpServletResponse response,
+    		 FileVO vo) throws Exception{
+      
+    	//String retVal = "F";
+       
+       System.out.println("fm : "+ vo.getFilename());
+       System.out.println("fom : "+ vo.getFilerealname());
+
+         //파일 업로드된 경로 
         try{
         	 System.out.println("path : "+path);
         	
             String fileUrl = path;
             fileUrl += "/";
             String savePath = fileUrl;
-            String fileName = filename;
+            String fileName = vo.getFilename();
             
-            //실제 내보낼 파일명 
-            String oriFileName = fileoriname;
+             //실제 내보낼 파일명 
+            String oriFileName = vo.getFilerealname();
             InputStream in = null;
             OutputStream os = null;
             File file = null;
@@ -188,6 +194,7 @@ public class FileDownloadController {
             
             System.out.println("skip? ==" +skip);
             if (!skip) {
+
                 // IE
                 if (client.indexOf("MSIE") != -1) {
                     response.setHeader("Content-Disposition", "attachment; filename=\""
@@ -200,25 +207,29 @@ public class FileDownloadController {
                     // 한글 파일명 처리
                     response.setHeader("Content-Disposition",
                             "attachment; filename=\"" + new String(oriFileName.getBytes("UTF-8"), "ISO8859_1") + "\"");
+                    
                     response.setHeader("Content-Type", "application/octet-stream; charset=utf-8");
+               	 System.out.println("response : " + response.toString());
+
                 }
                 response.setHeader("Content-Length", "" + file.length());
                 os = response.getOutputStream();
+
                 byte b[] = new byte[(int) file.length()];
                 int leng = 0;
                 while ((leng = in.read(b)) > 0) {
                     os.write(b, 0, leng);
                 }
             } else {
-                response.setContentType("text/html;charset=UTF-8");
+            	  response.setContentType("text/html;charset=UTF-8");
                 System.out.println("<script>alert('파일을 찾을 수 없습니다');</script>");
             }
             in.close();
             os.close();
+           
         } catch (Exception e) {
             System.out.println("ERROR : " + e.getMessage());
-        }
-        
+       }
     }
 
 }
