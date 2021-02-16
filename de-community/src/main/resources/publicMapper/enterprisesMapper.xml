@@ -275,9 +275,9 @@ SELECT
 	    from
 	        tb_questions  
 	    where
-	        userno in ( select userno from tb_users_detail where enterpriseno = #{userno} )
+	       deleteat !=1 and userno in ( select userno from tb_users_detail where enterpriseno = #{userno} )
 	    order by registerdate desc
-	     limit 4
+	     limit 5
 	</select>	
 
 	<select id="getQuestionListCnt" parameterType="com.de.question.Questions" resultType="Integer">
@@ -286,7 +286,7 @@ SELECT
 	    from
 	        tb_questions  
 	    where
-	        userno in ( select userno from tb_users_detail where enterpriseno = #{userno} )
+	       deleteat !=1 and userno in ( select userno from tb_users_detail where enterpriseno = #{userno} )
 	</select>	
 	
 	

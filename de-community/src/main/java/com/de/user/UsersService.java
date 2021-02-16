@@ -227,7 +227,13 @@ public class UsersService {
 		Page<Questions> list = qr.findAllByFirstuserno(seq, pageable);
 		return list;
 	}
-
+	
+	public Page<Questions> findAllByFirstusernoAndDeleteat(int seq, int deleteat) {
+		Pageable pageable = PageRequest.of(0, 5, new Sort(Sort.Direction.DESC, "registerdate"));
+		Page<Questions> list = qr.findAllByFirstusernoAndDeleteat(seq, deleteat, pageable);
+		return list;
+	}
+	
 	// 내 답변 등록 수
 	public int cntAnswerById(int seq) {
 		return um.cntAnswerById(seq);
@@ -239,7 +245,7 @@ public class UsersService {
 		Page<Answers> list = ar.findAllByUserno(seq, pageable);
 		return list;
 	}
-
+	
 	// 내 태그/위키 등록 수
 	public int cntTagAndWikiById(Wiki vo) {
 		return um.cntTagAndWikiById(vo);

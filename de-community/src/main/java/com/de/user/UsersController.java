@@ -100,10 +100,13 @@ public class UsersController {
 		// 질문
 		//int qCnt = usersService.cntQuestionsById(userno);
 		Page<Questions> qList = usersService.findQuestionsByUserno(userno);
-
+		
+		Page<Questions> qqList = usersService.findAllByFirstusernoAndDeleteat(userno,0);
+		
+		
 		// 답변
 		Page<Answers> aList = usersService.findAnswerByUserno(userno);
-		
+
 		//채택된 답변 카운트
 		int aSelCnt = usersService.cntAnswerById(userno);
 
@@ -141,11 +144,16 @@ public class UsersController {
 
 		model.addAttribute("score", score); // 평판점수
 
-		model.addAttribute("qCnt", qList.getTotalElements()); // 질문 전체 수
-		model.addAttribute("qList", qList.getContent()); // 질문 목록
+//		model.addAttribute("qCnt", qList.getTotalElements()); // 질문 전체 수
+//		model.addAttribute("qList", qList.getContent()); // 질문 목록
+				
+		model.addAttribute("qqCnt", qqList.getTotalElements()); // 질문 전체 수
+		model.addAttribute("qqList", qqList.getContent()); // 질문 목록
 
+		
 		model.addAttribute("aCnt", aList.getTotalElements()); // 답변 전체 수
 		model.addAttribute("aList", aList.getContent()); // 답변 목록
+
 
 		model.addAttribute("tCnt", tCnt); // 태그 전체 수
 		model.addAttribute("tList", tList); // 태그 목록

@@ -164,9 +164,9 @@ width: 100%;
 		<div class="mywrit-con">
 			<div class="mywrit">
 				<div class="mytitle">
-					질문 (${ qCnt })
+					질문 (${ qqCnt })
 					<span class="more">
-						<c:if test="${ qCnt > 5 }">
+						<c:if test="${ qqCnt > 5 }">
 							<form action="/questions/myList">
 								<input type="hidden" name="userno" value="${ user.userno }">
 								<input type="hidden" name="section" value="Q">
@@ -178,11 +178,21 @@ width: 100%;
 				</div>
 	                   
 	            <ul style="height: 100px;">
-	            	<c:forEach var="list" items="${ qList }" varStatus="status">
+	            	<c:forEach var="list" items="${ qqList }" varStatus="status">
 					<li>
 						<span class="up" style="width: 30px;"><i class="mdi " ></i>Q.</span>
 	<!-- 							<span class="up"><i class="mdi mdi-arrow-up"></i>90</span> -->
-						<a href="/questions/view/${ list.questionno }">${ list.title }</a>
+					 	<a href="/questions/view/${ list.questionno }">
+							<c:choose>
+ 						          <c:when test="${fn:length(list.title) > 50 }">
+ 		 								${fn:substring(list.title.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""), 0, 50)}...
+ 									</c:when>
+ 									
+									<c:when test="${fn:length(list.title) < 50 }">
+										${list.title.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "")}									
+									</c:when>	 							
+ 								</c:choose>	
+ 						</a>
 					</li>
 					</c:forEach>
 				</ul>
@@ -207,9 +217,16 @@ width: 100%;
 	            	<c:forEach var="list" items="${ aList }" varStatus="status">
 	            		<li>
 							<span class="up" style="width: 30px;"><i class="mdi"></i>A.</span>
-							<a href="/questions/view/${ list.questionno }">
-									${fn:substring(list.contents.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""), 0, 150)}
-							</a>
+						 	<a href="/questions/view/${ list.questionno }">
+							<c:choose>
+ 						          <c:when test="${fn:length(list.contents) > 50}">
+ 		 								${fn:substring(list.contents.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""), 0, 50)}...
+ 									</c:when>
+									<c:otherwise>
+										${list.contents.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "")}									
+									</c:otherwise>	 							
+ 								</c:choose>	
+ 							</a> 
 						</li> 
 					</c:forEach>
 				</ul>

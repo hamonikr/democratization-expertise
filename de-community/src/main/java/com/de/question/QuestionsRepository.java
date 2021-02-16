@@ -14,4 +14,5 @@ public interface QuestionsRepository extends JpaRepository<Questions, Integer> {
 
 	Page<Questions> findAllByFirstuserno(int seq, Pageable pageable);
 
+	Page<Questions> findAllByFirstusernoAndDeleteat(int seq, int deleteat, Pageable pageable);
 }
