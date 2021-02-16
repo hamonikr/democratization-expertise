@@ -183,11 +183,9 @@ public class QuestionsController {
 		param.put("section", "Q");
 		param.put("seq", questionno);
 
-//		List <CmmnMap> fi = cs.selectList("viewFile", param);
-//		System.out.println("file  -- > "+ fi);
-//		fo
-//		System.out.println(fi.get("filerealname"));
-
+		List <CmmnMap> fi = cs.selectList("viewFile", param);
+		System.out.println("file  -- > "+ fi.toString());
+		
 		model.addAttribute("tagList", tagList);
 		model.addAttribute("answerList", answerList);
 		model.addAttribute("answerSelectedCount", cnt);

@@ -73,14 +73,14 @@ color: rgb(0,0,0);
 		<ul class="qna-list">
 			<li class="person">
 				<c:if test="${list.users.userprofileimg != null and list.users.userprofileimg != ''}">
-					<img src="/upload/users/${list.users.userprofileimg}" width="63px" height="63px">
+					<a href="/users/activity/${list.users.userno }"><img src="/upload/users/${list.users.userprofileimg}" width="63px" height="63px"></a>
 				</c:if>
-			<%-- 	<c:if test="${(list.users.userprofileimg == null or list.users.userprofileimg == '') 
+				<c:if test="${(list.users.userprofileimg == null or list.users.userprofileimg == '') 
 				and (list.users.picture == null or list.users.picture == '')}" >
-					<img class="profileImg" width="63px" height="63px">
-				</c:if> --%>
+					<a href="/users/activity/${list.users.userno }"><img src="/upload/users/${list.users.userprofileimg}" width="63px" height="63px"></a>
+				</c:if>
 				<c:if test="${list.users.picture != null and list.users.userprofileimg == null}">
-					<img alt="profile" src="${list.users.picture}" id="profileImg" class="img" width="63px" height="63px"><br/>
+					<a href="/users/activity/${list.users.userno }"><img alt="profile" src="${list.users.picture}" id="profileImg" class="img" width="63px" height="63px"></a><br/>
 				</c:if>
 				
 				<span class="name"><a href="/users/activity/${list.users.userno}">${list.users.username}</a></span> 

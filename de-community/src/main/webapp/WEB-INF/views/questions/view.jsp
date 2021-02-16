@@ -130,15 +130,17 @@ padding-bottom: 15px;
 				</ul>
 
 				<div class="view-attach">
-				 <div class="bold">첨부 파일</div>
+				 <div for="filename" class="bold">첨부 파일</div>
 					<c:forEach var="list" items="${file}" varStatus="stat">
-						<%-- <a style="color:#355d80;" href="/fileDownload?fm=${list.filemakename}&fom=${list.filerealname}"><img src="/img/down_img.png" style="width:15px;height:15px;"> ${list.filerealname}</a> --%>
+				<%-- 	<a style="color:#355d80;" href="/fileDownload?fm=${list.filemakename}&fom=${list.filerealname}"><img src="/img/down_img.png" style="width:15px;height:15px;"> ${list.filerealname}</a> --%>					
 						<input type="hidden" name="filename" id="filename" value="${list.filemakename}">
 						<input type="hidden" name="filerealname" id="filerealname" value="${list.filerealname}">
-						<a style="color:#355d80;"onclick="fnDownload()"><img src="/img/down_img.png" style="width:15px;height:15px;"> ${list.filerealname}</a>
-						
-<%-- 						<a style="color:#355d80;"onclick="fnDownload('${list.filemakename}', '${list.filerealname}')"><img src="/img/down_img.png" style="width:15px;height:15px;"> ${list.filerealname}</a>
- --%>					</c:forEach>
+						<c:if test="${list.filerealname ne null }">
+							<a style="color:#355d80;"onclick="fnDownload()">
+								<img src="/img/down_img.png" style="width:15px;height:15px;"> ${list.filerealname}
+							</a>
+						</c:if>
+					</c:forEach>	
 				  </div>
 	
 				<div class="view-replay">
@@ -180,16 +182,11 @@ padding-bottom: 15px;
 						</c:if>
 
 
-						<%-- <a style="color:#355d80;" href="/fileDownload?fm=${list.filemakename}&fom=${list.filerealname}"><img src="/img/down_img.png" style="width:15px;height:15px;"> ${list.filerealname
 						<ul class="qna-list">
 							<li class="person">
 								<c:if test="${list.users.userprofileimg != null and list.users.userprofileimg != ''}">
-									<img src="/upload/users/${list.users.userprofileimg}" width="63px" height="63px">
+									<a href="/users/activity/${list.users.userno }" ><img src="/upload/users/${list.users.userprofileimg}" width="63px" height="63px"></a>
 								</c:if>
-								<%-- <c:if test="${(list.users.userprofileimg == null or list.users.userprofileimg == '') 
-								and (list.users.picture == null or list.users.picture == '')}" >
-									<img class="profileImg"  width="63px" height="63px">
-								</c:if> --%>
 								<c:if test="${list.users.picture != null and list.users.userprofileimg == null}">
 									<img alt="profile" src="${list.users.picture}" id="profileImg" class="img" width="63px" height="63px"><br/>
 								</c:if>
@@ -270,19 +267,18 @@ padding-bottom: 15px;
         	var imgNum=Math.round(Math.random()*8)+1;
         	objImg[index].src = "/img/profile_0"+imgNum+".png";
     	});
-
   });
-
   
-	function fnDownload(){
+  function fnDownload(){
 		var filename = $("#filename").val();
 		var filerealname = $("#filerealname").val();
 		
 		console.log(filename +' / '+ filerealname);
-  		document.frm.action = "/fileDownload";
-   		document.frm.submit();
- }
-  
+		document.frm.action = "/fileDownload";
+ 		document.frm.submit();
+  }
+
+  	
   function fnAnswer() {
 	  answer = editorAnswer.getHtml();
 
