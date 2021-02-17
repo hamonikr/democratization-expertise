@@ -72,13 +72,16 @@ color: rgb(0,0,0);
 		
 		<ul class="qna-list">
 			<li class="person">
+				<!-- 유저 프로필이미지 있을때  -->
 				<c:if test="${list.users.userprofileimg != null and list.users.userprofileimg != ''}">
 					<a href="/users/activity/${list.users.userno }"><img src="/upload/users/${list.users.userprofileimg}" width="63px" height="63px"></a>
 				</c:if>
+				<!-- 유저 프로필이미지 null일때  -->
 				<c:if test="${(list.users.userprofileimg == null or list.users.userprofileimg == '') 
 				and (list.users.picture == null or list.users.picture == '')}" >
 					<a href="/users/activity/${list.users.userno }"><img src="/upload/users/${list.users.userprofileimg}" width="63px" height="63px"></a>
 				</c:if>
+				<!-- 유저 프로필 이미지 소셜에서 가져온 경우  -->
 				<c:if test="${list.users.picture != null and list.users.userprofileimg == null}">
 					<a href="/users/activity/${list.users.userno }"><img alt="profile" src="${list.users.picture}" id="profileImg" class="img" width="63px" height="63px"></a><br/>
 				</c:if>

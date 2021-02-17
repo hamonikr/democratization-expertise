@@ -94,7 +94,14 @@
                 	<div class="mytitle">
                     	질문 (${ qCnt })
                     	<span class="more">
-                    	<c:if test="${ qCnt > 5 }">
+							<form action="/questions/myListEnter">
+								<input type="hidden" name="userno" value="${ enterprise.enterpriseno }">
+								<input type="hidden" name="section" value="Q">
+								<!--<button type="submit" class="btn-primary btn-xs" >+더보기</button> -->
+								<input type="submit" id="search" value="+더보기" class="" />
+							</form>
+
+<%--                     	<c:if test="${ qCnt > 5 }">
 							<form action="/questions/myListEnter">
 								<input type="hidden" name="userno" value="${ enterprise.enterpriseno }">
 								<input type="hidden" name="section" value="Q">
@@ -102,6 +109,7 @@
 								<input type="submit" id="search" value="+더보기" class="" />
 							</form>
 						</c:if>
+ --%>
                     	</span>
                   	</div>
                   	<ul>
@@ -119,15 +127,20 @@
                 	<div class="mytitle">
                     	답변 (${ aCnt })
                     	<span class="more">
-                    		<c:if test="${ aCnt > 5 }">
 							<form action="/questions/myListEnter">
 								<input type="hidden" name="userno" value="${ enterprise.enterpriseno }">
 								<input type="hidden" name="section" value="A">
-<!-- 								<button type="submit" class="btn-primary btn-xs" >+더보기</button> -->
+								<input type="submit" id="search" value="+더보기" class="" />
+							</form>
+
+<%--                     		<c:if test="${ aCnt > 5 }">
+							<form action="/questions/myListEnter">
+								<input type="hidden" name="userno" value="${ enterprise.enterpriseno }">
+								<input type="hidden" name="section" value="A">
 								<input type="submit" id="search" value="+더보기" class="" />
 							</form>
 							</c:if>
-                    	</span>
+ --%>                    	</span>
                   	</div>
 					<ul>
                			<c:forEach var="list" items="${ aList }" varStatus="status">

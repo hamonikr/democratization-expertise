@@ -166,15 +166,20 @@ width: 100%;
 				<div class="mytitle">
 					질문 (${ qqCnt })
 					<span class="more">
-						<c:if test="${ qqCnt > 5 }">
 							<form action="/questions/myList">
 								<input type="hidden" name="userno" value="${ user.userno }">
 								<input type="hidden" name="section" value="Q">
-<!-- 								<button type="submit" class="btn-primary" >더보기</button> -->
+								<input type="submit" id="search" value="+더보기" class="" />
+							</form>
+
+<%-- 						<c:if test="${ qqCnt > 5 }">
+							<form action="/questions/myList">
+								<input type="hidden" name="userno" value="${ user.userno }">
+								<input type="hidden" name="section" value="Q">
 								<input type="submit" id="search" value="+더보기" class="" />
 							</form>
 						</c:if>
-					</span>
+ --%>					</span>
 				</div>
 	                   
 	            <ul style="height: 100px;">
@@ -203,15 +208,20 @@ width: 100%;
 	        	<div class="mytitle">
 	        		답변 (${ aCnt })
 	                <span class="more">
-	                	<c:if test="${ aCnt > 5 }">
 	                		<form action="/questions/myList">
 								<input type="hidden" name="userno" value="${ user.userno }">
 								<input type="hidden" name="section" value="A">
-<!-- 								<button type="submit" class="btn-primary " >더보기</button> -->
+								<input type="submit" id="search" value="+더보기" class="" />
+							</form>
+
+<%-- 	                	<c:if test="${ aCnt > 5 }">
+	                		<form action="/questions/myList">
+								<input type="hidden" name="userno" value="${ user.userno }">
+								<input type="hidden" name="section" value="A">
 								<input type="submit" id="search" value="+더보기" class="" />
 							</form>
 						</c:if>
-					</span>
+ --%>					</span>
 				</div>
 	            <ul style="height: 100px;">
 	            	<c:forEach var="list" items="${ aList }" varStatus="status">

@@ -300,7 +300,7 @@
 			tb_questions a LEFT OUTER JOIN tb_users b ON a.firstuserno = b.userno
 			LEFT OUTER JOIN tb_vote c ON a.questionno = c.pno
 		WHERE
-			a.userno = ( select userno from tb_users_detail where userno = #{userno} )
+			a.deleteat !=1 and a.userno = ( select userno from tb_users_detail where userno = #{userno} )
 			AND c.section = #{section}
 		ORDER BY a.registerdate DESC
 		OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage}
@@ -308,12 +308,12 @@
 	
 	<select id="getMyAnswerList" parameterType="com.de.question.Questions" resultMap="Questions">
 		SELECT 
-			* 
+			a.*, b.* 
 		FROM 
-			tb_answers 
+			tb_answers a LEFT OUTER JOIN tb_users b ON a.userno = b.userno
 		WHERE 
-	        userno = ( SELECT userno FROM tb_users_detail WHERE userno = #{userno} )
-     ORDER BY registerdate desc
+	        a.userno = ( SELECT userno FROM tb_users_detail WHERE userno = #{userno} )
+     ORDER BY a.registerdate desc
      OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage}
 	</select>
 	
@@ -343,7 +343,7 @@
 			tb_questions a LEFT OUTER JOIN tb_users b ON a.firstuserno = b.userno
 			LEFT OUTER JOIN tb_vote c ON a.questionno = c.pno
 		WHERE
-			a.userno in ( select userno from tb_users_detail where enterpriseno = #{userno} )
+			a.deleteat !=1 and a.userno in ( select userno from tb_users_detail where enterpriseno = #{userno} )
 			AND c.section = #{section}
 		ORDER BY a.registerdate DESC
 		OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage}
@@ -351,12 +351,12 @@
 	
 	<select id="getMyAnswerListEnter" parameterType="com.de.question.Questions" resultMap="Questions">
 		SELECT 
-			* 
+			a.*, b.* 
 		FROM 
-			tb_answers 
+			tb_answers a LEFT OUTER JOIN tb_users b ON a.userno = b.userno
 		WHERE 
-	        userno IN ( SELECT userno FROM tb_users_detail WHERE enterpriseno = #{userno} )
-     ORDER BY registerdate desc
+	        a.userno = ( SELECT userno FROM tb_users_detail WHERE userno = #{userno} )
+     ORDER BY a.registerdate desc
      OFFSET #{firstRecordIndex} LIMIT #{recordCountPerPage}
 	</select>
 	
