@@ -8,13 +8,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 
-<!-- jquery-validation -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-<!-- <script src="/plugins/jquery-validation/additional-methods.min.js"></script> -->
-<!-- <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>  -->
-
-
-<!-- <link rel="stylesheet" href="/css/popup.css"> -->
+<!-- chartJS -->
+<script src="/chartjs/dist/Chart.js"></script>
+<link rel="stylesheet" type="text/css" href="/chartjs/dist/Chart.min.css">
 
 <style type="text/css">
 /* .pop-layer .card-header { padding: 1em 1.5em } */
@@ -105,8 +101,65 @@ width: 100%;
     }
 }
 
-</style>		
 
+.nav-name {
+   padding: 0.5rem 1rem;
+   margin-left: auto;
+   color:#242729;
+   font-weight: 500px;
+   font-size: 20px;
+   color:#183b9c; 
+   padding-bottom: 10px;
+   padding-right: 70px;
+   
+}
+
+.img-p{
+	display: block;
+    width: 70px;
+    height: auto;
+    border-radius: 6px;
+    margin-right: 20px;
+    margin-left: auto;
+    
+}
+
+.container-a{
+	display: grid;
+	grid-template-columns: repeat(3,1fr);
+	grid-auto-rows: 150px;	
+	gap: 30px;
+}
+
+.container-box{
+	border:1px solid #d6d9dc;
+	background-color: #eff0f1;
+	border-radius: 5px;
+}
+
+.container-box-input{
+	border:1px solid #d6d9dc;
+	border-radius: 5px;
+}
+
+.container-box > canvas{
+	padding-left: 12px;
+}
+
+.container-box > .row{
+	padding-left: 15px;
+	padding-bottom: 15px;
+	
+}
+
+.col > .row{
+	padding-left: 15px;
+	padding-bottom: 10px;
+	
+}
+
+
+</style>
 
 		
 <div class="content-center">
@@ -119,12 +172,32 @@ width: 100%;
 		<li class="nav-item">
 			<a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">Profile</a>
 		</li>
+		<li class="nav-item nav-name"> 
+			<p> <b>${user.username}</b></p>
+		</li>
+		<li class="nav-item"> 
+			<div class="">
+				<c:if test="${ user.userprofileimg != null and user.userprofileimg != ''}">
+					<img alt="profile" src="/upload/users/${user.userprofileimg}" id="profileImg" class="img-p"><br/>
+				</c:if>
+				<c:if test="${user.userprofileimg == null and user.picture == null}">
+					<img alt="profile" src="/img/profile_01.png" id="profileImg" class="img-p"><br/>
+				</c:if>
+				<c:if test="${user.userprofileimg == null and user.picture != null}">
+					<img alt="profile" src="${user.picture}" id="profileImg" class="img-p"><br/>
+				</c:if>
+			</div>
+		</li>
 	</ul>
-
+	
 <div class="tab-content" id="custom-tabs-three-tabContent">
-
+<!-- activity layer -->
 	<div class=" tab-pane fade active show con-box" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
-		<div class="profile-con">
+
+<%--		<div class="profile-con">
+			<div class="mywrit">
+			</div>
+  		<p class="myname"> ${user.username}</p>
 			<div class="profile-photo">
 				<c:if test="${ user.userprofileimg != null and user.userprofileimg != ''}">
 					<img alt="profile" src="/upload/users/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
@@ -139,7 +212,7 @@ width: 100%;
 				<span class="url">홈페이지:<a href="${user.userurl}" target="_blank">${user.userurl}</a></span>
 			</div>
 
-            <div class="profile-info">
+             <div class="profile-info">
             	<p class="myname"> ${user.username}</p>
 				<p class="myintro">${user.aboutme}</p>
                 <ul class="info-detail">
@@ -159,7 +232,105 @@ width: 100%;
                     </li>
 				</ul>
 			</div>
-		</div><!-- //profile-con -->
+ --%>
+           <div class="container-a">
+            	<div class="container-box">
+ 			  		<h4 class="row">  
+ 			  			<p class="score">평판 : <span>${score}</span> <a href="/wiki/helpview/140/h"><i class="mdi mdi-information"></i></a></p>
+ 					</h4>
+ 					<canvas class="row" id="myChart" width="190" height="60"></canvas>
+			 	</div>
+             	<div class="container-box">
+             		<h4 class="row"> 배지</h4>
+             		<div class="row">
+             			<div class="col">
+	             			<h5> 출석 달성</h5>
+	                     <%@ include file="/WEB-INF/views/users/logindays.jsp" %>
+                     </div>
+                     <div class="col">
+	                     <h5> 질문 달성</h5>
+	                     <%@ include file="/WEB-INF/views/users/questioncount.jsp" %>
+						</div>
+						<div class="col">
+							<h5> 답변 달성</h5>
+	                     <%@ include file="/WEB-INF/views/users/answercount.jsp" %>
+                     </div>
+                     <div class="col">
+							<h5> 채택 달성</h5>
+	                     <%@ include file="/WEB-INF/views/users/selectedanswercount.jsp" %>
+	                 </div>
+	               </div>
+	               <div class="row">
+		               <%@ include file="/WEB-INF/views/users/level.jsp" %>
+					 </div>
+            	</div>	
+            	<div class="container-box row">
+             		<div class="col">
+	             		<h4 class="row"> 영향 </h4>
+	             		<div class="row">
+	             			<p> 총 작성글 수 : 323</p>
+	             			<p> 총 채택답변  : 33</p>
+	             		</div>
+             		</div>
+             		<div class="col">
+							<h4 class="row"> &nbsp; </h4>
+		             		<div class="row">
+	             			<p class="myinfo">좋아요 : <br> 싫어요 : </p>
+	                  	<p class="myinfo"><span> &nbsp;+${user.vote.likes}</span> <br>&nbsp; <span>-${user.vote.dislikes}</span> </p>
+	                     <p class="myinfo">&nbsp;&nbsp;&nbsp;질문 : <span>${ qCnt }</span> <br>&nbsp;&nbsp; 답변 : <span>${ aCnt }</span></p>
+	                 	</div>
+                 </div>
+            	</div>
+          	</div>
+<!--            <div class="container-a">
+ 				<h4> 홈페이지 </h4>
+ 			</div> -->
+ 		<!-- //profile-con -->
+		
+		<!-- chartJS -->
+		<script>
+		var ctx = document.getElementById('myChart');
+		var myChart = new Chart(ctx, {
+		    type: 'line',
+		    data: {
+		        labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+		        datasets: [{
+		            label: '평판',
+		            data: [12, 19, 3, 5, 2, 3, 5, 6, 7, 11, 5, 4],
+		            backgroundColor: [
+		                'rgba(255, 99, 132, 0.2)',
+		                'rgba(54, 162, 235, 0.2)',
+		                'rgba(255, 206, 86, 0.2)',
+		                'rgba(75, 192, 192, 0.2)',
+		                'rgba(153, 102, 255, 0.2)',
+		                'rgba(255, 159, 64, 0.2)'
+		            ],
+		            borderColor: [
+		                'rgba(255, 99, 132, 1)',
+		                'rgba(54, 162, 235, 1)',
+		                'rgba(255, 206, 86, 1)',
+		                'rgba(75, 192, 192, 1)',
+		                'rgba(153, 102, 255, 1)',
+		                'rgba(255, 159, 64, 1)'
+		            ],
+		            borderWidth: 1
+		        }]
+		    },
+		    options: {
+		        scales: {
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero: true
+		                }
+		            }]
+		        }
+		    }
+		});
+		</script>
+
+
+
+
 
 		<div class="mywrit-con">
 			<div class="mywrit">
@@ -171,15 +342,7 @@ width: 100%;
 								<input type="hidden" name="section" value="Q">
 								<input type="submit" id="search" value="+더보기" class="" />
 							</form>
-
-<%-- 						<c:if test="${ qqCnt > 5 }">
-							<form action="/questions/myList">
-								<input type="hidden" name="userno" value="${ user.userno }">
-								<input type="hidden" name="section" value="Q">
-								<input type="submit" id="search" value="+더보기" class="" />
-							</form>
-						</c:if>
- --%>					</span>
+					</span>
 				</div>
 	                   
 	            <ul style="height: 100px;">
@@ -213,15 +376,7 @@ width: 100%;
 								<input type="hidden" name="section" value="A">
 								<input type="submit" id="search" value="+더보기" class="" />
 							</form>
-
-<%-- 	                	<c:if test="${ aCnt > 5 }">
-	                		<form action="/questions/myList">
-								<input type="hidden" name="userno" value="${ user.userno }">
-								<input type="hidden" name="section" value="A">
-								<input type="submit" id="search" value="+더보기" class="" />
-							</form>
-						</c:if>
- --%>					</span>
+					</span>
 				</div>
 	            <ul style="height: 100px;">
 	            	<c:forEach var="list" items="${ aList }" varStatus="status">
@@ -453,8 +608,6 @@ width: 100%;
 </div>
 <div id="bg_fix" style="display: none;" class="popup "></div>
   
-
-          
 
 
 <!-- FLOT CHARTS -->
