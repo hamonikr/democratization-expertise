@@ -1,7 +1,0 @@
-2020-07-01 18:41:31,018 [Worker-0: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
-2020-07-01 18:42:22,956 [Worker-1: Updating Maven Dependencies] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: com:de-home:0.0.1-SNAPSHOT @ /home/hamonikr/Projects/de-community-git/pom.xml.
-2020-07-01 18:42:27,748 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
-2020-07-01 18:42:27,756 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
-2020-07-01 18:42:27,774 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1109 resources
-2020-07-01 18:42:28,252 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
-2020-07-01 18:42:28,252 [Worker-2: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
