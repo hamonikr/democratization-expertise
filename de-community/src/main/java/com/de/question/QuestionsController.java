@@ -141,7 +141,7 @@ public class QuestionsController {
 		
 		
 		// slack 연동 추가
-		nu.setUsername(user.getUsername());
+		nu.setUsername(vo.getUserno().toString());
 		nu.setSection("questions/view/");
 		nu.setTitle(vo.getTitle());
 		nu.setSeq(vo.getQuestionno());

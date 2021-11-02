@@ -38,8 +38,7 @@
               <div class="mT20 mB10">- SNS 계정으로 로그인하기 -</div>
               <ul class="login-in3">
 <!--                 <li><a href="#"><img src="/img/join_kakao.png" alt="kakao"></a></li> -->
-                <li><a href="/login/form/web" class="btn_social"> <img src="/img/join_google.png" alt="google"></a></li>
-                <li><a href="/login/form/app" class="btn_social"> <img src="/img/join_google.png" alt="google"></a></li>
+                <li><a href="/login/google" class="btn_social"> <img src="/img/join_google.png" alt="google"></a></li>
 <!--                 <li><a href="#"><img src="/img/join_naver.png" alt="naver"></a></li> -->
                 <li><a href="/login/github" class="btn_social" data-social="github"><img src="/img/join_github.png" alt="github"></a></li>
               </ul>
