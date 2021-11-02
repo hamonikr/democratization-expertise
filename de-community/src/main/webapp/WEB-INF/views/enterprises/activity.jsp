@@ -95,7 +95,7 @@
                     	질문 (${ qCnt })
                     	<span class="more">
 							<form action="/questions/myListEnter">
-								<input type="hidden" name="userno" value="${ enterprise.enterpriseno }">
+								<input type="hidden" name="userno" value="${ enterprise.userno }">
 								<input type="hidden" name="section" value="Q">
 								<!--<button type="submit" class="btn-primary btn-xs" >+더보기</button> -->
 								<input type="submit" id="search" value="+더보기" class="" />
@@ -128,7 +128,7 @@
                     	답변 (${ aCnt })
                     	<span class="more">
 							<form action="/questions/myListEnter">
-								<input type="hidden" name="userno" value="${ enterprise.enterpriseno }">
+								<input type="hidden" name="userno" value="${ enterprise.userno }">
 								<input type="hidden" name="section" value="A">
 								<input type="submit" id="search" value="+더보기" class="" />
 							</form>
