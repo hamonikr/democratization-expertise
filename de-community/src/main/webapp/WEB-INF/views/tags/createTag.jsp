@@ -4,19 +4,19 @@
  
  
 <!-- jquery-validation -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="/plugins/jquery-validation/additional-methods.min.js"></script>
-<script src="/plugins/jquery-validation/jquery.validate.min.js"></script> 
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<!-- <script src="/plugins/jquery-validation/additional-methods.min.js"></script> -->
+<!-- <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>  -->
 
-<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script src="https://uicdn.toast.com/editor/2.4.0/toastui-editor-all.min.js"></script>
 <script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.js"></script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
-<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/2.4.0/toastui-editor.min.css" />
  <!-- Select2 -->
 <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
 <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-<link rel="stylesheet" href="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.css"/>
+<link rel="stylesheet" href="https://uicdn.toast.com/tui-color-picker/2.4.0/tui-color-picker.min.css"/>
 
 <style>
 .invalid-feedback{
@@ -55,14 +55,14 @@
 						</div>
 						<script class="code-js">
 							 const { Editor } = toastui;
-							 const { colorSyntax } = Editor.plugin;
+							 //const { colorSyntax } = Editor.plugin;
 							 
 	                      var editor = new Editor({
 	                      el : document.querySelector( '#editor' ),
 	                      initialEditType : 'wysiwyg',
 	                      previewStyle : 'vertical',
 	                      height : '400px',
-	                      plugins: [colorSyntax],
+	                      //plugins: [colorSyntax],
 	                      placeholder: '설명을 입력해주세요.',
 	                      color:''
 	                      });

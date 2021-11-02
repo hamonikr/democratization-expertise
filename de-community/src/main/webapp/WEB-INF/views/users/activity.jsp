@@ -4,9 +4,9 @@
 <!-- tui chart -->
 <link rel="stylesheet" type="text/css" href="/tui-chart/tui-chart.css" />
 
-<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script src="https://uicdn.toast.com/editor/2.4.0/toastui-editor-all.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
-<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/2.4.0/toastui-editor.min.css" />
 
 <!-- chartJS -->
 <script src="/chartjs/dist/Chart.js"></script>

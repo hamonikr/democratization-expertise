@@ -22,7 +22,7 @@
 	<repositories> 
 		<repository>
             <id>egovframe</id>
-            <url>http://maven.egovframe.kr:8080/maven/</url>
+            <url>https://maven.egovframe.kr/maven</url>
             <releases>
                 <enabled>true</enabled>
             </releases>

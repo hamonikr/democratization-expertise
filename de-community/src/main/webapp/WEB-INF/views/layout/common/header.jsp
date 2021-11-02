@@ -41,7 +41,7 @@ width: 500px;
     background-color: #FFFFFF;
 }
 </style>
-<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+<!-- <script type="text/javascript" src="/js/jquery-ui.min.js"></script> -->
 <header class="topbar">
 	<nav class="navbar top-navbar navbar-expand-md">
 

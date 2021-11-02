@@ -2,9 +2,9 @@
 <%@ include file="/WEB-INF/views/include/taglibs.jsp"%>
 
 <!-- tui editor-->
-<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script src="https://uicdn.toast.com/editor/2.4.0/toastui-editor-all.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
-<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/2.4.0/toastui-editor.min.css" />
 
 <style>
 
@@ -47,7 +47,7 @@ color: rgb(0,0,0);
     
     <div class="list-right">
     	<div class="board-search inblock mR10 mT10">
-    		<input type="text" name="" id="" placeholder="!!개발영역">
+    		<input type="text" name="" id="" placeholder="Search">
 <!--     		<input type="text" name="" id="" placeholder="Search"> -->
     		<button type="button"><i class="mdi mdi-magnify"></i> </button>
 		</div>
