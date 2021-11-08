@@ -1,5 +1,6 @@
 package com.de.user.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.de.enterprise.Enterprises;
@@ -26,4 +27,6 @@ public interface UsersMapper {
 	public List<Users> getList(Users vo) throws Exception;
 	public int getListCount(Users vo) throws Exception;
 	public Users getView(int userno) throws Exception;
+
+	public List<HashMap <String, Object>> getMontlyActivity(int firstuserno);
 }

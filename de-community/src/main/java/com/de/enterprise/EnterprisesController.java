@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.de.answer.Answers;
 import com.de.answer.AnswersService;
 import com.de.cmmn.util.CodeMessage;
+import com.de.enterprise.mapper.EnterprisesMapper;
 import com.de.login.service.SecurityMember;
 import com.de.login.vo.LoginVO;
 import com.de.question.Questions;
@@ -72,6 +73,9 @@ public class EnterprisesController {
 	@Autowired
 	EnterprisesRepository repository;
 
+	@Autowired
+	EnterprisesMapper enterprisesMapper;
+	
 	/**
 	 * 기업회원 활동정보 대시보드
 	 * @param model
@@ -104,6 +108,10 @@ public class EnterprisesController {
 		UsersDetail vo = new UsersDetail();
 
 		vo.setEnterpriseno(seq);
+		// vo.setUserno(enterprisesMapper.getUsernoByEnterpriseno(seq));
+		// System.out.println("==========================");
+		// System.out.println("회사계정의 유저 번호 : "+ vo.getUserno());
+	
 
 		// 평판점수
 		Integer score = service.getScore(seq);

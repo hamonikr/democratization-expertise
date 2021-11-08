@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/2.4.0/toastui-editor.min.css" />
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 .profile-info .graph2 {
@@ -40,6 +41,71 @@
     background-repeat:no-repeat;
     border: none;
 }
+
+
+.nav-name {
+   padding: 0.5rem 1rem;
+   margin-left: auto;
+   color:#242729;
+   font-weight: 500px;
+   font-size: 20px;
+   color:#183b9c; 
+   padding-bottom: 10px;
+   padding-right: 70px;
+   
+}
+
+.img-p{
+	display: block;
+    width: 70px;
+    height: auto;
+    border-radius: 6px;
+    margin-right: 20px;
+    margin-left: auto;
+    
+}
+
+
+.container-a{
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	row-gap: 20px;
+}
+
+
+.container-box{
+
+	border:1px solid #d6d9dc;
+	background-color: #fff;
+	border-radius: 5px;
+	width:95%;
+	margin-top: 10px;
+}
+
+.container-box-input{
+	border:1px solid #d6d9dc;
+	border-radius: 5px;
+}
+
+.container-box > canvas{
+	margin-top: -5px;
+	padding-right: 18px;
+}
+
+.container-box .row{
+	margin-left: 15px;
+	padding-bottom: 15px;
+	
+}
+
+.container-a > .row{
+	padding-left: 15px;
+	padding-bottom: 10px;	
+}
+.url{
+	margin-left: 10px;
+}
+
 </style>	
 
 <div class="content-center">
@@ -55,40 +121,54 @@
 		<li class="nav-item">
 		   	<a class="nav-link" id="custom-tabs-three-members-tab" data-toggle="pill" href="#custom-tabs-three-members" role="tab" aria-controls="custom-tabs-three-members" aria-selected="false">Members</a>
 		</li>
+
+		<li class="nav-item nav-name"> 
+			<p class="myname">${enterprise.enterprisename}</p>
+		</li>
+
+		<li class="nav-item"> 
+			<div>
+				<c:if test="${enterprise.enterpriseimg != null && enterprise.enterpriseimg != ''}">
+					<img alt="profile" src="/upload/enterprises/${enterprise.enterpriseimg}" id="profileImg" class="img" width="100%"><br/>
+				</c:if>
+			</div>
+		</li>		
 	</ul>
 	
 	
 <div class="tab-content" id="custom-tabs-three-tabContent">
+<!-- activity layer -->
 
 	<div class=" tab-pane fade active show con-box" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
-		<div class="profile-con">
-			<div class="profile-photo">
-				<c:if test="${enterprise.enterpriseimg != null && enterprise.enterpriseimg != ''}">
-					<img alt="profile" src="/upload/enterprises/${enterprise.enterpriseimg}" id="profileImg" class="img" width="100%"><br/>
-				</c:if>
-				<%-- <c:if test="${enterprise.enterpriseimg == null || enterprise.enterpriseimg == ''}">
-					<img alt="profile" src="/img/user_over.png" id="profileImg" class="img" width="100%"><br/>
-				</c:if> --%>
-									
-	            <span class="level"><img src="/img/level_gold.png" alt=""></span>
-	            <span class="url">홈페이지:<a href="${enterprise.enterpriseurl }" target="_blank">${enterprise.enterpriseurl }</a></span>
+	<div class="container-a">
+		<div class="row">
+
+		<div class="container-box">
+			<h4 class="row">  
+				<p class="score">평판 : <span>${score}</span> <a href="/wiki/helpview/140/h"><i class="mdi mdi-information"></i></a></p>
+			</h4>
+				<canvas class="row" id="myChart" width="80%" height="28%"></canvas>
+		</div>
+	</div>
+	<div class="row">
+			<div class="container-box">
+				<h4 class="row"> 활동</h4>
+				<div class="row">
+					<p> 총 작성글 수 : ${qqCnt + aCnt + tCnt + wCnt} </p>
+				</div>	 
+				<div class="row">
+					<p> 총 채택답변  : ${selectedCnt} </p>
+				</div>
 			</div>
-	            
-	        <div class="profile-info">
-	        	<p class="myname">${enterprise.enterprisename}</p>
-	            <p class="myintro">${enterprise.enterpriseabout}</p>
-				<ul class="info-detail">
-	            	<li class="graph2"><div id="chart-area"></div></li>
-	                <li>
-		            	<p class="score">평판 : <span>${ score }</span></p>
-		                <p class="myinfo">현재레벨 : <span>1등</span> <br> 다음레벨 : <span>2등</span></p>
-		                <p class="myinfo"><span>+9999</span> <br> <span>-250</span> </p>
-		                <p class="myinfo">질문 : <span>${ qCnt }</span> <br> 답변 : <span>${ aCnt }</span></p>
-					</li>
-				</ul>
-			</div>
-	            
-	        <div class="mywrit-con">
+			<div class="container-box">
+				<h4 class="row"> 홈페이지</h4>
+				<a class="url" href="http://${enterprise.enterpriseurl}">${enterprise.enterpriseurl}</a>	
+			</div>	
+		</div>
+
+		
+	</div> 
+			<div class="mywrit-con">
 			<!-- // 질문 -->
             	<div class="mywrit">
                 	<div class="mytitle">
@@ -97,19 +177,9 @@
 							<form action="/questions/myListEnter">
 								<input type="hidden" name="userno" value="${ enterprise.userno }">
 								<input type="hidden" name="section" value="Q">
-								<!--<button type="submit" class="btn-primary btn-xs" >+더보기</button> -->
 								<input type="submit" id="search" value="+더보기" class="" />
 							</form>
 
-<%--                     	<c:if test="${ qCnt > 5 }">
-							<form action="/questions/myListEnter">
-								<input type="hidden" name="userno" value="${ enterprise.enterpriseno }">
-								<input type="hidden" name="section" value="Q">
-								<!--<button type="submit" class="btn-primary btn-xs" >+더보기</button> -->
-								<input type="submit" id="search" value="+더보기" class="" />
-							</form>
-						</c:if>
- --%>
                     	</span>
                   	</div>
                   	<ul>
@@ -132,15 +202,7 @@
 								<input type="hidden" name="section" value="A">
 								<input type="submit" id="search" value="+더보기" class="" />
 							</form>
-
-<%--                     		<c:if test="${ aCnt > 5 }">
-							<form action="/questions/myListEnter">
-								<input type="hidden" name="userno" value="${ enterprise.enterpriseno }">
-								<input type="hidden" name="section" value="A">
-								<input type="submit" id="search" value="+더보기" class="" />
-							</form>
-							</c:if>
- --%>                    	</span>
+                  	</span>
                   	</div>
 					<ul>
                			<c:forEach var="list" items="${ aList }" varStatus="status">
@@ -162,7 +224,6 @@
 						<form action="/questions/myList">
 							<input type="hidden" name="userno" value="${ user.userno }">
 							<input type="hidden" name="type" value="A">
-<!-- 							<button type="submit" class="btn" >+더보기</button> -->
 							<input type="submit" id="search" value="+더보기" class="" />
 						</form>
 						</c:if>
@@ -184,7 +245,6 @@
 								<form action="/questions/myList">
 									<input type="hidden" name="userno" value="${ user.userno }">
 									<input type="hidden" name="type" value="A">
-<!-- 									<button type="submit" class="btn" >더보기</button> -->
 									<input type="submit" id="search" value="+더보기" class="" />
 								</form>
 							</c:if>
@@ -198,9 +258,7 @@
                 </div>
 			</div>
               
-		</div>
-		<div class="mywrite-com"></div>
-		
+		<div class="mywrite-com"></div>		
 	</div>
 	
 	<div class="tab-pane fade con-box" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
@@ -336,7 +394,6 @@
 								</c:if>
 								<span class="name"><a href="/users/activity/${useratCompy.userno}">${useratCompy.username}</a></span>
                   				<span class="reputation">평판</span>
-	<%--                   <span>${useratCompy.representat }ss</span> --%>
 								</a>
 							<c:if test="${isMypage == true}">
 								<div class="active">
@@ -641,42 +698,117 @@ $.ajax({
 		console.log(xhr, status, error);
 	}
 });
+var today = new Date();
 
-var container = document.getElementById('chart-area');
-var data = {
-    categories: monthArr.reverse(),
-    series: [
-        {
-            name: 'Score',
-            data: score
-        }
-    ]
-};
-var options = {
-    chart: {
-        width: 300,
-        height: 220,
-        format: '1,000'
-    },
-    yAxis: {
-        title: 'Score',
-        min: 0
-    },
-    xAxis: { title: 'Month' },
-	legend: { align: 'top' }
-};
-var theme = {
-    series: {
-        colors: [
-            '#83b14e', '#458a3f', '#295ba0', '#2a4175', '#289399',
-            '#289399', '#617178', '#8a9a9a', '#516f7d', '#dddddd'
-        ]
-    }
-};
+var year = today.getFullYear();
+var month = ('0' + (today.getMonth() + 1)).slice(-2);
+console.log("month : "+month);
+
+var month_label = [];
+
+for(i=0;i<6;i++){
+	month_label.push(month-5 +i+'월');
+	
+}
+console.log("month_label : "+month_label);
+console.log("score : "+score);
+
+var ctx = document.getElementById('myChart');
+		
+
+		var myChart = new Chart(ctx, {
+		    type: 'line',
+		    data: {
+		        labels: month_label ,
+		        datasets: [{
+		            label: '평판',
+					// type: line,
+					fill:true,
+		            data: score,
+		            backgroundColor: [
+		                'rgba(255, 99, 132, 0.2)',
+		                'rgba(54, 162, 235, 0.2)',
+		                'rgba(255, 206, 86, 0.2)',
+		                'rgba(75, 192, 192, 0.2)',
+		                'rgba(153, 102, 255, 0.2)',
+		                'rgba(255, 159, 64, 0.2)'
+		            ],
+		            borderColor: [
+		                'rgba(255, 99, 132, 1)',
+		                'rgba(54, 162, 235, 1)',
+		                'rgba(255, 206, 86, 1)',
+		                'rgba(75, 192, 192, 1)',
+		                'rgba(153, 102, 255, 1)',
+		                'rgba(255, 159, 64, 1)'
+		            ],
+		            borderWidth: 1
+					,tickColor:'rgb(255, 255, 255)'
+		        }]
+		    },
+		    options: {
+				scales: {
+					x: {
+						display: true,
+						ticks: {
+								major: {
+								enabled: true
+								},
+								color: (context) => context.tick && context.tick.major && '#FF0000',
+								font: function(context) {
+									if (context.tick && context.tick.major) {
+										return {
+										weight: 'bold'
+										};
+									}
+								}
+							}
+						},
+					y: {
+						display: true,
+						ticks: {
+							beginAtZero : true						}
+						,min: 0
+					}
+				}
+			}
+				
+		});
+
+// var container = document.getElementById('chart-area');
+// var data = {
+//     categories: monthArr.reverse(),
+//     series: [
+//         {
+//             name: 'Score',
+//             data: score
+//         }
+//     ]
+// };
+// var options = {
+//     chart: {
+//         width: 300,
+//         height: 220,
+//         format: '1,000'
+//     },
+//     yAxis: {
+//         title: 'Score',
+//         min: 0
+//     },
+//     xAxis: { title: 'Month' },
+// 	legend: { align: 'top' }
+// };
+// var theme = {
+//     series: {
+//         colors: [
+//             '#83b14e', '#458a3f', '#295ba0', '#2a4175', '#289399',
+//             '#289399', '#617178', '#8a9a9a', '#516f7d', '#dddddd'
+//         ]
+//     }
+// };
 // For apply theme
 // tui.chart.registerTheme('myTheme', theme);
 // options.theme = 'myTheme';
-tui.chart.columnChart(container, data, options);
+// tui.chart.columnChart(container, data, options);
 </script>
 
 <!--For tutorial page-->

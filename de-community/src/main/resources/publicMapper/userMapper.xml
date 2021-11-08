@@ -358,4 +358,18 @@ update tb_users_detail set wikicount = wikicount +1 where userno = #{userno}
 select count(*) from tb_login_history where userid=#{userid} and logintime::date = now()::date
 </select>
 
+
+<select id="getMontlyActivity" parameterType="Integer" resultType="java.util.HashMap">
+SELECT 
+	COUNT(*) as count, 
+	to_char(ta.registerdate, 'YYYY-MM') as registerdate
+ FROM 
+	tb_questions ta left outer join tb_answers tb on ta.firstuserno = tb.userno 
+ WHERE 
+	ta.firstuserno = #{firstuserno} and ta.registerdate <![CDATA[ >= ]]>  '2020-01-01' and ta.registerdate <![CDATA[ < ]]> '2022-01-01'
+ GROUP BY 
+	to_char(ta.registerdate, 'YYYY-MM')
+ORDER BY registerdate;
+</select>
+
 </mapper>

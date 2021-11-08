@@ -28,6 +28,12 @@
 	<collection property="usersDetail" resultMap="usersDetailMap" />
 </resultMap>
 
+<select id="getUsernoByEnterpriseno">
+	select userno
+	from tb_enterprises
+	where enterpriseno = #{enterpriseno}
+</select>
+
 
 <update id="updateEnterprises" parameterType="com.de.enterprise.Enterprises">
 UPDATE

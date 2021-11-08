@@ -45,4 +45,6 @@ public interface EnterprisesMapper {
 
 	public int getQuestionListCnt(Questions vo);
 
+	public int getUsernoByEnterpriseno(int vo);
+
 }

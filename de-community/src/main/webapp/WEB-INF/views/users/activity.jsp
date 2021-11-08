@@ -8,43 +8,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/2.4.0/toastui-editor.min.css" />
 
-<!-- chartJS -->
-<script src="/chartjs/dist/Chart.js"></script>
-<link rel="stylesheet" type="text/css" href="/chartjs/dist/Chart.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style type="text/css">
-/* .pop-layer .card-header { padding: 1em 1.5em } */
-/* .pop-layer .card-body { height: 220px } */
-/* .card-footer { text-align: center } */
-
-/* .profileLeftDiv { text-align: center; } */
-
-/* .newslatrDiv span{ vertical-align: middle } */
-/* .ck_newslater {  */
-/* 	vertical-align: middle; */
-/* 	height: 20px; */
-/* 	width: 20px;  */
-/* } */
-
-/* .pop-layer { */
-/* 	position: absolute; */
-/* 	top: 20%; */
-/* 	min-width: 380px; */
-/* 	width: 380px; */
-/* } */
-/* .profile-info .graph2 { */
-/*     border: 1px solid #e3ebf4; */
-/*     border-radius: 3px; */
-/*     height: 220px; */
-/*     margin-right: 20px; */
-/* } */
-
-/* #popupPwAlter {  */
-/* 	width: 100%; */
-/* 	margin-top: -0.25rem; */
-/* 	font-size: 80%; */
-/* 	color: #da542e; */
-/* } */
 .nav-tabs .nav-link.active {
 	font-weight: 500;
     background: #2d096a;
@@ -124,17 +90,21 @@ width: 100%;
     
 }
 
+
 .container-a{
 	display: grid;
-	grid-template-columns: repeat(3,1fr);
-	grid-auto-rows: 150px;	
-	gap: 30px;
+	grid-template-columns: 2fr 1fr;
+	row-gap: 20px;
 }
 
+
 .container-box{
+
 	border:1px solid #d6d9dc;
-	background-color: #eff0f1;
+	background-color: #fff;
 	border-radius: 5px;
+	width:95%;
+	margin-top: 10px;
 }
 
 .container-box-input{
@@ -143,21 +113,26 @@ width: 100%;
 }
 
 .container-box > canvas{
-	padding-left: 12px;
+	margin-top: -5px;
+	padding-right: 18px;
 }
 
 .container-box > .row{
-	padding-left: 15px;
+	margin-left: 15px;
 	padding-bottom: 15px;
 	
 }
 
-.col > .row{
+.container-a > .row{
 	padding-left: 15px;
-	padding-bottom: 10px;
-	
+	padding-bottom: 10px;	
 }
+.level{
+	margin-top: 5px;
+	margin-left: 15px;
+	margin-bottom: 5px;
 
+}
 
 </style>
 
@@ -192,144 +167,71 @@ width: 100%;
 	
 <div class="tab-content" id="custom-tabs-three-tabContent">
 <!-- activity layer -->
-	<div class=" tab-pane fade active show con-box" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
+<div class=" tab-pane fade active show con-box" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
+	<div class="container-a">
+		<div class="row">
+			
+			<div class="container-box">
+			<h4 class="row">  
+				<p class="score">평판 : <span>${score}</span> <a href="/wiki/helpview/140/h"><i class="mdi mdi-information"></i></a></p>
+			</h4>
 
-<%--		<div class="profile-con">
-			<div class="mywrit">
+					<canvas class="row" id="myChart" width="80%" height="28%"></canvas>
 			</div>
-  		<p class="myname"> ${user.username}</p>
-			<div class="profile-photo">
-				<c:if test="${ user.userprofileimg != null and user.userprofileimg != ''}">
-					<img alt="profile" src="/upload/users/${user.userprofileimg}" id="profileImg" class="img" width="100%"><br/>
-				</c:if>
-				<c:if test="${user.userprofileimg == null and user.picture == null}">
-					<img alt="profile" src="/img/profile_01.png" id="profileImg" class="img" width="100%"><br/>
-				</c:if>
-				<c:if test="${user.userprofileimg == null and user.picture != null}">
-					<img alt="profile" src="${user.picture}" id="profileImg" class="img" width="100%"><br/>
-				</c:if>
+		</div>
+		<div class="row">
+
+			<div class="container-box">
+			<div class="level">
 				<%@ include file="/WEB-INF/views/users/level.jsp" %>
-				<span class="url">홈페이지:<a href="${user.userurl}" target="_blank">${user.userurl}</a></span>
 			</div>
-
-             <div class="profile-info">
-            	<p class="myname"> ${user.username}</p>
-				<p class="myintro">${user.aboutme}</p>
-                <ul class="info-detail">
-                	<li class="graph2"><div id="chart-area"></div></li>
-                    <li>
-                    	<p class="score">평판 : <span>${score}</span> <a href="/wiki/helpview/140/h"><i class="mdi mdi-information"></i></a></p>
-                      	<!-- <p class="myinfo">현재레벨 : <span>1등</span> <br> 다음레벨 : <span>2등</span></p> -->
-                      	<p class="myinfo">좋아요 : <br> 싫어요 : </p>
-                      	<p class="myinfo"><span>+${user.vote.likes}</span> <br> <span>-${user.vote.dislikes}</span> </p>
-                      	<p class="myinfo">질문 : <span>${ qCnt }</span> <br> 답변 : <span>${ aCnt }</span></p>
-                      	<p class="myicon">
-                      	<%@ include file="/WEB-INF/views/users/logindays.jsp" %>
-                      	<%@ include file="/WEB-INF/views/users/questioncount.jsp" %>
+			<h4 class="row"> 배지</h4>
+				<div class="row">
+					<div class="col">
+						<h5> 출석 달성</h5>
+						<%@ include file="/WEB-INF/views/users/logindays.jsp" %>
+					</div>
+					<div class="col">
+						<h5> 질문 달성</h5>
+						<%@ include file="/WEB-INF/views/users/questioncount.jsp" %>
+					</div>
+					<div class="col">
+						<h5> 답변 달성</h5>
 						<%@ include file="/WEB-INF/views/users/answercount.jsp" %>
+					</div>
+					<div class="col">
+						<h5> 채택 달성</h5>
 						<%@ include file="/WEB-INF/views/users/selectedanswercount.jsp" %>
-                      	</p>
-                    </li>
-				</ul>
+					</div>
+				</div>
 			</div>
- --%>
-           <div class="container-a">
-            	<div class="container-box">
- 			  		<h4 class="row">  
- 			  			<p class="score">평판 : <span>${score}</span> <a href="/wiki/helpview/140/h"><i class="mdi mdi-information"></i></a></p>
- 					</h4>
- 					<canvas class="row" id="myChart" width="190" height="60"></canvas>
-			 	</div>
-             	<div class="container-box">
-             		<h4 class="row"> 배지</h4>
-             		<div class="row">
-             			<div class="col">
-	             			<h5> 출석 달성</h5>
-	                     <%@ include file="/WEB-INF/views/users/logindays.jsp" %>
-                     </div>
-                     <div class="col">
-	                     <h5> 질문 달성</h5>
-	                     <%@ include file="/WEB-INF/views/users/questioncount.jsp" %>
+			
+			<div class="container-box">
+				<div class="row">
+					<div class="col">
+						<h4 class="row">활동 내역</h4>
+						<div class="row">
+							<p> 총 작성글 수 : ${qqCnt + aCnt + tCnt + wCnt} </p>
+						</div>	 
+						<div class="row">
+							<p> 총 채택답변  : ${selectedCnt} </p>
 						</div>
-						<div class="col">
-							<h5> 답변 달성</h5>
-	                     <%@ include file="/WEB-INF/views/users/answercount.jsp" %>
-                     </div>
-                     <div class="col">
-							<h5> 채택 달성</h5>
-	                     <%@ include file="/WEB-INF/views/users/selectedanswercount.jsp" %>
-	                 </div>
-	               </div>
-	               <div class="row">
-		               <%@ include file="/WEB-INF/views/users/level.jsp" %>
-					 </div>
-            	</div>	
-            	<div class="container-box row">
-             		<div class="col">
-	             		<h4 class="row"> 영향 </h4>
-	             		<div class="row">
-	             			<p> 총 작성글 수 : 323</p>
-	             			<p> 총 채택답변  : 33</p>
-	             		</div>
-             		</div>
-             		<div class="col">
-							<h4 class="row"> &nbsp; </h4>
-		             		<div class="row">
-	             			<p class="myinfo">좋아요 : <br> 싫어요 : </p>
-	                  	<p class="myinfo"><span> &nbsp;+${user.vote.likes}</span> <br>&nbsp; <span>-${user.vote.dislikes}</span> </p>
-	                     <p class="myinfo">&nbsp;&nbsp;&nbsp;질문 : <span>${ qCnt }</span> <br>&nbsp;&nbsp; 답변 : <span>${ aCnt }</span></p>
-	                 	</div>
-                 </div>
-            	</div>
-          	</div>
-<!--            <div class="container-a">
- 				<h4> 홈페이지 </h4>
- 			</div> -->
- 		<!-- //profile-con -->
-		
-		<!-- chartJS -->
-		<script>
-		var ctx = document.getElementById('myChart');
-		var myChart = new Chart(ctx, {
-		    type: 'line',
-		    data: {
-		        labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-		        datasets: [{
-		            label: '평판',
-		            data: [12, 19, 3, 5, 2, 3, 5, 6, 7, 11, 5, 4],
-		            backgroundColor: [
-		                'rgba(255, 99, 132, 0.2)',
-		                'rgba(54, 162, 235, 0.2)',
-		                'rgba(255, 206, 86, 0.2)',
-		                'rgba(75, 192, 192, 0.2)',
-		                'rgba(153, 102, 255, 0.2)',
-		                'rgba(255, 159, 64, 0.2)'
-		            ],
-		            borderColor: [
-		                'rgba(255, 99, 132, 1)',
-		                'rgba(54, 162, 235, 1)',
-		                'rgba(255, 206, 86, 1)',
-		                'rgba(75, 192, 192, 1)',
-		                'rgba(153, 102, 255, 1)',
-		                'rgba(255, 159, 64, 1)'
-		            ],
-		            borderWidth: 1
-		        }]
-		    },
-		    options: {
-		        scales: {
-		            yAxes: [{
-		                ticks: {
-		                    beginAtZero: true
-		                }
-		            }]
-		        }
-		    }
-		});
-		</script>
-
-
-
+					</div>
+					<div class="col">
+						<div class="row">
+							&nbsp;
+						</div>
+						<div class="row">
+						좋아요 :  &nbsp;+${user.vote.likes}
+						</div>
+						<div class="row">
+						싫어요 :  &nbsp;-${user.vote.dislikes}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> 
 
 
 		<div class="mywrit-con">
@@ -349,7 +251,6 @@ width: 100%;
 	            	<c:forEach var="list" items="${ qqList }" varStatus="status">
 					<li>
 						<span class="up" style="width: 30px;"><i class="mdi " ></i>Q.</span>
-	<!-- 							<span class="up"><i class="mdi mdi-arrow-up"></i>90</span> -->
 					 	<a href="/questions/view/${ list.questionno }">
 							<c:choose>
  						          <c:when test="${fn:length(list.title) > 50 }">
@@ -826,6 +727,7 @@ var list = '';
 var userno = $('form[name=frm] input[name=userno]').val();
 var token = $("meta[name='_csrf']").attr("content");
 var header = $("meta[name='_csrf_header']").attr("content");
+		console.log("getScoregraph")
 
 $.ajax({
 	url			: '/users/getScoregraph',
@@ -836,8 +738,11 @@ $.ajax({
 		xhr.setRequestHeader(header, token);
 	},
 	success	: function(data){
+		console.log("getScoregraph")
 		list = data.list.split(',');
 		for (var i = 0; i < 6; ++i) {
+				console.log("list : "+list)
+	
 			score.push(list[5-i]); // [month, value]
 		}
 	},
@@ -845,41 +750,118 @@ $.ajax({
 	  console.log(xhr, status, error);
 	}
 });
-var container = document.getElementById('chart-area');
-var data = {
-    categories: monthArr.reverse(),
-    series: [
-        {
-            name: 'Score',
-            data: score
-        }
-    ]
-};
-var options = {
-    chart: {
-        width: 350,
-        height: 200,
-        format: '1,000'
-    },
-    yAxis: {
-        title: 'Score',
-        min: 0
-    },
-    xAxis: { title: 'Month' },
-	legend: { align: 'top' }
-};
-var theme = {
-    series: {
-        colors: [
-            '#83b14e', '#458a3f', '#295ba0', '#2a4175', '#289399',
-            '#289399', '#617178', '#8a9a9a', '#516f7d', '#dddddd'
-        ]
-    }
-};
+var today = new Date();
+
+var year = today.getFullYear();
+var month = ('0' + (today.getMonth() + 1)).slice(-2);
+console.log("month : "+month);
+
+var month_label = [];
+
+for(i=0;i<6;i++){
+	month_label.push(month-5 +i+'월');
+	
+}
+console.log("month_label : "+month_label);
+console.log("score : "+score);
+
+var ctx = document.getElementById('myChart');
+		
+
+		var myChart = new Chart(ctx, {
+		    type: 'line',
+		    data: {
+		        labels: month_label ,
+		        datasets: [{
+		            label: '평판',
+					// type: line,
+					fill:true,
+		            data: score,
+		            backgroundColor: [
+		                'rgba(255, 99, 132, 0.2)',
+		                'rgba(54, 162, 235, 0.2)',
+		                'rgba(255, 206, 86, 0.2)',
+		                'rgba(75, 192, 192, 0.2)',
+		                'rgba(153, 102, 255, 0.2)',
+		                'rgba(255, 159, 64, 0.2)'
+		            ],
+		            borderColor: [
+		                'rgba(255, 99, 132, 1)',
+		                'rgba(54, 162, 235, 1)',
+		                'rgba(255, 206, 86, 1)',
+		                'rgba(75, 192, 192, 1)',
+		                'rgba(153, 102, 255, 1)',
+		                'rgba(255, 159, 64, 1)'
+		            ],
+		            borderWidth: 1
+					,tickColor:'rgb(255, 255, 255)'
+		        }]
+		    },
+		    options: {
+				scales: {
+					x: {
+						display: true,
+						ticks: {
+								major: {
+								enabled: true
+								},
+								color: (context) => context.tick && context.tick.major && '#FF0000',
+								font: function(context) {
+									if (context.tick && context.tick.major) {
+										return {
+										weight: 'bold'
+										};
+									}
+								}
+							}
+						},
+					y: {
+						display: true,
+						ticks: {
+							beginAtZero : true						}
+						,min: 0
+					}
+				}
+			}
+				
+		});
+
+
+// var container = document.getElementById('chart-area');
+// var data = {
+//     categories: monthArr.reverse(),
+//     series: [
+//         {
+//             name: 'Score',
+//             data: score
+//         }
+//     ]
+// };
+// var options = {
+//     chart: {
+//         width: 350,
+//         height: 200,
+//         format: '1,000'
+//     },
+//     yAxis: {
+//         title: 'Score',
+//         min: 0
+//     },
+//     xAxis: { title: 'Month' },
+// 	legend: { align: 'top' }
+// };
+// var theme = {
+//     series: {
+//         colors: [
+//             '#83b14e', '#458a3f', '#295ba0', '#2a4175', '#289399',
+//             '#289399', '#617178', '#8a9a9a', '#516f7d', '#dddddd'
+//         ]
+//     }
+// };
 // For apply theme
 // tui.chart.registerTheme('myTheme', theme);
 // options.theme = 'myTheme';
-tui.chart.columnChart(container, data, options);
+// tui.chart.columnChart(container, data, options);
 </script>
 
 <!--For tutorial page-->

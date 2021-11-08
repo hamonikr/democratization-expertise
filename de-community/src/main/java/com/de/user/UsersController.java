@@ -32,6 +32,7 @@ import com.de.enterprise.Enterprises;
 import com.de.login.service.SecurityMember;
 import com.de.login.vo.LoginVO;
 import com.de.question.Questions;
+import com.de.user.mapper.UsersMapper;
 import com.de.wiki.Wiki;
 
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
@@ -50,6 +51,8 @@ public class UsersController {
 	@Autowired
 	UsersRepository repository;
 
+	@Autowired
+	UsersMapper userMapper;
 	/**
 	 * 사용자 활동정보 대시보드
 	 * @param model
@@ -95,7 +98,6 @@ public class UsersController {
 		if (score == null)
 			score = 0;
 
-		// 평판 그래프 데이터
 
 		// 질문
 		//int qCnt = usersService.cntQuestionsById(userno);
@@ -138,6 +140,8 @@ public class UsersController {
 		}
 
 		// System.out.println("1==========++"+ users.get().getUserprofileimg());
+		System.out.println(" qqList.getTotalElements() "+ qqList.getTotalElements());
+
 		model.addAttribute("user", users); // 프로필 정보
 		model.addAttribute("isMypage", isUserNo); // 내 정보 유무
 		model.addAttribute("enterprise", enterprise); // 회사명 정보
@@ -286,9 +290,6 @@ public class UsersController {
 
 		vo.setUserno(loginUserData.getUserno());
 
-		System.out.println("pw? -- > oldone : " + vo.getUserpassword());
-		System.out.println("pw? -- > newone : " + vo.getUserpasswordnew());
-
 		boolean updateVal = false;
 
 		updateVal = usersService.updateUserPw(vo);
@@ -356,8 +357,6 @@ public class UsersController {
 		for (int i = 0; i < list.size(); i++) {
 			System.out.println("enter====" + list.get(i).getEnterprisename());
 		}
-//		if(updateVal) map.put("message", CodeMessage.MSG_000014_변경_되었습니다_);
-//		else map.put("message", CodeMessage.MSG_000024_변경_중_오류가_발생하였습니다_);
 
 		map.put("list", list);
 		return map;
@@ -377,7 +376,7 @@ public class UsersController {
 		if (LOG_URL) {
 			logger.info(" -- url : /users/getScoregraph");
 		}
-
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		Integer userno = Integer.valueOf(req.getParameter("userno"));
 
