@@ -36,7 +36,9 @@ button[type=submit] {
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> <input type="hidden" name="page" value="${paginationInfo.currentPageNo }" />
 
 		<div class="list-left">
-			<div class="pagenum">현재페이지 1/10 (총 50건)</div>
+			<div class="pagenum">
+				현재페이지 ${paging.number+1}/${paging.totalPages} (총 <c:out value="${paging.totalElements}" /> 건)
+			</div>
 			<ul class="sort-align">
 				<li><button type="submit" name="sort" class="" value="1">평판순</button></li>
 				<li><button type="submit" class="" name="sort" class="sort" value="2">투표많은순</li>
